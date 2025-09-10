@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ders Notları - İzzet İNCE</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>İzzet İNCE</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Ana Sayfa</a></li>
+                <li><a href="cv.html" class="nav-link">CV</a></li>
+                <li><a href="dersler.html" class="nav-link active">Ders Notları</a></li>
+                <li><a href="index.html#contact" class="nav-link">İletişim</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="courses-container">
+        <div class="courses-header">
+            <h1>Ders Notları ve Materyaller</h1>
+            <p>Bu sayfada verdiğim derslere ait notlar, sunumlar ve ek kaynaklar bulunmaktadır.</p>
+        </div>
+
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Ders veya konu ara...">
+            <i class="fas fa-search"></i>
+        </div>
+
+        <div class="filter-tabs">
+            <button class="filter-btn active" data-filter="all">Tümü</button>
+            <button class="filter-btn" data-filter="lisans">Lisans</button>
+            <button class="filter-btn" data-filter="yukseklisans">Yüksek Lisans</button>
+            <button class="filter-btn" data-filter="doktora">Doktora</button>
+        </div>
+
+        <div class="courses-grid">
+            <!-- Lisans Dersleri -->
+            <div class="course-card" data-category="lisans">
+                <div class="course-icon">
+                    <i class="fas fa-book-open"></i>
+                </div>
+                <h3>Temel Programlama</h3>
+                <p class="course-code">BİL101</p>
+                <p class="course-level"><span class="badge badge-lisans">Lisans</span></p>
+                <p class="course-description">Programlama temelleri, algoritma geliştirme ve Python programlama dili.</p>
+                <div class="course-materials">
+                    <h4>Ders Materyalleri:</h4>
+                    <ul class="material-list">
+                        <li>
+                            <a href="dersler/bil101/hafta1.html" class="material-link">
+                                <i class="fas fa-file-alt"></i> Hafta 1 - Giriş ve Temel Kavramlar
+                            </a>
+                        </li>
+                        <li>
+                            <a href="dersler/bil101/hafta2.html" class="material-link">
+                                <i class="fas fa-file-alt"></i> Hafta 2 - Değişkenler ve Veri Tipleri
+                            </a>
+                        </li>
+                        <li>
+                            <a href="dersler/bil101/hafta3.html" class="material-link">
+                                <i class="fas fa-file-alt"></i> Hafta 3 - Kontrol Yapıları
+                            </a>
+                        </li>
+                        <li>
+                            <a href="dersler/bil101/odevler.html" class="material-link">
+                                <i class="fas fa-tasks"></i> Ödevler ve Projeler
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="course-actions">
+                    <button class="btn-expand">Tüm Notları Göster</button>
+                </div>
+            </div>
+
+            <div class="course-card" data-category="lisans">
+                <div class="course-icon">
+                    <i class="fas fa-database"></i>
+                </div>
+                <h3>Veritabanı Sistemleri</h3>
+                <p class="course-code">BİL201</p>
+                <p class="course-level"><span class="badge badge-lisans">Lisans</span></p>
+                <p class="course-description">İlişkisel veritabanları, SQL, veritabanı tasarımı ve normalizasyon.</p>
+                <div class="course-materials">
+                    <h4>Ders Materyalleri:</h4>
+                    <ul class="material-list">
+                        <li>
+                            <a href="dersler/bil201/hafta1.html" class="material-link">
+                                <i class="fas fa-file-alt"></i> Hafta 1 - Veritabanı Temelleri
+                            </a>
+                        </li>
+                        <li>
+                            <a href="dersler/bil201/hafta2.html" class="material-link">
+                                <i class="fas fa-file-alt"></i> Hafta 2 - SQL Temelleri
+                            </a>
+                        </li>
+                        <li>
+                            <a href="dersler/bil201/hafta3.html" class="material-link">
+                                <i class="fas fa-file-alt"></i> Hafta 3 - Tablo Tasarımı
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="course-actions">
+                    <button class="btn-expand">Tüm Notları Göster</button>
+                </div>
+            </div>
+
+            <!-- Yüksek Lisans Dersleri -->
+            <div class="course-card" data-category="yukseklisans">
+                <div class="course-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3>Makine Öğrenmesi</h3>
+                <p class="course-code">BİL501</p>
+                <p class="course-level"><span class="badge badge-yukseklisans">Yüksek Lisans</span></p>
+                <p class="course-description">Denetimli ve denetimsiz öğrenme algoritmaları, derin öğrenme temelleri.</p>
+                <div class="course-materials">
+                    <h4>Ders Materyalleri:</h4>
+                    <ul class="material-list">
+                        <li>
+                            <a href="dersler/bil501/hafta1.html" class="material-link">
+                                <i class="fas fa-file-alt"></i> Hafta 1 - ML'e Giriş
+                            </a>
+                        </li>
+                        <li>
+                            <a href="dersler/bil501/hafta2.html" class="material-link">
+                                <i class="fas fa-file-alt"></i> Hafta 2 - Lineer Regresyon
+                            </a>
+                        </li>
+                        <li>
+                            <a href="dersler/bil501/hafta3.html" class="material-link">
+                                <i class="fas fa-file-alt"></i> Hafta 3 - Sınıflandırma Algoritmaları
+                            </a>
+                        </li>
+                        <li>
+                            <a href="dersler/bil501/lab.html" class="material-link">
+                                <i class="fas fa-laptop-code"></i> Lab Uygulamaları
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="course-actions">
+                    <button class="btn-expand">Tüm Notları Göster</button>
+                </div>
+            </div>
+
+            <div class="course-card" data-category="yukseklisans">
+                <div class="course-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Veri Analizi ve İstatistik</h3>
+                <p class="course-code">BİL502</p>
+                <p class="course-level"><span class="badge badge-yukseklisans">Yüksek Lisans</span></p>
+                <p class="course-description">İstatistiksel analiz yöntemleri, hipotez testleri, veri görselleştirme.</p>
+                <div class="course-materials">
+                    <h4>Ders Materyalleri:</h4>
+                    <ul class="material-list">
+                        <li>
+                            <a href="dersler/bil502/hafta1.html" class="material-link">
+                                <i class="fas fa-file-alt"></i> Hafta 1 - İstatistik Temelleri
+                            </a>
+                        </li>
+                        <li>
+                            <a href="dersler/bil502/hafta2.html" class="material-link">
+                                <i class="fas fa-file-alt"></i> Hafta 2 - Olasılık Dağılımları
+                            </a>
+                        </li>
+                        <li>
+                            <a href="dersler/bil502/r-codes.html" class="material-link">
+                                <i class="fas fa-code"></i> R Kod Örnekleri
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="course-actions">
+                    <button class="btn-expand">Tüm Notları Göster</button>
+                </div>
+            </div>
+
+            <!-- Doktora Dersleri -->
+            <div class="course-card" data-category="doktora">
+                <div class="course-icon">
+                    <i class="fas fa-microscope"></i>
+                </div>
+                <h3>İleri Araştırma Yöntemleri</h3>
+                <p class="course-code">BİL701</p>
+                <p class="course-level"><span class="badge badge-doktora">Doktora</span></p>
+                <p class="course-description">Bilimsel araştırma metodolojisi, literatür taraması, makale yazımı.</p>
+                <div class="course-materials">
+                    <h4>Ders Materyalleri:</h4>
+                    <ul class="material-list">
+                        <li>
+                            <a href="dersler/bil701/hafta1.html" class="material-link">
+                                <i class="fas fa-file-alt"></i> Hafta 1 - Araştırma Metodolojisi
+                            </a>
+                        </li>
+                        <li>
+                            <a href="dersler/bil701/hafta2.html" class="material-link">
+                                <i class="fas fa-file-alt"></i> Hafta 2 - Literatür Taraması
+                            </a>
+                        </li>
+                        <li>
+                            <a href="dersler/bil701/templates.html" class="material-link">
+                                <i class="fas fa-file-word"></i> Makale Şablonları
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="course-actions">
+                    <button class="btn-expand">Tüm Notları Göster</button>
+                </div>
+            </div>
+
+            <!-- Boş Ders Kartı - HTML dosyaları yüklendiğinde burada görünecek -->
+            <div class="course-card" data-category="lisans">
+                <div class="course-icon">
+                    <i class="fas fa-folder-plus"></i>
+                </div>
+                <h3>Yeni Ders Ekle</h3>
+                <p class="course-code">---</p>
+                <p class="course-level"><span class="badge badge-new">Yeni</span></p>
+                <p class="course-description">HTML dosyalarınızı yükleyerek yeni ders notları ekleyebilirsiniz.</p>
+                <div class="upload-area">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>HTML dosyalarınızı buraya sürükleyin veya tıklayın</p>
+                    <input type="file" id="fileUpload" accept=".html,.htm" multiple hidden>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <div class="info-card">
+                <i class="fas fa-info-circle"></i>
+                <h3>Ders Notları Hakkında</h3>
+                <p>
+                    Bu sayfadaki tüm ders notları ve materyaller eğitim amaçlıdır. 
+                    Notlar düzenli olarak güncellenmektedir. Son güncelleme tarihleri her ders kartında belirtilmiştir.
+                </p>
+            </div>
+            <div class="info-card">
+                <i class="fas fa-download"></i>
+                <h3>İndirme ve Kullanım</h3>
+                <p>
+                    Tüm materyaller öğrencilerin kullanımına açıktır. 
+                    Ders notlarını PDF olarak indirmek için ilgili sayfada yazdırma seçeneğini kullanabilirsiniz.
+                </p>
+            </div>
+            <div class="info-card">
+                <i class="fas fa-question-circle"></i>
+                <h3>Sorularınız İçin</h3>
+                <p>
+                    Ders notları ile ilgili sorularınız için ofis saatlerimde beni ziyaret edebilir 
+                    veya e-posta yoluyla iletişime geçebilirsiniz.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 İzzet İNCE. Tüm hakları saklıdır.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Filter functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const courseCards = document.querySelectorAll('.course-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterBtns.forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
+                
+                const filter = btn.getAttribute('data-filter');
+                
+                courseCards.forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            
+            courseCards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const code = card.querySelector('.course-code').textContent.toLowerCase();
+                const description = card.querySelector('.course-description').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || code.includes(searchTerm) || description.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        // Expand course materials
+        document.querySelectorAll('.btn-expand').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const materialList = this.closest('.course-card').querySelector('.material-list');
+                materialList.classList.toggle('expanded');
+                this.textContent = materialList.classList.contains('expanded') ? 
+                    'Notları Gizle' : 'Tüm Notları Göster';
+            });
+        });
+
+        // File upload simulation
+        const fileUpload = document.getElementById('fileUpload');
+        const uploadArea = document.querySelector('.upload-area');
+
+        uploadArea.addEventListener('click', () => {
+            fileUpload.click();
+        });
+
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            // Handle file drop here
+            const files = e.dataTransfer.files;
+            console.log('Files dropped:', files);
+        });
+
+        fileUpload.addEventListener('change', (e) => {
+            const files = e.target.files;
+            console.log('Files selected:', files);
+            // Handle file upload here
+        });
+    </script>
+</body>
+</html>
