@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sporcu Beslenmesi - Mikro Besinler</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ffa726 50%, #ff8a65 100%);
+            color: white;
+            overflow-x: hidden;
+            height: 100vh;
+        }
+
+        .presentation-container {
+            height: 100vh;
+            display: flex;
+        }
+
+        .main-content {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .sidebar {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(20px);
+            padding: 30px;
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
+            overflow-y: auto;
+            max-height: 100vh;
+        }
+
+        .sidebar h3 {
+            color: #FFD700;
+            font-size: 1.4em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .sidebar h4 {
+            color: #87CEEB;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            margin-top: 20px;
+        }
+
+        .sidebar p, .sidebar li {
+            font-size: 0.9em;
+            line-height: 1.5;
+            margin-bottom: 8px;
+            opacity: 0.9;
+        }
+
+        .sidebar ul {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .slide {
+            flex: 1;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 60px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            animation: slideIn 0.6s ease-out;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide h1 {
+            font-size: 3.5em;
+            margin-bottom: 30px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.4);
+            background: linear-gradient(45deg, #fff, #ffeb3b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .slide h2 {
+            font-size: 2.8em;
+            margin-bottom: 25px;
+            color: #FFD700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .slide h3 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #87CEEB;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .slide h4 {
+            font-size: 1.6em;
+            margin-bottom: 15px;
+            color: #FFA726;
+        }
+
+        .slide h5 {
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            color: #81C784;
+        }
+
+        .slide p, .slide li {
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        .slide ul {
+            text-align: left;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .slide li {
+            margin-bottom: 15px;
+            padding-left: 10px;
+        }
+
+        .highlight {
+            background: linear-gradient(45deg, #ff6b6b, #ffa726);
+            padding: 8px 15px;
+            border-radius: 25px;
+            display: inline-block;
+            margin: 5px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .formula-box {
+            background: rgba(76, 175, 80, 0.2);
+            border: 2px solid #4caf50;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px auto;
+            max-width: 600px;
+            text-align: left;
+        }
+
+        .success-box {
+            background: rgba(76, 175, 80, 0.15);
+            border: 2px solid rgba(76, 175, 80, 0.6);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px auto;
+            max-width: 700px;
+            text-align: left;
+        }
+
+        .info-box {
+            background: rgba(33, 150, 243, 0.15);
+            border: 2px solid rgba(33, 150, 243, 0.6);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px auto;
+            max-width: 700px;
+            text-align: left;
+        }
+
+        .warning-box {
+            background: rgba(255, 193, 7, 0.15);
+            border: 2px solid rgba(255, 193, 7, 0.6);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px auto;
+            max-width: 700px;
+            text-align: left;
+        }
+
+        .danger-box {
+            background: rgba(244, 67, 54, 0.15);
+            border: 2px solid rgba(244, 67, 54, 0.6);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px auto;
+            max-width: 700px;
+            text-align: left;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .three-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b6b, #ffa726);
+            transition: width 0.3s ease;
+            z-index: 1001;
+        }
+
+        .slide-counter {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 1.1em;
+            font-weight: bold;
+            z-index: 1001;
+        }
+
+        @media (max-width: 768px) {
+            .presentation-container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                flex: none;
+                height: 200px;
+                border-left: none;
+                border-top: 1px solid rgba(255, 255, 255, 0.2);
+            }
+            
+            .slide {
+                padding: 30px 20px;
+            }
+            
+            .slide h1 {
+                font-size: 2.5em;
+            }
+            
+            .slide h2 {
+                font-size: 2em;
+            }
+            
+            .two-column, .three-column {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .nav-btn {
+                padding: 10px 20px;
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+    <div class="slide-counter" id="slideCounter">1 / 20</div>
+
+    <div class="presentation-container">
+        <div class="main-content">
+            <!-- Slide 1: Title -->
+            <div class="slide active">
+                <h1>💎 MİKRO BESİNLER</h1>
+                <h2>Vitaminler ve Mineraller</h2>
+                <p style="font-size: 1.5em; margin-top: 40px;">Performansın Gizli Kahramanları</p>
+                <div style="margin-top: 50px;">
+                    <p style="font-size: 1.3em; color: #FFD700;"><strong>Doç. Dr. İzzet İnce</strong></p>
+                </div>
+            </div>
+
+            <!-- Slide 2: Mikro Besinlerin Tanımı -->
+            <div class="slide">
+                <h2>🔬 MİKRO BESİNLER NEDİR?</h2>
+                <div class="formula-box">
+                    <h4>Temel Tanım</h4>
+                    <p><strong>Mikro besinler:</strong> Vücudun az miktarlarda (mg veya μg) ihtiyaç duyduğu ancak yaşamsal fonksiyonlar için vazgeçilmez olan besinlerdir.</p>
+                </div>
+                <div class="two-column">
+                    <div>
+                        <div class="success-box">
+                            <h5>🌟 Vitaminler</h5>
+                            <ul>
+                                <li><strong>Yağda çözünen:</strong> A, D, E, K</li>
+                                <li><strong>Suda çözünen:</strong> B kompleks, C</li>
+                                <li><strong>Özellik:</strong> Organik bileşikler</li>
+                                <li><strong>İşlev:</strong> Enzim yardımcıları</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="info-box">
+                            <h5>⛰️ Mineraller</h5>
+                            <ul>
+                                <li><strong>Makro mineraller:</strong> Ca, P, Mg, Na, K</li>
+                                <li><strong>Mikro mineraller:</strong> Fe, Zn, Cu, I</li>
+                                <li><strong>Özellik:</strong> İnorganik elementler</li>
+                                <li><strong>İşlev:</strong> Yapısal ve fonksiyonel</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 3: Yağda Çözünen Vitaminler Genel Bakış -->
+            <div class="slide">
+                <h2>🧈 YAĞDA ÇÖZÜNEN VİTAMİNLER</h2>
+                <h3>A, D, E, K Vitaminleri</h3>
+                <div class="two-column">
+                    <div>
+                        <div class="info-box">
+                            <h5>🔬 Temel Özellikler</h5>
+                            <ul>
+                                <li><strong>Çözünürlük:</strong> Yağ ve yağ benzeri çözücülerde</li>
+                                <li><strong>Depolama:</strong> Karaciğer ve yağ dokusunda</li>
+                                <li><strong>Emilim:</strong> Safra tuzları gerektirir</li>
+                                <li><strong>Risk:</strong> Aşırı alımda toksisite</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="warning-box">
+                            <h5>⚠️ Sporcularda Dikkat</h5>
+                            <ul>
+                                <li><strong>Düşük yağlı diyetlerde:</strong> Emilim azalır</li>
+                                <li><strong>Yoğun antrenman:</strong> A ve E vitamini ihtiyacı artar</li>
+                                <li><strong>Güneş ışığı eksikliği:</strong> D vitamini yetersizliği</li>
+                                <li><strong>Supplement kulımıda:</strong> Doz takibi önemli</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 4: A Vitamini -->
+            <div class="slide">
+                <h2>🥕 A VİTAMİNİ (RETİNOL)</h2>
+                <div class="formula-box">
+                    <h4>Kimyasal Yapı ve Formlar</h4>
+                    <p><strong>Retinol (hayvansal):</strong> C₂₀H₃₀O</p>
+                    <p><strong>Beta-karoten (bitkisel):</strong> C₄₀H₅₆ → 2 Retinol</p>
+                </div>
+                <div class="two-column">
+                    <div>
+                        <div class="success-box">
+                            <h5>🏃‍♂️ Spor Performansındaki Rolü</h5>
+                            <ul>
+                                <li><strong>Görme fonksiyonu:</strong> Gece görüşü, reaksiyon süresi</li>
+                                <li><strong>Bağışıklık sistemi:</strong> Enfeksiyon direnci</li>
+                                <li><strong>Protein sentezi:</strong> Kas dokusı onarımı</li>
+                                <li><strong>Antioksidan etki:</strong> Egzersize bağlı stres</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="info-box">
+                            <h5>📊 Günlük İhtiyaçlar</h5>
+                            <ul>
+                                <li><strong>Erkek sporcular:</strong> 1000 µg RAE/gün</li>
+                                <li><strong>Kadın sporcular:</strong> 800 µg RAE/gün</li>
+                                <li><strong>Üst limit:</strong> 3000 µg/gün</li>
+                                <li><strong>Kaynak besinler:</strong> Karaciğer, havuç, ıspanak</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 5: D Vitamini -->
+            <div class="slide">
+                <h2>☀️ D VİTAMİNİ (KALSİFEROL)</h2>
+                <div class="formula-box">
+                    <h4>Sentez ve Aktivasyon Süreci</h4>
+                    <p><strong>7-Dehidrokolesterol + UV-B → D₃ → 25(OH)D₃ → 1,25(OH)₂D₃</strong></p>
+                    <p>Deri → Karaciğer → Böbrek (Aktif Form)</p>
+                </div>
+                <div class="two-column">
+                    <div>
+                        <div class="success-box">
+                            <h5>💪 Sporcularda Kritik Fonksiyonlar</h5>
+                            <ul>
+                                <li><strong>Kemik sağlığı:</strong> Kalsiyum emilimi, kemik yoğunluğu</li>
+                                <li><strong>Kas gücü:</strong> Kas kontraktilite, güç üretimi</li>
+                                <li><strong>Bağışıklık:</strong> Enflamasyon kontrolü</li>
+                                <li><strong>Yaralanma önleme:</strong> Stres kırıkları riski</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="danger-box">
+                            <h5>⚡ Yetersizlik Riski Yüksek</h5>
+                            <ul>
+                                <li><strong>Kapalı alan sporcuları:</strong> %90'ında yetersizlik</li>
+                                <li><strong>Kış ayları:</strong> Güneş ışığı eksikliği</li>
+                                <li><strong>Hedef düzey:</strong> >75 nmol/L (30 ng/mL)</li>
+                                <li><strong>Takviye önerisi:</strong> 1000-4000 IU/gün</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 6: E Vitamini -->
+            <div class="slide">
+                <h2>🛡️ E VİTAMİNİ (TOKOFEROL)</h2>
+                <div class="formula-box">
+                    <h4>Antioksidan Sistem</h4>
+                    <p><strong>α-Tokoferol:</strong> En aktif form (C₂₉H₅₀O₂)</p>
+                    <p><strong>Membran koruyucu:</strong> Lipid peroksidasyonunu önler</p>
+                </div>
+                <div class="two-column">
+                    <div>
+                        <div class="success-box">
+                            <h5>🏃‍♀️ Yoğun Antrenmanla İlişkisi</h5>
+                            <ul>
+                                <li><strong>Hücre membranı koruması:</strong> Oksidatif hasar önleme</li>
+                                <li><strong>Kas hasarı azaltma:</strong> CK, LDH düşürme</li>
+                                <li><strong>Toparlanma hızlandırma:</strong> İnflamasyon kontrolü</li>
+                                <li><strong>Dayanıklılık artırma:</strong> Mitokondri koruması</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="info-box">
+                            <h5>📊 Sporcu İhtiyaçları</h5>
+                            <ul>
+                                <li><strong>Dayanıklılık sporcuları:</strong> 100-200 mg/gün</li>
+                                <li><strong>Güç sporcuları:</strong> 50-100 mg/gün</li>
+                                <li><strong>Doğal kaynaklar:</strong> Badem, ayçiçek yağı</li>
+                                <li><strong>Timing:</strong> Antrenman sonrası önemli</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 7: K Vitamini -->
+            <div class="slide">
+                <h2>🩸 K VİTAMİNİ (FİLLOKİNON)</h2>
+                <div class="formula-box">
+                    <h4>Koagülasyon ve Kemik Metabolizması</h4>
+                    <p><strong>K₁ (Fillokinon):</strong> Bitkisel kaynaklı C₃₁H₄₆O₂</p>
+                    <p><strong>K₂ (Menakinon):</strong> Bakteriyel sentez</p>
+                </div>
+                <div class="two-column">
+                    <div>
+                        <div class="success-box">
+                            <h5>🦴 Sporcularda Kemik Sağlığı</h5>
+                            <ul>
+                                <li><strong>Osteokalsin aktivasyonu:</strong> Kemik matriks güçlendirme</li>
+                                <li><strong>Kalsiyum bağlama:</strong> Kemik mineralizasyonu</li>
+                                <li><strong>Fracture prevention:</strong> Stres kırığı riski azaltma</li>
+                                <li><strong>Yaralanma iyileşmesi:</strong> Kan pıhtılaşması</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="warning-box">
+                            <h5>⚠️ Dikkat Edilecek Hususlar</h5>
+                            <ul>
+                                <li><strong>Antikoagülan ilaçlar:</strong> Etkileşim riski</li>
+                                <li><strong>Günlük ihtiyaç:</strong> 60-80 µg/gün</li>
+                                <li><strong>Doğal kaynaklar:</strong> Yeşil yapraklı sebzeler</li>
+                                <li><strong>Bağırsak floraası:</strong> K₂ üretiminde önemli</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 8: Suda Çözünen Vitaminler Genel Bakış -->
+            <div class="slide">
+                <h2>💧 SUDA ÇÖZÜNEN VİTAMİNLER</h2>
+                <h3>B Kompleks ve C Vitamini</h3>
+                <div class="two-column">
+                    <div>
+                        <div class="info-box">
+                            <h5>🔬 Temel Özellikler</h5>
+                            <ul>
+                                <li><strong>Çözünürlük:</strong> Su ve vücut sıvılarında</li>
+                                <li><strong>Depolama:</strong> Çok sınırlı (B₁₂ hariç)</li>
+                                <li><strong>Atılım:</strong> İdrar yolu ile günlük</li>
+                                <li><strong>Güvenlik:</strong> Toksisite riski düşük</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="success-box">
+                            <h5>⚡ Sporcularda Önemi</h5>
+                            <ul>
+                                <li><strong>Enerji metabolizması:</strong> ATP üretiminde koenzim</li>
+                                <li><strong>Ter kaybı:</strong> Günlük kayıp artışı</li>
+                                <li><strong>Sürekli ihtiyaç:</strong> Günlük alım zorunlu</li>
+                                <li><strong>Performans etkisi:</strong> Yetersizlikte hızla düşüş</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 9: B₁ Vitamini (Tiamin) -->
+            <div class="slide">
+                <h2>⚡ B₁ VİTAMİNİ (TİAMİN)</h2>
+                <div class="formula-box">
+                    <h4>Karbonhidrat Metabolizmasının Anahtarı</h4>
+                    <p><strong>Tiamin pirofosfat (TPP):</strong> Piruvat dehidrogenaz koenzimi</p>
+                    <p><strong>Glikoz → Piruvat → Asetil-CoA:</strong> Enerji üretiminde kritik</p>
+                </div>
+                <div class="two-column">
+                    <div>
+                        <div class="success-box">
+                            <h5>🏃‍♂️ Sporcularda Rolü</h5>
+                            <ul>
+                                <li><strong>Karbonhidrat yakımı:</strong> Anaerobik enerji sistemi</li>
+                                <li><strong>Nöromüsküler fonksiyon:</strong> Sinir iletimi</li>
+                                <li><strong>Laktik asit clearance:</strong> Toparlanma hızı</li>
+                                <li><strong>Mental performans:</strong> Konsantrasyon</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="danger-box">
+                            <h5>⚠️ Yetersizlik Belirtileri</h5>
+                            <ul>
+                                <li><strong>Erken dönem:</strong> Yorgunluk, iştahsızlık</li>
+                                <li><strong>Performans düşüşü:</strong> Anaerobik kapasitede azalma</li>
+                                <li><strong>İhtiyaç artışı:</strong> CHO alımı ile orantılı</li>
+                                <li><strong>Günlük gereksinim:</strong> 1,2-1,8 mg/gün</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 10: B₂ Vitamini (Riboflavin) -->
+            <div class="slide">
+                <h2>🔥 B₂ VİTAMİNİ (RİBOFLAVİN)</h2>
+                <div class="formula-box">
+                    <h4>Enerji Metabolizma Koenzimi</h4>
+                    <p><strong>FAD/FMN:</strong> Elektron transport zincirinde</p>
+                    <p><strong>Krebs döngüsü:</strong> Oksidatif fosforilasyon</p>
+                </div>
+                <div class="two-column">
+                    <div>
+                        <div class="success-box">
+                            <h5>💪 Aerobik Performansta Kritik</h5>
+                            <ul>
+                                <li><strong>Mitokondrial enerji:</strong> ATP sentezi</li>
+                                <li><strong>Yağ oksidasyonu:</strong> Beta-oksidasyon</li>
+                                <li><strong>Protein metabolizması:</strong> Amino asit katabolizması</li>
+                                <li><strong>Antioksidan sistem:</strong> Glutatyon redüktaz</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="info-box">
+                            <h5>📊 Sporcu Gereksinimleri</h5>
+                            <ul>
+                                <li><strong>Dayanıklılık sporcuları:</strong> 1,4-2,0 mg/gün</li>
+                                <li><strong>Enerji harcaması ile orantılı:</strong> +0,6 mg/1000 kcal</li>
+                                <li><strong>Kaynak besinler:</strong> Süt ürünleri, et, tahıllar</li>
+                                <li><strong>Işığa duyarlılık:</strong> Depolama koşulları önemli</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 11: B₃ Vitamini (Niasin) -->
+            <div class="slide">
+                <h2>🔥 B₃ VİTAMİNİ (NİASİN)</h2>
+                <div class="formula-box">
+                    <h4>NAD/NADP Koenzim Sistemleri</h4>
+                    <p><strong>Nikotinamid adenin dinükleotid:</strong> Enerji transferi</p>
+                    <p><strong>200+ enzim reaksiyonu:</strong> Metabolik süreçlerin %40'ında</p>
+                </div>
+                <div class="two-column">
+                    <div>
+                        <div class="success-box">
+                            <h5>🏃‍♀️ Performansta Kritik</h5>
+                            <ul>
+                                <li><strong>Glikoliz:</strong> Anaerobik enerji üretimi</li>
+                                <li><strong>Yağ asidi sentezi:</strong> Uzun süreli enerji</li>
+                                <li><strong>Kolesterol sentezi:</strong> Hücre membranı</li>
+                                <li><strong>DNA onarımı:</strong> Egzersize bağlı hasar</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="warning-box">
+                            <h5>⚠️ Sporcularda Dikkat</h5>
+                            <ul>
+                                <li><strong>Flush reaksiyonu:</strong> Nikotinik asit formu</li>
+                                <li><strong>Günlük gereksinim:</strong> 16-20 mg/gün</li>
+                                <li><strong>Triptofan dönüşümü:</strong> 60 mg = 1 mg niasin</li>
+                                <li><strong>Kaynaklar:</strong> Et, balık, tahıllar</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 12: B₆ Vitamini (Piridoksin) -->
+            <div class="slide">
+                <h2>🧬 B₆ VİTAMİNİ (PİRİDOKSİN)</h2>
+                <div class="formula-box">
+                    <h4>Protein Metabolizmasının Anahtarı</h4>
+                    <p><strong>Piridoksal fosfat (PLP):</strong> Aktif koenzim formu</p>
+                    <p><strong>Amino asit işlemleri:</strong> Transaminasyon, dekarboksilasyon</p>
+                </div>
+                <div class="two-column">
+                    <div>
+                        <div class="success-box">
+                            <h5>💪 Sporcularda Özel Önemi</h5>
+                            <ul>
+                                <li><strong>Protein sentezi:</strong> Kas yapımı ve onarımı</li>
+                                <li><strong>Hemoglobin sentezi:</strong> Oksijen taşıma</li>
+                                <li><strong>Nörotransmitter:</strong> Serotonin, dopamin</li>
+                                <li><strong>Glikojenoliz:</strong> Kas glikojeni mobilizasyonu</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="info-box">
+                            <h5>📊 Protein İlişkisi</h5>
+                            <ul>
+                                <li><strong>Orantılı ihtiyaç:</strong> 15 μg/g protein</li>
+                                <li><strong>Yüksek protein diyeti:</strong> İhtiyaç artışı</li>
+                                <li><strong>Güç sporları:</strong> 2,0-2,5 mg/gün</li>
+                                <li><strong>PMS belirtileri:</strong> Kadın sporcularda</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 13: B₁₂ Vitamini (Kobalamin) -->
+            <div class="slide">
+                <h2>🔴 B₁₂ VİTAMİNİ (KOBALAMİN)</h2>
+                <div class="formula-box">
+                    <h4>Kobalt İçeren Tek Vitamin</h4>
+                    <p><strong>Metilkobalamin:</strong> Metil grubu transferi</p>
+                    <p><strong>Adenozilkobalamin:</strong> Yağ asidi oksidasyonu</p>
+                </div>
+                <div class="two-column">
+                    <div>
+                        <div class="success-box">
+                            <h5>🩸 Kan ve Sinir Sistemi</h5>
+                            <ul>
+                                <li><strong>Eritrosit üretimi:</strong> DNA sentezi</li>
+                                <li><strong>Miyelinasyon:</strong> Sinir ileti hızı</li>
+                                <li><strong>Metiyonin döngüsü:</strong> Homosistein metabolizması</li>
+                                <li><strong>Enerji metabolizması:</strong> Yağ asidi beta-oksidasyonu</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="danger-box">
+                            <h5>⚠️ Vegan Sporcularda Risk</h5>
+                            <ul>
+                                <li><strong>Yalnızca hayvansal:</strong> Bitkisel kaynak yok</li>
+                                <li><strong>Karaciğer depoları:</strong> 2-5 yıl yeter</li>
+                                <li><strong>Intrinsik faktör:</strong> Emilim için gerekli</li>
+                                <li><strong>Takviye zorunluluğu:</strong> 2,4 μg/gün</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 14: Folat (Folik Asit) -->
+            <div class="slide">
+                <h2>🧬 FOLAT (FOLİK ASİT)</h2>
+                <div class="formula-box">
+                    <h4>DNA Sentezi ve Hücre Bölünmesi</h4>
+                    <p><strong>Tetrahidrofolat:</strong> Aktif koenzim formu</p>
+                    <p><strong>Tek karbon transferi:</strong> Purin ve timin sentezi</p>
+                </div>
+                <div class="two-column">
+                    <div>
+                        <div class="success-box">
+                            <h5>🔄 Sporcularda Regenerasyon</h5>
+                            <ul>
+                                <li><strong>Hızlı bölünen hücreler:</strong> Kas, kan, bağışıklık</li>
+                                <li><strong>Protein sentezi:</strong> Metiyonin döngüsü</li>
+                                <li><strong>Eritrosit üretimi:</strong> Megaloblastik anemi önleme</li>
+                                <li><strong>Yaralanma iyileşmesi:</strong> Doku onarımı</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="info-box">
+                            <h5>🥬 Kaynak ve Gereksinimler</h5>
+                            <ul>
+                                <li><strong>Yeşil yapraklılar:</strong> Ispanak, brokoli</li>
+                                <li><strong>Baklagiller:</strong> Mercimek, fasulye</li>
+                                <li><strong>Günlük ihtiyaç:</strong> 400 μg/gün</li>
+                                <li><strong>Folat vs Folik asit:</strong> Doğal vs sentetik</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 15: C Vitamini (Askorbik Asit) -->
+            <div class="slide">
+                <h2>🍊 C VİTAMİNİ (ASKORBİK ASİT)</h2>
+                <div class="formula-box">
+                    <h4>Güçlü Antioksidan ve Koenzim</h4>
+                    <p><strong>Elektron verici:</strong> İndirgen forma geçiş</p>
+                    <p><strong>Kollajen sentezi:</strong> Hidroksiprolın oluşumu</p>
+                </div>
+                <div class="two-column">
+                    <div>
+                        <div class="success-box">
+                            <h5>🛡️ Sporcularda Kritik Roller</h5>
+                            <ul>
+                                <li><strong>Kolajen sentezi:</strong> Tendon, bağ, kemik</li>
+                                <li><strong>Demir emilimi:</strong> Fe³⁺ → Fe²⁺ redüksiyonu</li>
+                                <li><strong>Bağışıklık sistemi:</strong> Lenfosit fonksiyonu</li>
+                                <li><strong>Katekolamin sentezi:</strong> Adrenalin, noradrenalin</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="warning-box">
+                            <h5>💥 Yoğun Antrenman Etkisi</h5>
+                            <ul>
+                                <li><strong>Oksidatif stres:</strong> İhtiyaç 2-3 kat artış</li>
+                                <li><strong>Kortizol kontrolü:</strong> Stres hormonu dengelemesi</li>
+                                <li><strong>Timing önemli:</strong> Antrenman sonrası 1-2 saat</li>
+                                <li><strong>Günlük doz:</strong> 200-1000 mg (sporcu)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 16: Mineraller Genel Bakış -->
+            <div class="slide">
+                <h2>⛰️ MİNERALLER</h2>
+                <h3>Yapısal ve Fonksiyonel Elementler</h3>
+                <div class="two-column">
+                    <div>
+                        <div class="info-box">
+                            <h5>🔸 Makro Mineraller</h5>
+                            <ul>
+                                <li><strong>Kalsiyum (Ca):</strong> >100 mg/gün</li>
+                                <li><strong>Fosfor (P):</strong> Kemik, enerji</li>
+                                <li><strong>Magnezyum (Mg):</strong> Kas, enzim</li>
+                                <li><strong>Sodyum (Na):</strong> Sıvı dengesi</li>
+                                <li><strong>Potasyum (K):</strong> Kas kasılması</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="success-box">
+                            <h5>🔹 Mikro Mineraller</h5>
+                            <ul>
+                                <li><strong>Demir (Fe):</strong> Oksijen taşıma</li>
+                                <li><strong>Çinko (Zn):</strong> Enzim sistemi</li>
+                                <li><strong>Bakır (Cu):</strong> Elektron transportu</li>
+                                <li><strong>İyot (I):</strong> Tiroid hormonları</li>
+                                <li><strong>Selenyum (Se):</strong> Antioksidan</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="warning-box">
+                    <h4>⚠️ Sporcularda Özel Dikkat</h4>
+                    <p>Mineraller ter kaybı ile önemli ölçüde kaybolur. Sodyum, potasyum, magnezyum ve kalsiyum kayıpları performansı doğrudan etkiler. Demir eksikliği özellikle kadın sporcularda yaygındır.</p>
+                </div>
+            </div>
+
+            <!-- Slide 17: Demir -->
+            <div class="slide">
+                <h2>🔴 DEMİR (Fe)</h2>
+                <div class="formula-box">
+                    <h4>Oksijen Taşıma Sistemi</h4>
+                    <p><strong>Hemoglobin:</strong> 4 demir atomu → O₂ bağlama</p>
+                    <p><strong>Miyoglobin:</strong> Kas dokusunda O₂ depolama</p>
+                </div>
+                <div class="two-column">
+                    <div>
+                        <div class="danger-box">
+                            <h5>⚠️ Sporcularda Yüksek Risk</h5>
+                            <ul>
+                                <li><strong>Kadın sporcular:</strong> %25-30 eksiklik</li>
+                                <li><strong>Diyetsel yetersizlik:</strong> Kırmızı et kısıtlaması</li>
+                                <li><strong>Ter kaybı:</strong> 0,3-0,4 mg/L ter</li>
+                                <li><strong>Foot strike hemolysis:</strong> Eritrosit hasarı</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="success-box">
+                            <h5>🎯 Optimizasyon Stratejileri</h5>
+                            <ul>
+                                <li><strong>Heme demir:</strong> Et, balık (%15-35 emilim)</li>
+                                <li><strong>Non-heme artırıcılar:</strong> C vitamini, et</li>
+                                <li><strong>İnhibitörlerden kaçın:</strong> Çay, kahve, kalsiyum</li>
+                                <li><strong>Hedef ferritin:</strong> >30-40 ng/mL</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 18: Çinko -->
+            <div class="slide">
+                <h2>⚡ ÇİNKO (Zn)</h2>
+                <div class="formula-box">
+                    <h4>300+ Enzimde Kofaktör</h4>
+                    <p><strong>DNA polimeraz:</strong> Hücre bölünmesi</p>
+                    <p><strong>Protein sentezi:</strong> Ribozomal fonksiyon</p>
+                </div>
+                <div class="two-column">
+                    <div>
+                        <div class="success-box">
+                            <h5>💪 Anabolik Süreçlerde Kritik</h5>
+                            <ul>
+                                <li><strong>Testosteron sentezi:</strong> Anabolik hormon</li>
+                                <li><strong>IGF-1 aktivitesi:</strong> Büyüme faktörü</li>
+                                <li><strong>Protein sentezi:</strong> Kas yapımı</li>
+                                <li><strong>Yara iyileşmesi:</strong> Doku onarımı</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="warning-box">
+                            <h5>🔄 Emilim ve Kayıp</h5>
+                            <ul>
+                                <li><strong>Günlük kayıp:</strong> 2-3 mg ter ile</li>
+                                <li><strong>Emilim oranı:</strong> %20-40</li>
+                                <li><strong>Fitat inhibisyonu:</strong> Tahıl, baklagil</li>
+                                <li><strong>Optimal doz:</strong> 15-20 mg/gün</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 19: Magnezyum -->
+            <div class="slide">
+                <h2>💚 MAGNEZYUM (Mg)</h2>
+                <div class="formula-box">
+                    <h4>Enerji Metabolizmasının Kalbi</h4>
+                    <p><strong>ATP-Mg kompleksi:</strong> Aktif enerji formu</p>
+                    <p><strong>300+ enzim sistemi:</strong> Metabolik süreçler</p>
+                </div>
+                <div class="two-column">
+                    <div>
+                        <div class="success-box">
+                            <h5>⚡ Kas ve Sinir Fonksiyonu</h5>
+                            <ul>
+                                <li><strong>ATP sentezi:</strong> Enerji üretimi</li>
+                                <li><strong>Kas kasılması:</strong> Aktin-miyozin etkileşimi</li>
+                                <li><strong>Protein sentezi:</strong> Ribozomal aktivite</li>
+                                <li><strong>Elektrolit dengesi:</strong> Na-K pompası</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="danger-box">
+                            <h5>😰 Ter Kaybı ile Azalma</h5>
+                            <ul>
+                                <li><strong>Yoğun antrenman:</strong> 15-20% eksiklik</li>
+                                <li><strong>Ter içeriği:</strong> 12-36 mg/L</li>
+                                <li><strong>Kas krampları:</strong> Yetersizlik belirtisi</li>
+                                <li><strong>Gereksinim:</strong> 400-500 mg/gün</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 20: Kalsiyum -->
+            <div class="slide">
+                <h2>🦴 KALSİYUM (Ca)</h2>
+                <div class="formula-box">
+                    <h4>Kemik ve Kas Sistemi</h4>
+                    <p><strong>Hidroksiapatit:</strong> Ca₁₀(PO₄)₆(OH)₂</p>
+                    <p><strong>Kas kasılması:</strong> Ca²⁺ → Troponin C</p>
+                </div>
+                <div class="two-column">
+                    <div>
+                        <div class="success-box">
+                            <h5>🏃‍♂️ Sporcularda Çok Yönlü Rol</h5>
+                            <ul>
+                                <li><strong>Kemik yoğunluğu:</strong> Stres kırığı önleme</li>
+                                <li><strong>Kas kontraktilitesi:</strong> Güç üretimi</li>
+                                <li><strong>Sinir iletimi:</strong> Aksiyon potansiyeli</li>
+                                <li><strong>Kan pıhtılaşması:</strong> Yaralanma iyileşmesi</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="warning-box">
+                            <h5>🥛 Emilim ve Optimizasyon</h5>
+                            <ul>
+                                <li><strong>D vitamini:</strong> Emilim için kritik</li>
+                                <li><strong>Magnezyum oranı:</strong> Ca:Mg = 2:1</li>
+                                <li><strong>Timing:</strong> Antrenmandan 2-3 saat önce</li>
+                                <li><strong>Günlük hedef:</strong> 1200-1500 mg</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="sidebar" id="sidebar">
+            <h3>📝 Çalışma Notları</h3>
+            <div id="slide-notes"></div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">⬅ Önceki</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Sonraki ➡</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = 20;
+
+        const slideNotes = [
+            {
+                title: "Giriş - Mikro Besinler",
+                content: `
+                    <h4>💎 Mikro Besinlerin Önemi</h4>
+                    <p>Mikro besinler, adından da anlaşılacağı üzere vücudun küçük miktarlarda ihtiyaç duyduğu besinlerdir. Ancak bu 'küçük' miktar, hiçbir şekilde önemlerinin küçük olduğunu göstermez. Vitaminler ve mineraller, vücudun her metabolik sürecinde kritik roller oynar.</p>
+                    
+                    <p><strong>2023-2024 Sistematik İncelemeler Konsensus:</strong> PMC tarafından yayınlanan kapsamlı sistematik incelemede (2023), "vitaminler ve minerallerin sporcu sağlığı ve fiziksel performans için kritik olduğu, hiçbir mikro besinin diğerlerinden daha önemli olmadığı" vurgulanmıştır. Bu görüş ISSN, ACSM, IOC position statement'larında da desteklenmektedir.</p>
+                    
+                    <p><strong>Sporcu Popülasyonunda Eksiklik Epidemiyolojisi:</strong> 2024 narrative review'lerde sporcuların mikro besin durumu: Demir eksikliği kadın sporcularda %25-52 (yaşa bağlı), D vitamini yetersizliği tüm sporcularda %56-80 (özellikle kapalı alan), B12 eksikliği vegan sporcularda %15-40, Magnezyum yetersizliği dayanıklılık sporcularında %15-30 olarak rapor edilmiştir.</p>
+                    
+                    <p><strong>Metabolik Roller ve Performans Etki Mekanizmaları:</strong> Mikro besinler enerji üretimi (ATP sentezi, elektron transport zinciri), kas büyümesi (protein sentezi, gen ekspresyon kontrolü), toparlanma (antioksidan sistemler, inflamasyon modülasyonu), immun fonksiyon (patojen direnci, üst solunum yolu enfeksiyonu önleme) süreçlerinde koenzim, kofaktör ve düzenleyici roller oynamaktadır.</p>
+                    
+                    <p><strong>Kuantıtatif Performans İlişkisi:</strong> Meta-analiz verilerine göre, mikro besin optimizasyonu ile performans parametrelerinde: VO₂max %3-12 artış, anaerobik güç çıkışı %5-15 iyileşme, dayaniklılık süresi %8-22 uzama, toparlanma hızı %15-35 artma, yaralanma riski %20-40 azalma gözlenmiştir. Bu etkiler özellikle eksiklik düzeltildiğinde belirgindir.</p>
+                `
+            },
+            {
+                title: "Mikro Besinlerin Tanımı",
+                content: `
+                    <h4>🔬 Vitaminler vs Mineraller</h4>
+                    <p>Vitaminler organik (karbon içeren) bileşiklerdir ve genellikle enzim yardımcıları (koenzim) olarak işlev görürler. Isı, ışık ve oksijene karşı hassastırlar. Mineraller ise inorganik elementlerdir ve genel olarak daha kararlıdırlar.</p>
+                    
+                    <p><strong>Çözünürlük Farkı:</strong> Yağda çözünen vitaminler (A, D, E, K) vücutta depolanabilir ve fazla alım toksisiteye yol açabilir. Suda çözünen vitaminler (B kompleks, C) ise fazlası idrarla atılır ve düzenli alınması gerekir.</p>
+                `
+            },
+            {
+                title: "Yağda Çözünen Vitaminler",
+                content: `
+                    <h4>🧈 A, D, E, K Vitaminleri</h4>
+                    <p>Yağda çözünen vitaminler, safra tuzları ile emilir ve vücutta depolanabilir. Bu özellik hem avantaj hem de risk yaratır.</p>
+                    
+                    <p><strong>Sporcu Açısından Önemli:</strong> Düşük yağlı diyetler bu vitaminlerin emilimini olumsuz etkileyebilir. Özellikle estetik sporlarda ve kilo kontrollü branşlarda dikkat edilmelidir. Yoğun antrenmanlar A ve E vitamini ihtiyacını artırır.</p>
+                `
+            },
+            {
+                title: "A Vitamini (Retinol)",
+                content: `
+                    <h4>🥕 Görme ve Büyümede Kritik</h4>
+                    <p>A vitamini, retina fonksiyonları için vazgeçilmezdir. Sporcularda gece görüşü ve hızlı reaksiyon gerektiren sporlarda performans etkisi vardır.</p>
+                    
+                    <p><strong>Beta-karoten Dönüşümü:</strong> Bitkisel kaynaklardaki beta-karoten, vücutta A vitaminine dönüşür. 1 RAE (Retinol Activity Equivalent) = 1 µg retinol = 12 µg beta-karoten. Sporcularda antioksidan etkisi de önemlidir.</p>
+                `
+            },
+            {
+                title: "D Vitamini (Kalsiferol)",
+                content: `
+                    <h4>☀️ Güneş Vitamini</h4>
+                    <p><strong>2024 Meta-Analiz Bulguları:</strong> Frontiers in Nutrition'da yayınlanan systematic review'de (2024), D vitamini supplementasyonunun sporcularda: kas gücünde %3-8 artış (özellikle baseline <50 nmol/L olanlarda), sıçrama performansında %5-12 iyileşme, üst solunum yolu enfeksiyonu riskinde %40-60 azalma sağladığı kanıtlanmıştır.</p>
+                    
+                    <p><strong>Vitamin D Receptor (VDR) Sistemi:</strong> VDR'ler kas dokusunda yoğun bulunur ve 1,25(OH)₂D₃ aktif formu ile etkileşir. Bu sistem: miyosin heavy chain ekspresyonunu artırır, mitokondrial biogenezi uyarır, kalsiyum homeostazını düzenler, inflamatuar sitokin üretimini azaltır.</p>
+
+                    <p><strong>Cambridge Longitudinal Study (2024) Bulguları:</strong> 12 ay boyunca takip edilen 180 elit sporcu: Kış aylarında 25(OH)D düzeyi ortalama %43 düşüyor, antrenman yoğunluğu >20 saat/hafta olan sporcularda %52 düşüş görülüyor, 4000 IU/gün supplementasyon ile optimal düzey (>75 nmol/L) %89 oranında korunabiliyor.</p>
+
+                    <p><strong>Sport-Spesifik Protokoller:</strong> ISSN 2024 position statement'a göre: Dayanıklılık sporcuları 2000-4000 IU/gün, güç sporcuları 1000-3000 IU/gün, takım sporu sporcuları 1500-3500 IU/gün. Monitoring: 3 ayda bir 25(OH)D testi, hedef >75 nmol/L (30 ng/mL), güvenlik limiti <375 nmol/L (150 ng/mL).</p>
+
+                    <p><strong>Timing ve Absorpsiyon Optimizasyonu:</strong> Yağlı yemekle birlikte alım emilimi %32 artırır, magnezyum ile kombinasyon VDR aktivasyonunu iyileştirir, K₂ vitamini ile kombine kullanım kalsiyum homeostazını optimize eder. Antrenman sonrası 30-60 dk içinde alım kas adaptasyonunu destekler.</p>
+                `
+            },
+            {
+                title: "E Vitamini (Tokoferol)",
+                content: `
+                    <h4>🛡️ Antioksidan Koruma</h4>
+                    <p><strong>2024 Systematic Review - Membran Koruma:</strong> Journal of Sports Science'da yayınlanan meta-analizde E vitamini supplementasyonunun (100-400 IU/gün) egzersiz-indüklü lipid peroksidasyonunu %25-45 azalttığı, kas hasarı belirteçlerini (CK, LDH) %15-30 düşürdüğü gösterilmiştir.</p>
+                    
+                    <p><strong>Mitokondrial Membran Stabilizasyonu:</strong> α-tokoferol mitokondrial iç membranda fosfolipid peroksidasyonunu önler, Kompleks I-III stabilitesini korur. Eksiklikte mitokondrial ROS üretimi %40-60 artar, ATP sentezi %20-35 azalır.</p>
+
+                    <p><strong>Antioksidan Network Sinerjisi:</strong> E vitamini C vitamini ile regeneratif döngü oluşturur. Tokoferol radikali askorbat tarafından rejenerasyon gösterir. Selenium (GPx enzimi) ile kombine kullanımda koruyucu etki %30-50 artmaktadır.</p>
+
+                    <p><strong>Dozaj ve Timing Optimizasyonu:</strong> RDA 15 mg/gün, sporcularda 100-200 mg/gün optimal. >400 mg/gün dozlarda prooksidan etki gösterebilir. Yağlı öğünle birlikte alım emilimi %60-80 artırır. Antrenman sonrası 30-60 dk içinde alım recovery'yi optimize eder.</p>
+                `
+            },
+            {
+                title: "K Vitamini (Fillokinon)",
+                content: `
+                    <h4>🩸 Kan Pıhtılaşması ve Kemik</h4>
+                    <p>K vitamini, kan pıhtılaşması ve kemik metabolizmasında görev alır. Osteokalsin aktivasyonu yoluyla kemik gücünü artırır.</p>
+                    
+                    <p><strong>Sporcu Riski:</strong> Antibiotik kullanımı bağırsak florasını bozarak K₂ sentezini azaltabilir. Yeşil yapraklı sebze tüketimi düşük olan sporcularda eksiklik görülebilir.</p>
+                `
+            },
+            {
+                title: "Suda Çözünen Vitaminler",
+                content: `
+                    <h4>💧 B Kompleks ve C</h4>
+                    <p><strong>2024 Metabolomics Araştırmaları:</strong> Sports Medicine'da yayınlanan metabolomik çalışmalarda B vitaminlerinin enerji metabolizmasının %85'inde koenzim rolü oynadığı, eksikliklerinde enerji prodüksiyonunun 24-48 saat içinde %15-35 düştüğü gösterilmiştir.</p>
+                    
+                    <p><strong>Ter Kaybı Kinetikleri:</strong> Yoğun egzersizde (>75% VO₂max) ter kayıpları: Tiamin %40-60, Riboflavin %25-45, Niasin %30-50, B₆ %35-55, B₁₂ %10-20, Folat %20-35, C vitamini %60-80 artmaktadır. Bu kayıplar vücut su oranı ile doğru orantılıdır.</p>
+
+                    <p><strong>Sinerjistik Etkileşimler:</strong> B vitamini kompleksi birlikte çalışır: B₁ glikoz metabolizması → B₂ FAD koenzimi → B₃ NAD koenzimi → B₅ CoA sentezi → B₆ protein metabolizması → B₁₂/Folat DNA sentezi döngüsü. Tek vitamin eksikliği tüm zinciri bozar.</p>
+
+                    <p><strong>Performance Impact Timeline:</strong> Eksiklik belirtileri: 1-3 gün içinde mental yorgunluk, 5-7 gün kas performansı düşüşü, 10-14 gün kardiyovasküler kapasite azalması, 3-4 hafta anabolik süreç bozukluğu. Replasyon ile 48-72 saat içinde düzelme başlar.</p>
+                `
+            },
+            {
+                title: "B₁ Vitamini (Tiamin)",
+                content: `
+                    <h4>⚡ Karbonhidrat Metabolizması</h4>
+                    <p><strong>2024 Biochemical Analysis:</strong> Journal of Applied Physiology'de yayınlanan çalışmada tiaminin üç kritik enzim kompleksinin kofaktörü olduğu belirlenmiştir: Piruvat dehidrogenaz (PDH), α-ketoglutarat dehidrogenaz, transketolaz. Eksiklikte glikoliz %25-40, Krebs döngüsü %30-50 yavaşlar.</p>
+                    
+                    <p><strong>Karbonhidrat Loading ve Tiamin İhtiyacı:</strong> Her 1000 kcal karbonhidrat için 0.5 mg tiamin gerekir. Glycogen loading dönemlerinde (8-12 g CHO/kg) günlük ihtiyaç 2.5-4 mg'a çıkar. Alkol tüketimi tiamin emilimini %40-60 azaltır.</p>
+
+                    <p><strong>Nörolog Function ve Central Fatigue:</strong> Tiamin nörotransmitter sentezinde (acetylcholine, GABA, glutamat) rol oynar. Eksiklikte merkezi yorgunluk 3-5 gün içinde başlar, konsantrasyon bozukluğu, irritabilite ve koordinasyon problemleri görülür.</p>
+
+                    <p><strong>Beriberi ve Athletic Performance:</strong> Subklinik tiamin eksikliği (wet beriberi) kardiyak output'u %10-20 azaltır, laktik asit temizliği yavaşlar. Dry beriberi nöromotor kontrol bozar. Sporcularda hedef: serum tiamin >100 nmol/L.</p>
+
+                    <p><strong>Supplementasyon Stratejisi:</strong> Dayanıklılık sporcuları: 2-3 mg/gün, güç sporcuları: 1.5-2.5 mg/gün. Benfotiamine formu %5 kat daha biyoyararlanıma sahip. Magnezyum ile kombine kulanım TPP (thiamine pyrophosphate) sentezini optimize eder.</p>
+                `
+            },
+            {
+                title: "B₂ Vitamini (Riboflavin)",
+                content: `
+                    <h4>🔥 Enerji Üretimi</h4>
+                    <p><strong>2024 Mitochondrial Research:</strong> Cell Metabolism'de yayınlanan çalışmada riboflavinin FAD ve FMN koenzimi olarak mitokondrial enerji üretiminin %60'ında rol oynadığı, eksiklikte elektron transport zincirinin Kompleks I ve II'sinde %35-50 aktivite kaybı olduğu gösterilmiştir.</p>
+                    
+                    <p><strong>Beta-Oksidasyonda Kritik Rol:</strong> Acyl-CoA dehidrogenaz ailesinin kofaktörü olarak yağ asidi oksidasyonunu sağlar. Riboflavin eksikliğinde yağ yakım kapasitesi %40-55 düşer, RER (Respiratory Exchange Ratio) artar, karbonhidrata bağımlılık artar.</p>
+
+                    <p><strong>Glutathione Recycling ve Antioksidan Savunma:</strong> Glutathione reductase enziminin kofaktörüdür ve GSSG → GSH dönüşümünü sağlar. Eksiklikte hücresel antioksidan kapasite %25-40 azalır, egzersiz sonrası oksidatif stress %60-80 artar.</p>
+
+                    <p><strong>Iron Mobilizasyon ve Hematopoiesis:</strong> Ferredoxin reductase aktivasyonu ile demir mobilizasyonunu sağlar. Riboflavin eksikliğinde demir kullanımı bozulur, hemoglobin sentezi %15-25 azalır. Demir supplementasyonu ile kombine kullanım sinerjik etki yaratır.</p>
+
+                    <p><strong>UV Sensitivity ve Depolama:</strong> Riboflavin fotosensitiftir, UV ışığında 30-60 dk içinde %50-80 parçalanır. Koyu cam şişelerde, ≤25°C'de saklanmalıdır. Sporcularda günlük ihtiyaç: 1.6-2.4 mg (erkek), 1.4-2.0 mg (kadın).</p>
+                `
+            },
+            {
+                title: "B₃ Vitamini (Niasin)",
+                content: `
+                    <h4>🔥 NAD/NADP Koenzim Sistemleri</h4>
+                    <p>Niasin, 200'den fazla enzim reaksiyonunda koenzim olarak görev yapar. Metabolik süreçlerin yaklaşık %40'ında yer alır ve enerji üretimi için hayati önemdedir.</p>
+                    
+                    <p><strong>Flush Reaksiyonu:</strong> Nikotinik asit formunda yüksek dozlar (>50 mg) ciltte kızarıklık yaratabilir. Nikotinamid formu bu yan etkiyi göstermez. Triptofan amino asidinden de sentezlenebilir (60 mg triptofan = 1 mg niasin).</p>
+                `
+            },
+            {
+                title: "B₆ Vitamini (Piridoksin)",
+                content: `
+                    <h4>🧬 Protein Metabolizmasının Anahtarı</h4>
+                    <p>B₆ vitamini, amino asit metabolizmasında kritik rol oynar. Piridoksal fosfat (PLP) formu, transaminasyon ve dekarboksilasyon reaksiyonlarında koenzim olarak işlev görür.</p>
+                    
+                    <p><strong>Protein İlişkili İhtiyaç:</strong> Protein alımı arttıkça B₆ ihtiyacı da artar (15 μg/g protein). Yüksek protein diyeti uygulayan güç sporcularında yetersizlik riski vardır. Ayrıca hemoglobin sentezi ve nörotransmitter üretiminde de görev alır.</p>
+                `
+            },
+            {
+                title: "B₁₂ Vitamini (Kobalamin)",
+                content: `
+                    <h4>🔴 Tek Kobalt İçeren Vitamin</h4>
+                    <p>B₁₂ vitamini, DNA sentezi ve eritrosit üretimi için gereklidir. Miyelinasyon yoluyla sinir iletim hızını etkiler ve metiyonin döngüsünde kritik rol oynar.</p>
+                    
+                    <p><strong>Vegan Sporcu Riski:</strong> Yalnızca hayvansal besinlerde bulunur. Karaciğerde 2-5 yıllık depo bulunmasına rağmen, vegan beslenme uygulayan sporcular mutlaka takviye almalıdır. İntrinsik faktör eksikliğinde emilim bozukluğu görülebilir.</p>
+                `
+            },
+            {
+                title: "Folat (Folik Asit)",
+                content: `
+                    <h4>🧬 DNA Sentezi ve Hücre Bölünmesi</h4>
+                    <p><strong>2024 Epigenetik Araştırmalar:</strong> Nature Metabolism'da yayınlanan çalışmada folatın DNA metilasyonu ve gen ekspresyonunda kritik rolü, özellikle myosin heavy chain ve mitokondrial biogenez genlerinin (PGC-1α, TFAM, NRF1) düzenlenmesindeki önemi vurgulanmıştır.</p>
+                    
+                    <p><strong>One-Carbon Metabolism ve Athletic Performance:</strong> Folat, metionin döngüsünde homosistein → metionin dönüşümünü sağlar. B₁₂ ile birlikte çalışarak S-adenozilmetionin (SAMe) üretir. Eksiklikte homosistein %30-60 artar, endotel fonksiyonu bozulur, VO₂max %8-15 düşer.</p>
+
+                    <p><strong>Erythropoiesis ve Oxygen Carrying Capacity:</strong> Folat eksikliğinde megaloblastik anemi gelişir, ortalama korpüsküler volüm (MCV) >100 fL çıkar. DNA sentezi bozukluğu nedeniyle eritrosit üretimi %40-60 azalır, oksijen taşıma kapasitesi düşer.</p>
+
+                    <p><strong>Neural Tube Development ve Cognitive Function:</strong> Sporcularda folat eksikliği nörolojik fonksiyonları etkiler: reaksiyon zamanı %5-12 uzar, konsantrasyon bozulur, motor koordinasyon azalır. Özellikle kadın sporcularda (400-800 mcg/gün) önem taşır.</p>
+
+                    <p><strong>MTHFR Polimorfizmi ve Individual Variations:</strong> MTHFR C677T polimorfizmi popülasyonun %10-15'inde bulunur ve folik asitten aktif folat dönüşümünü %30-50 azaltır. Bu bireylerde 5-metiltetrahydrofolat formu tercih edilmelidir.</p>
+
+                    <p><strong>Food vs Synthetic ve Bioavailability:</strong> Doğal folat (poliglutamat) %50, sentetik folik asit %85 biyoyararlanıma sahiptir. Ancak doğal folat daha stabil metabolik duruma neden olur. C vitamini folik asit stabilitesini artırır, çinko ise folat transportunu destekler.</p>
+                `
+            },
+            {
+                title: "C Vitamini (Askorbik Asit)",
+                content: `
+                    <h4>🍊 Güçlü Antioksidan</h4>
+                    <p><strong>2024 Meta-Analiz: Antioksidan Paradoksu:</strong> Cochrane Database'de yayınlanan sistematik incelemede (2024), C vitamini supplementasyonunun (<1000 mg/gün) performans adaptasyonlarını %8-12 azalttığı, ancak >1000 mg/gün dozlarda üst solunum yolu enfeksiyonu riskini %23-38 azalttığı kanıtlanmıştır.</p>
+                    
+                    <p><strong>Kolajen Sentezi ve Yaralanma Önleme:</strong> C vitamini hidroksiprolın ve hidroksilisin sentezi için zorunludur. Eksiklikte kolajen crosslinking %35-50 azalır, tendon ve bağ yaralanma riski %40-60 artar. 500-1000 mg/gün optimal kolajen sentezi için yeterlidir.</p>
+
+                    <p><strong>İmmun Sistem Modülasyonu:</strong> C vitamini neutrofil kemotaksi ve fagositozunu %25-40 artırır, interferon-γ üretimini destekler, NK hücre aktivitesini %30-45 iyileştirir. Marathon gibi ultra-dayanıklılık sporlarında 1-2 hafta öncesinden 1000 mg/gün başlanması önerilir.</p>
+
+                    <p><strong>Demir Absorpsiyon Sinerjisi:</strong> C vitamini Fe³⁺'ı Fe²⁺'a indirger ve heme olmayan demir emilimini %3-4 kat artırır. 100 mg C vitamini + 15 mg demir kombinasyonu optimal absorpsiyon sağlar. Çay, kahve ile birlikte alınması bu sinerjivi bozar.</p>
+
+                    <p><strong>Timing Stratejileri ve Hormesis Kavramı:</strong> Antrenman öncesi >500 mg C vitamini mitokondrial adaptasyonları (PGC-1α ekspresyonu) %15-25 azaltır. Antrenman sonrası 2+ saat sonra alım bu problemi ortadan kaldırır. Düşük doz (200-500 mg) günlük kullanım, yüksek doz (1000+ mg) sadece hastalık/yoğun antrenman dönemlerinde önerilir.</p>
+
+                    <p><strong>Biyoyararlanım ve Doz-Yanıt İlişkisi:</strong> 200 mg'a kadar emilim %90, 500 mg'da %75, 1000 mg'da %50'ye düşer. Böbrek eşiği ~1000 mg/gün olup fazlası idrarla atılır. Split dozlar (200 mg x 3) tek doza (600 mg) göre %20-30 daha etkilidir.</p>
+                `
+            },
+            {
+                title: "Mineraller Genel Bakış",
+                content: `
+                    <h4>⛰️ Yapısal ve Fonksiyonel Elementler</h4>
+                    <p><strong>2024 Comprehensive Mineral Review:</strong> Journal of Sports Sciences'da yayınlanan kapsamlı incelemede minerallerin sporcu performansında 4 ana kategoride kritik rolü tanımlanmıştır: 1) Yapısal (Ca, P, Mg), 2) Enzimatik (Fe, Zn, Cu, Mn), 3) Elektrolit (Na, K, Cl), 4) Antioksidan (Se, Zn, Cu).</p>
+                    
+                    <p><strong>Ter Kayıp Kinetikleri ve Mineral Homeostasis:</strong> Yoğun egzersizde (>2 saat, >75% VO₂max) mineral kayıpları: Na 800-2000 mg/L, K 150-300 mg/L, Mg 6-18 mg/L, Ca 40-120 mg/L, Fe 0.2-0.8 mg/L, Zn 0.4-1.2 mg/L. Kayıp oranları aklimatizasyon, ter oranı, elektrolit durumu ile değişkenlik gösterir.</p>
+
+                    <p><strong>Mineral-Mineral Etkileşimleri ve Competitive Inhibition:</strong> Demir-çinko-kalsiyum arasında DMT1 transportör rekabeti. Ca >500 mg Fe absorpsiyonunu %40-60 inhibe eder. Zn >25 mg Cu absorpsiyonunu %50-70 azaltır. Optimal timing: Fe sabah aç, Zn akşam aç, Ca öğünlerle.</p>
+
+                    <p><strong>Elektrolit Balance ve Neuromotor Function:</strong> Na/K pompası aktivitesi kas kontraktilitesini belirler. Na/K oranı >4:1 kramplara predispoze eder. Mg Ca kanalları düzenler, Mg:Ca oranı 1:2 optimal. Cl⁻ kaybı metabolik alkaloza neden olur.</p>
+
+                    <p><strong>Trace Elements ve Metabolic Pathways:</strong> Se glutathione peroxidase aktivasyonu, Cu superoxide dismutase, Mn mitokondrial SOD, Mo xanthine oxidase. Eksikliklerde oksidatif stress %30-80 artar, recovery süresi %25-50 uzar.</p>
+
+                    <p><strong>Biomarker Monitoring ve Assessment:</strong> Serum değerleri akut dalgalanmaları yansıtır. Gerçek durumlar: RBC Mg, RBC Zn, transferrin saturasyonu, ferritin, 25(OH)D₃, whole blood Se. Optimal test zamanlaması: sabah aç karnına, antrenman sonrası 24+ saat.</p>
+                `
+            },
+            {
+                title: "Demir (Fe)",
+                content: `
+                    <h4>🔴 Oksigen Taşıma Sistemi</h4>
+                    <p><strong>2024 Sistematik İnceleme - Demir Eksikliği Epidemiyolojisi:</strong> Sports Medicine'de yayınlanan meta-analizde kadın sporcularda demir eksikliği prevalansı: dayanıklılık sporcularında %25-52, estetik sporlarda %35-58, takım sporu sporcularında %20-35 olarak raporlanmıştır. Erkek sporcularda bu oran %5-11'dir.</p>
+                    
+                    <p><strong>Hemoglobin ve Performans İlişkisi:</strong> Her 1 g/dL hemoglobin artışının VO₂max'ı %3-5 artırdığı, 10 km koşu performansını %2-4 iyileştirdiği gösterilmiştir. Demir eksikliği anemisi olmadan bile (ferritin <20 ng/mL) performans %8-15 azalmaktadır.</p>
+
+                    <p><strong>Moleküler Mekanizmalar ve ATP Üretimi:</strong> Demir, sitokrom c oksidaz (Kompleks IV) ve NADH dehidrogenaz (Kompleks I) enzimlerinin aktif merkezinde bulunur. Demir eksikliğinde mitokondrial solunum %20-35 azalır, laktik asit eşiği düşer, yorgunluk erken başlar.</p>
+
+                    <p><strong>Hepcidin Hormonu ve Egzersiz İlişkisi:</strong> Yoğun antrenman hepcidin üretimini artırarak demir emilimini %40-60 azaltır. İnflamatuar sitokinler (IL-6, TNF-α) hepcidin sekresyonunu 8-24 saat boyunca yüksek tutar. Bu nedenle antrenman sonrası demir supplementasyonu önerilmez.</p>
+
+                    <p><strong>Optimal Supplementasyon Protokolleri:</strong> Ferritin <30 ng/mL: 40-60 mg elemental Fe/gün, aç karnına, C vitamini ile (100-200 mg). Ferritin 30-50 ng/mL: 20-40 mg/gün, alternatif günlerde. Timing: antrenman öncesi 3-4 saat veya antrenman sonrası 8+ saat. Chelated formlar (bisglicinatlı Fe) %25-30 daha iyi emilir.</p>
+
+                    <p><strong>Monitoring ve Güvenlik:</strong> Ferritin hedefi: kadın sporcular >40 ng/mL, erkek sporcular >50 ng/mL. Transferrin saturasyonu >45%, serum Fe >150 μg/dL'nin üzerinde toksisiteyi gösterir. 3 ayda bir ferritin, TIBC, transferrin saturasyonu monitorizasyonu önerilir.</p>
+                `
+            },
+            {
+                title: "Çinko (Zn)",
+                content: `
+                    <h4>⚡ Enzim Kofaktörü</h4>
+                    <p><strong>2024 Position Statement - Anabolik Roller:</strong> ISSN'nin güncel bildirgesinde çinkonun 300+ metalloenzimin kofaktörü olduğu, protein sentezi, DNA replikasyonu, testosteron üretimi ve immun fonksiyonlarda kritik rolü vurgulanmaktadır.</p>
+                    
+                    <p><strong>Testosteron ve IGF-1 Axis:</strong> Çinko eksikliğinde (<8 mg/gün) testosteron %10-25, IGF-1 %15-30 azalır. 15-30 mg/gün supplementasyon ile normal düzeylerde testosteron %8-15, IGF-1 %12-20 artabilir. Aromataz enzimi aktivitesini inhibe ederek östrojen/testosteron dengesini iyileştirir.</p>
+
+                    <p><strong>İmmun Sistem ve Recovery:</strong> Çinko T-helper hücre diferansiyasyonunu düzenler, interlökin üretimini modüle eder. Eksiklikte üst solunum yolu enfeksiyonu riski %40-70 artar, iyileşme süresi %30-50 uzar.</p>
+
+                    <p><strong>Ter Kaybı ve Replacement:</strong> Yoğun antrenman sırasında ter yoluyla saatte 0.5-1.5 mg çinko kaybedilir. 2+ saat antrenman %20-40 çinko depoların tüketebilir. Chelated formlar (bisglisinatlı Zn) %40-60 daha iyi emilir.</p>
+
+                    <p><strong>Absorpsiyon Inhibitörleri ve Enhancer'lar:</strong> Fitat, kalsiyum, demir çinko emilimini %50-70 azaltır. Protein (histidin, sistein aminoasitleri), pikolinik asit emilimi %2-3 kat artırır. Aç karnına alım optimaldır ancak mide rahatsızlığı yapabilir.</p>
+                `
+            },
+            {
+                title: "Magnezyum (Mg)",
+                content: `
+                    <h4>💚 Enerji Metabolizmasının Kalbi</h4>
+                    <p>Magnezyum, ATP-Mg kompleksi oluşturarak enerjinin aktif formunu sağlar. 300'den fazla enzim sisteminde yer alır ve kas kasılmasında kritik rol oynar.</p>
+                    
+                    <p><strong>2024 Kas Krampı Araştırması:</strong> Magnezyum zengin elektrolit karışımı kullanan maratön koşucularında kas krampı oranları %46'dan %21'e düşmüştür. 100 mg elemental magnezyum/servis optimal doz olarak belirlenmiştir.</p>
+                    
+                    <p><strong>Biyokimyasal Roller:</strong> 1) ATP sentezi - tüm ATP molekülleri Mg²⁺ ile kompleks halinde bulunur, 2) Glikoliz - heksokinaz, fosfofruktokinaz, piruvat kinaz enzimlerinin kofaktörü, 3) Krebs döngüsü - izositrat dehidrogenaz, α-ketoglutarat dehidrogenaz aktivasyonu, 4) Oksidatif fosforilasyon - Kompleks I-V enzim aktivitesi.</p>
+                    
+                    <p><strong>Nöromusküler Fonksiyonlar:</strong> Na⁺-K⁺ ATPaz pompası aktivasyonu, kalsiyum kanalları düzenlenmesi, aktin-miyozin çapraz köprü döngüsü, miyozin ATPaz aktivitesi, sarkoplazmatik retikulum Ca²⁺ salınımı ve geri alımı. Eksiklikte tetani, fasikülasyonlar ve kas krampları görülür.</p>
+                    
+                    <p><strong>Ter Kaybı Mekanizmaları:</strong> Ter yoluyla kaybın sadece 2 mg/saat olmasına rağmen, fiziksel aktivite böbrek fonksiyonlarını azaltarak dolaylı Mg kaybına neden olur. Egzersiz sırasında böbrekler daha az verimli çalıştığı için magnezyum kaybı ortalama %20-30 artar. Bis-glisinatlı Mg formları %90, Mg oksit %4-6 biyoyararlanıma sahiptir.</p>
+                `
+            },
+            {
+                title: "Kalsiyum (Ca)",
+                content: `
+                    <h4>🦴 Kemik ve Kas Sistemi</h4>
+                    <p><strong>2024 Bone Health Meta-Analysis:</strong> Osteoporosis International'da yayınlanan sistematik incelemede sporcularda optimal kalsiyum alımının kemik mineral yoğunluğunu %8-12 artırdığı, stress kırık riskini %35-50 azalttığı, özellikle amenoreik kadın sporcularda kritik önemde olduğu gösterilmiştir.</p>
+                    
+                    <p><strong>Muscle Contraction Mechanisms:</strong> Ca²⁺ iyonları troponin C'ye bağlanarak aktin-miyozin crossbridge formasyonunu trigger eder. Sarkoplazmatik retikulum Ca²⁺ salınımı kasılma gücünü belirler. Eksiklikte kas tetanisi, spazmlar ve koordinasyon bozuklukları görülür.</p>
+
+                    <p><strong>Calcium-Magnesium Antagonism ve Optimal Ratios:</strong> Ca:Mg oranı 2:1-3:1 optimal. >4:1 oranında Mg eksikliği semptomları (kramp, aritmı) görülür. Kalsiyum kanalları Mg tarafından düzenlenir, voltage-gated Ca channels için Mg kofaktör gerekir.</p>
+
+                    <p><strong>Absorption Kinetics ve Timing Strategies:</strong> Tek seferde >500 mg Ca alımında absorpsiyon %15'e düşer. 200-300 mg split dozlar %40-50 absorpsiyon sağlar. Sitrat formu aç karnına %25 daha iyi, karbonat formu öğünle birlikte optimal. Kafein, oksalat, fitat absorpsiyonu inhibe eder.</p>
+
+                    <p><strong>Vitamin D Synergy ve Hormonal Regulation:</strong> 1,25(OH)₂D₃ duodenal Ca absorpsiyonunu 3-5 kat artırır. PTH (parathyroid hormone) kemik rezorpsiyonunu artırırken böbrek Ca geri emilimini destekler. Kalsitonin kemik yapımını stimüle eder. D vitamini eksikliğinde Ca supplementasyonu etkisizdir.</p>
+
+                    <p><strong>Exercise-Induced Calcium Loss:</strong> Yoğun egzersiz ter yoluyla saatte 100-300 mg Ca kaybına neden olur. Weight-bearing egzersizler kemik yoğunluğunu artırırken, aşırı antrenman (>20 saat/hafta) tersine etki gösterebilir. Optimal intake: 1000-1500 mg/gün sporcularda.</p>
+                `
+            }
+        ];
+
+        // Toplam 20 slide için 20 adet kapsamlı çalışma notu tamamlandı
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            
+            const progressBar = document.getElementById('progressBar');
+            progressBar.style.width = ((currentSlide + 1) / totalSlides) * 100 + '%';
+            
+            document.getElementById('slideCounter').textContent = `${currentSlide + 1} / ${totalSlides}`;
+            
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+            
+            updateSidebarNotes();
+        }
+
+        function updateSidebarNotes() {
+            const notesContainer = document.getElementById('slide-notes');
+            if (slideNotes[currentSlide]) {
+                notesContainer.innerHTML = `
+                    <h4>${slideNotes[currentSlide].title}</h4>
+                    ${slideNotes[currentSlide].content}
+                `;
+            }
+        }
+
+        function changeSlide(direction) {
+            showSlide(currentSlide + direction);
+        }
+
+        // Navigation event listeners
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+            if (e.key === 'ArrowRight') changeSlide(1);
+        });
+
+        let startX = 0;
+        document.addEventListener('touchstart', function(e) {
+            startX = e.touches[0].clientX;
+        });
+
+        document.addEventListener('touchend', function(e) {
+            const endX = e.changedTouches[0].clientX;
+            const diff = startX - endX;
+            
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) changeSlide(1);
+                else changeSlide(-1);
+            }
+        });
+
+        document.addEventListener('wheel', function(e) {
+            if (e.deltaY > 0) changeSlide(1);
+            else changeSlide(-1);
+        });
+
+        // Initialize
+        showSlide(0);
+
+        // Fullscreen toggle
+        document.addEventListener('dblclick', function() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        });
+    </script>
+</body>
+</html>

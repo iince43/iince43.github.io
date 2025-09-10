@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Özel Popülasyonlar - Sporcu Beslenmesi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #8360c3 100%);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .slideshow-container {
+            position: relative;
+            height: 100vh;
+            display: flex;
+        }
+
+        .main-content {
+            flex: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .slide {
+            display: none;
+            width: 100%;
+            max-width: 900px;
+            text-align: center;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        .slide h1 {
+            font-size: 3.5em;
+            margin-bottom: 30px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.4);
+            background: linear-gradient(45deg, #fff, #f0f0f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .slide h2 {
+            font-size: 2.8em;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            color: #ffeb3b;
+        }
+
+        .slide h3 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #81c784;
+        }
+
+        .slide p, .slide li {
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .info-box, .success-box, .warning-box, .danger-box {
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .info-box {
+            background: rgba(33, 150, 243, 0.2);
+            border-color: #2196f3;
+        }
+
+        .success-box {
+            background: rgba(76, 175, 80, 0.2);
+            border-color: #4caf50;
+        }
+
+        .warning-box {
+            background: rgba(255, 193, 7, 0.2);
+            border-color: #ffc107;
+        }
+
+        .danger-box {
+            background: rgba(244, 67, 54, 0.2);
+            border-color: #f44336;
+        }
+
+        .formula-box {
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid #64b5f6;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            font-family: 'Courier New', monospace;
+        }
+
+        .sidebar {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(20px);
+            padding: 30px;
+            border-left: 3px solid #64b5f6;
+            overflow-y: auto;
+            height: 100vh;
+        }
+
+        .sidebar h4 {
+            color: #ffeb3b;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #ffeb3b;
+            padding-bottom: 8px;
+        }
+
+        .sidebar h5 {
+            color: #81c784;
+            font-size: 1.1em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b6b, #ffa726, #66bb6a);
+            z-index: 1000;
+            transition: width 0.3s ease;
+        }
+
+        .slide-counter {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            z-index: 100;
+        }
+
+        .nav-buttons {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 100;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .slideshow-container { flex-direction: column; }
+            .main-content { flex: 1; }
+            .sidebar { height: auto; max-height: 40vh; }
+            .slide h1 { font-size: 2.5em; }
+            .slide h2 { font-size: 2em; }
+            .two-column { grid-template-columns: 1fr; }
+        }
+
+        ul {
+            text-align: left;
+            margin: 20px 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+            padding-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+    <div class="slide-counter" id="slideCounter">1 / 20</div>
+
+    <div class="slideshow-container">
+        <div class="main-content">
+            <!-- Slide 1: Giriş -->
+            <div class="slide active">
+                <h1>👥 ÖZEL POPÜLASYONLAR</h1>
+                <h3>Sporcu Beslenmesinde Risk Altındaki Gruplar</h3>
+                <div class="formula-box">
+                    <h4>Hedef Odaklı Beslenme Yaklaşımı</h4>
+                    <p><strong>Evidence-Based:</strong> 2024 IOC-ACSM-ISSN Consensus</p>
+                    <p><strong>Individualized:</strong> Yaş, cinsiyet, engellilik durumu</p>
+                    <p><strong>Comprehensive:</strong> Fizyolojik + Psikolojik + Sosyal</p>
+                </div>
+                <div class="two-column">
+                    <div>
+                        <div class="info-box">
+                            <h5>🎯 Ana Popülasyonlar</h5>
+                            <ul>
+                                <li><strong>Kadın atletler:</strong> RED-S, amenore, osteoporoz</li>
+                                <li><strong>Genç atletler:</strong> Büyüme, pubertal gelişim</li>
+                                <li><strong>Yaşlı atletler:</strong> Master athletes +35</li>
+                                <li><strong>Engelli atletler:</strong> Paralympic nutrition</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="warning-box">
+                            <h5>⚠️ Kritik Risk Faktörleri</h5>
+                            <ul>
+                                <li><strong>Enerji yetersizliği:</strong> LEA &lt;30 kcal/kg FFM</li>
+                                <li><strong>Hormonal disregülasyon:</strong> HPG axis supresyonu</li>
+                                <li><strong>Beslenme eksiklikleri:</strong> Fe, Ca, D vitamini</li>
+                                <li><strong>Psikolojik stres:</strong> Perfectionism, body image</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 2: RED-S ve Kadın Atletler -->
+            <div class="slide">
+                <h2>👩 RELATIVE ENERGY DEFICIENCY IN SPORT (RED-S)</h2>
+                <div class="formula-box">
+                    <h4>2023 IOC Consensus on RED-S</h4>
+                    <p><strong>Low Energy Availability (LEA):</strong> &lt;30 kcal/kg FFM/gün</p>
+                    <p><strong>Optimal EA:</strong> 45 kcal/kg FFM/gün</p>
+                    <p><strong>Balance EA:</strong> Energy Intake - Exercise Energy Expenditure</p>
+                </div>
+                <div class="two-column">
+                    <div>
+                        <div class="danger-box">
+                            <h5>🔴 Fizyolojik Etkiler</h5>
+                            <ul>
+                                <li><strong>Metabolik:</strong> ↓RMR (%10-40), ↓T3, ↓IGF-1</li>
+                                <li><strong>Menstrual:</strong> Amenore, oligomenore, anovulasyon</li>
+                                <li><strong>Kemik:</strong> ↓BMD, ↑stress fracture risk</li>
+                                <li><strong>İmmun:</strong> ↑URTI, ↓wound healing</li>
+                                <li><strong>Kardiyovasküler:</strong> Bradikardi, hipotansiyon</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="warning-box">
+                            <h5>⚡ Performans Etkileri</h5>
+                            <ul>
+                                <li><strong>Dayanıklılık:</strong> ↓VO₂max, ↓fat oxidation</li>
+                                <li><strong>Güç:</strong> ↓muscle strength, ↓power output</li>
+                                <li><strong>Kognitif:</strong> ↓concentration, ↓decision making</li>
+                                <li><strong>Recovery:</strong> ↓protein synthesis, ↑catabolism</li>
+                                <li><strong>Koordinasyon:</strong> ↑injury risk, ↓motor control</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 3: Kadın Sporcu Triadı -->
+            <div class="slide">
+                <h2>🔺 KADIN SPORCU TRIADI</h2>
+                <div class="formula-box">
+                    <h4>Klasik Triad (3 Komponent)</h4>
+                    <p><strong>1. Düşük enerji alımı:</strong> ± Disordered eating</p>
+                    <p><strong>2. Menstrual disfonksiyon:</strong> Amenore/oligomenore</p>
+                    <p><strong>3. Düşük kemik mineral yoğunluğu:</strong> Osteopeni/osteoporoz</p>
+                </div>
+                <div class="two-column">
+                    <div>
+                        <div class="info-box">
+                            <h5>🧬 Patofizyoloji</h5>
+                            <ul>
+                                <li><strong>HPA axis:</strong> ↓GnRH, ↓LH, ↓FSH</li>
+                                <li><strong>Östrojen:</strong> ↓E2 &lt;100 pmol/L</li>
+                                <li><strong>Metabolik:</strong> ↓leptin, ↑ghrelin, ↓insulin</li>
+                                <li><strong>Kemik turnover:</strong> ↓osteoblast, ↑osteoclast</li>
+                                <li><strong>IGF-1 axis:</strong> ↓IGFBP-3, ↑IGFBP-1</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="success-box">
+                            <h5>💡 Tedavi Protokolü</h5>
+                            <ul>
+                                <li><strong>Beslenme:</strong> +300-500 kcal/gün artış</li>
+                                <li><strong>Antrenman:</strong> Volume/intensity azaltma</li>
+                                <li><strong>Kilo artışı:</strong> 2-3 kg hedeflenir</li>
+                                <li><strong>Monitöring:</strong> EA hesaplama, hormonal takip</li>
+                                <li><strong>Multidisipliner:</strong> Diyetisyen-doktor-psikolog</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 4: Amenore ve Hormonal Disregülasyon -->
+            <div class="slide">
+                <h2>🌙 AMENORE VE HORMONAL DİSREGÜLASYON</h2>
+                <div class="formula-box">
+                    <h4>Functional Hypothalamic Amenorrhea (FHA)</h4>
+                    <p><strong>Primer amenore:</strong> >16 yaş menstrual başlamama</p>
+                    <p><strong>Sekonder amenore:</strong> >3 ay menstrual kaybı</p>
+                    <p><strong>Oligomenore:</strong> >35 gün adet döngüsü</p>
+                </div>
+                <div class="two-column">
+                    <div>
+                        <div class="danger-box">
+                            <h5>🔬 Laboratuvar Bulguları</h5>
+                            <ul>
+                                <li><strong>LH:</strong> &lt;2 IU/L (normal: 5-20)</li>
+                                <li><strong>FSH:</strong> &lt;5 IU/L (normal: 5-20)</li>
+                                <li><strong>Estradiol:</strong> &lt;100 pmol/L (normal: 200-800)</li>
+                                <li><strong>T3:</strong> ↓ (hypothyroid-like pattern)</li>
+                                <li><strong>Kortizol:</strong> ↑ (chronic stress response)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="warning-box">
+                            <h5>⚠️ Uzun Dönem Riskler</h5>
+                            <ul>
+                                <li><strong>Kemik sağlığı:</strong> İrreversible bone loss</li>
+                                <li><strong>Kardiyovasküler:</strong> ↑CVD risk, endothelial dysfunction</li>
+                                <li><strong>Üreme sağlığı:</strong> Fertilite problemleri</li>
+                                <li><strong>Metabolik:</strong> Insulin resistance, lipid profil</li>
+                                <li><strong>Psikolojik:</strong> Depresyon, anksiyete riski</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 5: Kemik Sağlığı ve Osteoporoz -->
+            <div class="slide">
+                <h2>🦴 KEMİK SAĞLIĞI VE OSTEOPOROZ RİSKİ</h2>
+                <div class="formula-box">
+                    <h4>Bone Mineral Density (BMD) Assessment</h4>
+                    <p><strong>T-score:</strong> Standard deviasyon from peak BMD</p>
+                    <p><strong>Z-score:</strong> Age-matched comparison</p>
+                    <p><strong>Osteopeni:</strong> T-score: -1.0 to -2.5</p>
+                    <p><strong>Osteoporoz:</strong> T-score: &lt;-2.5</p>
+                </div>
+                <div class="two-column">
+                    <div>
+                        <div class="info-box">
+                            <h5>🔍 Risk Faktörleri</h5>
+                            <ul>
+                                <li><strong>Amenore süresi:</strong> >6 ay kritik</li>
+                                <li><strong>Düşük vücut ağırlığı:</strong> BMI &lt;18.5</li>
+                                <li><strong>Geç menarş:</strong> >15 yaş</li>
+                                <li><strong>Beslenme:</strong> ↓Ca, ↓D vitamini, ↓protein</li>
+                                <li><strong>Aile öyküsü:</strong> Osteoporoz, kırık</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="success-box">
+                            <h5>💊 Tedavi Stratejileri</h5>
+                            <ul>
+                                <li><strong>Beslenme:</strong> Ca 1200-1500mg/gün, D3 2000-4000IU</li>
+                                <li><strong>Weight-bearing exercise:</strong> Osteogenic stimulus</li>
+                                <li><strong>Hormonal:</strong> Transdermal E2 + cyclic progestin</li>
+                                <li><strong>Bisphosphonates:</strong> Severe cases only</li>
+                                <li><strong>Monitoring:</strong> Annual DXA, P1NP, CTX</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 6: Genç Atletlerin Beslenmesi -->
+            <div class="slide">
+                <h2>👦 GENÇ ATLETLERİN BESLENMESİ</h2>
+                <div class="formula-box">
+                    <h4>2024 Narrative Review: Growth & Development</h4>
+                    <p><strong>Enerji ihtiyacı:</strong> ♂ 3640±830 kcal/gün, ♀ 3100±720 kcal/gün</p>
+                    <p><strong>Protein:</strong> 1.2-2.0 g/kg/gün (büyüme döneminde)</p>
+                    <p><strong>Karbonhidrat:</strong> 6-10 g/kg/gün (antrenman yoğunluğuna göre)</p>
+                </div>
+                <div class="two-column">
+                    <div>
+                        <div class="warning-box">
+                            <h5>⚡ Büyüme Döneminde Kritik İhtiyaçlar</h5>
+                            <ul>
+                                <li><strong>Enerji:</strong> Growth spurt +500-1000 kcal/gün</li>
+                                <li><strong>Protein:</strong> Muscle mass + linear growth</li>
+                                <li><strong>Kalsiyum:</strong> Peak bone mass accumulation</li>
+                                <li><strong>Demir:</strong> ↑blood volume, lean mass</li>
+                                <li><strong>Çinko:</strong> Sexual maturation, tissue growth</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="danger-box">
+                            <h5>🚨 Risk Alanları</h5>
+                            <ul>
+                                <li><strong>Eating disorders:</strong> Prevalence ↑ in aesthetic sports</li>
+                                <li><strong>Demir eksikliği:</strong> Growth spurt demand</li>
+                                <li><strong>Body image issues:</strong> Early specialization</li>
+                                <li><strong>Supplement abuse:</strong> Lack of education</li>
+                                <li><strong>Social pressure:</strong> Weight cutting practices</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 7: Pubertal Gelişim ve Beslenme -->
+            <div class="slide">
+                <h2>🌱 PUBERTAL GELİŞİM VE BESLENME</h2>
+                <div class="formula-box">
+                    <h4>Tanner Evreleri ve Beslenme Adaptasyonu</h4>
+                    <p><strong>Tanner 1-2:</strong> Pre-pubertal, moderate energy increase</p>
+                    <p><strong>Tanner 3-4:</strong> Growth spurt peak, maximal requirements</p>
+                    <p><strong>Tanner 5:</strong> Adult-like pattern, maintenance</p>
+                </div>
+                <div class="two-column">
+                    <div>
+                        <div class="info-box">
+                            <h5>📈 Büyüme Hızı ve Beslenme</h5>
+                            <ul>
+                                <li><strong>Peak height velocity:</strong> ♀ 11-13 yaş, ♂ 13-15 yaş</li>
+                                <li><strong>Weight gain:</strong> 7-9 kg/yıl peak period</li>
+                                <li><strong>Lean mass:</strong> ♂ +32 kg, ♀ +16 kg total</li>
+                                <li><strong>Bone mass:</strong> %40 adult peak bone mass</li>
+                                <li><strong>Fat mass:</strong> ♀ ↑, ♂ → (percentage basis)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="success-box">
+                            <h5>🍎 Pratik Beslenme Stratejileri</h5>
+                            <ul>
+                                <li><strong>Meal frequency:</strong> 3 ana + 2-3 ara öğün</li>
+                                <li><strong>Breakfast:</strong> 20-25% total kcal (okul + antrenman)</li>
+                                <li><strong>Hydration:</strong> 150-250 mL/15-20 dk exercise</li>
+                                <li><strong>Recovery:</strong> CHO:PRO = 3:1 30 dk içinde</li>
+                                <li><strong>Family involvement:</strong> Meal planning + education</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 8: Master Atletler (35+ yaş) -->
+            <div class="slide">
+                <h2>🏃‍♂️ MASTER ATLETLER (35+ YAŞ)</h2>
+                <div class="formula-box">
+                    <h4>Age-Related Metabolic Changes</h4>
+                    <p><strong>Sarcopenia:</strong> %3-8/dekade kas kaybı (30+ yaş)</p>
+                    <p><strong>RMR decrease:</strong> %1-2/yıl (40+ yaş)</p>
+                    <p><strong>Protein turnover:</strong> ↓synthesis, ↑breakdown</p>
+                </div>
+                <div class="two-column">
+                    <div>
+                        <div class="warning-box">
+                            <h5>⚠️ Yaşlanma ile Değişen İhtiyaçlar</h5>
+                            <ul>
+                                <li><strong>Protein:</strong> 1.2-1.6 g/kg → 1.6-2.2 g/kg</li>
+                                <li><strong>Leucine threshold:</strong> 2.5-3.0 g/meal</li>
+                                <li><strong>Vitamin D:</strong> Synthesis ↓, intake ↑</li>
+                                <li><strong>B12 absorption:</strong> Gastric atrophy</li>
+                                <li><strong>Antioxidants:</strong> ↑ROS production</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="success-box">
+                            <h5>💪 Anabolic Resistance Stratejileri</h5>
+                            <ul>
+                                <li><strong>Protein timing:</strong> 25-40 g her öğünde</li>
+                                <li><strong>Post-exercise:</strong> 40-45 g protein (vs 20-25 g)</li>
+                                <li><strong>mTOR activation:</strong> Leucine-rich sources</li>
+                                <li><strong>Resistance training:</strong> Nutrition synergy</li>
+                                <li><strong>Creatine:</strong> 3-5 g/gün (cognitive + muscle)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 9: Engelli Atletler (Paralympic) -->
+            <div class="slide">
+                <h2>♿ ENGELLİ ATLETLERİN BESLENMESİ</h2>
+                <div class="formula-box">
+                    <h4>Disability-Specific Nutritional Considerations</h4>
+                    <p><strong>Spinal Cord Injury:</strong> ↓metabolic rate, ↓muscle mass</p>
+                    <p><strong>Amputee:</strong> Phantom limb, prosthesis energy cost</p>
+                    <p><strong>Cerebral Palsy:</strong> Dysphagia, medication interactions</p>
+                </div>
+                <div class="two-column">
+                    <div>
+                        <div class="info-box">
+                            <h5>🔬 Engellilik Tipine Göre Adaptasyonlar</h5>
+                            <ul>
+                                <li><strong>SCI (Spinal Cord Injury):</strong> ↓BMR %10-40</li>
+                                <li><strong>Amputee:</strong> Prosthesis ↑energy cost %9-33</li>
+                                <li><strong>Visual impairment:</strong> Guide runner coordination</li>
+                                <li><strong>Cerebral palsy:</strong> Spasticity ↑energy expenditure</li>
+                                <li><strong>Intellectual disability:</strong> Medication-nutrition interactions</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="success-box">
+                            <h5>🎯 Spesifik Beslenme Stratejileri</h5>
+                            <ul>
+                                <li><strong>Energy assessment:</strong> Indirect calorimetry preferred</li>
+                                <li><strong>Body composition:</strong> DXA vs BodPod limitations</li>
+                                <li><strong>Hydration:</strong> Thermoregulation challenges</li>
+                                <li><strong>Supplement safety:</strong> Drug-nutrient interactions</li>
+                                <li><strong>Practical feeding:</strong> Texture modifications</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 10: Vegan/Vejetaryen Atletler -->
+            <div class="slide">
+                <h2>🌱 VEGAN/VEJETARYEN ATLETLERİN BESLENMESİ</h2>
+                <div class="formula-box">
+                    <h4>Plant-Based Athletic Performance</h4>
+                    <p><strong>Protein quality:</strong> PDCAAS limitations, combining strategies</p>
+                    <p><strong>B12 deficiency risk:</strong> %15-40 vegan athletlerde</p>
+                    <p><strong>Iron bioavailability:</strong> Non-heme %3-8 vs heme %15-35</p>
+                </div>
+                <div class="two-column">
+                    <div>
+                        <div class="danger-box">
+                            <h5>⚠️ Kritik Eksiklik Riskleri</h5>
+                            <ul>
+                                <li><strong>B12:</strong> Mandatory supplementation 250-1000 mcg/gün</li>
+                                <li><strong>Demir:</strong> Ferritin monitoring, C vitamini kombine</li>
+                                <li><strong>Çinko:</strong> Phytate inhibition, soaking strategies</li>
+                                <li><strong>Omega-3:</strong> EPA/DHA algae supplements</li>
+                                <li><strong>Kalsiyum:</strong> Oxalate-rich foods balance</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="success-box">
+                            <h5>💡 Optimizasyon Stratejileri</h5>
+                            <ul>
+                                <li><strong>Protein combining:</strong> Lysine + methionine complementation</li>
+                                <li><strong>Timing optimization:</strong> Leucine-rich post-workout</li>
+                                <li><strong>Iron enhancers:</strong> Vitamin C, organic acids</li>
+                                <li><strong>Meal planning:</strong> Nutrient density focus</li>
+                                <li><strong>Monitoring:</strong> Quarterly B12, ferritin, D3</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 11: Yeme Bozuklukları ve Beslenme -->
+            <div class="slide">
+                <h2>🧠 YEME BOZUKLUKLARI VE ATLETİK PERFORMANS</h2>
+                <div class="formula-box">
+                    <h4>Eating Disorders in Athletes</h4>
+                    <p><strong>Prevalans:</strong> Genel popülasyon %5-10 vs atletlerde %6-45</p>
+                    <p><strong>Aesthetic sports:</strong> En yüksek risk (cimnastik, dans, dövüş)</p>
+                    <p><strong>Weight category:</strong> Siklik pattern, seasonal vulnerability</p>
+                </div>
+                <div class="two-column">
+                    <div>
+                        <div class="danger-box">
+                            <h5>🚨 Risk Faktörleri</h5>
+                            <ul>
+                                <li><strong>Sport type:</strong> Aesthetic > endurance > team</li>
+                                <li><strong>Early specialization:</strong> Body image pressure</li>
+                                <li><strong>Perfectionism:</strong> Performance anxiety</li>
+                                <li><strong>Weight cycling:</strong> Repeated dieting history</li>
+                                <li><strong>Coach pressure:</strong> Weight-performance beliefs</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="warning-box">
+                            <h5>🔍 Erken Uyarı İşaretleri</h5>
+                            <ul>
+                                <li><strong>Behavioral:</strong> Social withdrawal, ritual eating</li>
+                                <li><strong>Physical:</strong> Rapid weight loss, fatigue</li>
+                                <li><strong>Performance:</strong> Decreased power, endurance</li>
+                                <li><strong>Medical:</strong> Amenorrhea, frequent injuries</li>
+                                <li><strong>Psychological:</strong> Anxiety, depression, irritability</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 12: Anoreksiya Nervoza ve Atletler -->
+            <div class="slide">
+                <h2>⚖️ ANOREKSİYA NERVOZA VE SPOR</h2>
+                <div class="formula-box">
+                    <h4>DSM-5 Anoreksiya Kriterleri + Athletic Context</h4>
+                    <p><strong>Weight criterion:</strong> BMI &lt;18.5 (adults) veya expected weight &lt;85%</p>
+                    <p><strong>Body image:</strong> Weight/shape overvaluation + performance link</p>
+                    <p><strong>Amenorrhea:</strong> No longer required but common</p>
+                </div>
+                <div class="two-column">
+                    <div>
+                        <div class="danger-box">
+                            <h5>💔 Medikal Komplikasyonlar</h5>
+                            <ul>
+                                <li><strong>Kardiyak:</strong> Bradikardi &lt;50 bpm, aritmiler</li>
+                                <li><strong>Endokrin:</strong> Hipotiroidi, kortizol ↑, growth hormone ↑</li>
+                                <li><strong>Kemik:</strong> Osteopeni/osteoporoz, stress kırıkları</li>
+                                <li><strong>GI:</strong> Gastroparezi, konstipasyon, superior mesenteric artery syndrome</li>
+                                <li><strong>Nöropsikiyatrik:</strong> Kognitif impairment, depresyon</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="warning-box">
+                            <h5>⚡ Performans Paradoksu</h5>
+                            <ul>
+                                <li><strong>Initial improvement:</strong> Weight loss → power-to-weight</li>
+                                <li><strong>Metabolic adaptation:</strong> ↓RMR, fuel efficiency</li>
+                                <li><strong>Progressive decline:</strong> Strength, power, endurance ↓</li>
+                                <li><strong>Injury proneness:</strong> Bone, tendon, ligament</li>
+                                <li><strong>Cognitive effects:</strong> Decision-making, strategy</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 13: Bulimiya Nervoza ve Binge Eating -->
+            <div class="slide">
+                <h2>🌊 BULİMİYA NERVOZA VE BİNGE EATİNG</h2>
+                <div class="formula-box">
+                    <h4>Cycle Characteristics</h4>
+                    <p><strong>Binge:</strong> Large amount + loss of control</p>
+                    <p><strong>Compensatory:</strong> Vomiting, laxatives, diuretics, excessive exercise</p>
+                    <p><strong>Frequency:</strong> ≥1x/week for 3+ months</p>
+                </div>
+                <div class="two-column">
+                    <div>
+                        <div class="danger-box">
+                            <h5>⚗️ Elektrolit İmbalansı</h5>
+                            <ul>
+                                <li><strong>Hipokalemi:</strong> Muscle weakness, arrhythmias</li>
+                                <li><strong>Hiponatremi:</strong> Cerebral edema risk</li>
+                                <li><strong>Hipokloremi:</strong> Metabolic alkalosis</li>
+                                <li><strong>Dehydration:</strong> ↓plasma volume, ↓performance</li>
+                                <li><strong>Magnezyum loss:</strong> Cramping, tetany</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="warning-box">
+                            <h5>🏃 Spor-Spesifik Kompensasyon</h5>
+                            <ul>
+                                <li><strong>Excessive training:</strong> "Burning off" binges</li>
+                                <li><strong>Sauna/hot yoga:</strong> Rapid fluid loss</li>
+                                <li><strong>Competition timing:</strong> Binge-restrict cycles</li>
+                                <li><strong>Sport supplements:</strong> Misused as laxatives/diuretics</li>
+                                <li><strong>Team meals:</strong> Social anxiety, compensation</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 14: Tedavi ve Recovery Beslenme -->
+            <div class="slide">
+                <h2>🔄 TEDAVİ VE RECOVERY BESLENMESİ</h2>
+                <div class="formula-box">
+                    <h4>Nutritional Rehabilitation Phases</h4>
+                    <p><strong>Phase 1:</strong> Medical stabilization, refeeding syndrome prevention</p>
+                    <p><strong>Phase 2:</strong> Weight restoration, metabolic recovery</p>
+                    <p><strong>Phase 3:</strong> Maintenance, relapse prevention</p>
+                </div>
+                <div class="two-column">
+                    <div>
+                        <div class="success-box">
+                            <h5>🔧 Refeeding Protocol</h5>
+                            <ul>
+                                <li><strong>Initial calories:</strong> 1000-1600 kcal/gün (risk assessment)</li>
+                                <li><strong>Progression:</strong> +200-300 kcal every 3-7 gün</li>
+                                <li><strong>Target:</strong> 2500-4000+ kcal/gün restoration</li>
+                                <li><strong>Macros:</strong> 50-60% CHO, 20-25% fat, 15-20% protein</li>
+                                <li><strong>Monitoring:</strong> Weight, vitals, labs, edema</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="info-box">
+                            <h5>⚠️ Refeeding Syndrome Prevention</h5>
+                            <ul>
+                                <li><strong>High-risk criteria:</strong> BMI &lt;16, rapid weight loss</li>
+                                <li><strong>Phosphate monitoring:</strong> &lt;0.65 mmol/L kritik</li>
+                                <li><strong>Thiamine supplementation:</strong> 300 mg/gün 10+ gün</li>
+                                <li><strong>Electrolyte support:</strong> PO4, Mg, K replacement</li>
+                                <li><strong>Cardiac monitoring:</strong> QTc interval, rhythm</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 15: Return to Play Kriterleri -->
+            <div class="slide">
+                <h2>🏆 RETURN TO PLAY KRİTERLERİ</h2>
+                <div class="formula-box">
+                    <h4>Safe Return to Sport Protocol</h4>
+                    <p><strong>Medical clearance:</strong> Vital signs, lab values normalized</p>
+                    <p><strong>Nutritional stability:</strong> Consistent intake, no compensatory behaviors</p>
+                    <p><strong>Psychological readiness:</strong> Coping strategies, motivation</p>
+                </div>
+                <div class="two-column">
+                    <div>
+                        <div class="success-box">
+                            <h5>✅ Medical Clearance Kriterleri</h5>
+                            <ul>
+                                <li><strong>Weight:</strong> >90% expected body weight</li>
+                                <li><strong>Heart rate:</strong> >60 bpm resting</li>
+                                <li><strong>Blood pressure:</strong> >90/60 mmHg</li>
+                                <li><strong>Labs:</strong> Elektrolits, CBC, CMP normal</li>
+                                <li><strong>Bone density:</strong> T-score >-2.0 (if available)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="warning-box">
+                            <h5>🧠 Psikolojik Hazırlık</h5>
+                            <ul>
+                                <li><strong>Body image:</strong> Stable self-perception</li>
+                                <li><strong>Coping skills:</strong> Stress management strategies</li>
+                                <li><strong>Support system:</strong> Family, team, professionals</li>
+                                <li><strong>Motivation assessment:</strong> Intrinsic vs extrinsic</li>
+                                <li><strong>Relapse plan:</strong> Early warning systems</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 16: Beslenme Monitörüngi ve Assessment -->
+            <div class="slide">
+                <h2>📊 BESLENMEYİ MONİTÖRİNG VE ASSESSMENT</h2>
+                <div class="formula-box">
+                    <h4>Comprehensive Monitoring Protocol</h4>
+                    <p><strong>Anthropometric:</strong> Weight, BMI, body composition trends</p>
+                    <p><strong>Biochemical:</strong> Nutritional biomarkers, hormonal status</p>
+                    <p><strong>Clinical:</strong> Physical exam findings, symptom tracking</p>
+                </div>
+                <div class="two-column">
+                    <div>
+                        <div class="info-box">
+                            <h5>🔬 Laboratuvar Monitörüngi</h5>
+                            <ul>
+                                <li><strong>Baseline:</strong> CBC, CMP, lipid panel, TSH</li>
+                                <li><strong>Nutritional:</strong> Ferritin, B12, folate, 25(OH)D</li>
+                                <li><strong>Hormonal:</strong> LH, FSH, E2/testosterone</li>
+                                <li><strong>Bone markers:</strong> P1NP, CTX, osteocalcin</li>
+                                <li><strong>Metabolic:</strong> HbA1c, insulin, leptin</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="success-box">
+                            <h5>📈 Performance Biomarkers</h5>
+                            <ul>
+                                <li><strong>Energy status:</strong> T3, rT3, leptin</li>
+                                <li><strong>Recovery:</strong> CK, LDH, urea</li>
+                                <li><strong>Immune function:</strong> WBC, IgA, cytokines</li>
+                                <li><strong>Oxidative stress:</strong> MDA, TAC, GPx</li>
+                                <li><strong>Hydration:</strong> Osmolality, urine specific gravity</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 17: Multidisipliner Yaklaşım -->
+            <div class="slide">
+                <h2>👥 MULTIDİSİPLİNER TAKIM YAKLAŞIMI</h2>
+                <div class="formula-box">
+                    <h4>Integrated Care Model</h4>
+                    <p><strong>Primary team:</strong> Physician, dietitian, mental health professional</p>
+                    <p><strong>Extended team:</strong> Coach, trainer, family, sport psychologist</p>
+                    <p><strong>Communication:</strong> Regular case conferences, shared goals</p>
+                </div>
+                <div class="two-column">
+                    <div>
+                        <div class="success-box">
+                            <h5>🏥 Takım Rolleri</h5>
+                            <ul>
+                                <li><strong>Sports medicine physician:</strong> Medical oversight, clearance</li>
+                                <li><strong>Sport dietitian:</strong> Nutrition planning, education</li>
+                                <li><strong>Sport psychologist:</strong> Mental skills, coping strategies</li>
+                                <li><strong>Coach:</strong> Training modification, support</li>
+                                <li><strong>Athletic trainer:</strong> Injury prevention, monitoring</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="info-box">
+                            <h5>🎯 Treatment Goals</h5>
+                            <ul>
+                                <li><strong>Medical stabilization:</strong> Vital signs, lab normalization</li>
+                                <li><strong>Nutritional restoration:</strong> Energy availability, variety</li>
+                                <li><strong>Psychological healing:</strong> Relationship with food/body</li>
+                                <li><strong>Social reintegration:</strong> Team dynamics, family</li>
+                                <li><strong>Performance optimization:</strong> Long-term athletic success</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 18: Eğitim ve Önleme Stratejileri -->
+            <div class="slide">
+                <h2>📚 EĞİTİM VE ÖNLEME STRATEJİLERİ</h2>
+                <div class="formula-box">
+                    <h4>Primary Prevention Framework</h4>
+                    <p><strong>Education level:</strong> Athletes, coaches, parents, support staff</p>
+                    <p><strong>Timing:</strong> Pre-season, throughout season, career transitions</p>
+                    <p><strong>Content:</strong> Physiology, psychology, practical skills</p>
+                </div>
+                <div class="two-column">
+                    <div>
+                        <div class="success-box">
+                            <h5>🎓 Eğitim Konuları</h5>
+                            <ul>
+                                <li><strong>Sport nutrition basics:</strong> Energy balance, periodization</li>
+                                <li><strong>RED-S awareness:</strong> Signs, symptoms, consequences</li>
+                                <li><strong>Healthy weight management:</strong> Sustainable strategies</li>
+                                <li><strong>Body composition:</strong> Realistic expectations</li>
+                                <li><strong>Recovery nutrition:</strong> Sleep, stress, adaptation</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="warning-box">
+                            <h5>⚠️ Coach Education Priorities</h5>
+                            <ul>
+                                <li><strong>Weight commentary:</strong> Avoid body weight focus</li>
+                                <li><strong>Performance metrics:</strong> Emphasize function over form</li>
+                                <li><strong>Early detection:</strong> Behavioral change recognition</li>
+                                <li><strong>Referral protocols:</strong> When and how to seek help</li>
+                                <li><strong>Environment creation:</strong> Supportive team culture</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 19: Case Study Analysis -->
+            <div class="slide">
+                <h2>📋 CASE STUDY: 17-YAŞ KADIN CİMNASTİKÇİ</h2>
+                <div class="formula-box">
+                    <h4>Presentation</h4>
+                    <p><strong>History:</strong> Elite gymnast, 6-month amenorrhea, recent stress fracture</p>
+                    <p><strong>Anthropometrics:</strong> Height 152cm, Weight 42kg, BMI 18.1</p>
+                    <p><strong>Training:</strong> 25 hours/week, pre-competition phase</p>
+                </div>
+                <div class="two-column">
+                    <div>
+                        <div class="danger-box">
+                            <h5>🔍 Assessment Findings</h5>
+                            <ul>
+                                <li><strong>Dietary intake:</strong> ~1400 kcal/gün (3-day record)</li>
+                                <li><strong>EA calculation:</strong> 22 kcal/kg FFM/gün</li>
+                                <li><strong>Labs:</strong> LH &lt;1 IU/L, E2 90 pmol/L</li>
+                                <li><strong>DXA:</strong> Lumbar spine T-score -1.8</li>
+                                <li><strong>Performance:</strong> Power output ↓15% vs baseline</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="success-box">
+                            <h5>💡 Treatment Plan</h5>
+                            <ul>
+                                <li><strong>Calorie target:</strong> 2200-2400 kcal/gün progression</li>
+                                <li><strong>Training modification:</strong> Volume ↓20%, intensity maintained</li>
+                                <li><strong>Supplements:</strong> Ca 1500mg, D3 4000IU daily</li>
+                                <li><strong>Monitoring:</strong> Weekly weight, monthly hormones</li>
+                                <li><strong>Psychology:</strong> Cognitive behavioral therapy</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 20: Gelecek Perspektifleri ve Araştırma -->
+            <div class="slide">
+                <h2>🔮 GELECEK PERSPEKTİFLERİ VE ARAŞTIRMA</h2>
+                <div class="formula-box">
+                    <h4>Emerging Research Areas</h4>
+                    <p><strong>Precision nutrition:</strong> Genetik polimorfizmler, microbiome</p>
+                    <p><strong>Technology integration:</strong> Wearables, AI-driven assessment</p>
+                    <p><strong>Long-term outcomes:</strong> Career longevity, health spans</p>
+                </div>
+                <div class="two-column">
+                    <div>
+                        <div class="info-box">
+                            <h5>🧬 Precision Medicine</h5>
+                            <ul>
+                                <li><strong>Genetic testing:</strong> FTO, ACTN3, MCT1 polymorphisms</li>
+                                <li><strong>Microbiome analysis:</strong> Gut-brain-performance axis</li>
+                                <li><strong>Metabolomics:</strong> Individual metabolic fingerprinting</li>
+                                <li><strong>Epigenetics:</strong> Training-nutrition gene expression</li>
+                                <li><strong>Biomarker panels:</strong> Predictive modeling algorithms</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="success-box">
+                            <h5>🚀 Technology Applications</h5>
+                            <ul>
+                                <li><strong>Continuous glucose monitoring:</strong> Real-time fuel status</li>
+                                <li><strong>Smart scales:</strong> Daily body composition tracking</li>
+                                <li><strong>AI nutrition apps:</strong> Personalized meal planning</li>
+                                <li><strong>Wearable integration:</strong> Training load + nutrition sync</li>
+                                <li><strong>Virtual reality:</strong> Eating disorder therapy tools</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="sidebar" id="slide-notes">
+            <h4>Çalışma Notları</h4>
+            <p>Bu bölümde her slide için detaylı açıklamalar ve ek bilgiler yer alacaktır.</p>
+        </div>
+    </div>
+
+    <div class="nav-buttons">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">⬅ Önceki</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Sonraki ➡</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = 20;
+
+        const slideNotes = [
+            {
+                title: "Giriş - Özel Popülasyonlar",
+                content: `
+                    <h4>👥 Özel Popülasyonların Önemi</h4>
+                    <p><strong>2023 IOC RED-S Consensus Update:</strong> International Olympic Committee'nin güncel bildirgesinde, özel popülasyonların sporcu beslenmesinde risk altında olduğu ve individualized yaklaşım gerektirdiği vurgulanmıştır. RED-S (Relative Energy Deficiency in Sport) kadın ve erkek atletleri etkilemekle birlikte, kadın atletlerde daha sık görülmektedir.</p>
+                    
+                    <p><strong>Risk Stratification ve Assessment:</strong> IOC REDs CAT2 (Clinical Assessment Tool Version 2) ile risk değerlendirmesi yapılır: (1) Initial screening, (2) Severity stratification, (3) Treatment planning. Yüksek riskli gruplar: aesthetic sports (%20-47), endurance sports (%25-58), weight-class sports (%33-62).</p>
+
+                    <p><strong>Physiological Model ve Complications:</strong> Low Energy Availability (LEA) &lt;30 kcal/kg FFM/gün durumunda sistemik etkiler: metabolic rate ↓10-40%, reproductive function ↓↓, bone health ↓, immune function ↓, cardiovascular health ↓, protein synthesis ↓. Bu etkiler performansı direkt olumsuz etkiler.</p>
+
+                    <p><strong>Multifactorial Approach:</strong> Beslenme tek başına yeterli değil. Psychological factors (perfectionism, body dissatisfaction), social factors (coach/peer pressure), sport-specific factors (weight requirements, aesthetic demands) beraber değerlendirilmelidir.</p>
+
+                    <p><strong>Prevention vs Treatment Paradigm:</strong> Primary prevention (education, environment modification) secondary prevention'dan (early detection, intervention) çok daha cost-effective. Treatment maliyeti prevention'dan 10-15 kat daha yüksek, career duration ise %30-50 daha kısa olmaktadır.</p>
+                `
+            },
+            {
+                title: "RED-S ve Kadın Atletler",
+                content: `
+                    <h4>🔬 RED-S Pathophysiology</h4>
+                    <p><strong>2023 IOC Updated Definition:</strong> RED-S, düşük enerji durumuna maruz kalan kadın ve erkek atletlerde görülen sağlık ve performans problemleri sendromudur. Energy Availability (EA) = Energy Intake - Exercise Energy Expenditure / Fat-Free Mass. Optimal EA: 45 kcal/kg FFM/gün, problemli LEA: &lt;30 kcal/kg FFM/gün.</p>
+                    
+                    <p><strong>Metabolic Adaptations ve Consequences:</strong> LEA durumunda vücut metabolic rate'i %10-40 azaltır (adaptive thermogenesis). T3 ↓, rT3 ↑, leptin ↓, ghrelin ↑, insulin sensitivity ↓. Bu adaptasyonlar initially protective ancak uzun dönemde performance ve health'i bozar.</p>
+
+                    <p><strong>Hormonal Cascade Effects:</strong> HPG axis suppression: GnRH pulse frequency ↓ → LH/FSH ↓ → estradiol/testosterone ↓. Concurrent olarak HPA axis aktivasyon: cortisol ↑, ACTH ↑. Growth hormone axis: IGF-1 ↓, IGFBP-1 ↑, protein turnover ↓.</p>
+
+                    <p><strong>Performance Implications ve Timeframe:</strong> Initial weight loss performansı temporary olarak artırabilir (power-to-weight ratio). Ancak 2-4 hafta içinde progressive decline: aerobic capacity ↓8-15%, anaerobic power ↓12-25%, strength ↓10-20%, coordination ↓, reaction time ↓.</p>
+
+                    <p><strong>Recovery Timeline ve Prognosis:</strong> Treatment ile metabolic recovery 3-6 ay, menstrual recovery 6-12 ay, bone recovery 12-24+ ay sürer. Erken müdahale critical: 6+ ay amenore durumunda bone loss partially irreversible olabilir. Complete recovery rate appropriate treatment ile %70-85.</p>
+                `
+            },
+            {
+                title: "Kadın Sporcu Triadı",
+                content: `
+                    <h4>🔺 Classic Triad Revisited</h4>
+                    <p><strong>Evolution from Triad to RED-S:</strong> Orijinal Female Athlete Triad (1992): amenorrhea, eating disorders, osteoporosis. 2007 güncellemesi: energy availability, menstrual dysfunction, bone health spectrum olarak genişletildi. 2014'te IOC RED-S konsepti ile male athletes dahil edildi ve systemic effects vurgulandı.</p>
+                    
+                    <p><strong>Interrelated Components ve Pathogenesis:</strong> Energy availability (EA) primary driver. EA ↓ → hypothalamic dysfunction → GnRH pulse frequency ↓ → reproductive hormone cascade ↓ → bone metabolism ↓. Ayrıca direct effects: IGF-1 ↓, mechanical loading ↓, calcium/vitamin D status.</p>
+
+                    <p><strong>Menstrual Dysfunction Spectrum:</strong> Normal cycle (21-35 days) → luteal phase deficiency → anovulatory cycles → oligomenorrhea (>35 days) → secondary amenorrhea (>3 months). Primary amenorrhea: menarche delay >16 yaş. Her stage bone health ve performance'ı progressively etkiler.</p>
+
+                    <p><strong>Bone Health Metabolism ve Biomarkers:</strong> Osteoblast activity ↓: osteocalcin ↓, bone-specific alkaline phosphatase ↓. Osteoclast activity ↑: CTX ↑, NTX ↑. Net result: bone formation ↓, bone resorption ↑. P1NP/CTX ratio optimal monitoring için kullanılır.</p>
+
+                    <p><strong>Treatment Efficacy ve Evidence:</strong> Randomized controlled trials: nutrition intervention alone %60-70 effective, nutrition + training modification %80-90 effective. Weight gain requirement: typically 2-3 kg optimal body weight restoration için. Hormonal contraceptives effectiveness controversial: bone health için limited benefit.</p>
+                `
+            },
+            {
+                title: "Amenore ve Hormonal Disregülasyon",
+                content: `
+                    <h4>🧬 Functional Hypothalamic Amenorrhea</h4>
+                    <p><strong>Pathophysiological Mechanisms:</strong> FHA primary mechanism: hypothalamic GnRH pulse generator dysfunction. Normal GnRH pulse: every 60-90 minutes. FHA'da pulse frequency ↓↓, amplitude ↓. Etiology: energy deficit, psychological stress, excessive exercise kombinasyonu. NPY/AgRP neurons (orexigenic) suppressed, POMC neurons (anorexigenic) activated.</p>
+                    
+                    <p><strong>Diagnostic Criteria ve Differential:</strong> Primary amenorrhea: no menarche by 16 yaş (with secondary sexual characteristics) or 14 yaş (without). Secondary amenorrhea: absence >3 consecutive cycles. Exclusions: pregnancy, PCOS, thyroid dysfunction, prolactinoma, primary ovarian insufficiency, anatomical abnormalities.</p>
+
+                    <p><strong>Hormonal Profile Characteristics:</strong> LH &lt;2 IU/L (normally 5-20), FSH &lt;5 IU/L (normally 5-20), estradiol &lt;100 pmol/L (normally 200-800 follicular phase). Associated findings: T3 ↓, rT3 ↑, cortisol ↑ (especially evening), growth hormone ↑, IGF-1 ↓, leptin ↓↓.</p>
+
+                    <p><strong>Cardiovascular Implications:</strong> Hypoestrogenism → endothelial dysfunction, arterial stiffness ↑, lipid profile deterioration (LDL ↑, HDL ↓). Long-term CVD risk elevated. Cardiac structural changes: left ventricular mass ↓, stroke volume ↓. Exercise capacity maintained initially but progressively declines.</p>
+
+                    <p><strong>Recovery Predictors ve Timeline:</strong> Positive predictors: younger age, shorter amenorrhea duration, higher baseline estradiol, motivation for recovery. Weight gain requirement: typically 90-95% ideal body weight. Timeline: LH pulsatility recovery 4-8 weeks, ovulation 8-16 weeks, regular cycles 3-6 months post weight restoration.</p>
+                `
+            },
+            {
+                title: "Kemik Sağlığı ve Osteoporoz Riski",
+                content: `
+                    <h4>🦴 Bone Metabolism in Athletes</h4>
+                    <p><strong>Bone Acquisition ve Peak Bone Mass:</strong> %90 peak bone mass 18-20 yaşında kazanılır. Athletic amenorrhea bu critical period'da bone accrual'ı bozar. Trabecular bone (vertebrae) cortical bone'dan daha hızlı etkilenir. Elite female athletes'da lomber spine osteopenia prevalansı %22-50, age-matched controls'da %12.</p>
+                    
+                    <p><strong>Estrogen-Bone Axis Mechanisms:</strong> Estrogen bone remodeling'i regulate eder: osteoclast apoptosis ↑, osteoblast lifespan ↑, RANKL/OPG ratio ↓. Estrogen deficiency → excessive bone resorption, impaired bone formation. Threshold effect: estradiol &lt;110 pmol/L'da bone loss accelerated.</p>
+
+                    <p><strong>Exercise Paradox ve Mechanical Loading:</strong> Weight-bearing exercise normally osteogenic. Ancak amenorrheic athletes'da mechanical stimulus response ↓. Possible mechanisms: IGF-1 ↓ (mechanical-biochemical coupling), inflammation ↑, recovery impaired. Exercise benefits > hormonal deficits sadece early stages'da.</p>
+
+                    <p><strong>Fracture Risk Assessment:</strong> Stress fracture incidence amenorrheic athletes'da 2-4 kat ↑. High-risk sites: tibia, metatarsals, femoral neck, ribs. Z-score &lt;-1.0 fracture risk significantly ↑. Previous fracture history strongest predictor subsequent fractures için.</p>
+
+                    <p><strong>Treatment Strategies Efficacy:</strong> Non-pharmacological: nutrition + weight restoration most effective. Pharmacological: transdermal estradiol + cyclic progestin bone density'yi improve eder (%2-4/year). Bisphosphonates reproductive age'da controversial. Denosumab emerging option severe cases için. Monitoring: DXA annually, bone turnover markers quarterly.</p>
+                `
+            },
+            {
+                title: "Genç Atletlerin Beslenmesi",
+                content: `
+                    <h4>👦 Adolescent Nutritional Physiology</h4>
+                    <p><strong>2024 Systematic Review Findings:</strong> Recent comprehensive review (MDPI Nutrients 2024) adolescent athletes'ın nutritional demands'ı tanımlamıştır. Energy requirements highly variable: 3640±830 kcal/gün males, 3100±720 kcal/gün females. Variability factors: growth rate, training volume, sport type, body composition, maturation stage.</p>
+                    
+                    <p><strong>Growth Velocity ve Energy Partitioning:</strong> Peak height velocity döneminde energy partitioning: %60 exercise, %25 growth, %15 maintenance. Growth priority hierarchy: linear growth > pubertal development > athletic performance > energy storage. Insufficient intake öncelikle performance'ı etkiler, growth relatively korunur.</p>
+
+                    <p><strong>Protein Requirements ve Anabolic Processes:</strong> Adolescent athletes protein needs adults'tan %25-40 ↑. Recommendations: 1.2-2.0 g/kg/day (vs adult 1.2-1.7). Growth hormone, IGF-1, testosterone levels peak döneminde protein synthesis rates maksimal. Leucine threshold: 2.0-2.5 g/meal optimal anabolism için.</p>
+
+                    <p><strong>Micronutrient Critical Windows:</strong> Adolescence critical window several micronutrients için: Iron (blood volume expansion, lean mass gain), Calcium (90% peak bone mass accumulation), Zinc (sexual maturation, tissue growth), Vitamin D (bone mineralization, immune function). Deficiencies bu dönemde long-lasting consequences'a neden olabilir.</p>
+
+                    <p><strong>Sport-Specific Considerations:</strong> Early sport specialization nutritional risks ↑: restricted food variety, weight pressures, supplement experimentation. Team sport athletes: intermittent energy demands, social eating challenges. Individual sport athletes: perfectionism, control issues, isolation risks. Aesthetic sport athletes: highest eating disorder risk (%15-47 prevalence).</p>
+                `
+            },
+            {
+                title: "Pubertal Gelişim ve Beslenme",
+                content: `
+                    <h4>🌱 Pubertal Development Nutrition Interface</h4>
+                    <p><strong>Tanner Stage Nutritional Implications:</strong> Tanner 1-2 (pre-pubertal): stable energy needs, foundation building. Tanner 3-4 (peak growth): energy needs ↑30-50%, protein synthesis maximal, micronutrient demands peak. Tanner 5 (post-pubertal): adult-like patterns, body composition stabilization. Nutrition intervention timing critical her stage için.</p>
+                    
+                    <p><strong>Hormonal Orchestration Effects:</strong> Growth hormone secretion nocturnal pattern establish olur, protein timing önemli. Testosterone/estrogen surge body composition'ı dramatically değiştirir: muscle mass ↑ (males >females), fat distribution changes, bone density accumulation accelerates. Insulin sensitivity typically ↓ mid-puberty, CHO tolerance affects.</p>
+
+                    <p><strong>Body Composition Trajectories:</strong> Males: lean mass +32 kg, fat mass stable (percentage ↓). Females: lean mass +16 kg, fat mass +16 kg (percentage ↑). Bu natural changes athletic performance expectations'ı realistically shape etmelidir. Body image issues peak bu dönemde (%40-60 athletes report dissatisfaction).</p>
+
+                    <p><strong>Metabolic Programming Concept:</strong> Pubertal nutrition long-term metabolic health'i program eder. Adequate nutrition: healthy metabolic set-points, optimal hormone function, peak performance potential. Inadequate nutrition: metabolic dysfunction risk ↑, stunted growth, delayed development, performance plateaus.</p>
+
+                    <p><strong>Family-Centered Approach:</strong> Adolescent nutrition decisions family environment'tan heavily influenced. Parent education critical: meal planning, grocery shopping, food preparation skills. Family meal frequency performance outcomes ile positive correlated. Social support systems eating behavior'ın strongest predictors among adolescents.</p>
+                `
+            },
+            {
+                title: "Master Atletler (35+ yaş)",
+                content: `
+                    <h4>🏃‍♂️ Age-Related Physiological Changes</h4>
+                    <p><strong>Sarcopenia and Anabolic Resistance:</strong> Sarcopenia 30 yaş sonrası başlar, rate %3-8/decade. Mechanism: protein synthesis ↓, protein breakdown ↑, anabolic resistance develops. mTOR signaling efficiency ↓, amino acid sensing impaired, satellite cell function ↓. Master athletes sarcopenia'yı significantly attenuate edebilir ama cannot completely prevent.</p>
+                    
+                    <p><strong>Protein Metabolism Alterations:</strong> Leucine threshold increases: young adults 2.5g → master athletes 3.0g optimal muscle protein synthesis için. Post-exercise anabolic response blunted: duration ↓, magnitude ↓. Protein timing becomes more critical: evenly distributed intake throughout day optimal.</p>
+
+                    <p><strong>Hormonal Changes Impact:</strong> Testosterone ♂: %1-2/year decline after 30. Growth hormone: %14/decade decline. IGF-1: parallel decline with GH. Thyroid function: T3 ↓, rT3 ↑. Insulin sensitivity: typically ↓ unless maintained through exercise. These changes collectively impair anabolic capacity.</p>
+
+                    <p><strong>Micronutrient Absorption Changes:</strong> Gastric acid production ↓ → B12 absorption ↓ (40+ yaş). Skin vitamin D synthesis %75 ↓ (70+ yaş vs young). Calcium absorption efficiency ↓ %10-15. Iron absorption may ↓ but iron stores typically adequate/elevated. Antioxidant needs ↑ due to ↑ oxidative stress.</p>
+
+                    <p><strong>Performance Maintenance Strategies:</strong> Protein intake: 1.6-2.2 g/kg (vs young 1.2-1.6). Post-exercise protein: 40-45g (vs young 20-25g). Creatine supplementation: cognitive + muscle benefits. Omega-3: anti-inflammatory effects. Leucine/HMB: anabolic resistance overcome etmek için. Timing: protein every 3-4 hours optimal.</p>
+                `
+            },
+            {
+                title: "Engelli Atletler (Paralympic)",
+                content: `
+                    <h4>♿ Disability-Specific Nutritional Adaptations</h4>
+                    <p><strong>Spinal Cord Injury (SCI) Metabolism:</strong> Complete SCI: BMR %10-40 ↓ injury level'a dependent. T12 altı: %27±8 ↓, T6 altı: %14±7 ↓, cervical: %24±11 ↓. Mechanism: muscle mass loss, sympathetic nervous system dysfunction, altered thermoregulation. Body composition: fat mass ↑, lean mass ↓, bone density ↓.</p>
+                    
+                    <p><strong>Amputee Energy Expenditure:</strong> Prosthetic usage energy cost: below-knee %9-20 ↑, above-knee %25-33 ↑, bilateral ↑60-100%. Prosthetic efficiency improvements reducing energy cost over time. Wheelchair racing: highly efficient, energy cost similar able-bodied running. Sport-specific prosthetics: carbon fiber, energy return systems.</p>
+
+                    <p><strong>Thermoregulation Challenges:</strong> SCI athletes: impaired sweating below injury level, risk hyperthermia. Cerebral palsy: altered thermoregulation due neurological dysfunction. Amputees: reduced surface area heat dissipation. Cooling strategies: pre-cooling, cooling vests, cold fluid intake critical özellikle hot environments'ta.</p>
+
+                    <p><strong>Medication-Nutrient Interactions:</strong> Anticonvulsants (cerebral palsy): folate, vitamin D, B6 depletion. Baclofen (spasticity): appetite ↑, weight gain risk. Antidepressants: appetite changes, weight fluctuations. Chronic pain medications: constipation, appetite ↓. Monitoring drug-nutrient interactions critical.</p>
+
+                    <p><strong>Classification-Specific Nutrition:</strong> Her Paralympic class unique challenges: T54 (wheelchair racing): hydration positioning, T44 (amputee running): prosthetic chafing nutrition prevention, S6 (swimming short stature): energy density requirements, F32 (throwing cerebral palsy): swallowing safety considerations. Individualized assessment mandatory.</p>
+                `
+            },
+            {
+                title: "Vegan/Vejetaryen Atletler",
+                content: `
+                    <h4>🌱 Plant-Based Athletic Nutrition</h4>
+                    <p><strong>Performance Evidence Review:</strong> Recent systematic reviews show no performance detriment plant-based diets'tan well-planned durumunda. Some benefits: improved blood flow (nitric oxide), reduced inflammation, enhanced recovery. Potential disadvantages: protein quality, micronutrient deficiencies, digestive issues, meal planning complexity.</p>
+                    
+                    <p><strong>Protein Quality Optimization:</strong> Plant proteins typically limiting amino acids contain: lysine (grains), methionine (legumes), tryptophan (corn). Complementary protein strategy: rice+beans, hummus+pita, nut butter+whole grain. Protein digestibility: animal %90-95, plant %70-85. Higher total protein intake compensate için: 1.4-2.0 g/kg recommended.</p>
+
+                    <p><strong>Critical Nutrient Monitoring:</strong> B12 deficiency risk %15-40 vegan athletes: mandatory supplementation 250-1000 mcg/day. Iron: non-heme absorption %3-8 vs heme %15-35. Enhancement strategies: vitamin C, organic acids, avoid tea/coffee with iron-rich meals. Ferritin monitoring quarterly recommended.</p>
+
+                    <p><strong>Omega-3 Fatty Acids Challenge:</strong> ALA (plant-based) EPA/DHA conversion very limited (%5-15). Direct EPA/DHA from algae supplements recommended: 250-500 mg EPA+DHA daily. Benefits: reduced inflammation, improved recovery, cognitive function, cardiac health. Timing: with meals absorption optimize etmek için.</p>
+
+                    <p><strong>Practical Implementation Strategies:</strong> Meal planning: nutrient density focus, variety emphasis. Supplementation protocol: B12 daily, D3, algae omega-3, potentially iron/zinc. Digestive adaptation: gradual fiber increase, enzyme supplements initially. Social challenges: team meals, travel, family situations. Education: food combining, cooking methods, supplement timing.</p>
+                `
+            },
+            {
+                title: "Yeme Bozuklukları ve Beslenme",
+                content: `
+                    <h4>🧠 Eating Disorders in Athletic Populations</h4>
+                    <p><strong>Prevalence Data ve Sport-Specific Risks:</strong> General population prevalence: anorexia %0.5-1%, bulimia %1-3%, binge eating %2-4%. Athletic populations: significantly ↑ özellikle aesthetic sports (gymnastics %47, dance %83), weight-class sports (wrestling %33, rowing %22), endurance sports (distance running %25). Male athletes increasing recognition: prevalence underestimated.</p>
+                    
+                    <p><strong>Performance Enhancement Paradox:</strong> Initial stages eating disorders performance'ı temporarily improve edebilir: power-to-weight ratio ↑, discipline ↑, training focus ↑. Bu creates dangerous positive reinforcement cycle. Progressive deterioration: energy availability ↓, recovery impaired, injury risk ↑, cognitive function ↓, social withdrawal ↑.</p>
+
+                    <p><strong>Diagnostic Challenges Athletes'ta:</strong> Traditional diagnostic criteria athletic populations için inadequate olabilir. Athletic amenorrhea vs anorexia-induced amenorrhea differentiation challenging. Low body weight athletes'ta normal olabilir. Excessive exercise compensatory behavior olarak masked training. Denial, secrecy sports culture tarafından reinforced.</p>
+
+                    <p><strong>Comorbidity Patterns:</strong> Anxiety disorders %60-80 comorbidity. Depression %50-70 especially bulimia. OCD %25-40 especially anorexia. Substance abuse %15-25 especially bulimia. Personality disorders: perfectionism, obsessive-compulsive traits common. Treatment approach multidisciplinary olmak zorunda.</p>
+
+                    <p><strong>Sport Culture Contributing Factors:</strong> Coach comments about weight/appearance. Team weigh-ins, body fat testing. Uniform requirements (revealing clothing). Weight cutting practices normalization. Performance pressure, scholarship concerns. Social media, appearance comparisons. Early sport specialization, identity fusion with athletic performance.</p>
+                `
+            },
+            {
+                title: "Anoreksiya Nervoza ve Atletler",
+                content: `
+                    <h4>⚖️ Anorexia Nervosa Athletic Presentation</h4>
+                    <p><strong>DSM-5-TR Diagnostic Adaptations:</strong> Standard criteria: (1) Restriction leading significant low weight, (2) Intense fear weight gain/persistent behavior preventing weight gain, (3) Disturbance body image. Athletes'ta adaptations: "significantly low weight" athletic populations için challenging define etmek. BMI &lt;18.5 adults, &lt;5th percentile adolescents generally used.</p>
+                    
+                    <p><strong>Athletic Anorexia Subtypes:</strong> Restricting type: calorie restriction, excessive exercise, no binge/purge. Binge-eating/purging type: restriction + episodes binge/compensatory behaviors. Athletic presentations often restricting type dominant. Exercise compulsion prominent feature: unable rest days, training through illness/injury.</p>
+
+                    <p><strong>Medical Complications Sport Context:</strong> Cardiovascular: resting bradycardia &lt;50 bpm, orthostatic hypotension, arrhythmias, sudden cardiac death risk. Bone health: accelerated bone loss, stress fracture risk ↑5-7x. Reproductive: amenorrhea, infertility. Neurological: cognitive impairment, peripheral neuropathy, seizures (severe cases).</p>
+
+                    <p><strong>Performance Decline Timeline:</strong> Initial phase (0-3 months): possible performance ↑ due weight loss. Intermediate phase (3-12 months): power output ↓, endurance ↓, recovery ↓, injury frequency ↑. Late phase (12+ months): severe performance decrement, career-threatening complications, retirement risk ↑.</p>
+
+                    <p><strong>Treatment Resistance Factors:</strong> Performance benefits reinforce disorder. Athletic identity threat with weight gain. Coach/sport environment enabling. Insurance coverage limitations. Treatment interfering training/competition schedule. Perfectionism, high achievement orientation treatment compliance'ı paradoxically impede edebilir.</p>
+                `
+            },
+            {
+                title: "Bulimiya Nervoza ve Binge Eating",
+                content: `
+                    <h4>🌊 Bulimia Nervoza Athletic Manifestations</h4>
+                    <p><strong>Athletic Bulimia Characteristics:</strong> Binge episodes: typically 1000-5000 kcal, loss of control, guilt/shame. Compensatory behaviors: vomiting (%80-90), laxatives (%15-30), diuretics (%5-15), excessive exercise (%60-80). Athletes unique compensatory methods: saunas, dehydration practices, training manipulation. Normal weight maintenance diagnosis'i challenging yapar.</p>
+                    
+                    <p><strong>Electrolyte Disturbances Athletic Context:</strong> Hypokalemia &lt;3.5 mEq/L: muscle weakness, cramping, arrhythmias, rhabdomyolysis risk. Hyponatremia &lt;135 mEq/L: confusion, seizures, cerebral edema. Hypochloremia: metabolic alkalosis, respiratory compensation. Dehydration: ↓plasma volume, ↓cardiac output, ↓thermoregulation, performance ↓↓.</p>
+
+                    <p><strong>Gastrointestinal Complications:</strong> Chronic vomiting: dental erosion, esophagitis, Mallory-Weiss tears, aspiration risk. Laxative abuse: cathartic colon, electrolyte depletion, rebound constipation. Ipecac use (rare): cardiomyopathy, sudden death. Athletes may use sport supplements inappropriately as purging agents.</p>
+
+                    <p><strong>Performance Impact Patterns:</strong> Inconsistent performance: good days (adequate nutrition) vs poor days (post-binge/purge). Hydration status fluctuations affecting thermoregulation. Energy availability swings causing metabolic confusion. Recovery impaired due nutrient malabsorption. Injury healing delayed due protein/micronutrient deficiencies.</p>
+
+                    <p><strong>Sport-Specific Triggers:</strong> Team meals: social anxiety, loss of control. Competition periods: stress-induced binging. Travel: disrupted routine, limited food choices. Off-season: weight gain fears, restriction-binge cycles. Media attention: appearance pressures. Achievement pressures: perfectionism trigger binge episodes.</p>
+                `
+            },
+            {
+                title: "Tedavi ve Recovery Beslenme",
+                content: `
+                    <h4>🔄 Nutritional Rehabilitation Protocols</h4>
+                    <p><strong>Refeeding Syndrome Prevention:</strong> High-risk criteria: BMI &lt;16, weight loss &gt;15% within 3-6 months, minimal intake 10+ days, history alcohol abuse. Mechanism: intracellular electrolyte shift insulin response ile. Phosphate &lt;0.65 mmol/L critical threshold. Prevention: thiamine 300mg/day, slow calorie progression, electrolyte monitoring.</p>
+                    
+                    <p><strong>Caloric Progression Protocols:</strong> Initial calories: 1000-1600 kcal/day risk assessment based. Progression: +200-300 kcal every 3-7 days. Target: 2500-4000+ kcal/day weight restoration için. Macronutrient distribution: 50-60% CHO, 20-25% fat, 15-20% protein. Meal pattern: 3 meals + 2-3 snacks, avoid skipping.</p>
+
+                    <p><strong>Weight Restoration Targets:</strong> Adults: 90-100% ideal body weight or pre-illness weight. Adolescents: growth chart trajectory restoration. Athletes: sport-specific optimal performance weight ranges. Rate: 0.5-1 kg/week outpatient, 1-2 kg/week inpatient. Monitoring: daily weights (treatment), weekly weights (recovery maintenance).</p>
+
+                    <p><strong>Metabolic Recovery Timeline:</strong> Cardiovascular: heart rate normalize 2-4 weeks, BP 4-8 weeks. Hormonal: cortisol normalize 4-8 weeks, reproductive hormones 3-6 months. Bone turnover: improvement 6-12 months, density gains 12-24 months. Psychological: mood improve 2-6 weeks, cognitive function 4-12 weeks.</p>
+
+                    <p><strong>Supplement Protocol:</strong> Universal: multivitamin, calcium 1200-1500mg, vitamin D 2000-4000 IU. Conditional: iron (if deficient), phosphate (refeeding), potassium (if low). Athletes: potential creatine, omega-3 for recovery. Avoid: weight loss products, stimulants, excessive antioxidants (may impair adaptation).</p>
+                `
+            },
+            {
+                title: "Return to Play Kriterleri",
+                content: `
+                    <h4>🏆 Safe Return to Sport Guidelines</h4>
+                    <p><strong>Medical Clearance Standards:</strong> Cardiovascular stability: resting HR &gt;60 bpm, BP &gt;90/60 mmHg, no orthostatic changes, normal ECG. Laboratory normalization: electrolytes, CBC, comprehensive metabolic panel, thyroid function. Bone health: stress fracture healing confirmed imaging ile. Hydration status: normal osmolality, kidney function.</p>
+                    
+                    <p><strong>Nutritional Stability Criteria:</strong> Weight restoration: &gt;90% expected body weight maintained 4+ weeks. Energy availability: calculated EA &gt;30 kcal/kg FFM/day. Eating behavior: regular meal pattern, variety, no compensatory behaviors 30+ days. Supplements: appropriate use, no misuse weight loss/diuretic products.</p>
+
+                    <p><strong>Psychological Readiness Assessment:</strong> Motivation evaluation: intrinsic vs extrinsic factors. Body image stability: acceptance weight restoration, realistic expectations. Coping strategies: stress management skills, alternative interests developed. Support system: family, friends, treatment team cooperation. Insight: understanding triggers, warning signs recognition.</p>
+
+                    <p><strong>Graduated Return Protocol:</strong> Phase 1: light activity, non-competitive (50% normal training). Phase 2: moderate intensity, technique focus (75% normal). Phase 3: full training, scrimmages, practice competition. Phase 4: return competition gradual exposure. Each phase 1-2 weeks minimum, regression protocols established.</p>
+
+                    <p><strong>Monitoring ve Long-term Management:</strong> Weekly monitoring initial month: weight, vital signs, psychological status. Monthly monitoring 3-6 months: comprehensive assessment. Quarterly monitoring maintenance: laboratory values, bone density annually. Trigger points for intervention: weight loss &gt;2 kg, behavioral changes, performance decline.</p>
+                `
+            },
+            {
+                title: "Beslenme Monitörüngi ve Assessment",
+                content: `
+                    <h4>📊 Comprehensive Assessment Protocols</h4>
+                    <p><strong>Anthropometric Monitoring Standards:</strong> Weight: daily during treatment (same time, conditions), weekly maintenance phase. Body composition: DXA gold standard, BodPod acceptable, BIA unreliable dehydrated states. Height: especially important adolescents, growth velocity tracking. Circumferences: waist, hip, limb measurements treatment progress için.</p>
+                    
+                    <p><strong>Laboratory Assessment Panels:</strong> Baseline comprehensive: CBC with differential, CMP, lipid panel, liver function tests, TSH, free T4, cortisol, inflammatory markers (ESR, CRP). Nutritional specific: ferritin, TIBC, B12, folate, 25(OH)D, zinc, magnesium. Bone markers: P1NP (formation), CTX (resorption), osteocalcin.</p>
+
+                    <p><strong>Hormonal Evaluation Timing:</strong> Reproductive hormones: LH, FSH, estradiol (females), testosterone (males). Timing critical: morning fasting samples, luteal phase if cycling. IGF-1, IGFBP-3: growth/anabolic status. Leptin: energy status indicator. Thyroid: T3, rT3 energy availability markers. Cortisol: stress response assessment.</p>
+
+                    <p><strong>Performance Biomarkers Integration:</strong> Energy metabolism: lactate threshold, RER patterns, substrate utilization. Recovery markers: CK, LDH, urea, CRP trends. Immune function: total WBC, lymphocyte subsets, salivary IgA. Hydration: plasma osmolality, urine specific gravity, body water distribution.</p>
+
+                    <p><strong>Technology-Enhanced Monitoring:</strong> Wearable devices: heart rate variability, sleep quality, activity levels. Mobile apps: food logging, mood tracking, symptom reporting. Continuous glucose monitoring: substrate utilization patterns. Smart scales: daily body composition trends. Integration data streams comprehensive picture için.</p>
+                `
+            },
+            {
+                title: "Multidisipliner Takım Yaklaşımı",
+                content: `
+                    <h4>👥 Integrated Care Team Structure</h4>
+                    <p><strong>Core Team Composition:</strong> Primary care sports medicine physician: medical oversight, clearance decisions, hospitalization criteria. Sport dietitian (CSSD preferred): nutrition assessment, meal planning, education. Mental health professional: eating disorder specialized, sport psychology background. Case manager: coordination, insurance advocacy, family liaison.</p>
+                    
+                    <p><strong>Extended Team Integration:</strong> Coach: training modification, environment modification, supportive communication. Athletic trainer: injury prevention, monitoring, early detection. Team physician: medical care coordination, emergency protocols. Family members: support, meal assistance, transportation. Peers: positive role models, recovery community.</p>
+
+                    <p><strong>Communication Protocols:</strong> Weekly team meetings during acute treatment. Bi-weekly meetings maintenance phase. Standardized assessment tools: shared documentation, progress tracking. Crisis intervention protocols: clear roles, contact information, escalation procedures. Confidentiality agreements: information sharing parameters within team.</p>
+
+                    <p><strong>Treatment Setting Options:</strong> Outpatient: weekly appointments, family involvement, continued sport participation potential. Intensive outpatient: daily programming, group therapy, maintained home environment. Partial hospitalization: day programming, medical monitoring, evening home. Inpatient: medical instability, severe psychological symptoms, failed outpatient attempts.</p>
+
+                    <p><strong>Outcome Measurement:</strong> Medical indicators: vital signs stability, laboratory normalization. Nutritional indicators: weight restoration, eating behavior normalization. Psychological indicators: mood, anxiety, body image, quality of life scores. Functional indicators: athletic performance, academic/work functioning, social relationships restoration.</p>
+                `
+            },
+            {
+                title: "Eğitim ve Önleme Stratejileri",
+                content: `
+                    <h4>📚 Primary Prevention Framework</h4>
+                    <p><strong>Multi-Level Prevention Approach:</strong> Individual level: athlete education, skill building, resilience training. Interpersonal level: coach education, peer support programs, family involvement. Organizational level: policy development, culture change, environment modification. Community level: media literacy, societal attitudes, healthcare integration.</p>
+                    
+                    <p><strong>Evidence-Based Prevention Programs:</strong> Athlete-targeted programs: body image, media literacy, nutrition education. Coach education programs: communication skills, detection training, referral protocols. Parent/family programs: meal planning, support strategies, warning sign recognition. Sport organization policies: weight management, competitive practices, support services.</p>
+
+                    <p><strong>Critical Content Areas:</strong> Sport nutrition fundamentals: energy balance, periodization, supplement safety. RED-S/eating disorder awareness: signs, symptoms, consequences, help-seeking. Healthy weight management: realistic expectations, safe practices. Body composition education: individual variation, performance vs appearance. Mental health literacy: stress management, help-seeking, stigma reduction.</p>
+
+                    <p><strong>Implementation Strategies:</strong> Timing: pre-season mandatory education, ongoing reinforcement. Delivery methods: interactive workshops, online modules, peer education. Assessment: knowledge testing, behavior change measurement. Booster sessions: quarterly updates, seasonal reminders. Evaluation: program effectiveness, outcome tracking, continuous improvement.</p>
+
+                    <p><strong>Environmental Modifications:</strong> Eliminate team weigh-ins, body fat testing unless medically indicated. Modify uniforms: less revealing options. Nutrition environment: adequate food access, positive food culture. Communication guidelines: avoid weight/appearance comments. Policy development: eating disorder protocols, return-to-play guidelines, crisis intervention procedures.</p>
+                `
+            },
+            {
+                title: "Case Study Analysis",
+                content: `
+                    <h4>📋 Integrated Case Management</h4>
+                    <p><strong>Comprehensive Assessment Integration:</strong> 17-year-old elite gymnast presentation classic RED-S/Triad constellation. Energy availability calculation: (1400 kcal - 800 kcal exercise) / 27 kg FFM = 22 kcal/kg FFM/day (severely low). Hormonal suppression severity: LH &lt;1 IU/L indicates complete HPG axis shutdown. Bone health: T-score -1.8 indicates significant bone loss adolescent için.</p>
+                    
+                    <p><strong>Risk Stratification Assessment:</strong> High-risk factors: aesthetic sport, perfectionist personality, coach pressure, 6-month amenorrhea duration, previous stress fracture. Protective factors: family support, early detection, motivated for treatment, no previous eating disorder history. Overall risk: HIGH - immediate intervention required prevent long-term complications.</p>
+
+                    <p><strong>Treatment Prioritization Strategy:</strong> Immediate priorities: (1) Energy availability restoration, (2) Training load reduction, (3) Medical monitoring, (4) Psychological support. Medium-term goals: (5) Weight restoration 2-3 kg, (6) Menstrual function return, (7) Bone health improvement, (8) Performance recovery. Long-term objectives: (9) Sustainable practices, (10) Career longevity, (11) Lifelong health optimization.</p>
+
+                    <p><strong>Monitoring Protocol Customization:</strong> Weekly: weight, vital signs, food intake review, psychological check-in. Bi-weekly: training load assessment, injury surveillance. Monthly: laboratory evaluation (hormones, bone markers), family meeting. Quarterly: DXA scan, comprehensive team review. Crisis indicators: weight loss, vital sign changes, new injuries, mood deterioration.</p>
+
+                    <p><strong>Prognosis ve Long-term Planning:</strong> Positive prognostic factors: young age, early intervention, family support, no comorbid eating disorder. Expected timeline: metabolic improvement 4-8 weeks, menstrual return 3-6 months, bone recovery 12-18 months, full performance restoration 6-12 months. Long-term monitoring: annual DXA, reproductive health tracking, career transition support.</p>
+                `
+            },
+            {
+                title: "Gelecek Perspektifleri ve Araştırma",
+                content: `
+                    <h4>🔮 Emerging Research Frontiers</h4>
+                    <p><strong>Precision Nutrition Integration:</strong> Genetic polymorphisms affecting eating disorder risk: 5-HTR2A (serotonin), ANKK1 (dopamine), FTO (leptin resistance). Microbiome profiling: gut-brain axis, mood regulation, nutrient absorption patterns. Metabolomics: individual metabolic fingerprinting, personalized nutrition recommendations. Epigenetics: training-nutrition interactions affecting gene expression patterns.</p>
+                    
+                    <p><strong>Technology-Enhanced Assessment:</strong> Artificial intelligence: pattern recognition eating behavior, early detection algorithms. Machine learning: risk prediction models, treatment response optimization. Wearable technology: continuous physiological monitoring, real-time intervention triggers. Mobile health platforms: symptom tracking, peer support, treatment adherence.</p>
+
+                    <p><strong>Treatment Innovation Directions:</strong> Virtual reality therapy: body image interventions, exposure therapy, coping skills practice. Neurofeedback: brain training, anxiety reduction, cognitive enhancement. Pharmacological advances: targeted therapies, personalized medication selection. Telehealth expansion: remote monitoring, specialized access, cost-effective delivery.</p>
+
+                    <p><strong>Prevention Science Advancement:</strong> Social media interventions: positive body image campaigns, peer influence modification. Environmental design: food environment optimization, policy interventions. Early identification: screening tool refinement, biomarker development. Cultural adaptation: diverse populations, sport-specific approaches, gender considerations.</p>
+
+                    <p><strong>Long-term Outcome Research:</strong> Career longevity studies: eating disorder impact athletic careers. Health span investigation: long-term health consequences, quality of life measures. Economic analysis: cost-effectiveness prevention vs treatment, healthcare utilization patterns. Intergenerational effects: parent athlete experiences affecting children, family system interventions.</p>
+                `
+            }
+        ];
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            
+            const progressBar = document.getElementById('progressBar');
+            progressBar.style.width = ((currentSlide + 1) / totalSlides) * 100 + '%';
+            
+            document.getElementById('slideCounter').textContent = `${currentSlide + 1} / ${totalSlides}`;
+            
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+            
+            updateSidebarNotes();
+        }
+
+        function updateSidebarNotes() {
+            const notesContainer = document.getElementById('slide-notes');
+            if (slideNotes[currentSlide]) {
+                notesContainer.innerHTML = `
+                    <h4>${slideNotes[currentSlide].title}</h4>
+                    ${slideNotes[currentSlide].content}
+                `;
+            }
+        }
+
+        function changeSlide(direction) {
+            showSlide(currentSlide + direction);
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+            if (e.key === 'ArrowRight') changeSlide(1);
+        });
+
+        let startX = 0;
+        document.addEventListener('touchstart', function(e) {
+            startX = e.touches[0].clientX;
+        });
+
+        document.addEventListener('touchend', function(e) {
+            const endX = e.changedTouches[0].clientX;
+            const diff = startX - endX;
+            
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) changeSlide(1);
+                else changeSlide(-1);
+            }
+        });
+
+        document.addEventListener('wheel', function(e) {
+            if (e.deltaY > 0) changeSlide(1);
+            else changeSlide(-1);
+        });
+
+        showSlide(0);
+
+        document.addEventListener('dblclick', function() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        });
+    </script>
+</body>
+</html>

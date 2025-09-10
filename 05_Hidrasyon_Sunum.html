@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hidrasyon ve Sıvı Alımı - Sporcu Beslenmesi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #00c6fb 0%, #005bea 100%);
+            color: white;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .sidebar {
+            width: 400px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            overflow-y: auto;
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            display: none;
+        }
+
+        .sidebar.active {
+            display: block;
+        }
+
+        .sidebar h3 {
+            color: #ffeb3b;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        .sidebar h4 {
+            color: #81d4fa;
+            margin-bottom: 10px;
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+
+        .sidebar p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+            font-size: 0.95em;
+            text-align: justify;
+        }
+
+        .slide {
+            display: none;
+            width: 90%;
+            max-width: 1000px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 60px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            animation: slideIn 0.6s ease-out;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            background: linear-gradient(45deg, #fff, #e0e0e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h2 {
+            font-size: 2.5em;
+            margin-bottom: 25px;
+            color: #ffeb3b;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        h3 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #81d4fa;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        h4 {
+            font-size: 1.6em;
+            margin-bottom: 15px;
+            color: #a5d6a7;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        p, li {
+            font-size: 1.3em;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        ul {
+            text-align: left;
+            margin: 20px 0;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .navigation {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 100;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .notes-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 193, 7, 0.8);
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .notes-btn:hover {
+            background: rgba(255, 193, 7, 1);
+            transform: scale(1.05);
+        }
+
+        .progress-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: #ffeb3b;
+            transition: width 0.3s ease;
+            z-index: 100;
+        }
+
+        .slide-counter {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px 15px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .highlight {
+            background: linear-gradient(45deg, #ffeb3b, #ff9800);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: bold;
+            margin: 0 15px;
+            padding: 10px 20px;
+            border: 2px solid rgba(255, 235, 59, 0.3);
+            border-radius: 25px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .formula-box {
+            background: rgba(139, 69, 19, 0.3);
+            border: 2px solid #8b4513;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            text-align: left;
+            margin: 20px 0;
+        }
+
+        .three-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+            text-align: left;
+            margin: 20px 0;
+        }
+
+        .warning-box {
+            background: rgba(255, 193, 7, 0.2);
+            border: 2px solid #ffc107;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .danger-box {
+            background: rgba(244, 67, 54, 0.2);
+            border: 2px solid #f44336;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .success-box {
+            background: rgba(76, 175, 80, 0.2);
+            border: 2px solid #4caf50;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .info-box {
+            background: rgba(33, 150, 243, 0.2);
+            border: 2px solid #2196f3;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .hydration-level {
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            border: 2px solid;
+        }
+
+        .level-good {
+            background: rgba(76, 175, 80, 0.2);
+            border-color: #4caf50;
+        }
+
+        .level-mild {
+            background: rgba(255, 193, 7, 0.2);
+            border-color: #ffc107;
+        }
+
+        .level-severe {
+            background: rgba(244, 67, 54, 0.2);
+            border-color: #f44336;
+        }
+
+        @media (max-width: 1200px) {
+            .sidebar {
+                width: 350px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: 50%;
+                border-left: none;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            
+            .main-content {
+                height: 50%;
+            }
+            
+            .slide {
+                width: 95%;
+                padding: 40px 30px;
+            }
+            
+            h1 { font-size: 2.2em; }
+            h2 { font-size: 1.8em; }
+            h3 { font-size: 1.5em; }
+            h4 { font-size: 1.3em; }
+            p, li { font-size: 1.1em; }
+            
+            .two-column, .three-column {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+    <div class="slide-counter" id="slideCounter">1 / 8</div>
+    <button class="notes-btn" id="notesBtn">📝 Detaylı Notlar</button>
+
+    <div class="main-content">
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <h1>💧 HİDRASYON VE SIVI ALIMI</h1>
+            <h2>Sporcu Performansının Sıvı Temeli</h2>
+            <p style="font-size: 1.5em; margin-top: 40px;">Optimal Hidrasyon Stratejileri</p>
+            <div style="margin-top: 50px;">
+                <span class="highlight">Vücut Sıvı Dengesi</span>
+                <span class="highlight">Elektrolit Yönetimi</span>
+                <span class="highlight">Ter Kaybı Analizi</span>
+                <span class="highlight">Rehidrasyon</span>
+            </div>
+        </div>
+
+        <!-- Slide 2: Hydration Physiology -->
+        <div class="slide">
+            <h2>🧬 HİDRASYON FİZYOLOJİSİ</h2>
+            <div class="two-column">
+                <div>
+                    <h4>💧 Vücut Sıvı Dağılımı</h4>
+                    <div class="info-box">
+                        <h5>Toplam Vücut Suyu (%60-70):</h5>
+                        <ul>
+                            <li><strong>Hücre İçi:</strong> %40 (Kas hücreleri)</li>
+                            <li><strong>Hücre Dışı:</strong> %20</li>
+                            <li style="margin-left: 20px;">- <strong>Plazma:</strong> %5</li>
+                            <li style="margin-left: 20px;">- <strong>Doku Arası:</strong> %15</li>
+                        </ul>
+                        
+                        <h5>70kg Sporcu Örneği:</h5>
+                        <ul>
+                            <li><strong>Toplam su:</strong> ~42L</li>
+                            <li><strong>Kas suyu:</strong> ~28L</li>
+                            <li><strong>Kan plazması:</strong> ~3.5L</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h4>⚖️ Sıvı Dengesi Kontrolü</h4>
+                    <div class="success-box">
+                        <h5>Düzenleyici Mekanizmalar:</h5>
+                        <ul>
+                            <li><strong>Hipotalamus:</strong> Susama merkezi</li>
+                            <li><strong>Antidiüretik Hormon:</strong> Su geri emilimi</li>
+                            <li><strong>Böbrek:</strong> İdrar konsantrasyonu</li>
+                            <li><strong>Aldosteron:</strong> Sodyum korunumu</li>
+                        </ul>
+                    </div>
+                    
+                    <h4>📊 Günlük Sıvı Hareketleri</h4>
+                    <div class="formula-box">
+                        <h5>Sıvı Giriş (2.5L/gün):</h5>
+                        <ul>
+                            <li>İçecekler: 1.5L</li>
+                            <li>Besinler: 0.7L</li>
+                            <li>Metabolik su: 0.3L</li>
+                        </ul>
+                        
+                        <h5>Sıvı Çıkış (2.5L/gün):</h5>
+                        <ul>
+                            <li>İdrar: 1.5L</li>
+                            <li>Solunum: 0.4L</li>
+                            <li>Deri: 0.4L</li>
+                            <li>Dışkı: 0.2L</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Dehydration Effects -->
+        <div class="slide">
+            <h2>⚠️ DEHİDRASYONUN PERFORMANS ETKİLERİ</h2>
+            <div class="three-column">
+                <div class="level-good">
+                    <h4>✅ Normal Hidrasyon (0-2%)</h4>
+                    <h5>Fizyolojik Durum:</h5>
+                    <ul>
+                        <li>Optimal kan hacmi</li>
+                        <li>Normal kalp hızı</li>
+                        <li>Etkili termoregülasyon</li>
+                        <li>Maksimal güç üretimi</li>
+                    </ul>
+                    
+                    <h5>Performans:</h5>
+                    <ul>
+                        <li><strong>Dayanıklılık:</strong> %100</li>
+                        <li><strong>Güç:</strong> %100</li>
+                        <li><strong>Kognitif:</strong> %100</li>
+                        <li><strong>Koordinasyon:</strong> %100</li>
+                    </ul>
+                    
+                    <h5>Belirtiler:</h5>
+                    <ul>
+                        <li>İdrar açık sarı</li>
+                        <li>Minimal susuzluk</li>
+                        <li>Enerji yüksek</li>
+                    </ul>
+                </div>
+                
+                <div class="level-mild">
+                    <h4>⚠️ Hafif Dehidrasyon (2-5%)</h4>
+                    <h5>Fizyolojik Değişiklikler:</h5>
+                    <ul>
+                        <li>Plazma hacmi %3-8 azalma</li>
+                        <li>Kalp hızı %5-10 artış</li>
+                        <li>Vücut sıcaklığı yükselme</li>
+                        <li>Ter oranı azalma</li>
+                    </ul>
+                    
+                    <h5>Performans Kayıpları:</h5>
+                    <ul>
+                        <li><strong>Dayanıklılık:</strong> %10-15 ↓</li>
+                        <li><strong>Güç:</strong> %5-10 ↓</li>
+                        <li><strong>Kognitif:</strong> %10-20 ↓</li>
+                        <li><strong>Koordinasyon:</strong> %5-15 ↓</li>
+                    </ul>
+                    
+                    <h5>Belirtiler:</h5>
+                    <ul>
+                        <li>İdrar koyu sarı</li>
+                        <li>Artmış susuzluk</li>
+                        <li>Baş ağrısı başlangıcı</li>
+                        <li>Yorgunluk hissi</li>
+                    </ul>
+                </div>
+                
+                <div class="level-severe">
+                    <h4>🚨 Ciddi Dehidrasyon (5%+)</h4>
+                    <h5>Kritik Fizyolojik Bozukluk:</h5>
+                    <ul>
+                        <li>Plazma hacmi %10+ azalma</li>
+                        <li>Kalp hızı %15+ artış</li>
+                        <li>Hipertermiya riski</li>
+                        <li>Elektrolit dengesizliği</li>
+                    </ul>
+                    
+                    <h5>Dramatik Performans Kaybı:</h5>
+                    <ul>
+                        <li><strong>Dayanıklılık:</strong> %20-30 ↓</li>
+                        <li><strong>Güç:</strong> %15-25 ↓</li>
+                        <li><strong>Kognitif:</strong> %30-50 ↓</li>
+                        <li><strong>Koordinasyon:</strong> %25-40 ↓</li>
+                    </ul>
+                    
+                    <h5>Tehlike Belirtileri:</h5>
+                    <ul>
+                        <li>İdrar çok koyu/yok</li>
+                        <li>Şiddetli susuzluk</li>
+                        <li>Baş dönmesi</li>
+                        <li>Bulantı</li>
+                        <li>Mental konfüzyon</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Sweat Production -->
+        <div class="slide">
+            <h2>💦 TER ÜRETİMİ VE KAYIP ANALİZİ</h2>
+            <div class="two-column">
+                <div>
+                    <h4>🌡️ Ter Oranları ve Faktörler</h4>
+                    <div class="formula-box">
+                        <h5>Tipik Ter Oranları:</h5>
+                        <ul>
+                            <li><strong>Dinlenim:</strong> 0.5-1L/gün</li>
+                            <li><strong>Hafif egzersiz:</strong> 0.3-0.7L/saat</li>
+                            <li><strong>Orta egzersiz:</strong> 0.8-1.5L/saat</li>
+                            <li><strong>Yoğun egzersiz:</strong> 1.5-3L/saat</li>
+                            <li><strong>Maksimum:</strong> 4L/saat (kısa süre)</li>
+                        </ul>
+                        
+                        <h5>Etkileyen Faktörler:</h5>
+                        <ul>
+                            <li><strong>Sıcaklık:</strong> Her 1°C ↑ = %3-5 ↑</li>
+                            <li><strong>Nem:</strong> %10 ↑ = %5-10 ↑</li>
+                            <li><strong>Vücut kütlesi:</strong> Doğru orantılı</li>
+                            <li><strong>Fitness seviyesi:</strong> Daha verimli</li>
+                            <li><strong>Aklimatizasyon:</strong> %10-25 azalma</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h4>⚗️ Ter Kompozisyonu</h4>
+                    <div class="warning-box">
+                        <h5>Ana Bileşenler (L başına):</h5>
+                        <ul>
+                            <li><strong>Su:</strong> %99 (990ml)</li>
+                            <li><strong>Sodyum:</strong> 200-2000mg</li>
+                            <li><strong>Klorür:</strong> 300-1500mg</li>
+                            <li><strong>Potasyum:</strong> 150-300mg</li>
+                            <li><strong>Magnezyum:</strong> 10-40mg</li>
+                            <li><strong>Kalsiyum:</strong> 15-40mg</li>
+                        </ul>
+                        
+                        <h5>Bireysel Varyasyon:</h5>
+                        <ul>
+                            <li><strong>Düşük tuzlu:</strong> <500mg Na/L</li>
+                            <li><strong>Orta tuzlu:</strong> 500-1200mg Na/L</li>
+                            <li><strong>Yüksek tuzlu:</strong> >1200mg Na/L</li>
+                        </ul>
+                    </div>
+                    
+                    <h4>📊 Ter Kaybı Hesaplama</h4>
+                    <div class="success-box">
+                        <h5>Pratik Formül:</h5>
+                        <p><strong>Ter kaybı = (Antrenman öncesi ağırlık - Antrenman sonrası ağırlık + İçilen sıvı) × 1000</strong></p>
+                        
+                        <h5>Örnek Hesaplama:</h5>
+                        <ul>
+                            <li>Başlangıç: 70kg</li>
+                            <li>Bitiş: 68.5kg</li>
+                            <li>İçilen: 500ml</li>
+                            <li>Ter kaybı: 2000ml</li>
+                            <li>Ter oranı: 2L/saat</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Hydration Strategies -->
+        <div class="slide">
+            <h2>📋 HİDRASYON STRATEJİLERİ</h2>
+            <div class="three-column">
+                <div class="info-box">
+                    <h4>⏰ Antrenman Öncesi (Pre-Loading)</h4>
+                    <h5>4-6 Saat Öncesi:</h5>
+                    <ul>
+                        <li><strong>5-7ml/kg:</strong> Temel hidrasyon</li>
+                        <li><strong>70kg sporcu:</strong> 350-500ml</li>
+                        <li><strong>Elektrolit:</strong> 200-300mg sodyum</li>
+                    </ul>
+                    
+                    <h5>2-3 Saat Öncesi:</h5>
+                    <ul>
+                        <li><strong>3-5ml/kg:</strong> Ek hidrasyon</li>
+                        <li><strong>70kg sporcu:</strong> 200-350ml</li>
+                        <li><strong>İdrar kontrolü:</strong> Açık sarı</li>
+                    </ul>
+                    
+                    <h5>15-30dk Öncesi:</h5>
+                    <ul>
+                        <li><strong>200-300ml:</strong> Son destek</li>
+                        <li><strong>Sıcaklık:</strong> 15-22°C</li>
+                        <li><strong>Elektrolit:</strong> Hafif konsantrasyon</li>
+                    </ul>
+                </div>
+                
+                <div class="success-box">
+                    <h4>🏃 Antrenman Sırası</h4>
+                    <h5>Temel Prensipler:</h5>
+                    <ul>
+                        <li><strong>Erken başla:</strong> İlk 15dk</li>
+                        <li><strong>Düzenli al:</strong> Her 15-20dk</li>
+                        <li><strong>Küçük yudumlar:</strong> 150-250ml</li>
+                        <li><strong>Mide kapasitesi:</strong> 600-800ml/saat</li>
+                    </ul>
+                    
+                    <h5>Egzersiz Süresine Göre:</h5>
+                    <ul>
+                        <li><strong><60dk:</strong> Su yeterli</li>
+                        <li><strong>60-90dk:</strong> %4-6 CHO + elektrolit</li>
+                        <li><strong>>90dk:</strong> %6-8 CHO + yüksek elektrolit</li>
+                    </ul>
+                    
+                    <h5>Çevresel Adaptasyonlar:</h5>
+                    <ul>
+                        <li><strong>Sıcak:</strong> %25-50 artış</li>
+                        <li><strong>Nemli:</strong> Elektrolit odak</li>
+                        <li><strong>Yüksek irtifa:</strong> %15-25 artış</li>
+                    </ul>
+                </div>
+                
+                <div class="warning-box">
+                    <h4>⚡ Antrenman Sonrası</h4>
+                    <h5>Hızlı Rehidrasyon:</h5>
+                    <ul>
+                        <li><strong>İlk 500-600ml:</strong> Hemen</li>
+                        <li><strong>Hedef:</strong> Ter kaybının %125-150'si</li>
+                        <li><strong>Süre:</strong> 4-6 saat içinde</li>
+                        <li><strong>Kontrol:</strong> Vücut ağırlığı</li>
+                    </ul>
+                    
+                    <h5>Elektrolit Restorasyonu:</h5>
+                    <ul>
+                        <li><strong>Sodyum:</strong> 300-600mg/L</li>
+                        <li><strong>Potasyum:</strong> 200-400mg/L</li>
+                        <li><strong>CHO:</strong> %6-8 (hızlı emilim)</li>
+                    </ul>
+                    
+                    <h5>İzleme Parametreleri:</h5>
+                    <ul>
+                        <li><strong>İdrar rengi:</strong> Açık sarı hedef</li>
+                        <li><strong>İdrar hacmi:</strong> Normal frekansta</li>
+                        <li><strong>Vücut ağırlığı:</strong> Başlangıç seviyesi</li>
+                        <li><strong>Susuzluk hissi:</strong> Minimal</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Sports Drinks -->
+        <div class="slide">
+            <h2>🥤 SPOR İÇECEKLERİ VE FORMÜLASYONLAR</h2>
+            <div class="two-column">
+                <div>
+                    <h4>🧪 İdeal Spor İçeceği Formülü</h4>
+                    <div class="formula-box">
+                        <h5>Temel Kompozisyon:</h5>
+                        <ul>
+                            <li><strong>Karbonhidrat:</strong> %4-8 (40-80g/L)</li>
+                            <li><strong>Sodyum:</strong> 200-600mg/L</li>
+                            <li><strong>Potasyum:</strong> 150-300mg/L</li>
+                            <li><strong>Magnezyum:</strong> 10-50mg/L</li>
+                            <li><strong>Osmolarite:</strong> 280-350 mOsm/kg</li>
+                        </ul>
+                        
+                        <h5>Karbonhidrat Türleri:</h5>
+                        <ul>
+                            <li><strong>Glukoz:</strong> Hızlı emilim</li>
+                            <li><strong>Fruktoz:</strong> Farklı transportör</li>
+                            <li><strong>Sukroz:</strong> Glukoz + fruktoz</li>
+                            <li><strong>Maltodekstrin:</strong> Düşük osmolarite</li>
+                            <li><strong>Optimal oran:</strong> Glukoz:Fruktoz 2:1</li>
+                        </ul>
+                    </div>
+                    
+                    <h4>⚖️ Osmolarite ve Emilim</h4>
+                    <div class="info-box">
+                        <h5>Çözelti Türleri:</h5>
+                        <ul>
+                            <li><strong>Hipotonik:</strong> <280 mOsm/kg</li>
+                            <li>→ Hızlı su emilimi</li>
+                            <li><strong>İzotonik:</strong> 280-320 mOsm/kg</li>
+                            <li>→ Dengeli emilim</li>
+                            <li><strong>Hipertonik:</strong> >320 mOsm/kg</li>
+                            <li>→ Yavaş emilim, GI risk</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h4>🏠 Ev Yapımı Spor İçeceği Tarifleri</h4>
+                    <div class="success-box">
+                        <h5>Temel Tarif (1L için):</h5>
+                        <ul>
+                            <li><strong>Su:</strong> 1000ml</li>
+                            <li><strong>Şeker:</strong> 40-60g (4-6 çay kaşığı)</li>
+                            <li><strong>Tuz:</strong> 1.5g (1/4 çay kaşığı)</li>
+                            <li><strong>Limon suyu:</strong> 2 yemek kaşığı</li>
+                        </ul>
+                        
+                        <h5>Gelişmiş Tarif:</h5>
+                        <ul>
+                            <li><strong>Su:</strong> 800ml</li>
+                            <li><strong>Meyve suyu:</strong> 200ml</li>
+                            <li><strong>Bal:</strong> 30g</li>
+                            <li><strong>Deniz tuzu:</strong> 2g</li>
+                            <li><strong>Magnezyum tableti:</strong> 1 adet</li>
+                        </ul>
+                        
+                        <h5>Doğal Seçenekler:</h5>
+                        <ul>
+                            <li><strong>Hindistan cevizi suyu</strong> + pinçik tuz</li>
+                            <li><strong>Seyreltilmiş meyve suyu</strong> (1:1)</li>
+                            <li><strong>Yeşil çay</strong> + bal + tuz</li>
+                        </ul>
+                    </div>
+                    
+                    <h4>💰 Maliyet Karşılaştırması</h4>
+                    <div class="warning-box">
+                        <h5>500ml İçecek Maliyeti:</h5>
+                        <ul>
+                            <li><strong>Hazır spor içeceği:</strong> ₺8-15</li>
+                            <li><strong>Ev yapımı temel:</strong> ₺0.50-1</li>
+                            <li><strong>Ev yapımı gelişmiş:</strong> ₺1.50-2.50</li>
+                            <li><strong>Yıllık tasarruf:</strong> ₺2000-5000</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Environmental Factors -->
+        <div class="slide">
+            <h2>🌡️ ÇEVRESEL FAKTÖRLER VE ADAPTASYONLAR</h2>
+            <div class="three-column">
+                <div class="danger-box">
+                    <h4>🔥 Sıcak İklim Adaptasyonları</h4>
+                    <h5>Fizyolojik Değişiklikler:</h5>
+                    <ul>
+                        <li><strong>Ter oranı:</strong> %20-50 artış</li>
+                        <li><strong>Erken ter başlangıcı</strong></li>
+                        <li><strong>Plazma hacmi genişlemesi</strong></li>
+                        <li><strong>Elektrolit korunumu</strong></li>
+                    </ul>
+                    
+                    <h5>Hidrasyon Stratejisi:</h5>
+                    <ul>
+                        <li><strong>Sıvı alımı:</strong> %25-50 ↑</li>
+                        <li><strong>Sodyum:</strong> 400-800mg/L</li>
+                        <li><strong>Pre-cooling:</strong> Soğuk içecek</li>
+                        <li><strong>Sık alım:</strong> Her 10-15dk</li>
+                    </ul>
+                    
+                    <h5>Uyarı İşaretleri:</h5>
+                    <ul>
+                        <li><strong>Aşırı terleme</strong></li>
+                        <li><strong>Kas krampları</strong></li>
+                        <li><strong>Baş dönmesi</strong></li>
+                        <li><strong>Bulantı</strong></li>
+                    </ul>
+                </div>
+                
+                <div class="info-box">
+                    <h4>🏔️ Yüksek İrtifa Etkileri</h4>
+                    <h5>Fizyolojik Stresler:</h5>
+                    <ul>
+                        <li><strong>Artmış solunum hızı</strong></li>
+                        <li><strong>Diüretik etki</strong></li>
+                        <li><strong>Susuzluk hissi azalması</strong></li>
+                        <li><strong>Kuru hava</strong></li>
+                    </ul>
+                    
+                    <h5>Hidrasyon Önerileri:</h5>
+                    <ul>
+                        <li><strong>Sıvı artışı:</strong> %15-25</li>
+                        <li><strong>Proaktif içim:</strong> Susuzluk beklemeden</li>
+                        <li><strong>Elektrolit desteği</strong></li>
+                        <li><strong>İdrar takibi</strong> kritik</li>
+                    </ul>
+                    
+                    <h5>Özel Dikkat:</h5>
+                    <ul>
+                        <li><strong>İlk 3-5 gün</strong> kritik</li>
+                        <li><strong>Gece dehidrasyonu</strong></li>
+                        <li><strong>Alkol sınırlaması</strong></li>
+                    </ul>
+                </div>
+                
+                <div class="level-mild">
+                    <h4>❄️ Soğuk İklim Faktörleri</h4>
+                    <h5>Gizli Dehidrasyon Riskleri:</h5>
+                    <ul>
+                        <li><strong>Azalmış susuzluk hissi</strong></li>
+                        <li><strong>Solunum yolu kayıpları</strong></li>
+                        <li><strong>Katmanlı giysi terlemesi</strong></li>
+                        <li><strong>Soğuk diürezi</strong></li>
+                    </ul>
+                    
+                    <h5>Özel Stratejiler:</h5>
+                    <ul>
+                        <li><strong>Ilık içecekler</strong> tercih</li>
+                        <li><strong>Zamanlanmış alım</strong></li>
+                        <li><strong>Termal şişeler</strong></li>
+                        <li><strong>İdrar rengi takibi</strong></li>
+                    </ul>
+                    
+                    <h5>Pratik İpuçları:</h5>
+                    <ul>
+                        <li><strong>İç katmanda</strong> nem kontrolü</li>
+                        <li><strong>Aktivite aralarında</strong> sıvı</li>
+                        <li><strong>Elektrolit önemli</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Practical Implementation -->
+        <div class="slide">
+            <h2>🎯 PRATİK UYGULAMA REHBERİ</h2>
+            <div class="two-column">
+                <div>
+                    <h4>📅 Günlük Hidrasyon Planı</h4>
+                    <div class="success-box">
+                        <h5>Sabah (Uyanış):</h5>
+                        <ul>
+                            <li><strong>400-600ml su:</strong> Gece kaybını telafi</li>
+                            <li><strong>İdrar rengi kontrolü</strong></li>
+                            <li><strong>Vücut ağırlığı ölçümü</strong></li>
+                        </ul>
+                        
+                        <h5>Öğün Aralarında:</h5>
+                        <ul>
+                            <li><strong>200-300ml/saat:</strong> Sürekli alım</li>
+                            <li><strong>Yemeklerle birlikte</strong> sınırlı</li>
+                            <li><strong>Kafein etkisini</strong> dikkate al</li>
+                        </ul>
+                        
+                        <h5>Gece (Yatmadan önce):</h5>
+                        <ul>
+                            <li><strong>200-300ml:</strong> Gece için hazırlık</li>
+                            <li><strong>Çok fazla değil:</strong> Uyku bozulması</li>
+                            <li><strong>Elektrolit dengesi</strong></li>
+                        </ul>
+                    </div>
+                    
+                    <h4>🧮 Kişisel Hesaplama Araçları</h4>
+                    <div class="formula-box">
+                        <h5>Günlük Sıvı İhtiyacı:</h5>
+                        <p><strong>Temel = 35ml × Vücut ağırlığı (kg)</strong></p>
+                        <p>70kg sporcu = 2450ml/gün</p>
+                        
+                        <h5>Egzersiz Eklentisi:</h5>
+                        <p><strong>+ 500-750ml/saat egzersiz</strong></p>
+                        
+                        <h5>Çevresel Düzeltme:</h5>
+                        <ul>
+                            <li><strong>Sıcak hava:</strong> +20-30%</li>
+                            <li><strong>Yüksek nem:</strong> +10-20%</li>
+                            <li><strong>İrtifa:</strong> +15-25%</li>
+                            <li><strong>Klimalı ortam:</strong> +10%</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h4>📋 Hidrasyon Takip Sistemi</h4>
+                    <div class="info-box">
+                        <h5>İdrar Renk Skalası (1-8):</h5>
+                        <ul>
+                            <li><strong>1-2:</strong> 💧 İdeal hidrasyon</li>
+                            <li><strong>3-4:</strong> ⚠️ Hafif dehidrasyon</li>
+                            <li><strong>5-6:</strong> 🟡 Orta dehidrasyon</li>
+                            <li><strong>7-8:</strong> 🔴 Ciddi dehidrasyon</li>
+                        </ul>
+                        
+                        <h5>Günlük Kontrol Listesi:</h5>
+                        <ul>
+                            <li>☐ Sabah idrar rengi</li>
+                            <li>☐ Vücut ağırlığı (antrenman günleri)</li>
+                            <li>☐ Susuzluk seviyesi (1-10)</li>
+                            <li>☐ Enerji seviyesi</li>
+                            <li>☐ İdrar sıklığı</li>
+                        </ul>
+                    </div>
+                    
+                    <h4>🚫 Yaygın Hatalar</h4>
+                    <div class="danger-box">
+                        <h5>Kaçınılacak Durumlar:</h5>
+                        <ul>
+                            <li><strong>Sadece susadığında içmek</strong></li>
+                            <li><strong>Aşırı su tüketimi</strong> (hiponatremi)</li>
+                            <li><strong>Elektrolitler ihmal</strong></li>
+                            <li><strong>Kafeinli içecek bağımlılığı</strong></li>
+                            <li><strong>Alkol ile dehidrasyon</strong></li>
+                        </ul>
+                        
+                        <h5>Yanlış İnanışlar:</h5>
+                        <ul>
+                            <li>❌ "8 bardak su zorunlu"</li>
+                            <li>❌ "Renksiz idrar her zaman iyi"</li>
+                            <li>❌ "Spor içeceği her zaman gerekli"</li>
+                            <li>❌ "Su en iyi hidrasyon kaynağı"</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar" id="sidebar">
+        <!-- Sidebar content will be populated by JavaScript -->
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn">⬅ Önceki</button>
+        <button class="nav-btn" id="nextBtn">Sonraki ➡</button>
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCounter = document.getElementById('slideCounter');
+        const progressBar = document.getElementById('progressBar');
+        const notesBtn = document.getElementById('notesBtn');
+        const sidebar = document.getElementById('sidebar');
+        
+        let currentSlide = 0;
+
+        const slideNotes = [
+            {
+                title: "Hidrasyon Fizyolojisinin Temel Prensipleri ve Vücut Sıvı Homeostazı",
+                content: `
+                    <h4>💧 İnsan Vücudunda Sıvı Dengesi ve Hidroelektrik Homeostazın Kapsamlı Analizi</h4>
+                    <p>İnsan vücudunun sıvı dengesi, yaşamsal fonksiyonların sürdürülebilirliği için kritik öneme sahip karmaşık bir fizyolojik sistemdir. Vücut ağırlığının %60-70'ini oluşturan su, hücresel metabolizmanın temel bileşeni olarak protein sentezi, enzim aktivitesi, besin maddesi transportu ve atık ürünlerin eliminasyonunda rol oynar. Sporcularda bu oran daha da kritik hale gelir çünkü kas dokusunun su içeriği yağ dokusundan %80-85 oranında daha yüksektir. Bu nedenle, fit ve kaslı sporcuların vücut su yüzdesi normal populasyona göre %5-10 daha yüksek olabilir ve sıvı dengesindeki küçük değişiklikler bile performans üzerinde dramatik etkiler yaratabilir.</p>
+                    
+                    <p>Vücut sıvıları iki ana kompartmanda dağıtılır: hücre içi sıvı (intracellular fluid) ve hücre dışı sıvı (extracellular fluid). Hücre içi sıvı toplam vücut suyunun yaklaşık %67'sini oluşturur ve öncelikli olarak kas hücrelerinde bulunur. Bu sıvı, hücresel metabolizmanın gerçekleştiği ortamı sağlar ve protein sentezi, enerji üretimi ve hücresel tamir süreçlerini destekler. Hücre dışı sıvı ise %33'lük kısmı oluşturur ve plazma (%7.5) ile interstisyel sıvı (%25.5) olarak ikiye ayrılır. Plazma, kardiyovasküler sistem aracılığıyla besin maddesi, oksijen ve atık ürün transportunu sağlarken, interstisyel sıvı hücreler arası iletişim ve metabolik değişimi kolaylaştırır. Bu karmaşık dağılım sistemi, spor performansında her kompartmanın optimal işlevsellik göstermesi gerektiği anlamına gelir.</p>
+                    
+                    <p>Vücut sıvı dengesinin kontrolü, merkezi sinir sistemi, endokrin sistem ve böbrekler arasındaki koordineli çalışma ile sağlanır. Hipotalamustaki osmoreseptörler, kan osmolaritesindeki %1-2'lik değişiklikleri bile algılayarak susama hissini uyarır ve antidiüretik hormon salınımını başlatır. ADH, böbrek toplayıcı tübüllerinde su geri emilimini artırarak idrar konsantrasyonunu yükseltir ve sıvı kaybını minimize eder. Böbrek hormonal düzenleme sistemi ise sodyum dengesini düzenleyerek indirectly sıvı homeostazını korur. Aldosteron, böbreklerde sodyum geri emilimini artırır ve bu da su retansyonunu stimüle eder. Bu fizyolojik kontrol mekanizmaları normal koşullarda son derece etkilidir, ancak yoğun egzersiz sırasında hızlı sıvı kayıpları karşısında yetersiz kalabilir ve proaktif hidrasyon stratejileri gerektirir.</p>
+                `
+            },
+            {
+                title: "Dehidrasyonun Çok Boyutlu Performans Etkileri ve Fizyolojik Konsekansları",
+                content: `
+                    <h4>⚠️ Dehidrasyon Seviyelerine Göre Sistemik Performans Bozulmalarının Detaylı İncelemesi</h4>
+                    <p>Dehidrasyon, vücut ağırlığının %2'si kadar sıvı kaybı ile başlayan ve kademeli olarak artan performans bozulmalarına yol açan fizyolojik bir durumdur. Bu süreç sadece sıvı kaybı ile sınırlı olmayıp, kardiyovasküler sistem, termoregülasyon, nöromüsküler fonksiyon ve kognitif performansı etkileyen çok boyutlu bir problem oluşturur. Dehidrasyonun etkilerini anlamak için, her seviyedeki fizyolojik değişiklikleri ve bunların performans üzerindeki direct ve indirect etkilerini incelemek gerekir.</p>
+                    
+                    <p>%2-3 seviyesindeki hafif dehidrasyon, görünürde minimal olmasına rağmen önemli fizyolojik adaptasyonları tetikler. Plazma hacminde %3-5 azalma meydana gelir ve bu durum kalbin her atımda pompaladığı kan miktarının (stroke volume) azalmasına yol açar. Kompansasyon mekanizması olarak kalp hızı %8-12 artar, ancak bu artış kardiyak output'u tam olarak restore edemez. Sonuç olarak kas dokularına oksijen ve besin maddesi dağıtımı %5-10 azalır. Aynı zamanda, vücut ısısı düzenleme sisteminde bozulmalar başlar: ter üretimi azalır, vücut iç sıcaklığı %0.5-1°C yükselir ve ısı stresi artar. Bu değişikliklerin toplamı, subjektif egzersiz zorluğunda (RPE) %10-15 artış ve objektif dayanıklılık performansında %8-12 azalma yaratır. Kognitif fonksiyonlar da etkilenir: reaksiyon süresi %5-8 yavaşlar, dikkat eksikliği artar ve karar verme kapasitesi bozulur.</p>
+                    
+                    <p>%4-5 seviyesindeki orta düzey dehidrasyon, fizyolojik kompansasyon mekanizmalarının yetersiz kaldığı kritik eşiği temsil eder. Plazma hacmi %8-12 azalır ve bu durum ciddi hemodynamic problemler yaratır. Kalp hızı %15-20 artar ancak stroke volume'deki %10-15 azalma nedeniyle kardiyak output net olarak %5-8 azalır. Periferal vazokonstrüksiyon başlar, bu da kas kan akımını daha da kısıtlar ve performansı %15-25 arasında düşürür. Termoregülasyon sistemi ciddi stres altına girer: ter oranı %20-30 azalır, vücut iç sıcaklığı %1-1.5°C yükselir ve hipertermiya riski artar. Elektrolit dengesizlikleri başlar, özellikle sodyum ve potasyum kayıpları kas kramplarını tetikleyebilir. Kognitif performans %20-30 azalır, koordinasyon bozuklukları başlar ve güvenlik riskleri artar.</p>
+                    
+                    <p>%6+ seviyesindeki ciddi dehidrasyon, medical emergency durumu oluşturan ve yaşamı tehdit edebilen bir durumdur. Bu seviyede plazma hacmi %15+ azalır, kan viskozitesi artar ve tromboz riski yükselir. Kardiyovasküler sistem maksimal stres altındadır: kalp hızı %25+ artar, kan basıncı düşer ve organ perfüzyonu ciddi şekilde bozulur. Böbrek fonksiyonları etkilenir ve akut böbrek hasarı riski artar. Merkezi sinir sistemi fonksiyonları bozulur: konfüzyon, deliryum ve bilinç kaybı görülebilir. Termoregülasyon sistemi collapse olur ve ısı çarpması riski kritik seviyeye ulaşır. Bu seviyedeki dehidrasyon, spor performansını %30-50 azaltır ve acil medical müdahale gerektirir. Sporcular bu duruma asla ulaşmamalı ve proaktif hidrasyon stratejileri ile önlem alınmalıdır.</p>
+                `
+            },
+            {
+                title: "Ter Üretimi Mekanizmaları ve Bireysel Varyasyon Faktörlerinin Bilimsel Analizi",
+                content: `
+                    <h4>💦 Eccrin Ter Bezlerinin İşlevselliği ve Ter Kompozisyonunun Detaylı İncelemesi</h4>
+                    <p>İnsan vücudunda bulunan yaklaşık 2-4 milyon ter bezi, termoregülasyon sisteminin en kritik bileşenidir ve yoğun fiziksel aktivite sırasında vücut sıcaklığının kontrol edilmesinde yaşamsal rol oynar. Eccrine ter bezleri, özellikle sporcular için en önemli olanlar, tüm vücuda dağılmış durumdadır ancak en yoğun oldukları bölgeler alın, koltuk altı, avuç içi ve ayak tabanıdır. Bu bezler, sempatik sinir sistemi kontrolü altında çalışır ve noradrenalin ve asetilkolin gibi nörotransmitterlerin uyarısıyla ter üretimini başlatır. Ter üretim kapasitesi bireyler arasında büyük varyasyon gösterir: sedanter bireyler saatte maksimum 1-1.5L ter üretebilirken, iyi kondisyonlu sporcular saatte 3-4L'ye kadar ter üretebilir.</p>
+                    
+                    <p>Ter kompozisyonu su (%99) ve elektrolit (%1) karışımından oluşur, ancak bu basit tanımlama ter içindeki karmaşık biyokimyasal süreçleri tam olarak yansıtmaz. Ana elektrolit bileşenler sodyum klorür (NaCl), potasyum, magnezyum ve kalsiyumdur. Sodyum konsantrasyonu en değişken parametredir ve bireyler arasında 200-2000mg/L arasında değişebilir. Bu varyasyon genetik faktörlere, aklimatizasyon düzeyine, ter oranına ve diyet alışkanlıklarına bağlıdır. "Tuzlu terleyenler" 1200mg/L'den fazla sodyum kaybederken, "az tuzlu terleyenler" 500mg/L'den az kaybeder. Bu fark, hidrasyon stratejilerinin kişiselleştirilmesinde kritik öneme sahiptir çünkü yüksek sodyum kaybı olan sporcular elektrolit replasmanı olmadan hızla hiponatremi riski altına girer.</p>
+                    
+                    <p>Ter oranını etkileyen faktörler multifaktöriyel ve karmaşıktır. Çevresel faktörler: sıcaklık her 1°C artışında ter oranı %3-5 artar, nem oranı %70'in üzerinde olduğunda evaporative cooling effectiveness azalır ve ter oranı kompansatuar olarak %10-20 artar. Bireysel faktörler: vücut yüzey alanı ile ter oranı pozitif korelasyon gösterir, kas kütlesi fazla olan sporcular daha çok ter üretir, yaş ile ter bezi işlevselliği azalır (40 yaş üzeri yılda %1-2), cinsiyet farklılıkları vardır (erkekler ortalama %20-30 daha fazla ter üretir). Fizyolojik adaptasyon faktörleri: aklimatizasyon süreci 7-14 günde tamamlanır ve ter oranını %10-25 azaltır, kardiyovasküler fitness seviyesi yüksek olan sporcular daha erken ter üretmeye başlar ancak daha az total ter üretir, ter bezi hipertrofisi uzun dönem antrenman ile gelişir.</p>
+                    
+                    <p>Ter kaybı hesaplaması ve monitörleme, optimal hidrasyon stratejisi geliştirmek için essential'dır. Pratik hesaplama yöntemi: (antrenman öncesi ağırlık - antrenman sonrası ağırlık + içilen sıvı miktarı) × 1000 = ter kaybı (ml). Bu hesaplama farklı antrenman koşullarında tekrarlanmalı ve kişisel ter profili oluşturulmalıdır. Modern teknoloji ile ter analizi de mümkündür: ter elektrolit konsantrasyonu özel cihazlarla ölçülebilir, wearable ter sensörleri real-time monitoring sağlar, genetik testler ter profili predisposisyonunu gösterebilir. Bu bilgiler ışığında, sporcular individualized hydration plans geliştirebilir ve performance optimization sağlayabilir. Ter kaybı monitoring'i aynı zamanda overhydration riskini de önler çünkü bazı sporcular ter kaybını overestimate eder ve excessive sıvı alımı ile hiponatremi riski altına girer.</p>
+                `
+            },
+            {
+                title: "Antrenman Öncesi, Sırası ve Sonrası Hidrasyon Protokollerinin Sistematik Analizi",
+                content: `
+                    <h4>📋 Periodized Hydration Strategies: Zamana Dayalı Sıvı Alım Optimizasyonu</h4>
+                    <p>Optimal hidrasyon stratejisi, antrenman öncesi, sırası ve sonrası dönemlerde farklı fizyolojik ihtiyaçları karşılamak için özenle tasarlanmış sistematik bir yaklaşım gerektirir. Bu stratejinin başarısı, timing, miktar, kompozisyon ve bireysel faktörlerin entegre edilmesiyle sağlanır. Modern spor bilimi, hidrasyon protokollerini kanıta dayalı araştırma sonuçlarına dayandırır ve sporcuların performans optimizasyonu hedeflerine ulaşmasını destekler.</p>
+                    
+                    <p>Antrenman öncesi hidrasyon protokolü (pre-loading strategy), optimal fluid status achieve etmek ve dehydration protection sağlamak amacıyla tasarlanmıştır. 4-6 saat öncesi aşamada, temel hidrasyon establishment yapılır: 5-7ml/kg body weight sıvı alımı ile baseline hydration restore edilir. 70kg sporcu için bu 350-500ml sıvı anlamına gelir ve primary olarak water-based beverages tercih edilir. Bu dönemde gastric emptying rate optimize edilmelidir çünkü large volume consumption gastric distress yaratabilir. Elektrolit addition minimal tutulur (200-300mg sodium/L) çünkü henüz significant losses olmamıştır. 2-3 saat öncesi refined adjustment phase'dir: 3-5ml/kg additional sıvı alımı (70kg sporcu için 200-350ml) ile fine-tuning yapılır. Bu aşamada urine color monitoring kritik importance taşır - pale yellow (scale 1-3) target edilir. Final phase olan 15-30 dakika öncesi top-off strategy'dir: 200-300ml fluid ile last-minute optimization sağlanır. Bu miktarın temperature 15-22°C olması gastric emptying'i facilitate eder.</p>
+                    
+                    <p>Antrenman sırası hidrasyon protokolü, ongoing fluid losses'i minimize etmek ve performance maintenance sağlamak için critical timing gerektirir. Early initiation principle: ilk 15 dakika içinde hydration'a başlamak proactive approach sağlar ve thirst sensation'ın geç bir indicator olduğu gerçeğini compensate eder. Regular frequency pattern: her 15-20 dakikada 150-250ml sıvı alımı optimal absorption rate'i maintain eder ve gastric overload'ı önler. Maximum gastric capacity 600-800ml/hour olduğu için bu frequency pattern sustainable fluid delivery sağlar. Exercise duration-based modifications gereklidir: 60 dakika altında plain water sufficient olabilir, 60-90 dakika arası %4-6 carbohydrate + electrolyte solution beneficial olur, 90+ dakika için %6-8 carbohydrate + elevated electrolyte concentration necessary hale gelir. Environmental modifications da apply edilmelidir: sıcak conditions'da sıvı alımı %25-50 increase gerekir, humid environments'da electrolyte concentration emphasis yapılır, altitude exposure %15-25 additional fluid requirement create eder.</p>
+                    
+                    <p>Antrenman sonrası rehidrasyon protokolü, rapid restoration ve complete recovery sağlamak için aggressive approach gerektirir. Immediate phase (0-30 minutes): 500-600ml rapid intake ile initial rehydration başlatılır, bu phase'de absorption rate maximize edilmelidir. Replacement calculation: total sweat loss'un %125-150'si target edilmelidir çünkü ongoing losses (urine, respiration) continue eder ve complete restoration için excess intake gerekir. 2kg sweat loss için 2.5-3L total fluid replacement over 4-6 hours optimal timeline'dır. Electrolyte restoration critical importance taşır: sodium 300-600mg/L, potassium 200-400mg/L, magnesium 20-50mg/L replacement ratios evidence-based recommendations'dır. Carbohydrate addition (%6-8) gastric emptying'i enhance eder ve muscle glycogen restoration'ı simultaneous olarak support eder. Monitoring parameters: body weight return baseline'a, urine color pale yellow achieve etmeli, urine volume normal frequency'ye return etmeli, thirst sensation minimal kalmalıdır. Bu parameters achievement tam rehydration'ın objective indicators'ıdır.</p>
+                `
+            },
+            {
+                title: "Spor İçeceklerinin Bilimsel Formülasyonu ve Optimizasyon Prensipleri",
+                content: `
+                    <h4>🧪 Sports Beverage Science: Kompozisyon Optimizasyonu ve Fizyolojik Etkinlik Analizi</h4>
+                    <p>Spor içeceklerinin bilimsel formülasyonu, fluid absorption kinetics, electrolyte replacement physiology ve exercise metabolism'in kompleks etkileşimlerinin deep understanding'ini gerektirir. Ideal spor içeceği, rapid gastric emptying, optimal intestinal absorption, effective electrolyte replacement ve sustained energy provision criteria'sını simultaneous olarak meet etmelidir. Bu multi-functional requirements, precise ingredient selection ve scientific ratios ile achieve edilir.</p>
+                    
+                    <p>Carbohydrate component optimization, spor içeceği effectiveness'inin cornerstone'udur. Concentration %4-8 range'i optimal olarak kabul edilir çünkü bu ratio gastric emptying rate ile carbohydrate delivery arasında ideal balance sağlar. %4'ten düşük concentrations inadequate energy provide ederken, %8'den yüksek concentrations gastric emptying'i slow eder ve GI distress risk'ini increase eder. Carbohydrate type selection kritik importance taşır: glucose primary choice'dur çünkü SGLT1 transporter ile rapid intestinal absorption show eder. Fructose addition (glucose:fructose 2:1 ratio) different transporter pathway (GLUT5) utilize ederek total carbohydrate absorption capacity'yi %20-30 increase eder. Sucrose natural glucose-fructose combination provide eder ancak digestion requirement nedeniyle slightly slower absorption show eder. Maltodextrin low osmolality contribute ederken sustained glucose release pattern sağlar, bu da endurance activities için particularly beneficial'dır.</p>
+                    
+                    <p>Electrolyte formulation science, sweat loss replacement ve physiological function maintenance'i balance etmelidir. Sodium primary electrolyte olarak 200-600mg/L range'inde formulate edilir. Lower concentrations (200-300mg/L) light sweaters için adequate'dir, higher concentrations (400-600mg/L) heavy sweaters ve prolonged activities için necessary'dir. Sodium functions: fluid retention enhance eder (ADH response potentiate eder), intestinal glucose absorption facilitate eder (SGLT1 co-transport), plasma volume maintenance support eder. Potassium inclusion 150-300mg/L range'inde kritik'dir çünkü intracellular fluid balance maintain eder ve muscle contractility support eder. Magnesium addition (10-50mg/L) muscle cramp prevention'da role oynar ve enzyme function support eder. Chloride sodium ile balance maintained olmalıdır çünkü acid-base balance için essential'dır.</p>
+                    
+                    <p>Osmolality consideration spor içeceği absorption rate'ini critically determine eder. Isotonic solutions (280-320 mOsm/kg) blood osmolality ile match ederek optimal absorption provide eder. Hypotonic solutions (<280 mOsm/kg) faster water absorption sağlar ancak electrolyte content sacrifice eder. Hypertonic solutions (>320 mOsm/kg) slow absorption show eder ve GI upset risk increase eder. pH optimization da important'dır: 3.5-4.5 pH range palatability enhance ederken dental health protect eder. Practical formulation examples: basic homemade recipe (1L water + 40-60g sugar + 1.5g salt + lemon juice for flavor) cost-effective solution provide eder. Advanced recipe (800ml water + 200ml fruit juice + 30g honey + 2g sea salt + magnesium tablet) enhanced electrolyte profile offer eder. Commercial alternatives quality control ve convenience provide eder ancak cost consideration factor'dır. Athletes individual sweat testing ile personalized formulations develop edebilir ve optimal performance support achieve edebilir.</p>
+                `
+            },
+            {
+                title: "Çevresel Koşulların Hidrasyon Fizyolojisine Etkileri ve Adaptasyon Stratejileri",
+                content: `
+                    <h4>🌡️ Environmental Physiology: İklimsel Stresörlerin Sıvı Dengesine Multifaktöriyel Etkileri</h4>
+                    <p>Çevresel koşullar, insan vücudunun hidrasyon fizyolojisini profound şekillerde etkiler ve bu etkiler sadece sıcaklık ile sınırlı değildir. Sıcaklık, nem, rüzgar hızı, radyasyon, barometric pressure ve altitude gibi faktörlerin combination'ı, complex environmental stress profile yaratır. Bu stressörlerin her biri, thermoregulation system üzerinde different mechanisms ile etki eder ve consequently hydration requirements'ı modify eder. Optimal athletic performance için, bu environmental variables'ın comprehensive understanding'i ve appropriate adaptation strategies'inin implementation'ı critical'dir.</p>
+                    
+                    <p>Sıcak iklim conditions, en dramatic hydration challenges present eder ve physiological systems üzerinde multiple stress pathways activate eder. Heat stress response cascade: ambient temperature body temperature'ı approach ettiğinde, evaporative cooling becomes primary heat dissipation mechanism. Bu situation'da sweat rate exponentially increase eder - her 1°C ambient temperature increase, sweat rate'de %3-5 artış yaratır. 35°C üzeri sıcaklıklarda, sweat rates 2-3L/hour levels'a reach edebilir. Cardiovascular stress significant olur: heat stress peripheral vasodilation require eder, bu da blood volume'un substantial portion'ını skin circulation'a redirect eder. Concurrent'ly, sweating plasma volume decrease eder, resulting cardiac output compromise ve exercise capacity reduction. Optimal hydration strategy: sıvı alımı %25-50 increase gerekir, sodium replacement 400-800mg/L levels'a elevate edilmelidir, pre-cooling strategies (cold beverage consumption) core temperature reduction provide edebilir. Frequent intake pattern (her 10-15 dakika) maintenance optimal hydration status için necessary'dir.</p>
+                    
+                    <p>Altitude exposure unique hydration challenges create eder ve multiple physiological mechanisms involve eder. Hypobaric hypoxia primary stressor olarak respiratory rate increase trigger eder, bu da insensible water loss'u substantially increase eder - sea level'da 400ml/day olan respiratory water loss, 3000m altitude'da 600-800ml/day'e increase eder. Diuretic response altitude exposure'ın characteristic'idir: initial days'larda urine production %20-30 increase eder, bu phenomenon "altitude diuresis" olarak bilinir. Thirst sensation blunted olur altitude'da, bu da voluntary dehydration risk'ini increase eder. Cold ambient temperatures often present at altitude, thirst suppression'ı further compound eder. Hydration strategy modifications: total sıvı alımı %15-25 increase required, proactive drinking essential (thirst'i wait etmemek), electrolyte maintenance important çünkü increased urine loss electrolyte depletion cause edebilir. Acclimatization period boyunca (first 3-5 days) extra attention required çünkü physiological adjustments incomplete'dir.</p>
+                    
+                    <p>Cold environment hydration, often underestimated ancak significant challenges present eder. "Cold-induced diuresis" phenomenon: soğuk exposure peripheral vasoconstriction trigger eder, bu da central blood volume increase perception'ını create eder ve kidney response olarak urine production increase eder. Bu mechanism %10-15 additional fluid loss'a yol açabilir. Respiratory water loss cold, dry air conditions'da increase eder çünkü inhaled air'ı body temperature'a warm etmek ve humidify etmek additional water requirement create eder. Thirst sensation cold temperatures'da significantly suppressed olur, bu da voluntary sıvı alımı'yi %40-50 decrease edebilir. Layered clothing systems sweating pattern'ları alter eder - localized sweating occur edebilir ancak overall awareness reduced olur. Cold weather hydration strategy: warm beverages preference (thermal comfort provide eder ve intake encourage eder), scheduled drinking patterns (thirst cues'a rely etmemek), insulation management (overheating prevention ile unnecessary fluid loss'u avoid etmek), urine color monitoring critical (çünkü thirst unreliable indicator). Winter sports athletes particularly vulnerable çünkü cold exposure, exercise intensity ve often low humidity combination create eder.</p>
+                `
+            },
+            {
+                title: "Bireyselleştirilmiş Hidrasyon Protokolleri ve Performans Optimizasyonu Sistemleri",
+                content: `
+                    <h4>🎯 Personalized Hydration Protocols: Individual Assessment ve Optimization Strategies</h4>
+                    <p>Modern spor bilimi, hydration strategies'inin individual athlete characteristics'e göre customize edilmesi gerektiğini clearly demonstrate etmiştir. Generic hydration recommendations, individual variation'ların wide range'i nedeniyle suboptimal outcomes produce edebilir. Comprehensive personalized approach, genetic predispositions, sweat profile analysis, individual tolerance patterns, sport-specific requirements ve lifestyle factors'ın integration'ını require eder. Bu holistic methodology, optimal performance achievement ve health risk minimization için essential'dır.</p>
+                    
+                    <p>Individual sweat profile development, personalized hydration'ın cornerstone'udur ve systematic assessment protocol gerektirir. Sweat rate determination: multiple training sessions boyunca body weight changes monitor edilir, different environmental conditions'da (sıcak, soğuk, nemli, kuru) measurements alınır, various exercise intensities'de data collect edilir. Formula: (pre-exercise weight - post-exercise weight + sıvı alımı) ÷ exercise duration = sweat rate. Bu data different scenarios için personalized lookup table create eder. Electrolyte loss assessment daha complex process'dir: sweat sodium concentration measurement specialized equipment require eder, ancak indirect indicators use edilebilir (clothing white residue, excessive salt craving, muscle cramps history). Genetic testing emerging field'da valuable insights provide edebilir: sodium transporter gene variants sweat sodium concentration affect eder, thermoregulation gene polymorphisms heat tolerance influence eder, fluid regulation hormone receptor variants individual hydration needs determine edebilir.</p>
+                    
+                    <p>Daily hydration management systematic approach gerektirir ve lifestyle integration critical'dir. Baseline fluid needs calculation: body weight × 35ml = daily minimum requirement, exercise additions: duration × estimated sweat rate × environmental correction factor, lifestyle adjustments: caffeine intake (diuretic effect), alcohol consumption (dehydration risk), air travel (cabin dehydration), air conditioning exposure (insensible losses). Monitoring systems implementation: morning body weight tracking (consistent time, post-bathroom, pre-breakfast), urine color chart utilization (8-point scale, morning first void most accurate), subjective wellness scoring (thirst level, energy level, cognitive function). Technology integration: smartphone apps hydration tracking facilitate eder, wearable devices sweat rate monitoring provide eder, smart water bottles consumption tracking enable eder.</p>
+                    
+                    <p>Performance optimization through strategic hydration timing ve composition requires sport-specific considerations. Power sports (weightlifting, sprinting, jumping): emphasis muscle hydration maintenance, minimal gastric contents during performance, post-exercise rapid rehydration priority, creatine-hydration interaction consideration. Endurance sports (marathon, cycling, triathlon): sustained hydration throughout activity, carbohydrate-electrolyte combinations, gastric tolerance development, individual absorption rate optimization. Team sports (football, basketball, soccer): intermittent intake opportunities, quick absorption requirements, environmental adaptability, game-time practicality. Combat sports (boxing, wrestling, martial arts): weight management considerations, rapid rehydration techniques, electrolyte balance criticality, performance window optimization. Bu sport-specific protocols, individual athlete profiling ile combined olarak ultimate personalization achieve eder ve competitive advantage provide eder. Regular protocol evaluation ve adjustment ensure eder ki hydration strategy evolving training demands ve environmental challenges'ı effectively address eder.</p>
+                `
+            },
+            {
+                title: "Hidrasyon Monitoring Sistemleri ve Pratik Uygulama Protokollerinin Entegrasyonu",
+                content: `
+                    <h4>📊 Comprehensive Hydration Assessment: Monitoring Tools ve Implementation Systems</h4>
+                    <p>Effective hydration management, objective assessment tools ve systematic implementation protocols'ın integration'ını gerektirir. Modern sports science, subjective indicators'ın limitations'ını recognize etmiş ve comprehensive monitoring systems develop etmiştir. Bu systems, real-time feedback provide eder, trends identify eder ve proactive interventions enable eder. Optimal hydration status maintenance için, multiple assessment parameters'ın concurrent utilization ve systematic data interpretation essential'dır.</p>
+                    
+                    <p>Urine-based assessment parameters most accessible ve reliable indicators provide eder. Urine specific gravity (USG) precise hydration status indicator'dır: <1.020 adequate hydration indicate eder, 1.020-1.025 mild dehydration suggest eder, >1.025 significant dehydration represent eder. USG measurement refractometer ile accurate results provide eder, ancak urine color charts practical alternative offer eder. 8-point color scale widely used: 1-2 (pale straw) optimal hydration, 3-4 (yellow) mild dehydration, 5-6 (dark yellow) moderate dehydration, 7-8 (amber-orange) severe dehydration. Urine volume monitoring additional information provide eder: <500ml/day oliguria indicate eder, normal range 1500-2000ml/day, >3000ml/day polyuria suggest eder. Timing considerations: first morning void most concentrated olur ve overnight hydration status reflect eder, post-exercise void dilution effect gösterebilir, multiple daily measurements trend analysis enable eder.</p>
+                    
+                    <p>Body weight-based monitoring systematic approach require eder ve environmental controls consider etmelidir. Daily body weight tracking: consistent timing (same time, same conditions), nude weight preferred (clothing water retention eliminate eder), same scale utilization (calibration consistency), post-bathroom measurement (bladder content elimination). Acute weight changes interpretation: >1% loss mild dehydration indicate eder, 2-3% loss moderate dehydration suggest eder, >3% loss severe dehydration represent eder. Chronic weight trends: gradual decrease chronic dehydration indicate edebilir, sudden increases overhydration veya medical condition suggest edebilir. Exercise-specific monitoring: pre/post exercise weight comparison direct sweat loss calculate eder, recovery tracking: return baseline weight complete rehydration indicate eder, environmental adjustments: hot weather'da weight loss expectations increase eder.</p>
+                    
+                    <p>Advanced monitoring technologies emerging field'da sophisticated options provide eder. Bioelectrical impedance analysis (BIA): total body water, intracellular/extracellular fluid distribution measure eder, hydration changes detect edebilir, ancak exercise, food intake, temperature factors affect edebilir. Wearable sweat sensors: real-time sweat rate monitoring, electrolyte concentration measurement, individualized feedback systems. Smart hydration devices: intake tracking bottles, reminder systems, personalized recommendations. Physiological markers: heart rate variability hydration status correlate edebilir, blood pressure changes indicate edebilir, cognitive performance tests hydration effects demonstrate edebilir. Implementation strategy: multiple parameter utilization (single metric rely etmemek), technology integration with traditional methods, cost-benefit analysis individual needs için, professional guidance complex cases için. Bu comprehensive approach, athletes optimal hydration maintenance enable eder, performance maximization facilitate eder ve health risks minimize eder. Regular system evaluation ve protocol adjustments ensure eder ki monitoring effectiveness maintain edilir ve evolving needs address edilir.</p>
+                `
+            }
+        ];
+
+        function updateSlide() {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[currentSlide].classList.add('active');
+            slideCounter.textContent = `${currentSlide + 1} / ${slides.length}`;
+            progressBar.style.width = `${((currentSlide + 1) / slides.length) * 100}%`;
+            
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === slides.length - 1;
+            
+            // Update sidebar content
+            if (slideNotes[currentSlide]) {
+                sidebar.innerHTML = `
+                    <h3>${slideNotes[currentSlide].title}</h3>
+                    ${slideNotes[currentSlide].content}
+                `;
+            }
+        }
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                updateSlide();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlide();
+            }
+        }
+
+        function toggleNotes() {
+            sidebar.classList.toggle('active');
+            notesBtn.textContent = sidebar.classList.contains('active') ? '❌ Notları Kapat' : '📝 Detaylı Notlar';
+        }
+
+        // Event listeners
+        nextBtn.addEventListener('click', nextSlide);
+        prevBtn.addEventListener('click', prevSlide);
+        notesBtn.addEventListener('click', toggleNotes);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                prevSlide();
+            } else if (e.key === 'Escape') {
+                if (sidebar.classList.contains('active')) {
+                    toggleNotes();
+                }
+            }
+        });
+
+        // Initialize
+        updateSlide();
+    </script>
+</body>
+</html>
