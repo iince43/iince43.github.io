@@ -97,6 +97,32 @@ padding:4px; box-shadow:0 4px 20px rgba(0,0,0,.15)}
 .contact-item{display:flex; gap:12px; align-items:center}
 .contact-item i{width:32px; height:32px; display:grid; place-items:center; border-radius:8px; background:var(--bg-soft); color:var(--brand)}
 
+/* Gallery Styles */
+.gallery-filters{display:flex; justify-content:center; gap:15px; margin-bottom:40px; flex-wrap:wrap}
+.filter-btn{padding:10px 20px; border:1px solid var(--outline); background:var(--bg-soft); color:var(--muted); border-radius:25px; cursor:pointer; font-size:14px; font-weight:500; transition:all 0.3s ease}
+.filter-btn.active, .filter-btn:hover{background:var(--brand); color:white; border-color:var(--brand); transform:translateY(-2px); box-shadow:0 4px 12px color-mix(in oklab, var(--brand) 30%, transparent)}
+
+.gallery-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:20px}
+.gallery-item{position:relative; border-radius:var(--radius); overflow:hidden; cursor:pointer; background:var(--card); border:1px solid var(--outline); transition:all 0.3s ease}
+.gallery-item:hover{transform:translateY(-5px); box-shadow:0 15px 35px rgba(0,0,0,.2)}
+.gallery-item img{width:100%; height:250px; object-fit:cover; transition:transform 0.3s ease}
+.gallery-item:hover img{transform:scale(1.05)}
+
+.overlay{position:absolute; top:0; left:0; width:100%; height:100%; background:linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,0,0,0.4)); display:flex; flex-direction:column; align-items:center; justify-content:center; opacity:0; transition:all 0.3s ease; color:white; text-align:center}
+.gallery-item:hover .overlay{opacity:1}
+.overlay i{font-size:32px; margin-bottom:10px; color:var(--brand)}
+.overlay h5{margin:0 0 5px 0; font-size:16px; font-weight:600}
+.overlay p{margin:0; font-size:14px; opacity:0.9}
+
+/* Lightbox Modal */
+.lightbox{position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); display:none; align-items:center; justify-content:center; z-index:1000; backdrop-filter:blur(5px)}
+.lightbox.active{display:flex}
+.lightbox-content{position:relative; max-width:90%; max-height:90%; text-align:center}
+.lightbox img{max-width:100%; max-height:80vh; object-fit:contain; border-radius:10px; box-shadow:0 20px 60px rgba(0,0,0,0.5)}
+.lightbox-caption{color:white; margin-top:20px; font-size:16px; background:rgba(0,0,0,0.7); padding:10px 20px; border-radius:25px; display:inline-block}
+.lightbox-close{position:absolute; top:-40px; right:-40px; color:white; font-size:30px; cursor:pointer; width:40px; height:40px; border-radius:50%; background:rgba(255,255,255,0.1); display:flex; align-items:center; justify-content:center; transition:all 0.3s ease}
+.lightbox-close:hover{background:var(--brand); transform:scale(1.1)}
+
 /* Theme Toggle */
 .theme-toggle{position:fixed; bottom:20px; right:20px; width:50px; height:50px; border-radius:50%; background:var(--brand); color:white; border:none; cursor:pointer; box-shadow:var(--shadow); z-index:100}
 
@@ -105,6 +131,10 @@ padding:4px; box-shadow:0 4px 20px rgba(0,0,0,.15)}
   .hero-grid{grid-template-columns:1fr; text-align:center}
   .nav-menu{display:none}
   .stats{grid-template-columns:1fr}
+  .gallery-grid{grid-template-columns:1fr}
+  .gallery-filters{gap:10px}
+  .filter-btn{padding:8px 16px; font-size:13px}
+  .lightbox-close{top:-30px; right:-30px; width:35px; height:35px; font-size:24px}
 }
 </style>
 </head>
@@ -298,6 +328,101 @@ padding:4px; box-shadow:0 4px 20px rgba(0,0,0,.15)}
 
   <section class="section">
     <div class="container">
+      <h3>Fotoğraf Galerisi</h3>
+      <p style="text-align: center; color: var(--muted); margin-bottom: 30px;">
+        Halter kariyerimden önemli anlar • Olimpiyat Oyunları • Şampiyonluklar • Antrenmanlar
+      </p>
+      
+      <!-- Gallery Categories -->
+      <div class="gallery-filters">
+        <button class="filter-btn active" data-filter="all">Tümü</button>
+        <button class="filter-btn" data-filter="olympics">Olimpiyat Oyunları</button>
+        <button class="filter-btn" data-filter="championships">Şampiyonluklar</button>
+        <button class="filter-btn" data-filter="training">Antrenmanlar</button>
+      </div>
+      
+      <!-- Gallery Grid -->
+      <div class="gallery-grid">
+        <!-- Olimpiyat Fotoğrafları -->
+        <div class="gallery-item olympics" data-caption="Pekin 2008 Olimpiyat Oyunları - Yarışma Öncesi">
+          <img src="images/gallery/olympics-beijing-2008.jpg" alt="Pekin 2008 Olimpiyat" loading="lazy">
+          <div class="overlay">
+            <i class="fas fa-search-plus"></i>
+            <h5>Pekin 2008</h5>
+            <p>Olimpiyat Oyunları</p>
+          </div>
+        </div>
+        
+        <div class="gallery-item olympics" data-caption="Atina 2004 Olimpiyat Oyunları - Kaldırış Anı">
+          <img src="images/gallery/olympics-athens-2004.jpg" alt="Atina 2004 Olimpiyat" loading="lazy">
+          <div class="overlay">
+            <i class="fas fa-search-plus"></i>
+            <h5>Atina 2004</h5>
+            <p>Olimpiyat Oyunları</p>
+          </div>
+        </div>
+        
+        <!-- Şampiyonluk Fotoğrafları -->
+        <div class="gallery-item championships" data-caption="2007 Fransa - Avrupa Şampiyonluğu Madalya Töreni">
+          <img src="images/gallery/europe-champion-2007.jpg" alt="2007 Avrupa Şampiyonluğu" loading="lazy">
+          <div class="overlay">
+            <i class="fas fa-search-plus"></i>
+            <h5>Avrupa Şampiyonu</h5>
+            <p>Fransa 2007</p>
+          </div>
+        </div>
+        
+        <div class="gallery-item championships" data-caption="2004 Ukrayna - Avrupa Şampiyonluğu Kupası">
+          <img src="images/gallery/europe-champion-2004.jpg" alt="2004 Avrupa Şampiyonluğu" loading="lazy">
+          <div class="overlay">
+            <i class="fas fa-search-plus"></i>
+            <h5>Avrupa Şampiyonu</h5>
+            <p>Ukrayna 2004</p>
+          </div>
+        </div>
+        
+        <div class="gallery-item championships" data-caption="2009 İtalya - Akdeniz Oyunları Şampiyonluğu">
+          <img src="images/gallery/mediterranean-champion-2009.jpg" alt="2009 Akdeniz Oyunları" loading="lazy">
+          <div class="overlay">
+            <i class="fas fa-search-plus"></i>
+            <h5>Akdeniz Oyunları</h5>
+            <p>İtalya 2009</p>
+          </div>
+        </div>
+        
+        <!-- Antrenman Fotoğrafları -->
+        <div class="gallery-item training" data-caption="Milli Takım Antrenmanları - Teknik Çalışma">
+          <img src="images/gallery/training-technique.jpg" alt="Teknik Antrenman" loading="lazy">
+          <div class="overlay">
+            <i class="fas fa-search-plus"></i>
+            <h5>Teknik Çalışma</h5>
+            <p>Milli Takım Kampı</p>
+          </div>
+        </div>
+        
+        <div class="gallery-item training" data-caption="Kamp Antrenmanları - Kuvvet Çalışması">
+          <img src="images/gallery/training-strength.jpg" alt="Kuvvet Antrenmanı" loading="lazy">
+          <div class="overlay">
+            <i class="fas fa-search-plus"></i>
+            <h5>Kuvvet Antrenmanı</h5>
+            <p>Hazırlık Kampı</p>
+          </div>
+        </div>
+        
+        <div class="gallery-item championships" data-caption="2001 Yunanistan - Dünya Şampiyonası Gümüş Madalya">
+          <img src="images/gallery/world-silver-2001.jpg" alt="2001 Dünya Şampiyonası" loading="lazy">
+          <div class="overlay">
+            <i class="fas fa-search-plus"></i>
+            <h5>Dünya İkincisi</h5>
+            <p>Yunanistan 2001</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
       <h3>Öne Çıkan Çalışmalar</h3>
       <div class="cards-grid">
         <div class="info-card">
@@ -346,6 +471,15 @@ padding:4px; box-shadow:0 4px 20px rgba(0,0,0,.15)}
   </div>
 </main>
 
+<!-- Lightbox Modal -->
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-content">
+    <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+    <img id="lightbox-img" src="" alt="">
+    <div class="lightbox-caption" id="lightbox-caption"></div>
+  </div>
+</div>
+
 <button class="theme-toggle" onclick="toggleTheme()" title="Tema Değiştir">
   <i class="fas fa-sun"></i>
 </button>
@@ -366,14 +500,70 @@ function toggleTheme() {
   }
 }
 
-// Load saved theme
+// Gallery functionality
 document.addEventListener('DOMContentLoaded', () => {
+  // Load saved theme
   const savedTheme = localStorage.getItem('theme');
   const toggleBtn = document.querySelector('.theme-toggle i');
   
   if (savedTheme === 'light') {
     document.documentElement.classList.add('light');
     toggleBtn.className = 'fas fa-moon';
+  }
+  
+  // Gallery filter functionality
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const galleryItems = document.querySelectorAll('.gallery-item');
+  
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Remove active class from all buttons
+      filterButtons.forEach(b => b.classList.remove('active'));
+      // Add active class to clicked button
+      btn.classList.add('active');
+      
+      const filterValue = btn.getAttribute('data-filter');
+      
+      galleryItems.forEach(item => {
+        if (filterValue === 'all' || item.classList.contains(filterValue)) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    });
+  });
+  
+  // Lightbox functionality
+  galleryItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const img = item.querySelector('img');
+      const caption = item.getAttribute('data-caption');
+      
+      document.getElementById('lightbox-img').src = img.src;
+      document.getElementById('lightbox-caption').textContent = caption;
+      document.getElementById('lightbox').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+});
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = 'auto';
+}
+
+// Close lightbox with ESC key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeLightbox();
+  }
+});
+
+// Close lightbox when clicking outside the image
+document.getElementById('lightbox').addEventListener('click', (e) => {
+  if (e.target === e.currentTarget) {
+    closeLightbox();
   }
 });
 </script>
