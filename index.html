@@ -3,195 +3,409 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>İzzet İNCE - Akademik Portfolyo</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Sporcu Beslenmesi - Ana Menü</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #8360c3 100%);
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            margin-bottom: 50px;
+        }
+
+        .header h1 {
+            font-size: 4em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            background: linear-gradient(45deg, #fff, #e0e0e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            font-size: 1.4em;
+            opacity: 0.9;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .module-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .module-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px 0 rgba(31, 38, 135, 0.5);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .module-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .module-title {
+            font-size: 2em;
+            margin-bottom: 15px;
+            color: #ffeb3b;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .module-description {
+            font-size: 1.1em;
+            line-height: 1.6;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .module-topics {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .topic-tag {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.9em;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            margin-top: 50px;
+        }
+
+        .footer p {
+            opacity: 0.8;
+            font-size: 1.1em;
+        }
+
+        .highlight {
+            background: linear-gradient(45deg, #ff6b6b, #ffa726);
+            padding: 8px 15px;
+            border-radius: 25px;
+            display: inline-block;
+            margin: 5px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .info-box {
+            background: rgba(33, 150, 243, 0.2);
+            border: 2px solid #2196f3;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 40px auto;
+            max-width: 800px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5em;
+            }
+            
+            .modules-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .module-card {
+                padding: 30px 20px;
+            }
+            
+            .module-title {
+                font-size: 1.6em;
+            }
+            
+            .module-icon {
+                font-size: 3em;
+            }
+        }
+
+        .progress-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #8360c3);
+            z-index: 1000;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .module-card {
+            animation: fadeInUp 0.6s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .module-card:nth-child(1) { animation-delay: 0.1s; }
+        .module-card:nth-child(2) { animation-delay: 0.2s; }
+        .module-card:nth-child(3) { animation-delay: 0.3s; }
+        .module-card:nth-child(4) { animation-delay: 0.4s; }
+        .module-card:nth-child(5) { animation-delay: 0.5s; }
+        .module-card:nth-child(6) { animation-delay: 0.6s; }
+        .module-card:nth-child(7) { animation-delay: 0.7s; }
+    </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <h2>İzzet İNCE</h2>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="index.html" class="nav-link active">Ana Sayfa</a></li>
-                <li><a href="cv.html" class="nav-link">CV</a></li>
-                <li><a href="dersler.html" class="nav-link">Ders Notları</a></li>
-                <li><a href="#contact" class="nav-link">İletişim</a></li>
-            </ul>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+    <div class="progress-indicator"></div>
+    
+    <div class="header">
+        <h1>🏃‍♂️ SPORCU BESLENMESİ</h1>
+        <p>Performansın Zirvesine Ulaşmak için Bilimsel Beslenme Rehberiniz</p>
+        <div style="margin-top: 30px;">
+            <span class="highlight">Evidence-Based</span>
+            <span class="highlight">Performance-Focused</span>
+            <span class="highlight">Practical Application</span>
         </div>
-    </nav>
+    </div>
 
-    <header class="hero">
-        <div class="hero-content">
-            <div class="profile-img">
-                <i class="fas fa-user-graduate"></i>
-            </div>
-            <h1>İzzet İNCE</h1>
-            <p class="title">Doç. Dr.</p>
-            <p class="subtitle">Spor Bilimleri Uzmanı</p>
-            <div class="social-links">
-                <a href="https://github.com/iince43" target="_blank"><i class="fab fa-github"></i></a>
-                <a href="https://www.researchgate.net/profile/Izzet-Ince-2" target="_blank"><i class="fab fa-researchgate"></i></a>
-                <a href="https://scholar.google.com/citations?hl=tr&user=wb0h-uEAAAAJ" target="_blank"><i class="fab fa-google-scholar"></i></a>
-                <a href="https://www.linkedin.com/in/izzet-ince-267b47a5" target="_blank"><i class="fab fa-linkedin"></i></a>
-                <a href="mailto:izzetince43@gmail.com" title="Kişisel E-posta"><i class="fas fa-envelope"></i></a>
-            </div>
-        </div>
-    </header>
-
-    <section class="about">
-        <div class="container">
-            <h2>Hakkımda</h2>
-            <div class="about-content">
-                <p>
-                    Merhaba, ben İzzet İNCE. Ankara Yıldırım Beyazıt Üniversitesi Spor Bilimleri Fakültesi Antrenörlük Eğitimi bölümünde 
-                    Doçent Doktor olarak görev yapmaktayım. Araştırma alanlarım arasında spor fizyolojisi, egzersiz bilimi, spor performans analizi, 
-                    sporcu beslenmesi, antrenman metodolojisi ve spor teknolojileri bulunmaktadır.
+    <div class="container">
+        <div class="modules-grid">
+            <!-- Module 1: Temel Beslenme -->
+            <a href="01_Temel_Beslenme_Ilkeleri_Sunum.html" class="module-card">
+                <span class="module-icon">🍎</span>
+                <h3 class="module-title">Temel Beslenme İlkeleri</h3>
+                <p class="module-description">
+                    Sporcu beslenmesinin temelleri, enerji dengesi, vücut kompozisyonu yönetimi ve performans optimizasyonu
                 </p>
-                <p>
-                    47 bilimsel yayın, Google Scholar h-indeksi 10 ve 332 atıf ile akademik alanda aktif bir araştırmacıyım. 
-                    Scopus h-indeksim 5 ve 73 atıfım bulunmaktadır. Bu web sitesinde akademik çalışmalarımı, ders notlarımı ve projelerimi paylaşıyorum.
+                <div class="module-topics">
+                    <span class="topic-tag">Enerji Dengesi</span>
+                    <span class="topic-tag">BMR Hesaplama</span>
+                    <span class="topic-tag">Vücut Kompozisyonu</span>
+                    <span class="topic-tag">Metabolizma</span>
+                </div>
+            </a>
+
+            <!-- Module 2: Makro Besinler -->
+            <a href="02_Makro_Besinler_Sunum.html" class="module-card">
+                <span class="module-icon">🥩</span>
+                <h3 class="module-title">Makro Besinler</h3>
+                <p class="module-description">
+                    Karbonhidrat, protein ve yağların sporda rolü, timing stratejileri ve optimal kombinasyonlar
                 </p>
+                <div class="module-topics">
+                    <span class="topic-tag">Karbonhidrat Timing</span>
+                    <span class="topic-tag">Protein Sentezi</span>
+                    <span class="topic-tag">Yağ Oksidasyonu</span>
+                    <span class="topic-tag">Makro Oranları</span>
+                </div>
+            </a>
+
+            <!-- Module 3: Antrenman Öncesi -->
+            <a href="03_Antrenman_Oncesi_Beslenme_Sunum.html" class="module-card">
+                <span class="module-icon">⚡</span>
+                <h3 class="module-title">Antrenman Öncesi Beslenme</h3>
+                <p class="module-description">
+                    Pre-workout nutrition stratejileri, timing, kafein kullanımı ve performans optimizasyonu
+                </p>
+                <div class="module-topics">
+                    <span class="topic-tag">Pre-Workout Timing</span>
+                    <span class="topic-tag">Kafein Stratejileri</span>
+                    <span class="topic-tag">Enerji Yükleme</span>
+                    <span class="topic-tag">Mental Hazırlık</span>
+                </div>
+            </a>
+
+            <!-- Module 4: Antrenman Sırası/Sonrası -->
+            <a href="04_Antrenman_Sirasi_Sonrasi_Sunum.html" class="module-card">
+                <span class="module-icon">🔄</span>
+                <h3 class="module-title">Antrenman Sırası/Sonrası</h3>
+                <p class="module-description">
+                    During-workout fueling, recovery nutrition, anabolic window ve optimal toparlanma stratejileri
+                </p>
+                <div class="module-topics">
+                    <span class="topic-tag">Intra-Workout</span>
+                    <span class="topic-tag">Recovery Window</span>
+                    <span class="topic-tag">Protein Synthesis</span>
+                    <span class="topic-tag">Glycogen Replenishment</span>
+                </div>
+            </a>
+
+            <!-- Module 5: Hidrasyon -->
+            <a href="05_Hidrasyon_Sunum.html" class="module-card">
+                <span class="module-icon">💧</span>
+                <h3 class="module-title">Hidrasyon ve Sıvı Alımı</h3>
+                <p class="module-description">
+                    Optimal hidrasyon stratejileri, ter kaybı yönetimi, elektrolit dengesi ve performans korunması
+                </p>
+                <div class="module-topics">
+                    <span class="topic-tag">Sweat Rate Testing</span>
+                    <span class="topic-tag">Elektrolit Dengesi</span>
+                    <span class="topic-tag">Dehidrasyon Önleme</span>
+                    <span class="topic-tag">Çevresel Faktörler</span>
+                </div>
+            </a>
+
+            <!-- Module 6: Supplementler -->
+            <a href="06_Takviye_ve_Supplementler_Sunum.html" class="module-card">
+                <span class="module-icon">💊</span>
+                <h3 class="module-title">Takviye ve Supplementler</h3>
+                <p class="module-description">
+                    Evidence-based supplementation, Tier A-B-C sınıflandırması, güvenlik ve maliyet etkinliği
+                </p>
+                <div class="module-topics">
+                    <span class="topic-tag">Kreatin</span>
+                    <span class="topic-tag">Kafein</span>
+                    <span class="topic-tag">Beta-Alanine</span>
+                    <span class="topic-tag">Güvenlik</span>
+                </div>
+            </a>
+
+            <!-- Module 7: Mikro Besinler -->
+            <a href="07_Mikro_Besinler_Sunum.html" class="module-card">
+                <span class="module-icon">💎</span>
+                <h3 class="module-title">Mikro Besinler</h3>
+                <p class="module-description">
+                    Vitaminler ve minerallerin sporcu performansındaki kritik rolü, eksiklik riskleri ve optimizasyon stratejileri
+                </p>
+                <div class="module-topics">
+                    <span class="topic-tag">Vitaminler A-D-E-K</span>
+                    <span class="topic-tag">B Kompleks</span>
+                    <span class="topic-tag">Demir-Çinko</span>
+                    <span class="topic-tag">Magnezyum-Kalsiyum</span>
+                </div>
+            </a>
+        </div>
+
+        <div class="info-box">
+            <h3 style="color: #ffeb3b; margin-bottom: 20px;">📚 Nasıl Kullanılır?</h3>
+            <p style="font-size: 1.2em; line-height: 1.6;">
+                Her modül interaktif HTML sunumu olarak hazırlanmıştır. Klavye (ok tuşları), dokunmatik ekran (kaydırma) 
+                veya fare tekerleği ile navigasyon yapabilirsiniz. F11 ile tam ekran moduna geçebilir, 
+                çift tıklama ile de tam ekran açıp kapatabilirsiniz.
+            </p>
+            <div style="margin-top: 20px;">
+                <span class="topic-tag">⌨️ Klavye Navigation</span>
+                <span class="topic-tag">📱 Touch Support</span>
+                <span class="topic-tag">🖱️ Mouse Wheel</span>
+                <span class="topic-tag">📺 Fullscreen Mode</span>
             </div>
         </div>
-    </section>
+    </div>
 
-    <section class="expertise">
-        <div class="container">
-            <h2>Uzmanlık Alanları</h2>
-            <div class="expertise-grid">
-                <div class="expertise-card">
-                    <i class="fas fa-microscope"></i>
-                    <h3>Araştırma</h3>
-                    <p>47 yayın, h-indeks: 10, 332 atıf</p>
-                </div>
-                <div class="expertise-card">
-                    <i class="fas fa-chalkboard-teacher"></i>
-                    <h3>Eğitim</h3>
-                    <p>Lisans ve lisansüstü dersler</p>
-                </div>
-                <div class="expertise-card">
-                    <i class="fas fa-project-diagram"></i>
-                    <h3>Projeler</h3>
-                    <p>3 araştırma projesi yürütmektedir</p>
-                </div>
-                <div class="expertise-card">
-                    <i class="fas fa-users"></i>
-                    <h3>Mentorluk</h3>
-                    <p>6 tez danışmanlığı gerçekleştirmiştir</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="recent-work">
-        <div class="container">
-            <h2>Son Çalışmalar</h2>
-            <div class="work-grid">
-                <div class="work-card">
-                    <div class="work-icon">
-                        <i class="fas fa-file-alt"></i>
-                    </div>
-                    <h3>Yayın Başlığı 1</h3>
-                    <p>2024 - Dergi/Konferans Adı</p>
-                    <a href="#" class="btn-link">Detaylar →</a>
-                </div>
-                <div class="work-card">
-                    <div class="work-icon">
-                        <i class="fas fa-book"></i>
-                    </div>
-                    <h3>Yayın Başlığı 2</h3>
-                    <p>2024 - Dergi/Konferans Adı</p>
-                    <a href="#" class="btn-link">Detaylar →</a>
-                </div>
-                <div class="work-card">
-                    <div class="work-icon">
-                        <i class="fas fa-award"></i>
-                    </div>
-                    <h3>Proje Adı</h3>
-                    <p>2023-2024 - Kurum Adı</p>
-                    <a href="#" class="btn-link">Detaylar →</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2>İletişim</h2>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <div>
-                            <h4>E-posta</h4>
-                            <p>izzetince@aybu.edu.tr (Kurumsal)<br>
-                            izzetince43@gmail.com (Kişisel)</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-building"></i>
-                        <div>
-                            <h4>Kurum</h4>
-                            <p>Ankara Yıldırım Beyazıt Üniversitesi<br>Spor Bilimleri Fakültesi<br>Antrenörlük Eğitimi Bölümü</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <div>
-                            <h4>Telefon</h4>
-                            <p>+90 XXX XXX XX XX</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 İzzet İNCE. Tüm hakları saklıdır.</p>
-        </div>
-    </footer>
+    <div class="footer">
+        <p>🏆 Her modül bilimsel araştırmalara dayalı, uygulamalı bilgiler içerir</p>
+        <p style="margin-top: 10px; opacity: 0.7;">Performansınızı zirveye taşımak için doğru beslenme stratejileri</p>
+    </div>
 
     <script>
-        // Mobile menu toggle
-        const hamburger = document.querySelector('.hamburger');
-        const navMenu = document.querySelector('.nav-menu');
-
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            navMenu.classList.toggle('active');
-        });
-
-        // Close menu when clicking on a link
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('active');
-                navMenu.classList.remove('active');
+        // Add some interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add hover sound effect simulation
+            const cards = document.querySelectorAll('.module-card');
+            
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+                
+                // Add click animation
+                card.addEventListener('click', function(e) {
+                    this.style.transform = 'translateY(-5px) scale(0.98)';
+                    setTimeout(() => {
+                        // Let the browser handle the navigation
+                    }, 150);
+                });
             });
         });
 
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+        // Add some dynamic background animation
+        function createFloatingElements() {
+            const container = document.body;
+            
+            for (let i = 0; i < 5; i++) {
+                const element = document.createElement('div');
+                element.innerHTML = ['🏃‍♂️', '💪', '🏆', '⚡', '🔥'][i];
+                element.style.position = 'fixed';
+                element.style.fontSize = '2em';
+                element.style.opacity = '0.1';
+                element.style.pointerEvents = 'none';
+                element.style.zIndex = '1';
+                element.style.animation = `float ${5 + i}s infinite linear`;
+                element.style.left = Math.random() * 100 + '%';
+                element.style.animationDelay = i * 2 + 's';
+                
+                container.appendChild(element);
+            }
+        }
+
+        // Add CSS for floating animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes float {
+                0% {
+                    transform: translateY(100vh) rotate(0deg);
                 }
-            });
-        });
+                100% {
+                    transform: translateY(-100px) rotate(360deg);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize floating elements
+        createFloatingElements();
     </script>
 </body>
 </html>
