@@ -1,222 +1,403 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="tr" class="no-js">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>İzzet İNCE - Akademik Portfolyo</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>İzzet İNCE — Akademik Portfolyo</title>
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkfFZNP6PqgQX5Ry1hCwV8xZKFbhC9v7Wv5bW7K5YhZ3T9g2xQ6Vb1eMw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Base Styles (single-file) -->
+  <style>
+    :root{
+      --bg:#0b1020;/* deep navy */
+      --bg-soft:#0f152a;
+      --card:#121a34;
+      --text:#e8ecf8;
+      --muted:#b8c0d9;
+      --brand:#6ea8fe; /* soft blue */
+      --brand-2:#00d1b2; /* aqua */
+      --accent:#ffd166; /* warm */
+      --outline:rgba(255,255,255,.08);
+      --shadow: 0 8px 30px rgba(0,0,0,.25);
+      --radius:18px;
+    }
+    :root.light{
+      --bg:#f7f9fc;
+      --bg-soft:#ffffff;
+      --card:#ffffff;
+      --text:#101427;
+      --muted:#5b6275;
+      --brand:#3366ff;
+      --brand-2:#0db39e;
+      --accent:#f59e0b;
+      --outline:rgba(16,20,39,.08);
+      --shadow: 0 8px 30px rgba(0,0,0,.08);
+    }
+    html,body{height:100%}
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial; color:var(--text); background: radial-gradient(1200px 600px at 10% -10%, rgba(51,102,255,.15), transparent 60%), radial-gradient(1000px 500px at 90% -20%, rgba(13,179,158,.15), transparent 60%), var(--bg);
+    }
+    a{color:inherit; text-decoration:none}
+    .container{width:min(1100px, 92%); margin-inline:auto}
+
+    /* Navbar */
+    .navbar{position:sticky; top:0; z-index:50; backdrop-filter:saturate(160%) blur(10px); background:color-mix(in oklab, var(--bg-soft) 70%, transparent); border-bottom:1px solid var(--outline)}
+    .nav-wrap{display:flex; align-items:center; justify-content:space-between; padding:14px 0}
+    .brand{display:flex; gap:12px; align-items:center}
+    .avatar{width:38px; height:38px; border-radius:50%; display:grid; place-items:center; background:linear-gradient(135deg, var(--brand), var(--brand-2)); color:white; font-weight:700}
+    .brand h1{font-size:18px; margin:0}
+    .nav-menu{display:flex; gap:18px; align-items:center}
+    .nav-menu a{padding:8px 12px; border-radius:10px; color:var(--muted); border:1px solid transparent}
+    .nav-menu a.active, .nav-menu a:hover{color:var(--text); border-color:var(--outline); background:color-mix(in oklab, var(--bg-soft) 85%, transparent)}
+    .toggle{border:1px solid var(--outline); background:var(--bg-soft); padding:8px 12px; border-radius:12px; cursor:pointer}
+
+    /* Hero */
+    .hero{position:relative; padding:72px 0 32px}
+    .hero-grid{display:grid; grid-template-columns:1.1fr .9fr; gap:32px; align-items:center}
+    .hero-card{background:linear-gradient(180deg, color-mix(in oklab, var(--card) 88%, transparent), var(--card)); border:1px solid var(--outline); border-radius:var(--radius); box-shadow:var(--shadow); padding:28px}
+    .kicker{display:inline-flex; gap:8px; align-items:center; color:var(--muted); font-size:14px}
+    .kicker .dot{width:8px; height:8px; border-radius:999px; background:var(--brand)}
+    .hero h2{font-size:40px; line-height:1.1; margin:10px 0 8px}
+    .title{display:flex; gap:10px; flex-wrap:wrap; color:var(--muted)}
+    .badges{display:flex; gap:10px; margin-top:16px; flex-wrap:wrap}
+    .badge{border:1px solid var(--outline); padding:8px 12px; border-radius:999px; font-size:14px; background:color-mix(in oklab, var(--bg-soft) 90%, transparent)}
+    .social{display:flex; gap:12px; margin-top:16px}
+    .social a{width:40px; height:40px; display:grid; place-items:center; border-radius:12px; border:1px solid var(--outline); background:var(--bg-soft)}
+    .stats{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:22px}
+    .stat{background:var(--bg-soft); border:1px solid var(--outline); border-radius:14px; padding:14px}
+    .stat b{font-size:20px}
+
+    .portrait{display:grid; place-items:center}
+    .portrait .circle{width:min(340px, 90%); aspect-ratio:1; border-radius:50%; background:
+      conic-gradient(from 180deg at 50% 50%, color-mix(in oklab, var(--brand) 70%, transparent), color-mix(in oklab, var(--brand-2) 70%, transparent));
+      padding:6px; box-shadow:var(--shadow)}
+    .portrait .inner{width:100%; height:100%; border-radius:inherit; background:linear-gradient(160deg, var(--card), color-mix(in oklab, var(--card) 85%, transparent)); display:grid; place-items:center; border:1px solid var(--outline)}
+    .portrait i{font-size:96px; color:var(--brand)}
+
+    /* About */
+    section{padding:42px 0}
+    h3.section-title, h2.section-title{font-size:24px; margin:0 0 16px}
+    .prose{color:var(--text); opacity:.95; line-height:1.7}
+    .about-grid{display:grid; grid-template-columns:1.1fr .9fr; gap:28px}
+    .panel{background:var(--card); border:1px solid var(--outline); border-radius:var(--radius); padding:24px; box-shadow:var(--shadow)}
+
+    /* Timeline (Achievements) */
+    .timeline{position:relative; padding-left:24px}
+    .timeline:before{content:""; position:absolute; left:8px; top:0; bottom:0; width:2px; background:linear-gradient(var(--brand), transparent)}
+    .t-item{position:relative; padding:14px 0 14px 18px}
+    .t-item:before{content:""; position:absolute; left:-3px; top:22px; width:10px; height:10px; border-radius:999px; background:var(--brand-2); border:2px solid var(--bg)}
+    .t-meta{display:flex; gap:8px; align-items:center; color:var(--muted); font-size:13px}
+    .t-title{font-weight:600}
+
+    /* Expertise cards */
+    .grid{display:grid; gap:18px}
+    .grid.cols-3{grid-template-columns:repeat(3,1fr)}
+    .card{background:var(--card); border:1px solid var(--outline); border-radius:16px; padding:18px; box-shadow:var(--shadow)}
+    .card .ico{width:42px; height:42px; display:grid; place-items:center; border-radius:12px; background:color-mix(in oklab, var(--brand) 14%, var(--bg-soft)); border:1px solid var(--outline); margin-bottom:10px}
+    .card h4{margin:6px 0 6px}
+    .muted{color:var(--muted)}
+
+    /* Work */
+    .work-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
+    .work{display:flex; flex-direction:column; gap:8px}
+    .work a.btn{align-self:flex-start; padding:10px 14px; border-radius:12px; border:1px solid var(--outline); background:linear-gradient(180deg, var(--bg-soft), color-mix(in oklab, var(--bg-soft) 85%, transparent));}
+    .work a.btn:hover{border-color:color-mix(in oklab, var(--brand) 40%, var(--outline))}
+
+    /* Contact */
+    .list{display:grid; gap:12px}
+    .list .row{display:flex; gap:12px}
+    .chip{border:1px solid var(--outline); background:var(--bg-soft); padding:10px 12px; border-radius:12px}
+
+    /* Footer */
+    footer{padding:28px 0; border-top:1px solid var(--outline); color:var(--muted)}
+
+    /* Utilities */
+    .flex{display:flex; gap:10px; align-items:center}
+    .gap-16{gap:16px}
+    .space{height:8px}
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .hero-grid,.about-grid{grid-template-columns:1fr}
+      .work-grid{grid-template-columns:1fr 1fr}
+      .grid.cols-3{grid-template-columns:1fr 1fr}
+    }
+    @media (max-width: 620px){
+      .nav-menu{display:none}
+      .work-grid{grid-template-columns:1fr}
+      .grid.cols-3{grid-template-columns:1fr}
+    }
+  </style>
+
+  <!-- SEO: JSON-LD Person Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "İzzet İnce",
+    "jobTitle": "Doçent Dr.",
+    "affiliation": {"@type":"CollegeOrUniversity","name":"Ankara Yıldırım Beyazıt Üniversitesi"},
+    "url": "https://example.com/",
+    "sameAs": [
+      "https://github.com/iince43",
+      "https://www.researchgate.net/profile/Izzet-Ince-2",
+      "https://scholar.google.com/citations?hl=tr&user=wb0h-uEAAAAJ",
+      "https://www.linkedin.com/in/izzet-ince-267b47a5"
+    ]
+  }
+  </script>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <h2>İzzet İNCE</h2>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="index.html" class="nav-link active">Ana Sayfa</a></li>
-                <li><a href="cv.html" class="nav-link">CV</a></li>
-                <li><a href="dersler.html" class="nav-link">Ders Notları</a></li>
-                <li><a href="#contact" class="nav-link">İletişim</a></li>
-            </ul>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container nav-wrap">
+      <a href="#" class="brand" aria-label="Ana sayfa">
+        <div class="avatar">İ</div>
+        <h1>İzzet İNCE</h1>
+      </a>
+      <div class="nav-menu" role="navigation" aria-label="Ana menü">
+        <a class="active" href="#top">Ana Sayfa</a>
+        <a href="#about">Hakkımda</a>
+        <a href="#achievements">Başarılar</a>
+        <a href="#expertise">Uzmanlık</a>
+        <a href="#work">Son Çalışmalar</a>
+        <a href="#contact">İletişim</a>
+        <button class="toggle" id="modeToggle" title="Tema değiştir (Açık/Koyu)"><i class="fa-solid fa-circle-half-stroke"></i></button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero" id="top">
+    <div class="container hero-grid">
+      <div class="hero-card">
+        <div class="kicker"><span class="dot"></span> Akademik Portfolyo</div>
+        <h2>Doç. Dr. İzzet İNCE</h2>
+        <div class="title">Spor Bilimleri • Performans Analitiği • Halter</div>
+        <div class="badges">
+          <span class="badge"><i class="fa-solid fa-location-dot"></i> Ankara, Türkiye</span>
+          <span class="badge"><i class="fa-solid fa-building-columns"></i> AYBÜ</span>
+          <span class="badge"><i class="fa-solid fa-flask"></i> 47 yayın • h=10 • 332 atıf</span>
         </div>
-    </nav>
-
-    <header class="hero">
-        <div class="hero-content">
-            <div class="profile-img">
-                <i class="fas fa-user-graduate"></i>
-            </div>
-            <h1>İzzet İNCE</h1>
-            <p class="title">Doç. Dr.</p>
-            <p class="subtitle">Spor Bilimleri Uzmanı</p>
-            <div class="social-links">
-                <a href="https://github.com/iince43" target="_blank"><i class="fab fa-github"></i></a>
-                <a href="https://www.researchgate.net/profile/Izzet-Ince-2" target="_blank"><i class="fab fa-researchgate"></i></a>
-                <a href="https://scholar.google.com/citations?hl=tr&user=wb0h-uEAAAAJ" target="_blank"><i class="fab fa-google-scholar"></i></a>
-                <a href="https://www.linkedin.com/in/izzet-ince-267b47a5" target="_blank"><i class="fab fa-linkedin"></i></a>
-                <a href="mailto:izzetince43@gmail.com" title="Kişisel E-posta"><i class="fas fa-envelope"></i></a>
-            </div>
+        <div class="social" aria-label="Sosyal bağlantılar">
+          <a href="https://github.com/iince43" target="_blank" rel="noopener" title="GitHub"><i class="fab fa-github"></i></a>
+          <a href="https://www.researchgate.net/profile/Izzet-Ince-2" target="_blank" rel="noopener" title="ResearchGate"><i class="fab fa-researchgate"></i></a>
+          <a href="https://scholar.google.com/citations?hl=tr&user=wb0h-uEAAAAJ" target="_blank" rel="noopener" title="Google Scholar"><i class="fab fa-google"></i></a>
+          <a href="https://www.linkedin.com/in/izzet-ince-267b47a5" target="_blank" rel="noopener" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+          <a href="mailto:izzetince43@gmail.com" title="E-posta"><i class="fas fa-envelope"></i></a>
         </div>
-    </header>
-
-    <section class="about">
-        <div class="container">
-            <h2>Hakkımda</h2>
-            <div class="about-content">
-                <p>
-                    İzzet İnce 1981 Yılı Kütahya doğumlu. Halter sporuna 1994 Yılında başladı. İlk kez 1996 Yılı Yıldızlar Avrupa Şampiyonasında Milli Sporcu oldu. Atina 2004 ve Pekin 2008 Olimpiyat Oyunlarına katıldı. Aşağıda verilen önemli uluslararası müsabakalarda madalya almıştır.
-	
-Avrupa Halter Şampiyonası İkinciliği (Koparama), BEYAZ RUSYA, 2010
-Akdeniz Oyunları Şampiyonluğu, İTALYA, 2009	
-Avrupa Halter Şampiyonası Üçüncülüğü (Koparma), İTALYA, 2008	
-Olimpiyat Oyunlarına Katılım, Olimpiyat Komitesi, ÇİN HALK CUMHURİYETİ, 2008	
-Büyükler Avrupa Halter Şampiyonluğu (Koparma), FRANSA, 2007			
-Üniversiteliler Arası Dünya Halter Şampiyonası Birinciliği, 2006
-Avrupa Halter Şampiyonası Üçüncülüğü (Koparama), YUNANİSTAN, 2005
-Büyükler Avrupa Halter Şampiyonluğu (Toplam), UKRAYNA, 2004
-Olimpiyat Oyunlarına Katılım, YUNANİSTAN, 2004
-Dünya Halter Şampiyonası İkinciliği, YUNANİSTAN, 2001
-
-Ortaöğretim ve Lise Eğitimini Kütahya’da tamamladı. Lisans ve Yüksek Lisans  eğitimini Konya Selçuk Üniversitesi Beden Eğitim ve Spor Yüksekokulunda tamamladı. Doktora Eğitimini ise Hacettepe Üniversitesi Spor Bilimleri ve Teknolojisi ve Dumlupınar Üniversitesi Beden Eğitimi ve ortak derslerini alarak bu üniversitede tamamladı.  
-
-MEB Ankara Pursaklar Satı Öztürk İlköğretim Okulu ve Abdurrahim Karakoç Ortaöğreim okullarında 7 yıl Beden Eğitimi Öğretmeni olarak çalıştı. 2016 Yılında Ankara Yıldırım Beyazıt Üniversitesi Spor Bilimleri Bölümüne “Araştırma Görevlisi” olarak atandı. 2018 yılında “Dr. Öğretim Üyesi” ve 2021 Yılında “Doçentlik” ünvanını aldı. Çok sayıda önemli Ulusal ve Uluslararası indekslerde taranan makalesi bulunmaktadır. Aynı üniversitede meslek hayatını sürdürmektedir.
-
-
-
- 
-
-
- 
-
- 
-
- 
-
-                </p>
-                <p>
-                    47 bilimsel yayın, Google Scholar h-indeksi 10 ve 332 atıf ile akademik alanda aktif bir araştırmacıyım. 
-                    Scopus h-indeksim 5 ve 73 atıfım bulunmaktadır. Bu web sitesinde akademik çalışmalarımı, ders notlarımı ve projelerimi paylaşıyorum.
-                </p>
-            </div>
+        <div class="stats">
+          <div class="stat"><div class="muted">Deneyim</div><b>15+ yıl</b></div>
+          <div class="stat"><div class="muted">Danışmanlık</div><b>6 tez</b></div>
+          <div class="stat"><div class="muted">Projeler</div><b>3 aktif</b></div>
         </div>
-    </section>
-
-    <section class="expertise">
-        <div class="container">
-            <h2>Uzmanlık Alanları</h2>
-            <div class="expertise-grid">
-                <div class="expertise-card">
-                    <i class="fas fa-microscope"></i>
-                    <h3>Araştırma</h3>
-                    <p>47 yayın, h-indeks: 10, 332 atıf</p>
-                </div>
-                <div class="expertise-card">
-                    <i class="fas fa-chalkboard-teacher"></i>
-                    <h3>Eğitim</h3>
-                    <p>Lisans ve lisansüstü dersler</p>
-                </div>
-                <div class="expertise-card">
-                    <i class="fas fa-project-diagram"></i>
-                    <h3>Projeler</h3>
-                    <p>3 araştırma projesi yürütmektedir</p>
-                </div>
-                <div class="expertise-card">
-                    <i class="fas fa-users"></i>
-                    <h3>Mentorluk</h3>
-                    <p>6 tez danışmanlığı gerçekleştirmiştir</p>
-                </div>
-            </div>
+      </div>
+      <div class="portrait">
+        <div class="circle">
+          <div class="inner">
+            <i class="fas fa-user-graduate" aria-hidden="true"></i>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </header>
 
-    <section class="recent-work">
-        <div class="container">
-            <h2>Son Çalışmalar</h2>
-            <div class="work-grid">
-                <div class="work-card">
-                    <div class="work-icon">
-                        <i class="fas fa-file-alt"></i>
-                    </div>
-                    <h3>Yayın Başlığı 1</h3>
-                    <p>2024 - Dergi/Konferans Adı</p>
-                    <a href="#" class="btn-link">Detaylar →</a>
-                </div>
-                <div class="work-card">
-                    <div class="work-icon">
-                        <i class="fas fa-book"></i>
-                    </div>
-                    <h3>Yayın Başlığı 2</h3>
-                    <p>2024 - Dergi/Konferans Adı</p>
-                    <a href="#" class="btn-link">Detaylar →</a>
-                </div>
-                <div class="work-card">
-                    <div class="work-icon">
-                        <i class="fas fa-award"></i>
-                    </div>
-                    <h3>Proje Adı</h3>
-                    <p>2023-2024 - Kurum Adı</p>
-                    <a href="#" class="btn-link">Detaylar →</a>
-                </div>
-            </div>
+  <!-- About -->
+  <section id="about" class="about">
+    <div class="container about-grid">
+      <div class="panel">
+        <h3 class="section-title">Hakkımda</h3>
+        <div class="prose">
+          <p>1981 Kütahya doğumluyum. Haltere 1994’te başladım; 1996’da ilk kez Milli oldum. 2004 Atina ve 2008 Pekin <strong>Olimpiyat Oyunları</strong>’na katıldım. Akademide; Selçuk Üniversitesi’nde lisans ve yüksek lisans, Hacettepe & Dumlupınar ortak programında doktoramı tamamladım. MEB’de 7 yıl Beden Eğitimi Öğretmenliği sonrası, 2016’da <em>AYBÜ</em>’de Araştırma Görevlisi olarak başladım; 2018’de <em>Dr. Öğr. Üyesi</em>, 2021’de <em>Doçent</em> unvanı aldım. Spor performansı, kuvvet‑hız profilleme ve uygulamalı biyomekanik alanlarında çalışıyorum.</p>
         </div>
-    </section>
-
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2>İletişim</h2>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <div>
-                            <h4>E-posta</h4>
-                            <p>izzetince@aybu.edu.tr (Kurumsal)<br>
-                            izzetince43@gmail.com (Kişisel)</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-building"></i>
-                        <div>
-                            <h4>Kurum</h4>
-                            <p>Ankara Yıldırım Beyazıt Üniversitesi<br>Spor Bilimleri Fakültesi<br>Antrenörlük Eğitimi Bölümü</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <div>
-                            <h4>Telefon</h4>
-                            <p>+90 XXX XXX XX XX</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      </div>
+      <div class="panel">
+        <h3 class="section-title">Öne Çıkan Başlıklar</h3>
+        <div class="grid">
+          <div class="flex gap-16"><span class="chip"><i class="fa-solid fa-dumbbell"></i> Halter & Performans</span><span class="chip"><i class="fa-solid fa-chart-line"></i> Kuvvet‑Hız Profili</span></div>
+          <div class="flex gap-16"><span class="chip"><i class="fa-solid fa-person-running"></i> Spor Biyomekaniği</span><span class="chip"><i class="fa-solid fa-chalkboard-user"></i> Lisans & Lisansüstü Eğitim</span></div>
+          <div class="flex gap-16"><span class="chip"><i class="fa-solid fa-briefcase"></i> Proje Yönetimi</span><span class="chip"><i class="fa-solid fa-award"></i> Uluslararası Başarı</span></div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 İzzet İNCE. Tüm hakları saklıdır.</p>
+  <!-- Achievements Timeline -->
+  <section id="achievements">
+    <div class="container">
+      <h2 class="section-title">Uluslararası Başarılar</h2>
+      <div class="panel timeline">
+        <div class="t-item">
+          <div class="t-meta"><i class="fa-solid fa-trophy"></i><span>2010 • Beyaz Rusya</span></div>
+          <div class="t-title">Avrupa Halter Şampiyonası <strong>İkinciliği (Koparma)</strong></div>
         </div>
-    </footer>
+        <div class="t-item">
+          <div class="t-meta"><i class="fa-solid fa-trophy"></i><span>2009 • İtalya</span></div>
+          <div class="t-title"><strong>Akdeniz Oyunları Şampiyonluğu</strong></div>
+        </div>
+        <div class="t-item">
+          <div class="t-meta"><i class="fa-solid fa-medal"></i><span>2008 • İtalya</span></div>
+          <div class="t-title">Avrupa Halter Şampiyonası <strong>Üçüncülüğü (Koparma)</strong></div>
+        </div>
+        <div class="t-item">
+          <div class="t-meta"><i class="fa-solid fa-olympic"></i><span>2008 • Çin</span></div>
+          <div class="t-title"><strong>Pekin 2008</strong> — Olimpiyat Oyunlarına Katılım</div>
+        </div>
+        <div class="t-item">
+          <div class="t-meta"><i class="fa-solid fa-trophy"></i><span>2007 • Fransa</span></div>
+          <div class="t-title">Büyükler Avrupa Halter Şampiyonluğu <strong>(Koparma)</strong></div>
+        </div>
+        <div class="t-item">
+          <div class="t-meta"><i class="fa-solid fa-medal"></i><span>2006</span></div>
+          <div class="t-title">Üniversiteliler Arası Dünya Halter Şampiyonası <strong>Birinciliği</strong></div>
+        </div>
+        <div class="t-item">
+          <div class="t-meta"><i class="fa-solid fa-medal"></i><span>2005 • Yunanistan</span></div>
+          <div class="t-title">Avrupa Halter Şampiyonası <strong>Üçüncülüğü (Koparma)</strong></div>
+        </div>
+        <div class="t-item">
+          <div class="t-meta"><i class="fa-solid fa-trophy"></i><span>2004 • Ukrayna</span></div>
+          <div class="t-title">Büyükler Avrupa Halter Şampiyonluğu <strong>(Toplam)</strong></div>
+        </div>
+        <div class="t-item">
+          <div class="t-meta"><i class="fa-solid fa-olympic"></i><span>2004 • Yunanistan</span></div>
+          <div class="t-title"><strong>Atina 2004</strong> — Olimpiyat Oyunlarına Katılım</div>
+        </div>
+        <div class="t-item">
+          <div class="t-meta"><i class="fa-solid fa-medal"></i><span>2001 • Yunanistan</span></div>
+          <div class="t-title">Dünya Halter Şampiyonası <strong>İkinciliği</strong></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <script>
-        // Mobile menu toggle
-        const hamburger = document.querySelector('.hamburger');
-        const navMenu = document.querySelector('.nav-menu');
+  <!-- Expertise -->
+  <section id="expertise">
+    <div class="container">
+      <h2 class="section-title">Uzmanlık Alanları</h2>
+      <div class="grid cols-3">
+        <div class="card">
+          <div class="ico"><i class="fas fa-microscope"></i></div>
+          <h4>Araştırma</h4>
+          <div class="muted">47 yayın • h-indeks 10 • 332 atıf</div>
+        </div>
+        <div class="card">
+          <div class="ico"><i class="fas fa-chalkboard-teacher"></i></div>
+          <h4>Eğitim</h4>
+          <div class="muted">Lisans & Lisansüstü dersler</div>
+        </div>
+        <div class="card">
+          <div class="ico"><i class="fas fa-project-diagram"></i></div>
+          <h4>Projeler</h4>
+          <div class="muted">3 araştırma projesi (aktif)</div>
+        </div>
+        <div class="card">
+          <div class="ico"><i class="fas fa-users"></i></div>
+          <h4>Mentorluk</h4>
+          <div class="muted">6 tez danışmanlığı</div>
+        </div>
+        <div class="card">
+          <div class="ico"><i class="fas fa-heart-pulse"></i></div>
+          <h4>Uygulamalı Biyomekanik</h4>
+          <div class="muted">Kuvvet‑hız, RFD, RSI</div>
+        </div>
+        <div class="card">
+          <div class="ico"><i class="fas fa-medal"></i></div>
+          <h4>Milli Sporculuk</h4>
+          <div class="muted">Avrupa & Dünya dereceleri</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            navMenu.classList.toggle('active');
-        });
+  <!-- Recent Work -->
+  <section id="work">
+    <div class="container">
+      <h2 class="section-title">Son Çalışmalar</h2>
+      <div class="work-grid">
+        <div class="card work">
+          <div class="ico"><i class="fas fa-file-alt"></i></div>
+          <b>Yayın Başlığı 1</b>
+          <div class="muted">2024 • Dergi/Konferans</div>
+          <a class="btn" href="#" target="_blank" rel="noopener">Detaylar →</a>
+        </div>
+        <div class="card work">
+          <div class="ico"><i class="fas fa-book"></i></div>
+          <b>Yayın Başlığı 2</b>
+          <div class="muted">2024 • Dergi/Konferans</div>
+          <a class="btn" href="#" target="_blank" rel="noopener">Detaylar →</a>
+        </div>
+        <div class="card work">
+          <div class="ico"><i class="fas fa-award"></i></div>
+          <b>Proje Adı</b>
+          <div class="muted">2023–2024 • Kurum</div>
+          <a class="btn" href="#" target="_blank" rel="noopener">Detaylar →</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        // Close menu when clicking on a link
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('active');
-                navMenu.classList.remove('active');
-            });
-        });
+  <!-- Contact -->
+  <section id="contact">
+    <div class="container about-grid">
+      <div class="panel">
+        <h2 class="section-title">İletişim</h2>
+        <div class="list">
+          <div class="row"><i class="fas fa-envelope"></i><div>
+            <div><b>E‑posta</b></div>
+            <div class="muted">izzetince@aybu.edu.tr (Kurumsal) • izzetince43@gmail.com (Kişisel)</div>
+          </div></div>
+          <div class="row"><i class="fas fa-building"></i><div>
+            <div><b>Kurum</b></div>
+            <div class="muted">Ankara Yıldırım Beyazıt Üniversitesi • Spor Bilimleri Fakültesi • Antrenörlük Eğitimi</div>
+          </div></div>
+          <div class="row"><i class="fas fa-phone"></i><div>
+            <div><b>Telefon</b></div>
+            <div class="muted">+90 XXX XXX XX XX</div>
+          </div></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h2 class="section-title">Kısa Öz</h2>
+        <p class="prose">Olimpik sporculuk ve akademiyi birleştiren bir kariyer: yüksek performansın sahadaki uygulamalarını laboratuvar metodolojisi ile buluşturuyor; sporcu gelişimini veri odaklı yaklaşımlarla destekliyorum.</p>
+      </div>
+    </div>
+  </section>
 
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-    </script>
+  <footer>
+    <div class="container">© <span id="y"></span> İzzet İNCE. Tüm hakları saklıdır.</div>
+  </footer>
+
+  <script>
+    // Year
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Light/Dark + OS preference
+    const root = document.documentElement;
+    const stored = localStorage.getItem('pref-theme');
+    const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+    if(stored){ root.classList.toggle('light', stored === 'light'); }
+    else { root.classList.toggle('light', prefersLight); }
+
+    document.getElementById('modeToggle').addEventListener('click', () => {
+      root.classList.toggle('light');
+      localStorage.setItem('pref-theme', root.classList.contains('light') ? 'light' : 'dark');
+    });
+
+    // Smooth scroll for in-page links
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const id = a.getAttribute('href');
+        if(id.length > 1){
+          e.preventDefault();
+          document.querySelector(id)?.scrollIntoView({behavior:'smooth', block:'start'});
+        }
+      });
+    });
+  </script>
 </body>
 </html>
