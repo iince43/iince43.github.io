@@ -1,323 +1,289 @@
- <!DOCTYPE html>
-     <html lang="tr" class="no-js">
-     <head>
-     <meta charset="UTF-8" />
-     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-     <title>İzzet İNCE — Akademik Portfolyo</title>
+<!DOCTYPE html>
+<html lang="tr" class="no-js">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>İzzet İNCE — Akademik Portfolyo</title>
 
-     <!-- Fonts & Icons -->
-     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-     integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkfFZNP6PqgQX5Ry1hCwV8xZKFbhC9v7Wv5bW7K5YhZ3T9g2xQ6Vb1eMw=="
-     crossorigin="anonymous" referrerpolicy="no-referrer" />
+<!-- Fonts & Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkfFZNP6PqgQX5Ry1hCwV8xZKFbhC9v7Wv5bW7K5YhZ3T9g2xQ6Vb1eMw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-     <!-- Base Styles (single-file) -->
-     <style>
-     :root{
-     --bg:#0b1020;/* deep navy */
-     --bg-soft:#0f152a;
-     --card:#121a34;
-     --text:#e8ecf8;
-     --muted:#b8c0d9;
-     --brand:#6ea8fe; /* soft blue */
-     --brand-2:#00d1b2; /* aqua */
-     --accent:#ffd166; /* warm */
-     --outline:rgba(255,255,255,.08);
-     --shadow: 0 8px 30px rgba(0,0,0,.25);
-     --radius:18px;
-     }
-     :root.light{
-     --bg:#f7f9fc;
-     --bg-soft:#ffffff;
-     --card:#ffffff;
-     --text:#101427;
-     --muted:#5b6275;
-     --brand:#3366ff;
-     --brand-2:#0db39e;
-     --accent:#f59e0b;
-     --outline:rgba(16,20,39,.08);
-     --shadow: 0 8px 30px rgba(0,0,0,.08);
-     }
-     html,body{height:100%}
-     *{box-sizing:border-box}
-     body{
-     margin:0; font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial; color:var(--text);
-     background: radial-gradient(1200px 600px at 10% -10%, rgba(51,102,255,.15), transparent 60%), radial-gradient(1000px 500px
-     at 90% -20%, rgba(13,179,158,.15), transparent 60%), var(--bg);
-     }
-     a{color:inherit; text-decoration:none}
-     .container{width:min(1100px, 92%); margin-inline:auto}
+<!-- Base Styles (single-file) -->
+<style>
+:root{
+--bg:#0b1020;/* deep navy */
+--bg-soft:#0f152a;
+--card:#121a34;
+--text:#e8ecf8;
+--muted:#b8c0d9;
+--brand:#6ea8fe; /* soft blue */
+--brand-2:#00d1b2; /* aqua */
+--accent:#ffd166; /* warm */
+--outline:rgba(255,255,255,.08);
+--shadow: 0 8px 30px rgba(0,0,0,.25);
+--radius:18px;
+}
+:root.light{
+--bg:#f7f9fc;
+--bg-soft:#ffffff;
+--card:#ffffff;
+--text:#101427;
+--muted:#5b6275;
+--brand:#3366ff;
+--brand-2:#0db39e;
+--accent:#f59e0b;
+--outline:rgba(16,20,39,.08);
+--shadow: 0 8px 30px rgba(0,0,0,.08);
+}
+html,body{height:100%}
+*{box-sizing:border-box}
+body{
+margin:0; font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial; color:var(--text); background: radial-gradient(1200px 600px at 10% -10%, rgba(51,102,255,.15), transparent 60%), radial-gradient(1000px 500px at 90% -20%, rgba(13,179,158,.15), transparent 60%), var(--bg);
+}
+a{color:inherit; text-decoration:none}
+.container{width:min(1100px, 92%); margin-inline:auto}
 
-     /* Navbar */
-     .navbar{position:sticky; top:0; z-index:50; backdrop-filter:saturate(160%) blur(10px); background:color-mix(in oklab,
-     var(--bg-soft) 70%, transparent); border-bottom:1px solid var(--outline)}
-     .nav-wrap{display:flex; align-items:center; justify-content:space-between; padding:14px 0}
-     .brand{display:flex; gap:12px; align-items:center}
-     .avatar{width:38px; height:38px; border-radius:50%; display:grid; place-items:center; background:linear-gradient(135deg,
-     var(--brand), var(--brand-2)); color:white; font-weight:700}
-     .brand h1{font-size:18px; margin:0}
-     .nav-menu{display:flex; gap:18px; align-items:center}
-     .nav-menu a{padding:8px 12px; border-radius:10px; color:var(--muted); border:1px solid transparent}
-     .nav-menu a.active, .nav-menu a:hover{color:var(--text); border-color:var(--outline); background:color-mix(in oklab,
-     var(--bg-soft) 85%, transparent)}
-     .toggle{border:1px solid var(--outline); background:var(--bg-soft); padding:8px 12px; border-radius:12px; cursor:pointer}
+/* Navbar */
+.navbar{position:sticky; top:0; z-index:50; backdrop-filter:saturate(160%) blur(10px); background:color-mix(in oklab, var(--bg-soft) 70%, transparent); border-bottom:1px solid var(--outline)}
+.nav-wrap{display:flex; align-items:center; justify-content:space-between; padding:14px 0}
+.brand{display:flex; gap:12px; align-items:center}
+.avatar{width:38px; height:38px; border-radius:50%; display:grid; place-items:center; background:linear-gradient(135deg, var(--brand), var(--brand-2)); color:white; font-weight:700}
+.brand h1{font-size:18px; margin:0}
+.nav-menu{display:flex; gap:18px; align-items:center}
+.nav-menu a{padding:8px 12px; border-radius:10px; color:var(--muted); border:1px solid transparent}
+.nav-menu a.active, .nav-menu a:hover{color:var(--text); border-color:var(--outline); background:color-mix(in oklab, var(--bg-soft) 85%, transparent)}
+.toggle{border:1px solid var(--outline); background:var(--bg-soft); padding:8px 12px; border-radius:12px; cursor:pointer}
 
-     /* Hero */
-     .hero{position:relative; padding:72px 0 32px}
-     .hero-grid{display:grid; grid-template-columns:1.1fr .9fr; gap:32px; align-items:center}
-     .hero-card{background:linear-gradient(180deg, color-mix(in oklab, var(--card) 88%, transparent), var(--card)); border:1px
-     solid var(--outline); border-radius:var(--radius); box-shadow:var(--shadow); padding:28px}
-     .kicker{display:inline-flex; gap:8px; align-items:center; color:var(--muted); font-size:14px}
-     .kicker .dot{width:8px; height:8px; border-radius:999px; background:var(--brand)}
-     .hero h2{font-size:40px; line-height:1.1; margin:10px 0 8px}
-     .title{display:flex; gap:10px; flex-wrap:wrap; color:var(--muted)}
-     .badges{display:flex; gap:10px; margin-top:16px; flex-wrap:wrap}
-     .badge{border:1px solid var(--outline); padding:8px 12px; border-radius:999px; font-size:14px; background:color-mix(in
-     oklab, var(--bg-soft) 90%, transparent)}
-     .social{display:flex; gap:12px; margin-top:16px}
-     .social a{width:40px; height:40px; display:grid; place-items:center; border-radius:12px; border:1px solid var(--outline);
-     background:var(--bg-soft); transition: all 0.2s ease}
-     .social a:hover{border-color:var(--brand); background:var(--brand); color:white}
-     .stats{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:22px}
-     .stat{background:var(--bg-soft); border:1px solid var(--outline); border-radius:14px; padding:14px; text-align:center}
-     .stat b{font-size:20px; display:block; color:var(--brand)}
-     .stat span{font-size:12px; color:var(--muted)}
+/* Hero */
+.hero{position:relative; padding:72px 0 32px}
+.hero-grid{display:grid; grid-template-columns:1.1fr .9fr; gap:32px; align-items:center}
+.hero-card{background:linear-gradient(180deg, color-mix(in oklab, var(--card) 88%, transparent), var(--card)); border:1px solid var(--outline); border-radius:var(--radius); box-shadow:var(--shadow); padding:28px}
+.kicker{display:inline-flex; gap:8px; align-items:center; color:var(--muted); font-size:14px}
+.kicker .dot{width:8px; height:8px; border-radius:999px; background:var(--brand)}
+.hero h2{font-size:40px; line-height:1.1; margin:10px 0 8px}
+.title{display:flex; gap:10px; flex-wrap:wrap; color:var(--muted)}
+.badges{display:flex; gap:10px; margin-top:16px; flex-wrap:wrap}
+.badge{border:1px solid var(--outline); padding:8px 12px; border-radius:999px; font-size:14px; background:color-mix(in oklab, var(--bg-soft) 90%, transparent)}
+.social{display:flex; gap:12px; margin-top:16px}
+.social a{width:40px; height:40px; display:grid; place-items:center; border-radius:12px; border:1px solid var(--outline); background:var(--bg-soft); transition: all 0.2s ease; color:var(--brand)}
+.social a:hover{border-color:var(--brand); background:var(--brand); color:white}
+.stats{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:22px}
+.stat{background:var(--bg-soft); border:1px solid var(--outline); border-radius:14px; padding:14px; text-align:center}
+.stat b{font-size:20px; display:block; color:var(--brand)}
+.stat span{font-size:12px; color:var(--muted)}
 
-     .portrait{display:grid; place-items:center}
-     .portrait .circle{width:min(340px, 90%); aspect-ratio:1; border-radius:50%; background:
-     conic-gradient(from 180deg at 50% 50%, color-mix(in oklab, var(--brand) 70%, transparent), color-mix(in oklab,
-     var(--brand-2) 70%, transparent));
-     padding:6px; box-shadow:var(--shadow)}
-     .portrait .inner{width:100%; height:100%; border-radius:inherit; background:linear-gradient(160deg, var(--card),
-     color-mix(in oklab, var(--card) 85%, transparent)); display:grid; place-items:center; border:1px solid var(--outline)}
-     .portrait i{font-size:96px; color:var(--brand)}
+.portrait{display:grid; place-items:center}
+.portrait .circle{width:min(340px, 90%); aspect-ratio:1; border-radius:50%; background:
+conic-gradient(from 180deg at 50% 50%, color-mix(in oklab, var(--brand) 70%, transparent), color-mix(in oklab, var(--brand-2) 70%, transparent));
+padding:6px; box-shadow:var(--shadow)}
+.portrait .inner{width:100%; height:100%; border-radius:inherit; background:linear-gradient(160deg, var(--card), color-mix(in oklab, var(--card) 85%, transparent)); display:grid; place-items:center; border:1px solid var(--outline)}
+.portrait i{font-size:96px; color:var(--brand)}
 
-     /* Sections */
-     .section{padding:40px 0}
-     .section h3{font-size:24px; margin-bottom:20px; color:var(--text)}
-     .cards-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:20px}
-     .info-card{background:var(--card); border:1px solid var(--outline); border-radius:var(--radius); padding:20px;
-     box-shadow:var(--shadow)}
-     .info-card h4{color:var(--brand); margin-bottom:8px}
-     .info-card p{color:var(--muted); line-height:1.6}
+/* Sections */
+.section{padding:40px 0}
+.section h3{font-size:24px; margin-bottom:20px; color:var(--text)}
+.cards-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:20px}
+.info-card{background:var(--card); border:1px solid var(--outline); border-radius:var(--radius); padding:20px; box-shadow:var(--shadow)}
+.info-card h4{color:var(--brand); margin-bottom:8px}
+.info-card p{color:var(--muted); line-height:1.6}
 
-     /* Contact */
-     .contact{background:var(--card); border:1px solid var(--outline); border-radius:var(--radius); padding:28px; margin:40px 0;
-     box-shadow:var(--shadow)}
-     .contact h3{color:var(--text); margin-bottom:16px}
-     .contact-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:16px}
-     .contact-item{display:flex; gap:12px; align-items:center}
-     .contact-item i{width:32px; height:32px; display:grid; place-items:center; border-radius:8px; background:var(--bg-soft);
-     color:var(--brand)}
+/* Contact */
+.contact{background:var(--card); border:1px solid var(--outline); border-radius:var(--radius); padding:28px; margin:40px 0; box-shadow:var(--shadow)}
+.contact h3{color:var(--text); margin-bottom:16px}
+.contact-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:16px}
+.contact-item{display:flex; gap:12px; align-items:center}
+.contact-item i{width:32px; height:32px; display:grid; place-items:center; border-radius:8px; background:var(--bg-soft); color:var(--brand)}
 
-     /* Theme Toggle */
-     .theme-toggle{position:fixed; bottom:20px; right:20px; width:50px; height:50px; border-radius:50%; background:var(--brand);
-     color:white; border:none; cursor:pointer; box-shadow:var(--shadow); z-index:100}
+/* Theme Toggle */
+.theme-toggle{position:fixed; bottom:20px; right:20px; width:50px; height:50px; border-radius:50%; background:var(--brand); color:white; border:none; cursor:pointer; box-shadow:var(--shadow); z-index:100}
 
-     /* Mobile */
-     @media (max-width: 768px) {
-       .hero-grid{grid-template-columns:1fr; text-align:center}
-       .nav-menu{display:none}
-       .stats{grid-template-columns:1fr}
-     }
-     </style>
-     </head>
-     <body>
+/* Mobile */
+@media (max-width: 768px) {
+  .hero-grid{grid-template-columns:1fr; text-align:center}
+  .nav-menu{display:none}
+  .stats{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
 
-     <nav class="navbar">
-       <div class="container">
-         <div class="nav-wrap">
-           <div class="brand">
-             <div class="avatar">İİ</div>
-             <h1>İzzet İNCE</h1>
-           </div>
-           <div class="nav-menu">
-             <a href="index.html" class="active">Ana Sayfa</a>
-             <a href="cv.html">CV</a>
-             <a href="dersler.html">Ders Notları</a>
-             <a href="#contact">İletişim</a>
-           </div>
-           <button class="toggle" onclick="toggleTheme()">
-             <i class="fas fa-moon"></i>
-           </button>
-         </div>
-       </div>
-     </nav>
+<nav class="navbar">
+  <div class="container">
+    <div class="nav-wrap">
+      <div class="brand">
+        <div class="avatar">İİ</div>
+        <h1>İzzet İNCE</h1>
+      </div>
+      <div class="nav-menu">
+        <a href="index.html" class="active">Ana Sayfa</a>
+        <a href="cv.html">CV</a>
+        <a href="dersler.html">Ders Notları</a>
+        <a href="#contact">İletişim</a>
+      </div>
+      <button class="toggle" onclick="toggleTheme()">
+        <i class="fas fa-moon"></i>
+      </button>
+    </div>
+  </div>
+</nav>
 
-     <main>
-       <section class="hero">
-         <div class="container">
-           <div class="hero-grid">
-             <div class="hero-card">
-               <div class="kicker">
-                 <div class="dot"></div>
-                 Aktif Araştırmacı
-               </div>
+<main>
+  <section class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-card">
+          
+          <h2>İzzet İNCE</h2>
+          
+          <div class="title">
+            <span>Doç. Dr.</span>
+            <span>•</span>
+            <span>Spor Bilimleri Uzmanı</span>
+          </div>
+          
+          <div class="badges">
+            <div class="badge">Ankara Yıldırım Beyazıt Üniversitesi</div>
+            <div class="badge">Spor Bilimleri Fakültesi</div>
+            <div class="badge">Antrenörlük Eğitimi</div>
+          </div>
+          
+          <div class="social">
+            <a href="https://github.com/iince43" target="_blank" title="GitHub">
+              <i class="fab fa-github"></i>
+            </a>
+            <a href="https://www.researchgate.net/profile/Izzet-Ince-2" target="_blank" title="ResearchGate">
+              <i class="fab fa-researchgate"></i>
+            </a>
+            <a href="https://scholar.google.com/citations?hl=tr&user=wb0h-uEAAAAJ" target="_blank" title="Google Scholar">
+              <i class="fas fa-graduation-cap"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/izzet-ince-267b47a5" target="_blank" title="LinkedIn">
+              <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="mailto:izzetince43@gmail.com" title="E-posta">
+              <i class="fas fa-envelope"></i>
+            </a>
+          </div>
+          
+        </div>
+        
+        <div class="portrait">
+          <div class="circle">
+            <div class="inner">
+              <i class="fas fa-user-graduate"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-               <h2>İzzet İNCE</h2>
+  <section class="section">
+    <div class="container">
+      <h3>Araştırma Alanları</h3>
+      <div class="cards-grid">
+        <div class="info-card">
+          <h4><i class="fas fa-apple-alt"></i> Sporcu Beslenmesi</h4>
+          <p>Sporda beslenme stratejileri, makro-mikro besinler ve performans optimizasyonu</p>
+        </div>
+        <div class="info-card">
+          <h4><i class="fas fa-dumbbell"></i> Antrenman Bilimi</h4>
+          <p>Antrenman teorisi, periodizasyon ve performans geliştirme metodları</p>
+        </div>
+        <div class="info-card">
+          <h4><i class="fas fa-heartbeat"></i> Spor Fizyolojisi</h4>
+          <p>Egzersiz fizyolojisi, adaptasyonlar ve spor performans analizi</p>
+        </div>
+        <div class="info-card">
+          <h4><i class="fas fa-chart-line"></i> Performans Analizi</h4>
+          <p>Spor teknolojileri, veri analizi ve sporcu değerlendirme teknikleri</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-               <div class="title">
-                 <span>Doç. Dr.</span>
-                 <span>•</span>
-                 <span>Spor Bilimleri Uzmanı</span>
-               </div>
+  <section class="section">
+    <div class="container">
+      <h3>Öne Çıkan Çalışmalar</h3>
+      <div class="cards-grid">
+        <div class="info-card">
+          <h4>Athletic Shoulder Test Geçerliliği</h4>
+          <p><strong>2025</strong> - Journal of Musculoskeletal Neuronal Interactions</p>
+        </div>
+        <div class="info-card">
+          <h4>Elektriksel Kas Stimülasyonu Etkileri</h4>
+          <p><strong>2025</strong> - Journal of Exercise Science and Fitness</p>
+        </div>
+        <div class="info-card">
+          <h4>TÜBİTAK Kuvvet Platformu Projesi</h4>
+          <p><strong>2024-2025</strong> - Çift Plakali Kuvvet Platformu Tasarımı</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-               <div class="badges">
-                 <div class="badge">Ankara Yıldırım Beyazıt Üniversitesi</div>
-                 <div class="badge">Spor Bilimleri Fakültesi</div>
-                 <div class="badge">Antrenörlük Eğitimi</div>
-               </div>
+  <div class="container">
+    <div class="contact" id="contact">
+      <h3>İletişim Bilgileri</h3>
+      <div class="contact-grid">
+        <div class="contact-item">
+          <i class="fas fa-envelope"></i>
+          <div>
+            <strong>E-posta</strong><br>
+            <span style="color:var(--muted)">izzetince@aybu.edu.tr<br>izzetince43@gmail.com</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-building"></i>
+          <div>
+            <strong>Kurum</strong><br>
+            <span style="color:var(--muted)">Ankara Yıldırım Beyazıt Üniversitesi<br>Spor Bilimleri Fakültesi</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-map-marker-alt"></i>
+          <div>
+            <strong>Konum</strong><br>
+            <span style="color:var(--muted)">Ankara, Türkiye</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
 
-               <div class="social">
-                 <a href="https://github.com/iince43" target="_blank" title="GitHub">
-                   <i class="fab fa-github"></i>
-                 </a>
-                 <a href="https://www.researchgate.net/profile/Izzet-Ince-2" target="_blank" title="ResearchGate">
-                   <i class="fab fa-researchgate"></i>
-                 </a>
-                 <a href="https://scholar.google.com/citations?hl=tr&user=wb0h-uEAAAAJ" target="_blank" title="Google Scholar">
-                   <i class="fas fa-graduation-cap"></i>
-                 </a>
-                 <a href="https://www.linkedin.com/in/izzet-ince-267b47a5" target="_blank" title="LinkedIn">
-                   <i class="fab fa-linkedin"></i>
-                 </a>
-                 <a href="mailto:izzetince43@gmail.com" title="E-posta">
-                   <i class="fas fa-envelope"></i>
-                 </a>
-               </div>
+<button class="theme-toggle" onclick="toggleTheme()" title="Tema Değiştir">
+  <i class="fas fa-sun"></i>
+</button>
 
-               <div class="stats">
-                 <div class="stat">
-                   <b>47</b>
-                   <span>Yayın</span>
-                 </div>
-                 <div class="stat">
-                   <b>332</b>
-                   <span>Atıf</span>
-                 </div>
-                 <div class="stat">
-                   <b>10</b>
-                   <span>h-indeks</span>
-                 </div>
-               </div>
-             </div>
+<script>
+function toggleTheme() {
+  const html = document.documentElement;
+  const toggleBtn = document.querySelector('.theme-toggle i');
+  
+  if (html.classList.contains('light')) {
+    html.classList.remove('light');
+    toggleBtn.className = 'fas fa-sun';
+    localStorage.setItem('theme', 'dark');
+  } else {
+    html.classList.add('light');
+    toggleBtn.className = 'fas fa-moon';
+    localStorage.setItem('theme', 'light');
+  }
+}
 
-             <div class="portrait">
-               <div class="circle">
-                 <div class="inner">
-                   <i class="fas fa-user-graduate"></i>
-                 </div>
-               </div>
-             </div>
-           </div>
-         </div>
-       </section>
+// Load saved theme
+document.addEventListener('DOMContentLoaded', () => {
+  const savedTheme = localStorage.getItem('theme');
+  const toggleBtn = document.querySelector('.theme-toggle i');
+  
+  if (savedTheme === 'light') {
+    document.documentElement.classList.add('light');
+    toggleBtn.className = 'fas fa-moon';
+  }
+});
+</script>
 
-       <section class="section">
-         <div class="container">
-           <h3>Araştırma Alanları</h3>
-           <div class="cards-grid">
-             <div class="info-card">
-               <h4><i class="fas fa-apple-alt"></i> Sporcu Beslenmesi</h4>
-               <p>Sporda beslenme stratejileri, makro-mikro besinler ve performans optimizasyonu</p>
-             </div>
-             <div class="info-card">
-               <h4><i class="fas fa-dumbbell"></i> Antrenman Bilimi</h4>
-               <p>Antrenman teorisi, periodizasyon ve performans geliştirme metodları</p>
-             </div>
-             <div class="info-card">
-               <h4><i class="fas fa-heartbeat"></i> Spor Fizyolojisi</h4>
-               <p>Egzersiz fizyolojisi, adaptasyonlar ve spor performans analizi</p>
-             </div>
-             <div class="info-card">
-               <h4><i class="fas fa-chart-line"></i> Performans Analizi</h4>
-               <p>Spor teknolojileri, veri analizi ve sporcu değerlendirme teknikleri</p>
-             </div>
-           </div>
-         </div>
-       </section>
-
-       <section class="section">
-         <div class="container">
-           <h3>Öne Çıkan Çalışmalar</h3>
-           <div class="cards-grid">
-             <div class="info-card">
-               <h4>Athletic Shoulder Test Geçerliliği</h4>
-               <p><strong>2025</strong> - Journal of Musculoskeletal Neuronal Interactions</p>
-             </div>
-             <div class="info-card">
-               <h4>Elektriksel Kas Stimülasyonu Etkileri</h4>
-               <p><strong>2025</strong> - Journal of Exercise Science and Fitness</p>
-             </div>
-             <div class="info-card">
-               <h4>TÜBİTAK Kuvvet Platformu Projesi</h4>
-               <p><strong>2024-2025</strong> - Çift Plakali Kuvvet Platformu Tasarımı</p>
-             </div>
-           </div>
-         </div>
-       </section>
-
-       <div class="container">
-         <div class="contact" id="contact">
-           <h3>İletişim Bilgileri</h3>
-           <div class="contact-grid">
-             <div class="contact-item">
-               <i class="fas fa-envelope"></i>
-               <div>
-                 <strong>E-posta</strong><br>
-                 <span style="color:var(--muted)">izzetince@aybu.edu.tr<br>izzetince43@gmail.com</span>
-               </div>
-             </div>
-             <div class="contact-item">
-               <i class="fas fa-building"></i>
-               <div>
-                 <strong>Kurum</strong><br>
-                 <span style="color:var(--muted)">Ankara Yıldırım Beyazıt Üniversitesi<br>Spor Bilimleri Fakültesi</span>
-               </div>
-             </div>
-             <div class="contact-item">
-               <i class="fas fa-map-marker-alt"></i>
-               <div>
-                 <strong>Konum</strong><br>
-                 <span style="color:var(--muted)">Ankara, Türkiye</span>
-               </div>
-             </div>
-           </div>
-         </div>
-       </div>
-     </main>
-
-     <button class="theme-toggle" onclick="toggleTheme()" title="Tema Değiştir">
-       <i class="fas fa-sun"></i>
-     </button>
-
-     <script>
-     function toggleTheme() {
-       const html = document.documentElement;
-       const toggleBtn = document.querySelector('.theme-toggle i');
-
-       if (html.classList.contains('light')) {
-         html.classList.remove('light');
-         toggleBtn.className = 'fas fa-sun';
-         localStorage.setItem('theme', 'dark');
-       } else {
-         html.classList.add('light');
-         toggleBtn.className = 'fas fa-moon';
-         localStorage.setItem('theme', 'light');
-       }
-     }
-
-     // Load saved theme
-     document.addEventListener('DOMContentLoaded', () => {
-       const savedTheme = localStorage.getItem('theme');
-       const toggleBtn = document.querySelector('.theme-toggle i');
-
-       if (savedTheme === 'light') {
-         document.documentElement.classList.add('light');
-         toggleBtn.className = 'fas fa-moon';
-       }
-     });
-     </script>
-
-     </body>
-     </html>
+</body>
+</html>
