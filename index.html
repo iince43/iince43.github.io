@@ -7,7 +7,7 @@
 
 <!-- Fonts & Icons -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkfFZNP6PqgQX5Ry1hCwV8xZKFbhC9v7Wv5bW7K5YhZ3T9g2xQ6Vb1eMw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
 <!-- Base Styles (single-file) -->
 <style>
@@ -66,10 +66,13 @@ a{color:inherit; text-decoration:none}
 .badges{display:flex; gap:10px; margin-top:16px; flex-wrap:wrap}
 .badge{border:1px solid var(--outline); padding:8px 12px; border-radius:999px; font-size:14px; background:color-mix(in oklab, var(--bg-soft) 90%, transparent)}
 .social{display:flex; gap:12px; margin-top:16px}
-.social a{width:40px; height:40px; display:grid; place-items:center; border-radius:12px; border:2px solid var(--brand); background:transparent; transition: all 0.2s ease}
+.social a{width:40px; height:40px; display:grid; place-items:center; border-radius:12px; border:2px solid var(--brand); background:white; transition: all 0.2s ease}
 .social a i{color:var(--brand) !important; font-size:18px}
 .social a:hover{background:var(--brand); transform:translateY(-2px)}
 .social a:hover i{color:white !important}
+/* Light mode için */
+:root.light .social a{background:#f7f9fc; border-color:var(--brand)}
+:root.light .social a i{color:var(--brand) !important}
 .stats{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:22px}
 .stat{background:var(--bg-soft); border:1px solid var(--outline); border-radius:14px; padding:14px; text-align:center}
 .stat b{font-size:20px; display:block; color:var(--brand)}
