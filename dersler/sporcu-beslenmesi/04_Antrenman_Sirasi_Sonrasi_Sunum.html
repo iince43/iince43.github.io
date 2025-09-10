@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antrenman Sırası ve Sonrası Beslenme - Sporcu Beslenmesi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .sidebar {
+            width: 400px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            overflow-y: auto;
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            display: none;
+        }
+
+        .sidebar.active {
+            display: block;
+        }
+
+        .sidebar h3 {
+            color: #ffeb3b;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        .sidebar h4 {
+            color: #81d4fa;
+            margin-bottom: 10px;
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+
+        .sidebar p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+            font-size: 0.95em;
+            text-align: justify;
+        }
+
+        .slide {
+            display: none;
+            width: 90%;
+            max-width: 1000px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 60px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            animation: slideIn 0.6s ease-out;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            background: linear-gradient(45deg, #fff, #e0e0e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h2 {
+            font-size: 2.5em;
+            margin-bottom: 25px;
+            color: #ffeb3b;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        h3 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #81d4fa;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        h4 {
+            font-size: 1.6em;
+            margin-bottom: 15px;
+            color: #a5d6a7;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        p, li {
+            font-size: 1.3em;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        ul {
+            text-align: left;
+            margin: 20px 0;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .navigation {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 100;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .notes-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 193, 7, 0.8);
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .notes-btn:hover {
+            background: rgba(255, 193, 7, 1);
+            transform: scale(1.05);
+        }
+
+        .progress-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: #ffeb3b;
+            transition: width 0.3s ease;
+            z-index: 100;
+        }
+
+        .slide-counter {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px 15px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .highlight {
+            background: linear-gradient(45deg, #ffeb3b, #ff9800);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: bold;
+            margin: 0 15px;
+            padding: 10px 20px;
+            border: 2px solid rgba(255, 235, 59, 0.3);
+            border-radius: 25px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .formula-box {
+            background: rgba(139, 69, 19, 0.3);
+            border: 2px solid #8b4513;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            text-align: left;
+            margin: 20px 0;
+        }
+
+        .three-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+            text-align: left;
+            margin: 20px 0;
+        }
+
+        .warning-box {
+            background: rgba(255, 193, 7, 0.2);
+            border: 2px solid #ffc107;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .danger-box {
+            background: rgba(244, 67, 54, 0.2);
+            border: 2px solid #f44336;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .success-box {
+            background: rgba(76, 175, 80, 0.2);
+            border: 2px solid #4caf50;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .info-box {
+            background: rgba(33, 150, 243, 0.2);
+            border: 2px solid #2196f3;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 1200px) {
+            .sidebar {
+                width: 350px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: 50%;
+                border-left: none;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            
+            .main-content {
+                height: 50%;
+            }
+            
+            .slide {
+                width: 95%;
+                padding: 40px 30px;
+            }
+            
+            h1 { font-size: 2.2em; }
+            h2 { font-size: 1.8em; }
+            h3 { font-size: 1.5em; }
+            h4 { font-size: 1.3em; }
+            p, li { font-size: 1.1em; }
+            
+            .two-column, .three-column {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+    <div class="slide-counter" id="slideCounter">1 / 8</div>
+    <button class="notes-btn" id="notesBtn">📝 Detaylı Notlar</button>
+
+    <div class="main-content">
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <h1>⚡ ANTRENMAN SIRASI VE SONRASI BESLENME</h1>
+            <h2>Toparlanma ve Performans Optimizasyonu</h2>
+            <p style="font-size: 1.5em; margin-top: 40px;">Bilimsel Toparlanma Stratejileri</p>
+            <div style="margin-top: 50px;">
+                <span class="highlight">Altın Saatler</span>
+                <span class="highlight">Beslenme Zamanlaması</span>
+                <span class="highlight">Rehidrasyon</span>
+                <span class="highlight">Protein Sentezi</span>
+            </div>
+        </div>
+
+        <!-- Slide 2: During Exercise -->
+        <div class="slide">
+            <h2>🏃 ANTRENMAN SIRASI BESİN/SIVI ALMIMI</h2>
+            <div class="two-column">
+                <div>
+                    <h4>⏱️ Egzersiz Süresi ve Beslenme İhtiyacı</h4>
+                    <div class="info-box">
+                        <ul>
+                            <li><strong>0-60 dakika:</strong> Su yeterli</li>
+                            <li><strong>60-90 dakika:</strong> Karbonhidrat başlat</li>
+                            <li><strong>90+ dakika:</strong> Karbonhidrat zorunlu</li>
+                            <li><strong>2+ saat:</strong> Protein ekle</li>
+                        </ul>
+                    </div>
+                    
+                    <h4>🥤 Karbonhidrat Protokolü</h4>
+                    <div class="formula-box">
+                        <h5>Dozlama Rehberi:</h5>
+                        <p><strong>30-60g/saat</strong> (60-90dk)</p>
+                        <p><strong>60-90g/saat</strong> (90dk+)</p>
+                        <br>
+                        <h5>Kaynak Seçenekleri:</h5>
+                        <ul>
+                            <li>Glukoz + Fruktoz (2:1)</li>
+                            <li>Spor içeceği (%6-8)</li>
+                            <li>Enerji jelleri</li>
+                            <li>Muz + Hurma</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h4>💧 Sıvı Alımı Stratejisi</h4>
+                    <div class="success-box">
+                        <h5>Temel İlkeler:</h5>
+                        <ul>
+                            <li><strong>150-200ml</strong> her 15-20dk</li>
+                            <li><strong>Mide kapasitesi:</strong> 600-800ml/saat</li>
+                            <li><strong>Sıcaklık:</strong> 15-22°C ideal</li>
+                            <li><strong>Elektrolit:</strong> 200-300mg sodyum/L</li>
+                        </ul>
+                    </div>
+                    
+                    <h4>🌡️ Çevresel Faktörler</h4>
+                    <div class="warning-box">
+                        <h5>Sıcak/Nemli Koşullar:</h5>
+                        <ul>
+                            <li>Sıvı alımını %25-50 artır</li>
+                            <li>Elektrolit konsantrasyonu artır</li>
+                            <li>Önceden soğutulmuş içecekler</li>
+                        </ul>
+                        
+                        <h5>Soğuk Koşullar:</h5>
+                        <ul>
+                            <li>Susama hissi azalır - dikkat!</li>
+                            <li>Ilık içecekler tercih et</li>
+                            <li>Karbonhidrat ihtiyacı artar</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Post-Exercise Golden Hours -->
+        <div class="slide">
+            <h2>⏰ ALTIN SAATLER: TOPARLANMANıN ANAHTARı</h2>
+            <div class="two-column">
+                <div>
+                    <h4>🎯 Kritik Zaman Dilimleri</h4>
+                    <div class="success-box">
+                        <h5>0-30 Dakika (Altın Pencere):</h5>
+                        <ul>
+                            <li><strong>En kritik dönem</strong></li>
+                            <li>Protein sentezi 2-3x artış</li>
+                            <li>Glikojen sentezi maksimum</li>
+                            <li>Kan akışı yüksek</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="info-box">
+                        <h5>30-120 Dakika (Hızlı Toparlanma):</h5>
+                        <ul>
+                            <li>Devam eden yüksek duyarlılık</li>
+                            <li>Esnek beslenme zamanlaması</li>
+                            <li>Birden çok besleme fırsatı</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h4>🔬 Fizyolojik Değişimler</h4>
+                    <div class="formula-box">
+                        <h5>Kas Düzeyinde:</h5>
+                        <ul>
+                            <li><strong>GLUT4:</strong> Glukoz alımı artır</li>
+                            <li><strong>Rapamisin Hedef Mekanizması:</strong> Protein sentezi uyar</li>
+                            <li><strong>Glikojen sentaz:</strong> 4x aktivasyon</li>
+                            <li><strong>Kan akışı:</strong> Besin taşınımı</li>
+                        </ul>
+                        
+                        <h5>Hormonal:</h5>
+                        <ul>
+                            <li><strong>İnsülin duyarlılığı</strong> artar</li>
+                            <li><strong>Büyüme faktörleri</strong> aktif</li>
+                            <li><strong>Kortizol</strong> bastırılır</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="warning-box">
+                        <h5>⚠️ Kaçırılmaması Gereken Fırsat</h5>
+                        <p>Bu pencereyi kaçırmak toparlanmayı 24-48 saat geciktirebilir!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Carb-Protein Synergy -->
+        <div class="slide">
+            <h2>🥤 KARBONHİDRAT-PROTEİN SİNERJİSİ</h2>
+            <div class="two-column">
+                <div>
+                    <h4>⚖️ Optimal Oranlar</h4>
+                    <div class="formula-box">
+                        <h5>3:1 Oranı (Kas Odaklı):</h5>
+                        <p><strong>45g Karb + 15g Protein</strong></p>
+                        <ul>
+                            <li>Protein sentezi maksimal</li>
+                            <li>Glikojen dolumu yeterli</li>
+                            <li>Güç sporları için ideal</li>
+                        </ul>
+                        <br>
+                        <h5>4:1 Oranı (Enerji Odaklı):</h5>
+                        <p><strong>60g Karb + 15g Protein</strong></p>
+                        <ul>
+                            <li>Glikojen dolumu öncelik</li>
+                            <li>Dayanıklılık sporları</li>
+                            <li>Uzun antrenmanlar sonrası</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h4>🧬 Sinerjik Mekanizmalar</h4>
+                    <div class="success-box">
+                        <h5>Karbonhidratın Rolü:</h5>
+                        <ul>
+                            <li><strong>İnsülin salınımı</strong> uyarır</li>
+                            <li><strong>Glikojen sentezi</strong> hızlandırır</li>
+                            <li><strong>Protein kullanımı</strong> artırır</li>
+                            <li><strong>Anti-katabolik</strong> etki</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="info-box">
+                        <h5>Proteinin Rolü:</h5>
+                        <ul>
+                            <li><strong>Amino asit</strong> sağlar</li>
+                            <li><strong>rapamisin hedef mekanizma yolağı</strong> uyarır</li>
+                            <li><strong>İnsülin etkisi</strong> güçlendirir</li>
+                            <li><strong>Kas tamiri</strong> başlatır</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="formula-box">
+                        <h5>Pratik Örnekler (70kg Sporcu):</h5>
+                        <ul>
+                            <li>Çikolatalı süt 500ml</li>
+                            <li>Karışım içeceği (muz+peynir altı suyu proteini+yoğurt)</li>
+                            <li>Sandviç+süt kombinasyonu</li>
+                            <li>Spor içeceği+protein bar</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Rehydration -->
+        <div class="slide">
+            <h2>💧 REHİDRASYON: SIVI-ELEKTROLİT DENGESİ</h2>
+            <div class="two-column">
+                <div>
+                    <h4>📊 Sıvı Kaybı Değerlendirmesi</h4>
+                    <div class="formula-box">
+                        <h5>Hesaplama Yöntemi:</h5>
+                        <p><strong>Ter kaybı = Antrenman öncesi ağırlık - Antrenman sonrası ağırlık + İçilen sıvı</strong></p>
+                        <br>
+                        <h5>Yerine Koyma:</h5>
+                        <p><strong>Her 1kg kayıp = 1.25-1.5L sıvı</strong></p>
+                        <br>
+                        <h5>Örnek:</h5>
+                        <ul>
+                            <li>2kg ağırlık kaybı</li>
+                            <li>= 2.5-3L sıvı gereksinimi</li>
+                            <li>4-6 saate yayılarak al</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h4>⚡ Elektrolit Yerine Koyma</h4>
+                    <div class="warning-box">
+                        <h5>Ter ile Kayıplar (L başına):</h5>
+                        <ul>
+                            <li><strong>Sodyum:</strong> 200-700mg</li>
+                            <li><strong>Potasyum:</strong> 150-300mg</li>
+                            <li><strong>Magnezyum:</strong> 10-40mg</li>
+                            <li><strong>Kalsiyum:</strong> 15-40mg</li>
+                        </ul>
+                    </div>
+                    
+                    <h4>🥤 İdeal Rehidrasyon Çözümü</h4>
+                    <div class="success-box">
+                        <ul>
+                            <li><strong>Karbonhidrat:</strong> %6-8</li>
+                            <li><strong>Sodyum:</strong> 200-300mg/L</li>
+                            <li><strong>Potasyum:</strong> 150-200mg/L</li>
+                            <li><strong>Osmolarite:</strong> 280-320 mOsm/kg</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="info-box">
+                        <h5>Rehidrasyon Stratejisi:</h5>
+                        <ul>
+                            <li><strong>İlk 500-600ml</strong> hemen</li>
+                            <li><strong>150-200ml</strong> her 15-20dk</li>
+                            <li><strong>Yavaş ve düzenli</strong> alım</li>
+                            <li><strong>Mide rahatsızlığı</strong> önle</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Recovery Nutrition -->
+        <div class="slide">
+            <h2>🍽️ TOPARLANMA BESLENMESİ STRATEJİLERİ</h2>
+            <div class="two-column">
+                <div>
+                    <h4>🎯 Beslenme Hiyerarşisi</h4>
+                    <div class="success-box">
+                        <h5>1. Öncelik - Hemen (0-30dk):</h5>
+                        <ul>
+                            <li>Karbonhidrat-protein kombinasyonu</li>
+                            <li>Sıvı ve elektrolit başlat</li>
+                            <li>Hızla emilen besinler</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="info-box">
+                        <h5>2. Öncelik - Sürdürülebilir (0-2sa):</h5>
+                        <ul>
+                            <li>Tam öğün planla</li>
+                            <li>Mikro besinkler ekle</li>
+                            <li>Sindirim rahatlığını koru</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="warning-box">
+                        <h5>3. Öncelik - Kişiselleştirme:</h5>
+                        <ul>
+                            <li>Bireysel toleranslar</li>
+                            <li>Spor dalı ihtiyaçları</li>
+                            <li>Antrenman hedefleri</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h4>📋 Uygulama Sistemleri</h4>
+                    <div class="formula-box">
+                        <h5>Önceden Hazırlık:</h5>
+                        <ul>
+                            <li><strong>Toparlanma çantası</strong> hazırla</li>
+                            <li><strong>İçecekleri</strong> önceden karıştır</li>
+                            <li><strong>Porsiyonları</strong> ayır</li>
+                            <li><strong>Yedek planlar</strong> yap</li>
+                        </ul>
+                        
+                        <h5>Taşınabilir Seçenekler:</h5>
+                        <ul>
+                            <li>Çikolatalı süt kutuları</li>
+                            <li>Hazır karışım içecekleri</li>
+                            <li>Protein barlar + meyve</li>
+                            <li>Spor içeceği + fındık</li>
+                        </ul>
+                    </div>
+                    
+                    <h4>📊 İzleme ve Değerlendirme</h4>
+                    <div class="info-box">
+                        <h5>Öznel Ölçütler:</h5>
+                        <ul>
+                            <li>Enerji seviyeleri</li>
+                            <li>Açlık hissi</li>
+                            <li>Memnuniyet</li>
+                            <li>Sindirim rahatlığı</li>
+                        </ul>
+                        
+                        <h5>Nesnel Ölçütler:</h5>
+                        <ul>
+                            <li>Vücut ağırlığı değişimi</li>
+                            <li>Performans göstergeleri</li>
+                            <li>Uyku kalitesi</li>
+                            <li>Sonraki antrenman hazırlığı</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Timing and Implementation -->
+        <div class="slide">
+            <h2>⏱️ ZAMANLAMA VE UYGULAMA PRATİKLERİ</h2>
+            <div class="two-column">
+                <div>
+                    <h4>📅 Antrenman Türüne Göre Strateji</h4>
+                    <div class="success-box">
+                        <h5>Güç/Kuvvet Antrenmanı:</h5>
+                        <ul>
+                            <li><strong>0-15dk:</strong> Protein odaklı (3:1)</li>
+                            <li><strong>15-60dk:</strong> Tam öğün hazırlık</li>
+                            <li><strong>1-2sa:</strong> Yüksek kaliteli protein</li>
+                            <li><strong>Gece:</strong> Kazein proteini</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="info-box">
+                        <h5>Dayanıklılık Antrenmanı:</h5>
+                        <ul>
+                            <li><strong>0-15dk:</strong> Karbonhidrat odaklı (4:1)</li>
+                            <li><strong>15-60dk:</strong> Sürekli sıvı alımı</li>
+                            <li><strong>1-2sa:</strong> Karbonhidrat yükleme</li>
+                            <li><strong>Gece:</strong> Kompleks karbonhidrat</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h4>🏆 Çoklu Antrenman Günleri</h4>
+                    <div class="warning-box">
+                        <h5>Aynı Gün İçinde 2 Antrenman:</h5>
+                        <ul>
+                            <li><strong>1. antrenman sonrası:</strong> Hemen beslen</li>
+                            <li><strong>Ara dönem:</strong> 4-6 saat ideal</li>
+                            <li><strong>2. antrenman öncesi:</strong> Hafif atıştırmalık</li>
+                            <li><strong>Son:</strong> Tam toparlanma beslenme</li>
+                        </ul>
+                    </div>
+                    
+                    <h4>🔄 Sürekli Adaptasyon</h4>
+                    <div class="formula-box">
+                        <h5>Bireysel Optimizasyon:</h5>
+                        <ul>
+                            <li><strong>Tolerans testleri</strong> yap</li>
+                            <li><strong>Tercih belirleme</strong></li>
+                            <li><strong>Sonuçları izle</strong></li>
+                            <li><strong>Stratejileri güncelle</strong></li>
+                        </ul>
+                        
+                        <h5>Dönemsel Planlama:</h5>
+                        <ul>
+                            <li><strong>Yüksek hacim:</strong> Artırılmış destek</li>
+                            <li><strong>Yarış dönemi:</strong> Performans odaklı</li>
+                            <li><strong>Dinlenim:</strong> Vücut kompozisyonu</li>
+                            <li><strong>Sezon dışı:</strong> Temel geliştirme</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Practical Examples -->
+        <div class="slide">
+            <h2>🥗 PRATİK TOPARLANMA ÖĞÜNLERİ</h2>
+            <div class="three-column">
+                <div class="success-box">
+                    <h4>⚡ Hızlı Seçenekler (0-30dk)</h4>
+                    <h5>İçecek Bazlı:</h5>
+                    <ul>
+                        <li><strong>Çikolatalı süt</strong> 500ml</li>
+                        <li><strong>Karışım içeceği:</strong> Muz+protein+süt</li>
+                        <li><strong>Kefir+meyve</strong> karışımı</li>
+                        <li><strong>Spor içeceği+protein</strong></li>
+                    </ul>
+                    
+                    <h5>Katı Seçenekler:</h5>
+                    <ul>
+                        <li><strong>Peynirli tost+meyve suyu</strong></li>
+                        <li><strong>Yoğurt+granola+meyve</strong></li>
+                        <li><strong>Protein bar+muz</strong></li>
+                        <li><strong>Kraker+peynir+üzüm</strong></li>
+                    </ul>
+                </div>
+                
+                <div class="info-box">
+                    <h4>🍽️ Tam Öğünler (1-2sa)</h4>
+                    <h5>Güç Sporları İçin:</h5>
+                    <ul>
+                        <li><strong>Tavuk+pilav+sebze</strong></li>
+                        <li><strong>Balık+patates+salata</strong></li>
+                        <li><strong>Et+makarna+domates</strong></li>
+                        <li><strong>Yumurta+ekmek+avokado</strong></li>
+                    </ul>
+                    
+                    <h5>Dayanıklılık İçin:</h5>
+                    <ul>
+                        <li><strong>Makarna+et soslu</strong></li>
+                        <li><strong>Pilav+tavuk+sebze</strong></li>
+                        <li><strong>Quinoa salata+protein</strong></li>
+                        <li><strong>Waffle+reçel+süt</strong></li>
+                    </ul>
+                </div>
+                
+                <div class="warning-box">
+                    <h4>🚫 Kaçınılacaklar</h4>
+                    <h5>Hemen Sonrası:</h5>
+                    <ul>
+                        <li><strong>Yüksek yağ</strong> içerikli</li>
+                        <li><strong>Çok lif</strong> içeren</li>
+                        <li><strong>Gaz yapan</strong> besinler</li>
+                        <li><strong>Alkol</strong> tüketimi</li>
+                    </ul>
+                    
+                    <h5>Beslenme Hataları:</h5>
+                    <ul>
+                        <li><strong>Gecikmiş</strong> beslenme</li>
+                        <li><strong>Sadece su</strong> tüketimi</li>
+                        <li><strong>Yetersiz</strong> miktarlar</li>
+                        <li><strong>Denenmemiş</strong> besinler</li>
+                    </ul>
+                    
+                    <div class="formula-box">
+                        <h5>💡 Altın Kurallar:</h5>
+                        <ul>
+                            <li>30 dakika içinde beslen</li>
+                            <li>Karbonhidrat+protein kombinasyonu</li>
+                            <li>Sıvı ve elektrolitlerini unutma</li>
+                            <li>Kişisel toleransları dikkate al</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar" id="sidebar">
+        <!-- Sidebar content will be populated by JavaScript -->
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn">⬅ Önceki</button>
+        <button class="nav-btn" id="nextBtn">Sonraki ➡</button>
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCounter = document.getElementById('slideCounter');
+        const progressBar = document.getElementById('progressBar');
+        const notesBtn = document.getElementById('notesBtn');
+        const sidebar = document.getElementById('sidebar');
+        
+        let currentSlide = 0;
+
+        const slideNotes = [
+            {
+                title: "Antrenman Sırası ve Sonrası Beslenmenin Genel Prensipleri",
+                content: `
+                    <h4>⚡ Antrenman Sırası ve Sonrası Beslenmenin Kapsamlı Fizyolojik Temelleri</h4>
+                    <p>Antrenman sırası ve sonrası beslenme, sporcu performansının optimize edilmesi ve etkili toparlanmanın sağlanması için kritik öneme sahip karmaşık fizyolojik süreçlerdir. Bu beslenme stratejileri, vücudun enerji sistemlerini desteklemek, protein sentezini maksimize etmek, sıvı-elektrolit dengesini korumak ve genel toparlanma süreçlerini hızlandırmak amacıyla bilimsel temellere dayalı olarak uygulanır. Modern spor bilimi açısından bakıldığında, bu dönemlerdeki beslenme müdahaleleri sadece enerji sağlamakla kalmaz, aynı zamanda hücresel düzeyde adaptasyonları da yönlendirir.</p>
+                    
+                    <p>Antrenman sırasında vücut, özellikle 60 dakikanın üzerindeki aktivitelerde önemli enerji tüketimi yaşar. Kas glikojen depoları hızla tükenirken, ter yoluyla önemli miktarlarda sıvı ve elektrolit kaybı meydana gelir. Bu durum, kan şeker seviyelerinde düşüşe, dehidrasyona ve sonuçta performans azalmasına yol açabilir. Antrenman sırası beslenme stratejileri, bu fizyolojik değişiklikleri önlemek ve sporcunun antrenman boyunca optimal performans sergilemesini sağlamak için tasarlanır. Özellikle karbonhidrat alımı, kas ve karaciğer glikojen depolarını koruyarak enerji sistemlerinin sürdürülebilirliğini garanti eder.</p>
+                    
+                    <p>Antrenman sonrası dönem ise vücudun toparlanma ve adaptasyon süreçlerinin en yoğun yaşandığı kritik zaman dilimidir. Egzersiz sonrası ilk 30 dakika "altın pencere" olarak adlandırılır çünkü bu süreçte kas protein sentezi, glikojen yeniden sentezi ve sıvı-elektrolit dengesinin restorasyonu için optimal fizyolojik koşullar oluşur. Bu dönemde kas dokusunun amino asitlere olan duyarlılığı 2-3 kat artar, glikojen sentaz enzimi maksimal aktivite gösterir ve kan akışı yüksek seviyede kalarak besin maddelerinin kas dokusuna ulaşımını kolaylaştırır. Bu fizyolojik pencereyi doğru beslenme stratejileriyle desteklemek, toparlanma sürecini hızlandırır ve bir sonraki antrenman için vücudun hazırlığını optimize eder.</p>
+                `
+            },
+            {
+                title: "Antrenman Sırası Beslenme ve Sıvı Alımının Detaylı Analizi", 
+                content: `
+                    <h4>🏃 Antrenman Sırası Beslenme Stratejilerinin Fizyolojik Temelleri ve Uygulama Prensipleri</h4>
+                    <p>Antrenman sırası beslenme stratejileri, egzersiz süresince vücudun enerji ihtiyaçlarını karşılamak, performans düşüşünü önlemek ve toparlanma sürecini desteklemek amacıyla uygulanan sistematik yaklaşımlardır. Bu stratejilerin etkinliği, egzersiz süresine, yoğunluğuna, çevresel koşullara ve bireysel faktörlere bağlı olarak değişiklik gösterir. Bilimsel araştırmalar, 60 dakikanın altındaki egzersizlerde genellikle su alımının yeterli olduğunu, ancak bu süreyi aşan aktivitelerde karbonhidrat takviyesinin performans üzerinde önemli pozitif etkiler yarattığını göstermektedir.</p>
+                    
+                    <p>60-90 dakika arasındaki orta süreli egzersizlerde karbonhidrat ihtiyacı saatte 30-60 gram arasında değişir. Bu miktar, kas glikojeni tükenmesini geciktirerek ve kan şeker seviyelerini stabil tutarak dayanıklılık performansını destekler. Karbonhidrat kaynağı olarak glukoz ve fruktoz kombinasyonu tercih edilir çünkü bu iki şeker farklı transportör sistemleri kullanarak bağırsak emilimini optimize eder. Glukoz-fruktoz oranı 2:1 şeklinde planlandığında, tek tip şeker kullanımına göre %20-50 daha yüksek karbonhidrat oksidasyon oranları elde edilir. Bu durum, özellikle uzun süreli dayanıklılık aktivitelerinde performans avantajı sağlar.</p>
+                    
+                    <p>90 dakikayı aşan uzun süreli egzersizlerde karbonhidrat ihtiyacı saatte 60-90 grama çıkar ve bu durumda protein takviyesi de gündeme gelir. Uzun süreli aktiviteler sırasında kas protein yıkımı artar ve dallanmış zincirli amino asitler (DZAA) enerji üretimi için kullanılmaya başlar. Bu nedenle, 2 saatten uzun aktivitelerde karbonhidrat-protein kombinasyonu (yaklaşık 4:1 oranında) hem enerji sistemlerini destekler hem de kas protein dengesini korur. Protein eklenmesi aynı zamanda kas hasarını azaltır ve toparlanma sürecini hızlandırır. Pratik uygulama açısından bu kombinasyon spor içecekleri, enerji barları veya doğal gıda seçenekleri (hurma, muz, fındık karışımı) ile sağlanabilir.</p>
+                    
+                    <p>Sıvı alımı stratejisi, ter kaybını telafi etmek ve dehidrasyon kaynaklı performans düşüşünü önlemek için kritik öneme sahiptir. Dehidrasyon vücut ağırlığının %2'sine ulaştığında performansta %10-15 azalma, %3'e ulaştığında ise %20-30 azalma meydana gelir. İdeal sıvı alım protokolü, egzersiz boyunca her 15-20 dakikada bir 150-200ml sıvı tüketimini önerir. Sıvının sıcaklığı 15-22°C arasında olmalıdır çünkü bu sıcaklık aralığı gastrik boşalmayı hızlandırır ve vücut sıcaklığını düşürmeye yardımcı olur. Elektrolit kompozisyonu açısından litre başına 200-300mg sodyum ve 150-200mg potasyum içeren çözümler optimal hidrasyon sağlar. Sodyum kaybının telafisi özellikle önemlidir çünkü sodyum eksikliği su tutulumunu bozar ve hiponatremi riskini artırır.</p>
+                `
+            },
+            {
+                title: "Altın Saatler Kavramı ve Toparlanmanın Kritik Zaman Pencerelerinin Detaylı İncelemesi",
+                content: `
+                    <h4>⏰ Antrenman Sonrası Altın Saatlerin Fizyolojik Mekanizmaları ve Zamanlama Optimizasyonu</h4>
+                    <p>Antrenman sonrası dönem, vücudun toparlanma ve adaptasyon süreçlerinin en yoğun yaşandığı kritik zaman dilimleridir ve bu dönemler bilimsel literatürde "altın saatler" olarak adlandırılır. Bu kavram, egzersiz sonrası fizyolojik süreçlerin zaman-bağımlı doğasını ve beslenme müdahalelerinin etkinliğinin zamanla nasıl değiştiğini açıklar. Altın saatler konsepti, özellikle kas protein sentezi, glikojen yeniden sentezi ve sıvı-elektrolit dengesinin restorasyonu açısından kritik öneme sahiptir.</p>
+                    
+                    <p>İlk altın pencere olan 0-30 dakikalık süre, toparlanma beslenme için en kritik ve zamana duyarlı dönemi oluşturur. Bu süre zarfında birden çok fizyolojik süreç zirve aktivite gösterir ve beslenme müdahaleleri maksimum etkinlik elde eder. Kas kan akışı yüksek seviyede kalarak besin maddesi dağıtımını kolaylaştırır, kas protein sentezi sinyal yolakları amino asit uyarımı için hazır hale gelir ve glikojen sentaz aktivitesi hızlı karbonhidrat depolaması için gelişmiş seviyelerde işlev görür. Bu yakınlaşma optimal beslenme ortamı yaratır ve bu pencerede kaçırılan fırsatları sonraki dönemlerde geri kazanmak zordur. Bu dönem, vücudun iş makinelerinin tam kapasite çalıştığı altın zaman dilimi gibi düşünülebilir.</p>
+                    
+                    <p>Kas protein sentezi duyarlılığının artması, altın pencere süresince en dramatik değişiklik gösteren fizyolojik parametrelerden biridir. Normal dinlenme koşullarında kas protein sentezi temel seviyede işlerken, egzersiz sonrası ilk 30 dakika içinde bu oran 2-3 kat artabilir. Bu yüksek duyarlılık, egzersizin neden olduğu kas protein yıkımına karşı vücudun telafi mekanizmasından kaynaklanır. Lösin eşiği bu dönemde önemli ölçüde azalır, yani daha küçük protein dozları maksimum kas protein sentezi uyarımı elde edebilir. Bu fenomen sporcular için özellikle avantajlıdır çünkü verimli protein kullanımına izin verir ve sindirim yükünü minimize eder. Kas dokusu bu dönemde sanki yapım malzemelerini çok verimli şekilde işleyen bir fabrika gibi çalışır.</p>
+                    
+                    <p>Glikojen sentaz süper telafisi, antrenman sonrası hemen dönemde yaşanan bir diğer kritik fizyolojik değişikliktir. Glikojen sentaz enzim aktivitesi dramatik yükselme yaşar ve bu yükselme insülinden bağımsız mekanizmaları içerir. Egzersizin neden olduğu kas kasılmaları GLUT4 taşıyıcılarını hücre zarına taşır ve bu taşınma antrenman sonrası birkaç saat boyunca devam eder. Bu gelişmiş glukoz alma kapasitesi, karbonhidrat alımından maksimum glikojen yeniden sentezini kolaylaştırır ve hızlı enerji deposu yenilenmesini sağlar. Araştırmalar glikojen yeniden sentez oranlarının ilk 2 saatlik dönemde sonraki zaman noktalarıyla karşılaştırıldığında 3-4 kat daha yüksek olabileceğini göstermektedir. Bu süreç, vücudun enerji tanklarını süper hızla dolduran sistem gibi işler ve bu pencereyi kaçırmak toparlanmayı 24-48 saat geciktirebilir.</p>
+                `
+            },
+            {
+                title: "Karbonhidrat-Protein Sinerjisi ve Optimal Beslenme Kombinasyonlarının Bilimsel Analizi",
+                content: `
+                    <h4>🥤 Karbonhidrat-Protein Sinerjisinin Moleküler Mekanizmaları ve Praktik Uygulamaları</h4>
+                    <p>Antrenman sonrası toparlanma beslenmesinde karbonhidrat ve protein kombinasyonu, bireysel besin öğesi sağlanmasından üstün toparlanma sonuçları elde eden sinerjik etkiler gösterir. Bu besin öğesi sinerjisi, birbirini tamamlayan fizyolojik mekanizmaları içerir ve birden çok toparlanma sürecini eş zamanlı olarak optimize eder. Bu kombinasyonun etkinliği, metabolik sinyal yolakların karmaşık etkileşimlerinden kaynaklanır ve vücudun toparlanma süreçlerinde 1+1'in 2'den fazla etki yapması prensibini temsil eder.</p>
+                    
+                    <p>Karbonhidrat alımı insülin salınımını uyarır ve bu hormon yanıtı hem glikojen sentezini kolaylaştırırken hem de kas protein sentezini güçlendirir. İnsülin, glukoz alımını artırarak glikojen depolarının hızlı doldurulmasını sağlar ve aynı zamanda rapamisin hedef mekanizması sinyal yolağını aktive ederek protein sentez süreçlerini başlatır. Protein sağlanması ise kas protein sentezi için gerekli amino asit substratlarının mevcudiyetini garanti ederken, aynı anda insülin yanıtını güçlendirerek ek glikojen sentez faydaları sağlar. Bu koordineli yanıt, izole besin öğesi alımından elde edilebilen faydaları aşar ve kapsamlı toparlanma desteği sunar. İki besin öğesi birlikte çalıştıklarında sanki orkestra gibi uyumlu bir toparlanma senfonisi yaratmaktadır.</p>
+                    
+                    <p>Optimal karbonhidrat-protein oranlarının belirlenmesi, toparlanma hedeflerine göre stratejik olarak planlanmalıdır. 3:1 oranı (örneğin 45g karbonhidrat + 15g protein) kas protein sentezine vurgu yaparken yeterli glikojen yenilenmesini korur ve güç sporları ile kuvvet antrenmanları sonrası ideal seçimi oluşturur. Bu oran, amino asit mevcudiyetini maksimize ederek kas tamiri ve büyümesini önceliklendirir. 4:1 oranı (örneğin 60g karbonhidrat + 15g protein) ise glikojen restorasyonunu önceliklendirirken yeterli protein sentez uyarımını korur ve dayanıklılık sporları ile uzun süreli antrenmanlar sonrası tercih edilir. Bu esneklik, sporcuların spesifik toparlanma ihtiyaçları ve antrenman hedefleri doğrultusunda ayarlamalar yapmasına olanak tanır.</p>
+                    
+                    <p>Karbonhidrat bileşeni hızlı emilim ve glikojen sentezi sağlamalıdır. Yüksek glisemik indeksli karbonhidratlar antrenman sonrası hemen dönemde tercih edilir çünkü hızlı insülin yanıtı ve glukoz mevcudiyeti sağlar. Çoklu karbonhidrat kaynakları (glukoz, sakkaroz, maltodekstrin) farklı emilim kinetikleri sunarak sürdürülebilir substrat mevcudiyetini kolaylaştırabilir. Sıvı karbonhidrat formları gastrik boşalmayı hızlandırarak daha hızlı besin maddesi dağıtımını sağlar ve toparlanma penceresi optimizasyonu için idealdir. Protein bileşeni ise yüksek biyolojik değer ve hızlı sindirim özellikleri göstermelidir. Whey protein, hızlı emilimi, yüksek lösin içeriği ve komplet amino asit profili nedeniyle antrenman sonrası toparlanma için altın standart oluşturur. Bu protein türü, kas protein sentezi için gerekli tüm yapı taşlarını optimal oranlarda sağlar ve toparlanma sürecini maksimize eder.</p>
+                `
+            },
+            {
+                title: "Rehidrasyon ve Sıvı-Elektrolit Dengesinin Restorasyonu Süreçleri",
+                content: `
+                    <h4>💧 Antrenman Sonrası Rehidrasyon Stratejilerinin Fizyolojik Temelleri ve Klinik Uygulamaları</h4>
+                    <p>Egzersizin neden olduğu dehidrasyon, karmaşık fizyolojik sonuçlar yaratır ve uygun şekilde ele alınmadığında toparlanma süreçlerini önemli ölçüde bozabilir. Etkili rehidrasyon stratejileri, basit sıvı ikamesinden daha sofistike yaklaşım gerektirir ve elektrolit bileşimi, zamanlama, hacim ve tutulum faktörleri kapsamlı olarak dikkate alınmalıdır. Stratejik rehidrasyon protokolleri optimal toparlanmayı kolaylaştırır ve sonraki performans kapasitesini korur. Dehidrasyon vücudun soğutma sisteminin bozulması gibi düşünülebilir - motor aşırı ısınır ve güç kaybeder.</p>
+                    
+                    <p>Egzersizin neden olduğu sıvı kayıpları, fizyolojik işlevi birden çok yolla compromize eder ve bu compromize durum toparlanma etkinliğini azaltır. Plazma hacim azalması kardiyovasküler işlevi bozar ve toparlanma dokularına besin maddesi dağıtım verimliliğini azaltır. Hücresel dehidrasyon protein sentez oranlarını baskılayabilir ve metabolik süreçleri yavaşlatabilir. Sıcaklık düzenleme sisteminin bozulması ısı stresi toparlanmasını uzatabilir. Bu kademeli etkiler, yeterli rehidrasyonun toparlanma optimizasyonu için temel gereklilik olduğunu göstermektedir. Sıvı kaybı sadece performansı değil, aynı zamanda vücudun kendini tamir etme kapasitesini de olumsuz etkiler.</p>
+                    
+                    <p>Ter kaybı değerlendirmesi ve ikame hesaplamaları etkili rehidrasyon için doğru sıvı kaybı değerlendirmesi gerektirir ve bu değerlendirme vücut ağırlığı değişikliklerini izleyerek elde edilebilir. Her kilogram vücut ağırlığı kaybı yaklaşık olarak 1 litre sıvı kaybını temsil eder. Ancak, ikame hacmi ter kaybı hacminden büyük olmalıdır çünkü alınan sıvı devam eden kayıplar (idrar, solunum) yaşar ve tam tutulum gerçekleşmez. Standart öneri ter kayıplarının %125-150'sini ikame etmektir: örneğin 1kg ağırlık kaybı tam rehidrasyon için 1.25-1.5L sıvı alımı gerektirir. Bu hesaplama sporcuların kendi ter oranlarını öğrenmeleri ve kişiselleştirilmiş rehidrasyon planları oluşturmaları için kritik önem taşır.</p>
+                    
+                    <p>Elektrolit ikamesi basit sıvı sağlamanın ötesinde gereklidir çünkü ter önemli elektrolit kayıpları içerir ve bu kayıpların ikamesi optimal rehidrasyon için gereklidir. Sodyum, ter ile kaybedilen birincil elektrolittir (200-700mg/L aralığında) ve sodyum ikamesi sıvı tutulumunu kolaylaştırır. Potasyum kayıpları (150-300mg/L) hücre içi sıvı dengesini korumak için kritiktir. Magnezyum ve klorür kayıpları kas işlevi ve asit-baz dengesi için önemlidir. Elektrolit içeren çözümler saf sudan üstün rehidrasyon sağlar çünkü sıvı tutulumunu artırır ve hızlı böbrek atılımını önler. İdeal rehidrasyon çözümü %6-8 karbonhidrat, 200-300mg/L sodyum, 150-200mg/L potasyum içermelidir. Bu kompozisyon hem sıvı emilimini optimize eder hem de enerji ikamesi sağlar, böylece çok fonksiyonlu toparlanma desteği sunar.</p>
+                `
+            },
+            {
+                title: "Toparlanma Beslenmesi Hiyerarşisi ve Sistematik Uygulama Protokolleri",
+                content: `
+                    <h4>📋 Bütünleşik Toparlanma Beslenme Sistemlerinin Stratejik İmplementasyonu ve Önceliklendirme</h4>
+                    <p>Başarılı egzersiz toparlanma beslenme sistemi, birden çok beslenme stratejisinin kapsamlı entegrasyonunu gerektirir ve bu entegrasyon sistematik implementasyon protokolleri aracılığıyla elde edilir. Bu holistik yaklaşım, zamanlama, kompozisyon, bireysel faktörler ve pratik değerlendirmeleri dengeler ve optimal toparlanma sonuçları üretmek için tasarlanır. Stratejik planlama, izleme ve adaptasyon sürekli iyileştirmeyi kolaylaştırır ve uzun vadeli antrenman başarısını destekler. Bu sistem yaklaşımı, toparlanmayı tek bir müdahale değil, birbirine bağlı süreçlerin orkestral uyumu olarak ele alır.</p>
+                    
+                    <p>Toparlanma beslenme hiyerarşisi, kaynakları optimize etmek için kanıt temelli öncelik hiyerarşisini takip etmelidir. Birincil öncelik, antrenman sonrası hemen beslenme penceresi optimizasyonunu oluşturur çünkü bu dönem maksimum fizyolojik duyarlılık gösterir. Bu dönemde karbonhidrat-protein kombinasyonu, hızlı emilen formatlarda sağlanmalıdır. İkincil öncelik, uzatılmış toparlanma dönemi boyunca sürdürülebilir beslenme desteğini içerir ve tam öğün planlaması, mikro besin öğesi desteği ve sindirim konforu optimizasyonu kapsar. Üçüncü öncelik, bireysel özelleştirme ve ince ayarlamayı içerir, spesifik ihtiyaçlar ve tercihleri ele alır. Bu hiyerarşik yaklaşım, kritik unsurların ele alınmasını garanti ederken bireysel koşullar için esnekliğe izin verir.</p>
+                    
+                    <p>Antrenman sırası ve sonrası beslenme stratejilerinin entegrasyonu, optimal antrenman seansı sonuçları elde etmek için bütünleşik yaklaşım gerektirir. Antrenman sırası karbonhidrat alımı, kas glikojen tükenmesini minimize ettiği için antrenman sonrası glikojen restorasyonunu kolaylaştırabilir. Yeterli antrenman sırası hidrasyon, antrenman sonrası rehidrasyon yükünü azaltır ve daha hızlı toparlanmayı sağlar. Stratejik antrenman sırası beslenme, fizyolojik duyarlılığı maksimize ederek antrenman sonrası "altın pencere" etkinliğini artırabilir. Bu entegrasyon yaklaşımı, toparlanma sürecini antrenman başlamadan önce başlatan proaktif strateji oluşturur.</p>
+                    
+                    <p>Praktik implementasyon sistemleri, tutarlı uygulamayı garanti etmek için başarılı toparlanma beslenme praktik sistemleri gerektirir. Önceden planlanmış beslenme protokolleri, antrenman sonrası yorgunluk dönemlerinde karar vermeyi ortadan kaldırır. Taşınabilir toparlanma besinleri ve içecekleri anında kullanılabilirlik sağlar. Hazırlık stratejileri (içecekleri önceden karıştırma, besinleri önceden porsiyonlama) implementasyon engellerini minimize eder. Bireysel tolerans testleri, uyumluluğu artırmak için optimal besinler ve zamanlamayı belirler. Bu sistemli yaklaşım, toparlanma beslenmeyi günlük rutin haline getirerek tutarlılığı ve etkinliği maksimize eder. Başarılı sporcular, toparlanmayı rastlantıya bırakmak yerine sistematik bir süreç olarak yönetir.</p>
+                `
+            },
+            {
+                title: "Zamanlama Optimizasyonu ve Spor Dalına Özgü Toparlanma Stratejileri",
+                content: `
+                    <h4>⏱️ Antrenman Türüne Özgü Zamanlama Protokolleri ve Kişiselleştirilmiş Toparlanma Yaklaşımları</h4>
+                    <p>Toparlanma beslenme zamanlamasının optimizasyonu, antrenman türü, spor dalı talepleri ve bireysel faktörlerin kapsamlı değerlendirmesini gerektirir. Farklı antrenman modaliteleri farklı fizyolojik stresler yaratır ve bu da özelleştirilmiş toparlanma yaklaşımları gerektiririr. Güç ve kuvvet antrenmanları kas protein yıkımını artırırken, dayanıklılık antrenmanları ağırlıklı olarak glikojen depolarını tüketir. Bu farklılıklar, besin öğesi oranları, zamanlama ve toplam miktar açısından farklı stratejiler gerektiririr.</p>
+                    
+                    <p>Güç ve kuvvet antrenmanları sonrası toparlanma protokolü, kas protein sentezini maksimize etmeye odaklanmalıdır. İlk 0-15 dakikada protein odaklı kombinasyon (3:1 karbonhidrat-protein oranı) hızla sağlanmalıdır. Bu dönemde peynir altı suyu proteini gibi hızlı emilen, yüksek lösin içerikli protein kaynakları tercih edilir. 15-60 dakika aralığında tam öğün hazırlığı planlanarak daha kapsamlı amino asit profili ve mikro besin öğesi desteği sağlanır. 1-2 saat içerisinde yüksek kaliteli protein kaynaklarıyla desteklenmiş dengeli öğün tüketimi uzatılmış protein sentez stimulasyonu sağlar. Gece döneminde kazein proteini gibi yavaş sindirimli protein kaynakları, gece boyunca sürekli amino asit salınımı sağlayarak toparlanma sürecini destekler.</p>
+                    
+                    <p>Dayanıklılık antrenmanları sonrası toparlanma stratejisi, glikojen restorasyonunu önceliklendirirken kas tamirini de destekler. İlk 0-15 dakikada karbonhidrat odaklı kombinasyon (4:1 oranı) hızla uygulanmalıdır. Bu dönemde yüksek glisemik indeksli karbonhidratlar ve moderate protein desteği optimal glikojen yeniden sentezini sağlar. 15-60 dakika aralığında sürekli sıvı alımı dehidrasyonu telafi ederken elektrolitler dengelenmelidir. 1-2 saat içerisinde karbonhidrat yükleme yaklaşımı, kompleks karbonhidratlar ve lean protein kaynaklarıyla desteklenmelidir. Gece döneminde kompleks karbonhidrat depoları tam olarak restore edilmelidir ki ertesi gün antrenmanı için optimal enerji mevcudiyeti sağlansın.</p>
+                    
+                    <p>Çoklu antrenman günlerinde toparlanma stratejisi özel dikkat gerektirir çünkü sürekli toparlanma desteği sağlanmalıdır. Aynı gün içinde iki antrenman yapılması durumunda, birinci antrenman sonrası hemen beslenme kritik öneme sahiptir çünkü ikinci antrenman öncesi tam toparlanma için sınırlı zaman vardır. Antrenmanlar arası 4-6 saatlik ideal ara dönemde agresif beslenme stratejisi uygulanmalı, yüksek glisemik indeksli karbonhidratlar ve hızlı emilen proteinler tercih edilmelidir. İkinci antrenman öncesi hafif atıştırmalık, mide rahatsızlığı yaratmayacak şekilde planlanmalıdır. Final antrenman sonrası ise tam kapsamlı toparlanma beslenme protokolü uygulanarak bir sonraki gün için optimal hazırlık sağlanmalıdır. Bu yaklaşım özellikle elit sporcular ve yoğun antrenman dönemlerinde kritik öneme sahiptir.</p>
+                `
+            },
+            {
+                title: "Pratik Toparlanma Öğünleri ve Kişiselleştirilmiş Beslenme Stratejileri",
+                content: `
+                    <h4>🥗 Günlük Yaşama Entegrasyonu İçin Pratik Toparlanma Beslenme Seçenekleri ve Bireysel Optimizasyon</h4>
+                    <p>Pratik toparlanma beslenme seçenekleri, teorik bilgilerin günlük yaşama başarılı bir şekilde entegre edilmesi için kritik öneme sahiptir. Sporcuların beslenme planlarını sürdürülebilir kılmak, hem pratiklik hem de beslenme hedeflerinin karşılanması arasında denge kurulmasını gerektirir. Bu denge, zaman kısıtlılıkları, ulaşılabilirlik, kişisel tercihler, sindirim toleransları ve bütçe faktörleri dikkate alınarak oluşturulmalıdır. Etkili toparlanma beslenme sistemi, sporcunun yaşam tarzına uygun olmalı ve uzun vadeli uygulanabilirlik göstermelidir.</p>
+                    
+                    <p>Antrenman sonrası ilk 30 dakika için hızlı seçenekler, zamanlama kritikliği nedeniyle önceden planlanmış ve hazır halde bulundurulmalıdır. İçecek bazlı seçenekler genellikle en pratik çözümler sunar: 500ml çikolatalı süt mükemmel 4:1 karbonhidrat-protein oranı sağlarken hızlı emilim gösterir. Karışım içeceği kombinasyonları (muz, protein tozu, süt, bal) özelleştirilmiş besin öğesi oranları ve tat tercihleri sağlar. Kefir ve meyve karışımları probiyotik desteği ile birlikte toparlanma besinlerini sunar. Spor içeceği ile protein tozu kombinasyonu ise seyahat eden sporcular için ideal taşınabilir seçenek oluşturur. Katı seçenekler arasında peynirli tost ve meyve suyu, yoğurt-granola-meyve karışımı, protein bar ile muz kombinasyonu ve kraker-peynir-üzüm seçenekleri hem pratiklik hem de beslenme hedeflerini karşılar.</p>
+                    
+                    <p>Birinci saat sonrası tam öğünler, kapsamlı toparlanma desteği sağlarken spor dalına özgü ihtiyaçları karşılamalıdır. Güç sporları için yüksek kaliteli protein kaynaklı öğünler tercih edilir: tavuk göğsü, pilav ve sebze kombinasyonu komplet amino asit profili ile kompleks karbonhidratları birleştirir. Balık, patates ve salata kombinasyonu omega-3 yağ asitleri ile anti-inflamatuar destek sağlar. Et, makarna ve domates sosu yüksek protein ve karbonhidrat yoğunluğu sunar. Yumurta, ekmek ve avokado kombinasyonu tam protein, karmaşık karbonhidrat ve sağlıklı yağları birleştirir. Dayanıklılık sporları için karbonhidrat ağırlıklı öğünler planlanır: makarna et soslu, pilav tavuk ve sebze, quinoa salata protein ile, waffle reçel ve süt kombinasyonları glikojen depolarını maksimal şekilde doldurur.</p>
+                    
+                    <p>Kaçınılması gereken beslenme hataları ve yanlış uygulamalar, toparlanma sürecini olumsuz etkileyebilir ve performans kazanımlarını engelleyebilir. Antrenman hemen sonrasında yüksek yağ içerikli besinler gastrik boşalmayı yavaşlatarak besin emilimini geciktirir. Çok lif içeren besinler sindirim sisteminde rahatsızlık yaratabilir ve besin öğesi emilimini bozabilir. Gaz yapan besinler (baklagiller, bazı sebzeler) mide şişkinliğine neden olarak konfor bozar. Alkol tüketimi protein sentezini baskılar, dehidrasyonu artırır ve uyku kalitesini bozar. Beslenme zamanlamasındaki gecikmeler altın pencereyi kaçırarak toparlanma etkinliğini azaltır. Sadece su tüketimi elektrolit dengesizliklerine yol açar. Yetersiz miktarlarda beslenme tam toparlanma için gerekli substratları sağlamaz. Denenmemiş besinlerin yarışma veya önemli antrenmanlar sonrası tüketimi sindirim problemlerine yol açabilir. Bu hataları önlemek için sistematik yaklaşım ve önceden test edilmiş protokoller gereklidir.</p>
+                `
+            }
+        ];
+
+        function updateSlide() {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[currentSlide].classList.add('active');
+            slideCounter.textContent = `${currentSlide + 1} / ${slides.length}`;
+            progressBar.style.width = `${((currentSlide + 1) / slides.length) * 100}%`;
+            
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === slides.length - 1;
+            
+            // Update sidebar content
+            if (slideNotes[currentSlide]) {
+                sidebar.innerHTML = `
+                    <h3>${slideNotes[currentSlide].title}</h3>
+                    ${slideNotes[currentSlide].content}
+                `;
+            }
+        }
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                updateSlide();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlide();
+            }
+        }
+
+        function toggleNotes() {
+            sidebar.classList.toggle('active');
+            notesBtn.textContent = sidebar.classList.contains('active') ? '❌ Notları Kapat' : '📝 Detaylı Notlar';
+        }
+
+        // Event listeners
+        nextBtn.addEventListener('click', nextSlide);
+        prevBtn.addEventListener('click', prevSlide);
+        notesBtn.addEventListener('click', toggleNotes);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                prevSlide();
+            } else if (e.key === 'Escape') {
+                if (sidebar.classList.contains('active')) {
+                    toggleNotes();
+                }
+            }
+        });
+
+        // Initialize
+        updateSlide();
+    </script>
+</body>
+</html>
