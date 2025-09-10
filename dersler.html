@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ders Notları - İzzet İNCE</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>İzzet İNCE</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Ana Sayfa</a></li>
+                <li><a href="cv.html" class="nav-link">CV</a></li>
+                <li><a href="dersler.html" class="nav-link active">Ders Notları</a></li>
+                <li><a href="index.html#contact" class="nav-link">İletişim</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="courses-container">
+        <div class="courses-header">
+            <h1>Ders Notları ve Materyaller</h1>
+            <p>Bu sayfada verdiğim derslere ait notlar, sunumlar ve ek kaynaklar bulunmaktadır.</p>
+        </div>
+
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Ders veya konu ara...">
+            <i class="fas fa-search"></i>
+        </div>
+
+        <div class="filter-tabs">
+            <button class="filter-btn active" data-filter="all">Tümü</button>
+            <button class="filter-btn" data-filter="lisans">Lisans</button>
+            <button class="filter-btn" data-filter="yukseklisans">Yüksek Lisans</button>
+            <button class="filter-btn" data-filter="doktora">Doktora</button>
+        </div>
+
+        <div class="courses-grid">
+            <!-- Lisans Dersleri -->
+            <div class="course-card" data-category="lisans">
+                <div class="course-icon">
+                    <i class="fas fa-apple-alt"></i>
+                </div>
+                <h3>Sporcu Beslenmesi</h3>
+                <p class="course-code">SBF201</p>
+                <p class="course-level"><span class="badge badge-lisans">Lisans</span></p>
+                <p class="course-description">Sporda beslenme ilkeleri, makro-mikro besinler, hidrasyon ve performans beslenme stratejileri.</p>
+                <div class="course-materials">
+                    <h4>Ders Materyalleri:</h4>
+                    <ul class="material-list">
+                        <li>
+                            <a href="dersler/sporcu-beslenmesi/01_Temel_Beslenme_Ilkeleri_Sunum.html" class="material-link">
+                                <i class="fas fa-file-alt"></i> Bölüm 1 - Temel Beslenme İlkeleri
+                            </a>
+                        </li>
+                        <li>
+                            <a href="dersler/sporcu-beslenmesi/02_Makro_Besinler_Sunum.html" class="material-link">
+                                <i class="fas fa-file-alt"></i> Bölüm 2 - Makro Besinler
+                            </a>
+                        </li>
+                        <li>
+                            <a href="dersler/sporcu-beslenmesi/03_Antrenman_Oncesi_Beslenme_Sunum.html" class="material-link">
+                                <i class="fas fa-file-alt"></i> Bölüm 3 - Antrenman Öncesi Beslenme
+                            </a>
+                        </li>
+                        <li>
+                            <a href="dersler/sporcu-beslenmesi/04_Antrenman_Sirasi_Sonrasi_Sunum.html" class="material-link">
+                                <i class="fas fa-file-alt"></i> Bölüm 4 - Antrenman Sırası ve Sonrası
+                            </a>
+                        </li>
+                        <li>
+                            <a href="dersler/sporcu-beslenmesi/05_Hidrasyon_Sunum.html" class="material-link">
+                                <i class="fas fa-file-alt"></i> Bölüm 5 - Hidrasyon
+                            </a>
+                        </li>
+                        <li>
+                            <a href="dersler/sporcu-beslenmesi/06_Takviye_ve_Supplementler_Sunum.html" class="material-link">
+                                <i class="fas fa-file-alt"></i> Bölüm 6 - Takviye ve Supplementler
+                            </a>
+                        </li>
+                        <li>
+                            <a href="dersler/sporcu-beslenmesi/07_Mikro_Besinler_Sunum.html" class="material-link">
+                                <i class="fas fa-file-alt"></i> Bölüm 7 - Mikro Besinler
+                            </a>
+                        </li>
+                        <li>
+                            <a href="dersler/sporcu-beslenmesi/08_Ozel_Populasyonlar_Sunum.html" class="material-link">
+                                <i class="fas fa-file-alt"></i> Bölüm 8 - Özel Populasyonlar
+                            </a>
+                        </li>
+                        <li>
+                            <a href="dersler/sporcu-beslenmesi/09_Spor_Spesifik_Beslenme_Sunum.html" class="material-link">
+                                <i class="fas fa-file-alt"></i> Bölüm 9 - Spor Spesifik Beslenme
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="course-actions">
+                    <button class="btn-expand">Tüm Notları Göster</button>
+                </div>
+            </div>
+
+
+            <!-- Gerçek Lisans Dersleri -->
+            <div class="course-card" data-category="lisans">
+                <div class="course-icon">
+                    <i class="fas fa-dumbbell"></i>
+                </div>
+                <h3>Antrenman Bilimi</h3>
+                <p class="course-code">SBF301</p>
+                <p class="course-level"><span class="badge badge-lisans">Lisans</span></p>
+                <p class="course-description">Antrenman teorisi, periodizasyon, kuvvet ve dayanıklılık antrenmanları.</p>
+                <div class="course-materials">
+                    <h4>Ders Materyalleri:</h4>
+                    <ul class="material-list">
+                        <li>
+                            <span class="material-link">
+                                <i class="fas fa-file-alt"></i> Ders notları yakında yüklenecek
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="course-actions">
+                    <button class="btn-expand">Tüm Notları Göster</button>
+                </div>
+            </div>
+
+            <div class="course-card" data-category="lisans">
+                <div class="course-icon">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <h3>Spor Fizyolojisi</h3>
+                <p class="course-code">SBF202</p>
+                <p class="course-level"><span class="badge badge-lisans">Lisans</span></p>
+                <p class="course-description">İnsan fizyolojisi, egzersizin fizyolojik etkileri ve adaptasyonlar.</p>
+                <div class="course-materials">
+                    <h4>Ders Materyalleri:</h4>
+                    <ul class="material-list">
+                        <li>
+                            <span class="material-link">
+                                <i class="fas fa-file-alt"></i> Ders notları yakında yüklenecek
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="course-actions">
+                    <button class="btn-expand">Tüm Notları Göster</button>
+                </div>
+            </div>
+
+            <div class="course-card" data-category="lisans">
+                <div class="course-icon">
+                    <i class="fas fa-running"></i>
+                </div>
+                <h3>Hareket ve Antrenman Bilimi</h3>
+                <p class="course-code">SBF401</p>
+                <p class="course-level"><span class="badge badge-lisans">Lisans</span></p>
+                <p class="course-description">Hareket analizi, biyomekanik ve ileri antrenman teknikleri.</p>
+                <div class="course-materials">
+                    <h4>Ders Materyalleri:</h4>
+                    <ul class="material-list">
+                        <li>
+                            <span class="material-link">
+                                <i class="fas fa-file-alt"></i> Ders notları yakında yüklenecek
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="course-actions">
+                    <button class="btn-expand">Tüm Notları Göster</button>
+                </div>
+            </div>
+
+            <!-- Yüksek Lisans Dersleri -->
+            <div class="course-card" data-category="yukseklisans">
+                <div class="course-icon">
+                    <i class="fas fa-apple-alt"></i>
+                </div>
+                <h3>İleri Spor Beslenmesi</h3>
+                <p class="course-code">SBF501</p>
+                <p class="course-level"><span class="badge badge-yukseklisans">Yüksek Lisans</span></p>
+                <p class="course-description">İleri beslenme stratejileri, spor supplements ve performans optimizasyonu.</p>
+                <div class="course-materials">
+                    <h4>Ders Materyalleri:</h4>
+                    <ul class="material-list">
+                        <li>
+                            <span class="material-link">
+                                <i class="fas fa-file-alt"></i> Ders notları yakında yüklenecek
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="course-actions">
+                    <button class="btn-expand">Tüm Notları Göster</button>
+                </div>
+            </div>
+
+            <div class="course-card" data-category="yukseklisans">
+                <div class="course-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Spor Performans Analizi</h3>
+                <p class="course-code">SBF601</p>
+                <p class="course-level"><span class="badge badge-yukseklisans">Yüksek Lisans</span></p>
+                <p class="course-description">Performans ölçümü, veri analizi ve sporcu değerlendirme teknikleri.</p>
+                <div class="course-materials">
+                    <h4>Ders Materyalleri:</h4>
+                    <ul class="material-list">
+                        <li>
+                            <span class="material-link">
+                                <i class="fas fa-file-alt"></i> Ders notları yakında yüklenecek
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="course-actions">
+                    <button class="btn-expand">Tüm Notları Göster</button>
+                </div>
+            </div>
+
+            <div class="course-card" data-category="yukseklisans">
+                <div class="course-icon">
+                    <i class="fas fa-microscope"></i>
+                </div>
+                <h3>Araştırma Yöntemleri</h3>
+                <p class="course-code">SBF502</p>
+                <p class="course-level"><span class="badge badge-yukseklisans">Yüksek Lisans</span></p>
+                <p class="course-description">Bilimsel araştırma metodolojisi, istatistik ve veri analizi.</p>
+                <div class="course-materials">
+                    <h4>Ders Materyalleri:</h4>
+                    <ul class="material-list">
+                        <li>
+                            <span class="material-link">
+                                <i class="fas fa-file-alt"></i> Ders notları yakında yüklenecek
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="course-actions">
+                    <button class="btn-expand">Tüm Notları Göster</button>
+                </div>
+            </div>
+
+            <!-- Boş Ders Kartı - HTML dosyaları yüklendiğinde burada görünecek -->
+            <div class="course-card" data-category="lisans">
+                <div class="course-icon">
+                    <i class="fas fa-folder-plus"></i>
+                </div>
+                <h3>Yeni Ders Ekle</h3>
+                <p class="course-code">---</p>
+                <p class="course-level"><span class="badge badge-new">Yeni</span></p>
+                <p class="course-description">HTML dosyalarınızı yükleyerek yeni ders notları ekleyebilirsiniz.</p>
+                <div class="upload-area">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>HTML dosyalarınızı buraya sürükleyin veya tıklayın</p>
+                    <input type="file" id="fileUpload" accept=".html,.htm" multiple hidden>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <div class="info-card">
+                <i class="fas fa-info-circle"></i>
+                <h3>Ders Notları Hakkında</h3>
+                <p>
+                    Bu sayfadaki tüm ders notları ve materyaller eğitim amaçlıdır. 
+                    Notlar düzenli olarak güncellenmektedir. Son güncelleme tarihleri her ders kartında belirtilmiştir.
+                </p>
+            </div>
+            <div class="info-card">
+                <i class="fas fa-download"></i>
+                <h3>İndirme ve Kullanım</h3>
+                <p>
+                    Tüm materyaller öğrencilerin kullanımına açıktır. 
+                    Ders notlarını PDF olarak indirmek için ilgili sayfada yazdırma seçeneğini kullanabilirsiniz.
+                </p>
+            </div>
+            <div class="info-card">
+                <i class="fas fa-question-circle"></i>
+                <h3>Sorularınız İçin</h3>
+                <p>
+                    Ders notları ile ilgili sorularınız için ofis saatlerimde beni ziyaret edebilir 
+                    veya e-posta yoluyla iletişime geçebilirsiniz.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 İzzet İNCE. Tüm hakları saklıdır.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Filter functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const courseCards = document.querySelectorAll('.course-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterBtns.forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
+                
+                const filter = btn.getAttribute('data-filter');
+                
+                courseCards.forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            
+            courseCards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const code = card.querySelector('.course-code').textContent.toLowerCase();
+                const description = card.querySelector('.course-description').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || code.includes(searchTerm) || description.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        // Expand course materials
+        document.querySelectorAll('.btn-expand').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const materialList = this.closest('.course-card').querySelector('.material-list');
+                materialList.classList.toggle('expanded');
+                this.textContent = materialList.classList.contains('expanded') ? 
+                    'Notları Gizle' : 'Tüm Notları Göster';
+            });
+        });
+
+        // File upload simulation
+        const fileUpload = document.getElementById('fileUpload');
+        const uploadArea = document.querySelector('.upload-area');
+
+        uploadArea.addEventListener('click', () => {
+            fileUpload.click();
+        });
+
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            // Handle file drop here
+            const files = e.dataTransfer.files;
+            console.log('Files dropped:', files);
+        });
+
+        fileUpload.addEventListener('change', (e) => {
+            const files = e.target.files;
+            console.log('Files selected:', files);
+            // Handle file upload here
+        });
+    </script>
+</body>
+</html>
