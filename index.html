@@ -149,7 +149,7 @@ padding:4px; box-shadow:0 4px 20px rgba(0,0,0,.15)}
         <a href="cv.html">Akademik Yayınlarım</a>
         <a href="projelerim.html">TÜBİTAK Destekli Projelerim</a>
         <a href="dersler.html">Ders Notları</a>
-        <a href="#galeri">Fotoğraf Galerisi</a>
+        <a href="galeri.html">Fotoğraf Galerisi</a>
         <a href="#contact">İletişim</a>
       </div>
       <button class="toggle" onclick="toggleTheme()">
@@ -327,129 +327,6 @@ padding:4px; box-shadow:0 4px 20px rgba(0,0,0,.15)}
     </div>
   </section>
 
-  <section class="section" id="galeri">
-    <div class="container">
-      <h3>Fotoğraf Galerisi</h3>
-      <p style="text-align: center; color: var(--muted); margin-bottom: 30px;">
-        Halter kariyerimden önemli anlar • Olimpiyat Oyunları • Şampiyonluklar • Teknik Çalışma • Antrenmanlar
-      </p>
-      
-      <!-- Gallery Categories -->
-      <div class="gallery-filters">
-        <button class="filter-btn active" data-filter="all">Tümü</button>
-        <button class="filter-btn" data-filter="olympics">Olimpiyat Oyunları</button>
-        <button class="filter-btn" data-filter="championships">Şampiyonluklar</button>
-        <button class="filter-btn" data-filter="techniques">Teknik Çalışma</button>
-        <button class="filter-btn" data-filter="training">Antrenmanlar</button>
-      </div>
-      
-      <!-- Gallery Grid -->
-      <div class="gallery-grid">
-        <!-- Olimpiyat Fotoğrafları -->
-        <div class="gallery-item olympics" data-caption="Pekin 2008 Olimpiyat Oyunları - Yarışma Öncesi">
-          <img src="images/gallery/olympics-beijing-2008.jpg" alt="Pekin 2008 Olimpiyat" loading="lazy">
-          <div class="overlay">
-            <i class="fas fa-search-plus"></i>
-            <h5>Pekin 2008</h5>
-            <p>Olimpiyat Oyunları</p>
-          </div>
-        </div>
-        
-        <div class="gallery-item olympics" data-caption="Atina 2004 Olimpiyat Oyunları - Kaldırış Anı">
-          <img src="images/gallery/olympics-athens-2004.jpg" alt="Atina 2004 Olimpiyat" loading="lazy">
-          <div class="overlay">
-            <i class="fas fa-search-plus"></i>
-            <h5>Atina 2004</h5>
-            <p>Olimpiyat Oyunları</p>
-          </div>
-        </div>
-        
-        <!-- Şampiyonluk Fotoğrafları -->
-        <div class="gallery-item championships" data-caption="2007 Fransa - Avrupa Şampiyonluğu Madalya Töreni">
-          <img src="images/gallery/europe-champion-2007.jpg" alt="2007 Avrupa Şampiyonluğu" loading="lazy">
-          <div class="overlay">
-            <i class="fas fa-search-plus"></i>
-            <h5>Avrupa Şampiyonu</h5>
-            <p>Fransa 2007</p>
-          </div>
-        </div>
-        
-        <div class="gallery-item championships" data-caption="2004 Ukrayna - Avrupa Şampiyonluğu Kupası">
-          <img src="images/gallery/europe-champion-2004.jpg" alt="2004 Avrupa Şampiyonluğu" loading="lazy">
-          <div class="overlay">
-            <i class="fas fa-search-plus"></i>
-            <h5>Avrupa Şampiyonu</h5>
-            <p>Ukrayna 2004</p>
-          </div>
-        </div>
-        
-        <div class="gallery-item championships" data-caption="2009 İtalya - Akdeniz Oyunları Şampiyonluğu">
-          <img src="images/gallery/mediterranean-champion-2009.jpg" alt="2009 Akdeniz Oyunları" loading="lazy">
-          <div class="overlay">
-            <i class="fas fa-search-plus"></i>
-            <h5>Akdeniz Oyunları</h5>
-            <p>İtalya 2009</p>
-          </div>
-        </div>
-        
-        <!-- Antrenman Fotoğrafları -->
-        <div class="gallery-item training" data-caption="Milli Takım Antrenmanları - Teknik Çalışma">
-          <img src="images/gallery/training-technique.jpg" alt="Teknik Antrenman" loading="lazy">
-          <div class="overlay">
-            <i class="fas fa-search-plus"></i>
-            <h5>Teknik Çalışma</h5>
-            <p>Milli Takım Kampı</p>
-          </div>
-        </div>
-        
-        <div class="gallery-item training" data-caption="Kamp Antrenmanları - Kuvvet Çalışması">
-          <img src="images/gallery/training-strength.jpg" alt="Kuvvet Antrenmanı" loading="lazy">
-          <div class="overlay">
-            <i class="fas fa-search-plus"></i>
-            <h5>Kuvvet Antrenmanı</h5>
-            <p>Hazırlık Kampı</p>
-          </div>
-        </div>
-        
-        <div class="gallery-item championships" data-caption="2001 Yunanistan - Dünya Şampiyonası Gümüş Madalya">
-          <img src="images/gallery/world-silver-2001.jpg" alt="2001 Dünya Şampiyonası" loading="lazy">
-          <div class="overlay">
-            <i class="fas fa-search-plus"></i>
-            <h5>Dünya İkincisi</h5>
-            <p>Yunanistan 2001</p>
-          </div>
-        </div>
-        
-        <!-- Teknik Çalışma Fotoğrafları -->
-        <div class="gallery-item techniques" data-caption="Omuzlama Tekniği - Halter hareketinin birinci fazı">
-          <img src="images/gallery/omuzlama.jpg" alt="Omuzlama Tekniği" loading="lazy">
-          <div class="overlay">
-            <i class="fas fa-search-plus"></i>
-            <h5>Omuzlama</h5>
-            <p>Teknik Çalışma</p>
-          </div>
-        </div>
-        
-        <div class="gallery-item techniques" data-caption="Silkme Tekniği - Halter hareketinin ikinci fazı">
-          <img src="images/gallery/silkme.jpg" alt="Silkme Tekniği" loading="lazy">
-          <div class="overlay">
-            <i class="fas fa-search-plus"></i>
-            <h5>Silkme</h5>
-            <p>Teknik Çalışma</p>
-          </div>
-        </div>
-        
-        <div class="gallery-item techniques" data-caption="Atış Tekniği - Koparma hareketinin tamamlanması">
-          <img src="images/gallery/atis.jpg" alt="Atış Tekniği" loading="lazy">
-          <div class="overlay">
-            <i class="fas fa-search-plus"></i>
-            <h5>Atış</h5>
-            <p>Teknik Çalışma</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <section class="section">
     <div class="container">
