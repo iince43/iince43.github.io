@@ -45,14 +45,11 @@ a{color:inherit; text-decoration:none}
 .container{width:min(1100px, 92%); margin-inline:auto}
 
 /* Navbar */
-.navbar{position:sticky; top:0; z-index:50; backdrop-filter:saturate(160%) blur(10px); background:color-mix(in oklab, var(--bg-soft) 70%, transparent); border-bottom:1px solid var(--outline)}
-.nav-wrap{display:flex; align-items:center; justify-content:space-between; padding:14px 0}
-.brand{display:flex; gap:12px; align-items:center}
-.avatar{width:38px; height:38px; border-radius:50%; display:grid; place-items:center; background:linear-gradient(135deg, var(--brand), var(--brand-2)); color:white; font-weight:700}
-.brand h1{font-size:18px; margin:0}
-.nav-menu{display:flex; gap:18px; align-items:center}
-.nav-menu a{padding:8px 12px; border-radius:10px; color:var(--muted); border:1px solid transparent}
-.nav-menu a.active, .nav-menu a:hover{color:var(--text); border-color:var(--outline); background:color-mix(in oklab, var(--bg-soft) 85%, transparent)}
+.navbar{position:sticky; top:0; z-index:50; backdrop-filter:saturate(160%) blur(10px); background:linear-gradient(135deg, color-mix(in oklab, var(--brand) 8%, var(--bg-soft)), color-mix(in oklab, var(--brand-2) 6%, var(--bg-soft))); border-bottom:2px solid var(--brand); box-shadow:0 4px 20px color-mix(in oklab, var(--brand) 15%, transparent)}
+.nav-wrap{display:flex; align-items:center; justify-content:space-between; padding:16px 0}
+.nav-menu{display:flex; gap:20px; align-items:center}
+.nav-menu a{padding:10px 16px; border-radius:12px; color:var(--muted); border:1px solid transparent; font-weight:500; transition:all 0.3s ease}
+.nav-menu a.active, .nav-menu a:hover{color:var(--text); border-color:var(--brand); background:linear-gradient(135deg, color-mix(in oklab, var(--brand) 10%, transparent), color-mix(in oklab, var(--brand-2) 5%, transparent)); transform:translateY(-1px); box-shadow:0 4px 12px color-mix(in oklab, var(--brand) 20%, transparent)}
 .toggle{border:1px solid var(--outline); background:var(--bg-soft); padding:8px 12px; border-radius:12px; cursor:pointer}
 
 /* Hero */
@@ -116,14 +113,11 @@ padding:4px; box-shadow:0 4px 20px rgba(0,0,0,.15)}
 <nav class="navbar">
   <div class="container">
     <div class="nav-wrap">
-      <div class="brand">
-        <div class="avatar">İİ</div>
-        <h1>İzzet İNCE</h1>
-      </div>
       <div class="nav-menu">
         <a href="index.html" class="active">Ana Sayfa</a>
         <a href="#hakkimda">Hakkımda</a>
-        <a href="cv.html">CV</a>
+        <a href="cv.html">Akademik Yayınlarım</a>
+        <a href="projelerim.html">TÜBİTAK Destekli Projelerim</a>
         <a href="dersler.html">Ders Notları</a>
         <a href="#contact">İletişim</a>
       </div>
@@ -145,7 +139,7 @@ padding:4px; box-shadow:0 4px 20px rgba(0,0,0,.15)}
           <div class="title">
             <span>Doç. Dr.</span>
             <span>•</span>
-            <span>Spor Bilimleri Uzmanı</span>
+            <span>Spor Bilimleri Öğretim Üyesi</span>
           </div>
           
           <div class="badges">
