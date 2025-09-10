@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fotoğraf Galerisi - İzzet İNCE</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>İzzet İNCE</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Ana Sayfa</a></li>
+                <li><a href="index.html#hakkimda" class="nav-link">Hakkımda</a></li>
+                <li><a href="cv.html" class="nav-link">Akademik Yayınlarım</a></li>
+                <li><a href="projelerim.html" class="nav-link">TÜBİTAK Destekli Projelerim</a></li>
+                <li><a href="dersler.html" class="nav-link">Ders Notları</a></li>
+                <li><a href="galeri.html" class="nav-link active">Fotoğraf Galerisi</a></li>
+                <li><a href="index.html#contact" class="nav-link">İletişim</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container" style="margin-top: 40px;">
+        <div class="page-header">
+            <h1><i class="fas fa-images"></i> Fotoğraf Galerisi</h1>
+            <p>Halter kariyerimden önemli anlar • Olimpiyat Oyunları • Şampiyonluklar • Teknik Çalışmalar</p>
+        </div>
+
+        <!-- Gallery Categories -->
+        <div class="gallery-filters">
+            <button class="filter-btn active" data-filter="all">Tümü</button>
+            <button class="filter-btn" data-filter="olympics">Olimpiyat Oyunları</button>
+            <button class="filter-btn" data-filter="championships">Şampiyonluklar</button>
+            <button class="filter-btn" data-filter="techniques">Teknik Çalışma</button>
+            <button class="filter-btn" data-filter="training">Antrenmanlar</button>
+        </div>
+
+        <!-- Gallery Grid -->
+        <div class="gallery-grid">
+            <!-- Olimpiyat Fotoğrafları -->
+            <div class="gallery-item olympics" data-caption="Pekin 2008 Olimpiyat Oyunları - Yarışma Anı">
+                <img src="images/gallery/olympics-beijing-2008.jpg" alt="Pekin 2008 Olimpiyat" loading="lazy">
+                <div class="gallery-overlay">
+                    <div class="gallery-info">
+                        <h4>Pekin 2008</h4>
+                        <p>Olimpiyat Oyunları</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item olympics" data-caption="Atina 2004 Olimpiyat Oyunları - Kaldırış Anı">
+                <img src="images/gallery/olympics-athens-2004.jpg" alt="Atina 2004 Olimpiyat" loading="lazy">
+                <div class="gallery-overlay">
+                    <div class="gallery-info">
+                        <h4>Atina 2004</h4>
+                        <p>Olimpiyat Oyunları</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Şampiyonluk Fotoğrafları -->
+            <div class="gallery-item championships" data-caption="2007 Fransa - Avrupa Şampiyonluğu Madalya Töreni">
+                <img src="images/gallery/europe-champion-2007.jpg" alt="2007 Avrupa Şampiyonluğu" loading="lazy">
+                <div class="gallery-overlay">
+                    <div class="gallery-info">
+                        <h4>Avrupa Şampiyonu</h4>
+                        <p>Fransa 2007</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item championships" data-caption="2004 Ukrayna - Avrupa Şampiyonluğu Kupası">
+                <img src="images/gallery/europe-champion-2004.jpg" alt="2004 Avrupa Şampiyonluğu" loading="lazy">
+                <div class="gallery-overlay">
+                    <div class="gallery-info">
+                        <h4>Avrupa Şampiyonu</h4>
+                        <p>Ukrayna 2004</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item championships" data-caption="2009 İtalya - Akdeniz Oyunları Şampiyonluğu">
+                <img src="images/gallery/mediterranean-champion-2009.jpg" alt="2009 Akdeniz Oyunları" loading="lazy">
+                <div class="gallery-overlay">
+                    <div class="gallery-info">
+                        <h4>Akdeniz Oyunları</h4>
+                        <p>İtalya 2009</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item championships" data-caption="2001 Yunanistan - Dünya Şampiyonası Gümüş Madalya">
+                <img src="images/gallery/world-silver-2001.jpg" alt="2001 Dünya Şampiyonası" loading="lazy">
+                <div class="gallery-overlay">
+                    <div class="gallery-info">
+                        <h4>Dünya İkincisi</h4>
+                        <p>Yunanistan 2001</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Teknik Çalışma Fotoğrafları -->
+            <div class="gallery-item techniques" data-caption="Omuzlama Tekniği - Halter hareketinin birinci fazı">
+                <img src="images/gallery/omuzlama.jpg" alt="Omuzlama Tekniği" loading="lazy">
+                <div class="gallery-overlay">
+                    <div class="gallery-info">
+                        <h4>Omuzlama</h4>
+                        <p>Teknik Çalışma</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item techniques" data-caption="Silkme Tekniği - Halter hareketinin ikinci fazı">
+                <img src="images/gallery/silkme.jpg" alt="Silkme Tekniği" loading="lazy">
+                <div class="gallery-overlay">
+                    <div class="gallery-info">
+                        <h4>Silkme</h4>
+                        <p>Teknik Çalışma</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item techniques" data-caption="Atış Tekniği - Koparma hareketinin tamamlanması">
+                <img src="images/gallery/atis.jpg" alt="Atış Tekniği" loading="lazy">
+                <div class="gallery-overlay">
+                    <div class="gallery-info">
+                        <h4>Atış</h4>
+                        <p>Teknik Çalışma</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Antrenman Fotoğrafları -->
+            <div class="gallery-item training" data-caption="Milli Takım Antrenmanları - Teknik Çalışma">
+                <img src="images/gallery/training-technique.jpg" alt="Teknik Antrenman" loading="lazy">
+                <div class="gallery-overlay">
+                    <div class="gallery-info">
+                        <h4>Teknik Çalışma</h4>
+                        <p>Milli Takım Kampı</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item training" data-caption="Kamp Antrenmanları - Kuvvet Çalışması">
+                <img src="images/gallery/training-strength.jpg" alt="Kuvvet Antrenmanı" loading="lazy">
+                <div class="gallery-overlay">
+                    <div class="gallery-info">
+                        <h4>Kuvvet Antrenmanı</h4>
+                        <p>Hazırlık Kampı</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+            <img id="lightbox-img" src="" alt="">
+            <div class="lightbox-caption" id="lightbox-caption"></div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 İzzet İNCE. Tüm hakları saklıdır.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+
+        if (hamburger && navMenu) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+
+            // Close menu when clicking on a link
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    navMenu.classList.remove('active');
+                });
+            });
+        }
+
+        // Gallery filter functionality
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
+                
+                const filterValue = btn.getAttribute('data-filter');
+                
+                galleryItems.forEach(item => {
+                    if (filterValue === 'all' || item.classList.contains(filterValue)) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Lightbox functionality
+        galleryItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const img = item.querySelector('img');
+                const caption = item.getAttribute('data-caption');
+                
+                document.getElementById('lightbox-img').src = img.src;
+                document.getElementById('lightbox-caption').textContent = caption;
+                document.getElementById('lightbox').classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close lightbox with ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            }
+        });
+
+        // Close lightbox when clicking outside the image
+        document.getElementById('lightbox').addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) {
+                closeLightbox();
+            }
+        });
+    </script>
+
+<style>
+.page-header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 20px 0;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.page-header h1 {
+    font-size: 2.5rem;
+    color: var(--text-color);
+    margin-bottom: 10px;
+}
+
+.page-header p {
+    color: var(--text-light);
+    font-size: 1.1rem;
+}
+
+/* Gallery Filters */
+.gallery-filters {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 10px 20px;
+    border: 1px solid #ddd;
+    background: white;
+    color: #333;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.filter-btn:hover {
+    background: #f0f0f0;
+    transform: translateY(-2px);
+}
+
+.filter-btn.active {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+}
+
+/* Gallery Grid */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+    margin-bottom: 60px;
+}
+
+.gallery-item {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    cursor: pointer;
+    background: white;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    height: 250px;
+}
+
+.gallery-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.05);
+}
+
+.gallery-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    padding: 20px;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover .gallery-overlay {
+    transform: translateY(0);
+}
+
+.gallery-info {
+    color: white;
+}
+
+.gallery-info h4 {
+    margin: 0 0 5px 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.gallery-info p {
+    margin: 0;
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+/* Lightbox Modal */
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.lightbox.active {
+    display: flex;
+}
+
+.lightbox-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+    text-align: center;
+}
+
+.lightbox img {
+    max-width: 100%;
+    max-height: 80vh;
+    object-fit: contain;
+    border-radius: 10px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.lightbox-caption {
+    color: white;
+    margin-top: 20px;
+    font-size: 16px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px 20px;
+    border-radius: 25px;
+    display: inline-block;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    color: white;
+    font-size: 40px;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.lightbox-close:hover {
+    color: var(--primary-color);
+    transform: scale(1.1);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .gallery-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .gallery-filters {
+        gap: 10px;
+    }
+    
+    .filter-btn {
+        padding: 8px 16px;
+        font-size: 13px;
+    }
+    
+    .page-header h1 {
+        font-size: 2rem;
+    }
+    
+    .lightbox-close {
+        top: 10px;
+        right: 10px;
+        font-size: 30px;
+    }
+}
+</style>
+
+</body>
+</html>
