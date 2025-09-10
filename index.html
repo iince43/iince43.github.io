@@ -66,8 +66,10 @@ a{color:inherit; text-decoration:none}
 .badges{display:flex; gap:10px; margin-top:16px; flex-wrap:wrap}
 .badge{border:1px solid var(--outline); padding:8px 12px; border-radius:999px; font-size:14px; background:color-mix(in oklab, var(--bg-soft) 90%, transparent)}
 .social{display:flex; gap:12px; margin-top:16px}
-.social a{width:40px; height:40px; display:grid; place-items:center; border-radius:12px; border:1px solid var(--outline); background:var(--bg-soft); transition: all 0.2s ease; color:var(--brand)}
-.social a:hover{border-color:var(--brand); background:var(--brand); color:white}
+.social a{width:40px; height:40px; display:grid; place-items:center; border-radius:12px; border:1px solid var(--outline); background:var(--bg-soft); transition: all 0.2s ease}
+.social a i{color:var(--brand) !important}
+.social a:hover{border-color:var(--brand); background:var(--brand)}
+.social a:hover i{color:white !important}
 .stats{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:22px}
 .stat{background:var(--bg-soft); border:1px solid var(--outline); border-radius:14px; padding:14px; text-align:center}
 .stat b{font-size:20px; display:block; color:var(--brand)}
@@ -173,6 +175,94 @@ padding:6px; box-shadow:var(--shadow)}
             <div class="inner">
               <i class="fas fa-user-graduate"></i>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h3>Hakkımda</h3>
+      <div class="info-card" style="margin-bottom: 30px;">
+        <p style="line-height: 1.8; font-size: 15px; color: var(--text);">
+          1981 Kütahya doğumluyum. Haltere 1994'te başladım; 1996'da ilk kez Milli oldum. 2004 Atina ve 2008 Pekin Olimpiyat Oyunları'na katıldım. 
+          Akademide; Selçuk Üniversitesi'nde lisans ve yüksek lisans, Hacettepe & Dumlupınar ortak programında doktoramı tamamladım. 
+          MEB'de 7 yıl Beden Eğitimi Öğretmenliği sonrası, 2016'da AYBÜ'de Araştırma Görevlisi olarak başladım; 2018'de Dr. Öğr. Üyesi, 2021'de Doçent unvanı aldım. 
+          Spor performansı, kuvvet‑hız profilleme ve uygulamalı biyomekanik alanlarında çalışıyorum.
+        </p>
+      </div>
+      
+      <h3>Öne Çıkan Başlıklar</h3>
+      <div class="cards-grid" style="margin-bottom: 30px;">
+        <div class="info-card">
+          <h4><i class="fas fa-dumbbell"></i> Halter & Performans</h4>
+          <p>Olimpiyat sporcusu ve halter antrenörlüğü deneyimi</p>
+        </div>
+        <div class="info-card">
+          <h4><i class="fas fa-tachometer-alt"></i> Kuvvet‑Hız Profili</h4>
+          <p>Sporcuların kuvvet-hız profillemesi ve optimizasyonu</p>
+        </div>
+        <div class="info-card">
+          <h4><i class="fas fa-running"></i> Spor Biyomekaniği</h4>
+          <p>Hareket analizi ve biyomekanik değerlendirmeler</p>
+        </div>
+        <div class="info-card">
+          <h4><i class="fas fa-graduation-cap"></i> Lisans & Lisansüstü Eğitim</h4>
+          <p>Akademik eğitim ve öğrenci mentorluğu</p>
+        </div>
+        <div class="info-card">
+          <h4><i class="fas fa-project-diagram"></i> Proje Yönetimi</h4>
+          <p>TÜBİTAK ve BAP projelerinde yürütücülük</p>
+        </div>
+        <div class="info-card">
+          <h4><i class="fas fa-trophy"></i> Uluslararası Başarı</h4>
+          <p>Olimpiyat oyunları ve dünya şampiyonlukları</p>
+        </div>
+      </div>
+
+      <h3>Uluslararası Başarılar</h3>
+      <div class="info-card">
+        <div style="display: grid; gap: 16px;">
+          <div style="border-left: 3px solid var(--brand); padding-left: 16px;">
+            <strong style="color: var(--brand);">2010 • Beyaz Rusya</strong><br>
+            <span>Avrupa Halter Şampiyonası İkinciliği (Koparma)</span>
+          </div>
+          <div style="border-left: 3px solid var(--brand); padding-left: 16px;">
+            <strong style="color: var(--brand);">2009 • İtalya</strong><br>
+            <span>Akdeniz Oyunları Şampiyonluğu</span>
+          </div>
+          <div style="border-left: 3px solid var(--brand); padding-left: 16px;">
+            <strong style="color: var(--brand);">2008 • İtalya</strong><br>
+            <span>Avrupa Halter Şampiyonası Üçüncülüğü (Koparma)</span>
+          </div>
+          <div style="border-left: 3px solid var(--accent); padding-left: 16px;">
+            <strong style="color: var(--accent);">2008 • Çin</strong><br>
+            <span>Pekin 2008 — Olimpiyat Oyunlarına Katılım</span>
+          </div>
+          <div style="border-left: 3px solid var(--brand); padding-left: 16px;">
+            <strong style="color: var(--brand);">2007 • Fransa</strong><br>
+            <span>Büyükler Avrupa Halter Şampiyonluğu (Koparma)</span>
+          </div>
+          <div style="border-left: 3px solid var(--brand); padding-left: 16px;">
+            <strong style="color: var(--brand);">2006</strong><br>
+            <span>Üniversiteliler Arası Dünya Halter Şampiyonası Birinciliği</span>
+          </div>
+          <div style="border-left: 3px solid var(--brand); padding-left: 16px;">
+            <strong style="color: var(--brand);">2005 • Yunanistan</strong><br>
+            <span>Avrupa Halter Şampiyonası Üçüncülüğü (Koparma)</span>
+          </div>
+          <div style="border-left: 3px solid var(--brand); padding-left: 16px;">
+            <strong style="color: var(--brand);">2004 • Ukrayna</strong><br>
+            <span>Büyükler Avrupa Halter Şampiyonluğu (Toplam)</span>
+          </div>
+          <div style="border-left: 3px solid var(--accent); padding-left: 16px;">
+            <strong style="color: var(--accent);">2004 • Yunanistan</strong><br>
+            <span>Atina 2004 — Olimpiyat Oyunlarına Katılım</span>
+          </div>
+          <div style="border-left: 3px solid var(--brand); padding-left: 16px;">
+            <strong style="color: var(--brand);">2001 • Yunanistan</strong><br>
+            <span>Dünya Halter Şampiyonası İkinciliği</span>
           </div>
         </div>
       </div>
