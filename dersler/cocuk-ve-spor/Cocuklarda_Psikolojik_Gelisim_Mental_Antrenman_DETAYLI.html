@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Çocuklarda Psikolojik Gelişim ve Mental Antrenman - Pediatrik Spor Psikolojisi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2c3e50 0%, #4a6741 100%);
+            color: white;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .sidebar {
+            width: 400px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            overflow-y: auto;
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            display: none;
+        }
+
+        .sidebar.active {
+            display: block;
+        }
+
+        .sidebar h3 {
+            color: #ffeb3b;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        .sidebar h4 {
+            color: #81d4fa;
+            margin-bottom: 10px;
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+
+        .sidebar p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+            font-size: 0.95em;
+            text-align: justify;
+        }
+
+        .slide {
+            display: none;
+            width: 90%;
+            max-width: 1000px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 60px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            animation: slideIn 0.6s ease-out;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            background: linear-gradient(45deg, #fff, #e0e0e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h2 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            color: #ffeb3b;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .slide-content {
+            font-size: 1.4em;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .highlight {
+            color: #4fc3f7;
+            font-weight: bold;
+        }
+
+        .emphasis {
+            color: #ffeb3b;
+            font-weight: bold;
+        }
+
+        ul {
+            text-align: left;
+            font-size: 1.2em;
+            line-height: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        li {
+            margin-bottom: 10px;
+            list-style-type: none;
+            position: relative;
+            padding-left: 30px;
+        }
+
+        li::before {
+            content: "🧠";
+            position: absolute;
+            left: 0;
+            font-size: 1.2em;
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 100;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .slide-number {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 18px;
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+
+        .sidebar-toggle {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            font-size: 20px;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .sidebar-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        .psychology-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+
+        .stage-box {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px 0;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar-toggle" onclick="toggleSidebar()">📚</div>
+    <div class="slide-number">
+        <span id="currentSlide">1</span> / <span id="totalSlides">22</span>
+    </div>
+
+    <div class="main-content">
+        <div class="slide active">
+            <div class="psychology-icon">🧠💪</div>
+            <h1>Çocuklarda Psikolojik Gelişim ve Mental Antrenman</h1>
+            <div class="slide-content">
+                <p class="highlight">Pediatrik Spor Psikolojisi</p>
+                <p>Gelişimsel Yaklaşım ile Mental Beceri Eğitimi</p>
+                <p class="emphasis">2024 Araştırmaları Işığında Kapsamlı İnceleme</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🧠 Çocuklarda Psikolojik Gelişim Temelleri</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Bilişsel gelişim:</span> Piaget'in dönemleri (6-18 yaş)</li>
+                    <li><span class="highlight">Psikososyal gelişim:</span> Erikson'un evreleri</li>
+                    <li><span class="highlight">Bireysel değişkenlik:</span> Yaş sadece rehber</li>
+                    <li><span class="highlight">Çoklu gelişim alanları:</span> Fiziksel, bilişsel, sosyal, duygusal</li>
+                    <li><span class="emphasis">Spor psikolojisi yaşa uygun olmalı</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>👶 Orta Çocukluk Dönemi (6-11 yaş)</h2>
+            <div class="slide-content">
+                <div class="stage-box">
+                    <ul>
+                        <li><span class="highlight">Bilişsel özellikler:</span> Somut işlemsel düşünce</li>
+                        <li><span class="highlight">Soyut düşünce:</span> Sınırlı yetenek</li>
+                        <li><span class="highlight">Uzun vade planlama:</span> Zorlanır</li>
+                        <li><span class="highlight">Tekrar gerekliliği:</span> Yeni becerileri öğrenmede</li>
+                        <li><span class="emphasis">Organize takım sporuna 6 yaş minimum</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🧒 Erken Adölesan Dönemi (12-14 yaş)</h2>
+            <div class="slide-content">
+                <div class="stage-box">
+                    <ul>
+                        <li><span class="highlight">Formal operasyonel:</span> Soyut düşünme başlangıcı</li>
+                        <li><span class="highlight">Tümevarım/tümdengelim:</span> Gelişen akıl yürütme</li>
+                        <li><span class="highlight">Risk algısı:</span> Henüz tam gelişmemiş</li>
+                        <li><span class="highlight">Akran etkisi:</span> Artmış sosyal farkındalık</li>
+                        <li><span class="emphasis">Karmaşık mental beceriler için hazırlık dönemi</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>👦 Geç Adölesan Dönemi (15-18 yaş)</h2>
+            <div class="slide-content">
+                <div class="stage-box">
+                    <ul>
+                        <li><span class="highlight">Tam kognitif kapasite:</span> Yetişkin seviyesine yakın</li>
+                        <li><span class="highlight">Soyut kavramlar:</span> Tam anlayış</li>
+                        <li><span class="highlight">Uzun vadeli sonuçlar:</span> Değerlendirme yetisi</li>
+                        <li><span class="highlight">Karmaşık stratejiler:</span> Uygulayabilir</li>
+                        <li><span class="emphasis">Gelişmiş mental antrenman teknikleri kullanılabilir</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>💪 Mental Dayanıklılık - 4C Modeli</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Control (Kontrol):</span> Sonuçları etkileyebilme inancı</li>
+                    <li><span class="highlight">Commitment (Bağlılık):</span> Zorluklara rağmen devam etme</li>
+                    <li><span class="highlight">Challenge (Meydan okuma):</span> Engelleri fırsat görme</li>
+                    <li><span class="highlight">Confidence (Güven):</span> Yetenek inancı</li>
+                    <li><span class="emphasis">Yaş gruplarına göre farklı yaklaşımlar gerekli</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🎯 Temel Mental Beceriler - 1</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Özgüven inşası:</span> Antrenman → yarışma transferi</li>
+                    <li><span class="highlight">Dikkat yönetimi:</span> Dikkati dağıtan faktörlerle başa çıkma</li>
+                    <li><span class="highlight">Negatif konuşma:</span> İç sesin kontrolü</li>
+                    <li><span class="highlight">Lazer odaklanma:</span> Performans odaklı dikkat</li>
+                    <li><span class="emphasis">Yaşa uygun öğretim teknikleri kullanımı</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🎯 Temel Mental Beceriler - 2</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Hata yönetimi:</span> Hızla toparlanma becerileri</li>
+                    <li><span class="highlight">Kayıplarla başa çıkma:</span> Resilience geliştirme</li>
+                    <li><span class="highlight">Geriye dönük öğrenme:</span> Başarısızlıktan ders alma</li>
+                    <li><span class="highlight">Esneklik:</span> Plan B geliştirme</li>
+                    <li><span class="emphasis">Çocukların hata yapma hakkını koruma</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🎬 Zihinsel İmgeleme ve Görselleştirme</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Kademeli öğrenim:</span> Basit → karmaşık görselleştirme</li>
+                    <li><span class="highlight">Gözler kapalı:</span> Mental prova teknikleri</li>
+                    <li><span class="highlight">Antrenman arasında:</span> Kısa görselleştirme molları</li>
+                    <li><span class="highlight">Başarılı performans:</span> Zihinsel tekrar</li>
+                    <li><span class="emphasis">Yaş grubuna uygun imgeleme süreleri</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🗣️ Pozitif İç Konuşma Teknikleri</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Yetenek hatırlatması:</span> "Bunu yapabiliyorum"</li>
+                    <li><span class="highlight">Süreç odaklı:</span> Sonuç yerine süreçe odaklanma</li>
+                    <li><span class="highlight">Olumlu affirmasyonlar:</span> Öz-değer artırımı</li>
+                    <li><span class="highlight">Teknik ipuçları:</span> "Diz yukarı", "Göz hedefe"</li>
+                    <li><span class="emphasis">Çocuğun kendi dilinde ifadeler kullanımı</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🎖️ Motivasyon Teorileri - İç vs Dış</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">İçsel motivasyon:</span> Eğlence, öğrenme, takım çalışması</li>
+                    <li><span class="highlight">Karakter gelişimi:</span> Kişisel büyüme odağı</li>
+                    <li><span class="highlight">Süreç hedefleri:</span> Kişisel en iyiyi amaçlama</li>
+                    <li><span class="highlight">Dışsal ödüllerin sınırları:</span> Madalya, kupalar</li>
+                    <li><span class="emphasis">Uzun vadede içsel motivasyon daha etkili</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>👨‍👩‍👧‍👦 Ailenin Rolü - 2024 Araştırması</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Ana sosyal etken:</span> Çocuk sporcu deneyimini şekillendirme</li>
+                    <li><span class="highlight">Motivasyon kaynağı:</span> Pozitif/negatif etki</li>
+                    <li><span class="highlight">Destek sistemi:</span> Duygusal güvenlik sağlama</li>
+                    <li><span class="highlight">Rol model:</span> Spor etiği ve değerleri</li>
+                    <li><span class="emphasis">En az araştırılan grup - daha fazla dikkat gerekli</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🧘‍♀️ Stres ve Kaygı Yönetimi</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Nefes teknikleri:</span> Derin karın nefesi</li>
+                    <li><span class="highlight">Progressive Muscle Relaxation:</span> Kas gevşetme</li>
+                    <li><span class="highlight">Mindfulness:</span> Şimdiki an farkındalığı</li>
+                    <li><span class="highlight">Yarışma öncesi rutinler:</span> Kontrol duygusu</li>
+                    <li><span class="emphasis">Yaşa uygun gevşeme süresi ve teknikleri</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🏆 Hedef Belirleme - SMART Yaklaşımı</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Specific (Spesifik):</span> Net ve açık hedefler</li>
+                    <li><span class="highlight">Measurable (Ölçülebilir):</span> Sayısal göstergeler</li>
+                    <li><span class="highlight">Achievable (Ulaşılabilir):</span> Gerçekçi beklentiler</li>
+                    <li><span class="highlight">Relevant (İlgili):</span> Kişisel anlamlılık</li>
+                    <li><span class="emphasis">Time-bound (Zamanlı): Kısa/orta/uzun vadeli</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🏢 Sporda Erken Uzmanlaşma Psikolojisi</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Pozitif çıktılar:</span> Eğlenceli ortam, hayat becerileri</li>
+                    <li><span class="highlight">Risk faktörleri:</span> Tükenmişlik, sosyal izolasyon</li>
+                    <li><span class="highlight">Motivasyonel iklim:</span> Sporcu ihtiyaçlarını destekleme</li>
+                    <li><span class="highlight">Mental sağlık:</span> Uzman desteği gerekliliği</li>
+                    <li><span class="emphasis">Dengeli yaklaşım: Performans + Psikolojik iyilik hali</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🎪 Yaşa Uygun Mental Antrenman Yaklaşımları</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">6-11 yaş:</span> Oyun tabanlı, tekrarlı, somut kavramlar</li>
+                    <li><span class="highlight">12-14 yaş:</span> Geçiş dönemi, karma yaklaşım</li>
+                    <li><span class="highlight">15-18 yaş:</span> Karmaşık stratejiler, soyut düşünce</li>
+                    <li><span class="highlight">Bireyselleştirme:</span> Her çocuğun gelişim hızı farklı</li>
+                    <li><span class="emphasis">Uzman spor psikoloğu desteği önemli</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>💪 Öz-Yeterlik Teorisi ve Spor</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Tanım:</span> Belirli sonuçlara ulaşma yetenek inancı</li>
+                    <li><span class="highlight">4 Kaynak:</span> Başarı deneyimleri, gözlemleme, sözel ikna, fizyolojik durum</li>
+                    <li><span class="highlight">Performans etkisi:</span> Tam potansiyeli açığa çıkarma</li>
+                    <li><span class="highlight">2024 araştırması:</span> Özgüven koruyucu faktör</li>
+                    <li><span class="emphasis">Yaşa göre yeterlik inancı geliştirme stratejileri</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🌊 Flow Teorisi - Akış Hali</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Tanım:</span> Tam odaklanma ve kendini kaybetme hali</li>
+                    <li><span class="highlight">9 Özellik:</span> Net hedefler, anlık geri bildirim, zorluk-beceri dengesi</li>
+                    <li><span class="highlight">2025 araştırması:</span> Öz-yeterlik flow deneyimini artırır</li>
+                    <li><span class="highlight">Çocuklarda flow:</span> Yaşa uygun zorluk seviyesi kritik</li>
+                    <li><span class="emphasis">Flow durumu performansı ve motivasyonu optimize eder</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🔥 Tükenmişlik Sendromu - Burnout</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">3 Boyut:</span> Duygusal tükenme, duyarsızlaşma, başarı hissi kaybı</li>
+                    <li><span class="highlight">Risk faktörleri:</span> Erken uzmanlaşma, aşırı antrenman</li>
+                    <li><span class="highlight">2024 meta-analiz:</span> CBT > Mindfulness interventions</li>
+                    <li><span class="highlight">Online müdahaleler:</span> Offline'dan daha etkili</li>
+                    <li><span class="emphasis">Önleme rehabilitasyondan daha önemli</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>😰 Performans Kaygısı - Klinik Yaklaşım</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Tanım:</span> Performans öncesi/sırası/sonrası yoğun stres</li>
+                    <li><span class="highlight">Risk faktörleri:</span> Bireysel sporlar, nevrotik kişilik</li>
+                    <li><span class="highlight">2024 klinik inceleme:</span> Gençlerde artan problem</li>
+                    <li><span class="highlight">Müdahale:</span> CBT, gevşeme teknikleri, exposure</li>
+                    <li><span class="emphasis">Erken tanı ve müdahale kritik</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🎯 Mükemmeliyetçilik - İkili Doğa</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Adaptif mükemmeliyetçilik:</span> Yüksek standartlar + öz-kabul</li>
+                    <li><span class="highlight">Maladaptif mükemmeliyetçilik:</span> Hatalardan korku + öz-eleştiri</li>
+                    <li><span class="highlight">2024 bulgular:</span> Özgüven koruyucu etki</li>
+                    <li><span class="highlight">Duygu düzenleme:</span> Maladaptif türde bozulmuş</li>
+                    <li><span class="emphasis">Dengeli mükemmellik eğitimi gerekli</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🎭 Sporcu Kimliği Gelişimi</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Kimlik evreleri:</span> Arama → keşfetme → kararlılık</li>
+                    <li><span class="highlight">Tek boyutlu kimlik riski:</span> Sadece sporcu olmak</li>
+                    <li><span class="highlight">Çoklu kimlik:</span> Öğrenci-sporcu-arkadaş dengesi</li>
+                    <li><span class="highlight">Geçiş dönemleri:</span> Kimlik krizi potansiyeli</li>
+                    <li><span class="emphasis">Sağlıklı kimlik gelişimi uzun vadeli iyilik hali sağlar</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🎯 Uygulama ve Pratik Öneriler</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Sabırlı yaklaşım:</span> Yavaş ilerleme normal</li>
+                    <li><span class="highlight">Çok modalı:</span> Görsel, işitsel, kinestetik</li>
+                    <li><span class="highlight">Eğlence odaklı:</span> Oyunlaştırma teknikleri</li>
+                    <li><span class="highlight">Sürekli değerlendirme:</span> İlerleme takibi</li>
+                    <li><span class="emphasis">Antrenör-psikolog-aile işbirliği kritik</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar" id="sidebar">
+        <div id="sidebarContent">
+            <!-- Sidebar content will be populated by JavaScript -->
+        </div>
+    </div>
+
+    <div class="controls">
+        <button class="btn" onclick="prevSlide()">◀ Önceki</button>
+        <button class="btn" onclick="nextSlide()">Sonraki ▶</button>
+    </div>
+
+    <script>
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        
+        document.getElementById('totalSlides').textContent = totalSlides;
+
+        const slideNotes = [
+            {
+                title: "Çocuklarda Psikolojik Gelişim ve Mental Antrenman",
+                content: `
+                    <h4>Pediatrik Spor Psikolojisinin Önemi</h4>
+                    <p>Çocuk ve adölesan sporcularla çalışırken, mental beceri antrenmanının yaşa uygun olması kritiktir. 2024 araştırmaları, çocukların fiziksel, bilişsel, sosyal ve duygusal gelişimlerinin büyük bireysel değişkenlik gösterdiğini vurgulamaktadır.</p>
+                    
+                    <h4>Gelişimsel Yaklaşımın Gerekliliği</h4>
+                    <p>Modern spor psikolojisi, çocukların küçük yetişkinler olmadıklarını kabul eder. Piaget'in bilişsel gelişim teorisi ve Erikson'un psikososyal gelişim evreleri, yaşa uygun mental antrenman programlarının temelini oluşturur.</p>
+                    
+                    <h4>2024 Araştırma Bulguları</h4>
+                    <p>Son araştırmalar, ailelerin çocuk sporcuların motivasyonundaki kritik rolünü vurgularken, aynı zamanda bu alanın en az araştırılan grup olduğunu belirtmektedir. Çocukların mental sağlığı ve performansı arasında denge kurmak öncelik haline gelmiştir.</p>
+                `
+            },
+            {
+                title: "Çocuklarda Psikolojik Gelişim Temelleri",
+                content: `
+                    <h4>Bilişsel Gelişim Dönemleri</h4>
+                    <p>Piaget'in teorisine göre, çocuklar dört ana bilişsel gelişim evresinden geçer. Spor psikolojisi açısından en kritik olanları: somut işlemsel dönem (7-11 yaş) ve formal işlemsel dönem (11+ yaş)'dir. Bu dönemler mental beceri öğrenme kapasitelerini doğrudan etkiler.</p>
+                    
+                    <h4>Psikososyal Gelişim Evreleri</h4>
+                    <p>Erikson'un teorisi, çocukların her yaşta belirli psikososyal krizlerle karşılaştığını belirtir. 6-12 yaş arası "çalışkanlık vs aşağılık", 12-18 yaş arası "kimlik vs rol karmaşası" evreleri sporla doğrudan ilişkilidir.</p>
+                    
+                    <h4>Bireysel Değişkenlik Faktörü</h4>
+                    <p>Her çocuk kendi doğal hızında gelişir. Aynı takımdaki sporcular arasında fiziksel, bilişsel, sosyal ve duygusal gelişim açısından büyük farklar olabilir. Bu durum bireyselleştirilmiş yaklaşımları zorunlu kılar.</p>
+                `
+            },
+            {
+                title: "Orta Çocukluk Dönemi (6-11 yaş)",
+                content: `
+                    <h4>Bilişsel Özellikler ve Sınırlar</h4>
+                    <p>Bu yaş grubundaki çocuklar somut işlemsel düşünce evresindedirler. Soyut kavramları anlamakta zorlanırlar ve uzun vadeli sonuçları değerlendirme yetenekleri sınırlıdır. 7 yaşındaki bir çocuk, fair play ihlalinin oyun sonucuna nasıl etki edebileceğini tam olarak anlayamayabilir.</p>
+                    
+                    <h4>Öğrenme Özellikleri</h4>
+                    <p>Araştırmalar, bu yaş grubundaki çocukların psikolojik becerileri öğrenmek için tekrarlı açıklamalara ihtiyaç duyduğunu göstermektedir. Mental antrenman programları yavaş ilerlemeli ve her yeni beceri için birkaç seansın ayrılması gerekir.</p>
+                    
+                    <h4>Organize Spora Katılım</h4>
+                    <p>Fiziksel, psikolojik ve bilişsel gelişim açısından, çocuklar en erken 6 yaşında organize takım sporlarına katılabilirler. Bu yaşın altında motor beceriler ve bilişsel yetenekler spor taleplerini karşılamak için yetersizdir.</p>
+                `
+            },
+            {
+                title: "Erken Adölesan Dönemi (12-14 yaş)",
+                content: `
+                    <h4>Formal Operasyonel Düşünce Başlangıcı</h4>
+                    <p>Piaget'e göre, erken adölesanlar formal işlemsel düşünce evresine girmeye başlarlar. Tümevarım ve tümdengelim akıl yürütme yetenekleri gelişir, ancak henüz tam olgunluğa ulaşmamıştır.</p>
+                    
+                    <h4>Risk Algısı ve Motor Beceriler</h4>
+                    <p>Çocuklar ve erken ergenlik dönemindeki gençler, belirli bir sporun risk ve taleplerini tam olarak anlamak için gerekli motor becerilere ve bilişsel yeteneklere sahip olmayabilirler.</p>
+                    
+                    <h4>Geçiş Dönemi Özellikleri</h4>
+                    <p>Bu dönem, basit mental beceriler ile karmaşık stratejiler arasında bir köprü görevi görür. Sporcular daha soyut kavramları kavramaya başlar ancak henüz tam bağımsız uygulayamazlar.</p>
+                `
+            },
+            {
+                title: "Geç Adölesan Dönemi (15-18 yaş)",
+                content: `
+                    <h4>Tam Kognitif Kapasite</h4>
+                    <p>Geç adölesan dönemde çocuklar, çoğu sporun taleplerini karşılayabilirler çünkü iyi gelişmiş fiziksel, bilişsel, sosyal, duygusal, görsel-motor ve algısal-motor yeteneklere sahiptirler.</p>
+                    
+                    <h4>Soyut Düşünme ve Multitasking</h4>
+                    <p>Bu yaş grubunda semboller, işaretler ve kod kelimeler kullanılabilir. Soyut düşünme yetisi ve multitasking becerisi, aktivite sırasında gerçek zamanlı iletişim imkanı sağlar.</p>
+                    
+                    <h4>Karmaşık Mental Stratejiler</h4>
+                    <p>Egzersiz ve drillere karmaşıklık ve öngörülemezlik unsurları eklenerek akıl yürütme ve reaksiyon yeteneğini geliştiren programlar uygulanabilir.</p>
+                `
+            },
+            {
+                title: "Mental Dayanıklılık - 4C Modeli",
+                content: `
+                    <h4>Mental Dayanıklılık Tanımı</h4>
+                    <p>Lee Crust ve Peter Clough (2005)'un tanımına göre mental dayanıklılık, dört psikolojik özellikten oluşan kişilik boyutu benzeri bir özelliktir: kontrol, bağlılık, meydan okuma ve güven.</p>
+                    
+                    <h4>4C Modelinin Bileşenleri</h4>
+                    <p>Control (Kontrol): Yaptıklarımızın sonuçlar üzerinde fark yarattığına inanmak. Commitment (Bağlılık): Her şeye rağmen ilerlemeye devam etmek. Challenge (Meydan okuma): Engel ve gerilemeleri fırsat olarak görme. Confidence (Güven): İhtiyacı karşılayabilme yeteneğimize inanabilmek.</p>
+                    
+                    <h4>Yaşa Göre Uygulama</h4>
+                    <p>4C modeli her yaş grubunda farklı şekillerde manifestasyon gösterir. Küçük çocuklar için daha somut örnekler kullanılırken, adölesanlar için soyut kavramlar ve uzun vadeli stratejiler geliştirilebilir.</p>
+                `
+            },
+            {
+                title: "Temel Mental Beceriler - 1",
+                content: `
+                    <h4>Özgüven İnşası</h4>
+                    <p>Mental olarak güçlü olmak için genç sporcuların, antrenman sırasında kazandıkları özgüvenin yarışma ortamına kolayca transfer olacak şekilde özgüven inşa etmeyi öğrenmeleri gerekir. Bu süreç kademeli ve sistematik yaklaşım gerektirir.</p>
+                    
+                    <h4>Dikkat ve Odaklanma Yönetimi</h4>
+                    <p>Dikkati dağıtan faktörleri ve negatif iç konuşmayı yöneterek lazer gibi odaklanmayla performans sergilemek temel mental becerilerdendir. Çocuklar için dikkat süresi sınırları dikkate alınarak programlar geliştirilir.</p>
+                    
+                    <h4>Yaşa Uygun Öğretim</h4>
+                    <p>Bu becerilerin öğretimi çocukların gelişimsel özelliklerine göre uyarlanmalıdır. Küçük çocuklar için daha basit, görsel ve somut yöntemler tercih edilirken, büyük çocuklar için daha karmaşık teknikler kullanılabilir.</p>
+                `
+            },
+            {
+                title: "Temel Mental Beceriler - 2",
+                content: `
+                    <h4>Hata Yönetimi ve Resilience</h4>
+                    <p>Genç sporcuların hata, kayıp ve gerilemeleri hızlıca geride bırakıp devam etmeyi öğrenmeleri kritiktir. Bu beceri, uzun vadeli spor katılımı ve mental sağlık için esastır.</p>
+                    
+                    <h4>Öğrenme Odaklı Yaklaşım</h4>
+                    <p>Hatalar öğrenme fırsatları olarak çerçevelenmeli ve çocukların hata yapma haklarının korunması gerekir. Bu yaklaşım, performans kaygısını azaltır ve öğrenmeyi hızlandırır.</p>
+                    
+                    <h4>Esnek Düşünme Becerileri</h4>
+                    <p>Plan B geliştirme ve beklenmeyen durumlara adaptasyon sağlama becerileri, çocukların hem sporsal hem de yaşam becerilerini destekler. Bu beceriler yaşla birlikte karmaşıklaşarak geliştirilebilir.</p>
+                `
+            },
+            {
+                title: "Zihinsel İmgeleme ve Görselleştirme",
+                content: `
+                    <h4>Kademeli Öğrenim Yaklaşımı</h4>
+                    <p>Zihinsel imgeleme becerileri basit görselleştirmelerden başlayarak karmaşık senaryolara doğru kademeli olarak geliştirilir. Çocuklar önce basit hareketleri zihinlerinde canlandırmayı öğrenirler.</p>
+                    
+                    <h4>Pratik Uygulama Teknikleri</h4>
+                    <p>Çocuklar rahat olduktan sonra gözlerini kapalı tutarak kendilerini oynarken zihinsel olarak prova etmeyi öğrenirler. Antrenman setleri arasındaki molalarda kısa görselleştirme egzersizleri etkili yöntemdir.</p>
+                    
+                    <h4>Yaşa Uygun Süre ve Karmaşıklık</h4>
+                    <p>Küçük çocuklar için kısa (30 saniye - 2 dakika) görselleştirme seansları yeterlidir. Yaş ilerledikçe süre ve karmaşıklık artırılabilir. İmgeleme yetenekleri bireysel farklılıklar gösterir.</p>
+                `
+            },
+            {
+                title: "Pozitif İç Konuşma Teknikleri",
+                content: `
+                    <h4>Yetenek Hatırlatma Stratejileri</h4>
+                    <p>Pozitif iç konuşma ve görselleştirme spor psikolojisinde yararlı iki taktiktir. Sporcular yeteneklerini hatırlatmak için pozitif iç konuşma kullanabilirler ve mental imgeleme başarılı oyunları veya puanları oyun öncesinde hayal etmelerine yardımcı olabilir.</p>
+                    
+                    <h4>Süreç Odaklı Konuşma</h4>
+                    <p>Sporcular sonuca değil sürece odaklandıklarında, işler planlandığı gibi gitmediğinde cesaretleri kırılmaz. Bu yaklaşım özellikle çocuk sporcular için kritiktir çünkü gelişim sürecinde oldukları unutulmamalıdır.</p>
+                    
+                    <h4>Çocuğun Dilinde İfadeler</h4>
+                    <p>İç konuşma ifadeleri çocuğun yaşına ve kendi dilinde olmalıdır. "Yapabilirim", "güçlüyüm", "diz yukarı" gibi basit, pozitif ve tekrarlanabilir ifadeler etkili olur.</p>
+                `
+            },
+            {
+                title: "Motivasyon Teorileri - İç vs Dış",
+                content: `
+                    <h4>İçsel Motivasyon Faktörleri</h4>
+                    <p>Bunun yerine, genç sporcuları takım halinde çalışmayı öğrenme, pozitif gelişim ve karakter inşası gibi içsel hedeflere odaklamak gerekir. Bu tür faktörler, dışsal bir ödül almadıkları zaman bile genç sporcuları çok çalışmaya ve kişisel en iyilerini elde etmeye ilham verebilir.</p>
+                    
+                    <h4>Dışsal Ödül Sistemlerinin Sınırları</h4>
+                    <p>Madalyalar, kupalar ve diğer dışsal ödüller kısa vadede motivasyon sağlayabilir ancak uzun vadede içsel motivasyonu zayıflatabilir. Özellikle çocuk sporcular için bu denge kritiktir.</p>
+                    
+                    <h4>Uzun Vadeli Sürdürülebilirlik</h4>
+                    <p>İçsel motivasyon, çocukların spora uzun vadeli katılımını ve yaşam boyu fiziksel aktivite alışkanlıklarını destekler. Eğlence, öğrenme ve kişisel gelişim odaklı yaklaşımlar daha sürdürülebilirdir.</p>
+                `
+            },
+            {
+                title: "Öz-Yeterlik Teorisi ve Spor",
+                content: `
+                    <h4>Bandura'nın Öz-Yeterlik Teorisi</h4>
+                    <p>Albert Bandura'ya göre öz-yeterlik, belirli sonuçlara ulaşmak için gerekli eylemleri gerçekleştirebilme yeteneğine olan inanç olarak tanımlanır. Spor bağlamında, bu inanç sporcuların tam potansiyellerini açığa çıkarmalarına yardımcı olabilir.</p>
+                    
+                    <h4>Öz-Yeterlik Kaynaklarının 4 Temel Kaynağı</h4>
+                    <p>1. Ustanlık deneyimleri (başarılı performanslar), 2. Vekil deneyimler (rol modelleri gözlemleme), 3. Sözel ikna (antrenör ve akran desteği), 4. Fizyolojik ve duygusal durumlar (stres ve kaygı seviyeleri). Çocuk sporcular için bu dört kaynak yaşa uygun şekilde yönetilmelidir.</p>
+                    
+                    <h4>2024 Koruyucu Etki Araştırması</h4>
+                    <p>Son araştırmalar, öz-güvenin mükemmeliyetçilik ve kaygı arasındaki negatif ilişkileri azaltan koruyucu bir faktör olduğunu göstermektedir. Bu bulgu, çocuk sporcuların öz-yeterlik inançlarını güçlendirmenin önemini vurgulamaktadır.</p>
+                `
+            },
+            {
+                title: "Flow Teorisi - Akış Hali",
+                content: `
+                    <h4>Csikszentmihalyi'nin Flow Teorisi</h4>
+                    <p>Flow, zihin ve bedenin otomatik kontrol altında olduğu ve eyleme tamamen odaklanmış hissedildiği bir hal olarak tanımlanır. Bu psikolojik durum, kişinin bir göreve kendini tamamen kaptırması anlamına gelir.</p>
+                    
+                    <h4>Flow'un 9 Temel Özelliği</h4>
+                    <p>Net hedefler, anlık geri bildirim, zorluk-beceri dengesi, eylem-farkındalık birleşimi, dikkat odaklaması, öz-bilinç kaybı, zaman algısı değişimi, ototelik deneyim. Çocuk sporcular için bu özelliklerin yaşa uygun düzeyde sağlanması gerekir.</p>
+                    
+                    <h4>2025 Araştırma Bulguları</h4>
+                    <p>En son araştırmalar, egzersiz öz-yeterliliğinin flow deneyimi üzerinde aracı rol oynadığını ve fiziksel eğitim öğrenme katılımını artırdığını göstermektedir. Bu bulgu, öz-yeterlik ve flow arasındaki güçlü bağlantıyı doğrulamaktadır.</p>
+                `
+            },
+            {
+                title: "Tükenmişlik Sendromu - Burnout",
+                content: `
+                    <h4>Maslach Burnout Modeli</h4>
+                    <p>Tükenmişlik üç boyuttan oluşur: duygusal tükenme (enerji kaybı), duyarsızlaşma (mesafelileşme) ve kişisel başarı hissinde azalma. Çocuk sporcularda bu semptomlar genellikle kademeli olarak ortaya çıkar.</p>
+                    
+                    <h4>Erken Uzmanlaşma ve Burnout Riski</h4>
+                    <p>Spor uzmanlaşması genellikle artan antrenman saatleri gerektirir ve genç sporcuları sosyal izolasyon, zayıf akademik performans, artan kaygı, daha fazla stres, yetersiz uyku, azalan aile zamanı ve tükenmişlik riskine predispozisyon edebilir.</p>
+                    
+                    <h4>2024 Meta-Analiz Bulgularr</h4>
+                    <p>Genç sporcularda tükenmişliği azaltmak için psikolojik müdahaleleri inceleyen meta-analiz, bilişsel davranışçı terapinin (CBT) mindfulness tabanlı müdahalelerden daha etkili olduğunu bulmuştur. Çevrimiçi müdahaleler çevrimdışı müdahalelerden daha fazla etkinlik göstermiştir.</p>
+                `
+            },
+            {
+                title: "Performans Kaygısı - Klinik Yaklaşım",
+                content: `
+                    <h4>Performans Kaygısının Klinik Tanımı</h4>
+                    <p>Performans kaygısı, başkaları önünde performans sergileme öncesinde, sırasında veya sonrasında yaşanan yoğun duygusal sıkıntı hisleriyle karakterizedir. Bu durum çocuk sporcularda giderek artan bir problem haline gelmektedir.</p>
+                    
+                    <h4>Risk Faktörleri ve Özel Durumlar</h4>
+                    <p>Bireysel sporlarla uğraşan sporcuların takım sporcularına göre performans kaygısı yaşama olasılıkları daha yüksektir. Kişilik tipi yatkınlığı etkiler ve özellikle nevrotiklik özellikle ilişkilidir. Çocuğun kişisel özellikleri ve spor dalı özel risk faktörleri oluşturabilir.</p>
+                    
+                    <h4>2024 Klinik Gözden Geçirme</h4>
+                    <p>Son klinik incelemeler, genç sporcular topluluğunda performans kaygısının spor uzmanlaşması, sporcu kimliği, mükemmeliyetçilik ve aşırı antrenman trendlerinin artmasıyla birlikte sürekli büyüyen bir sorun olduğunu göstermektedir.</p>
+                `
+            },
+            {
+                title: "Mükemmeliyetçilik - İkili Doğa",
+                content: `
+                    <h4>Adaptif vs Maladaptif Mükemmeliyetçilik</h4>
+                    <p>Mükemmeliyetçilik hem pozitif hem negatif etkiler sergiler. Adaptif mükemmeliyetçilik yüksek standartlar ve öz-kabul içerirken, maladaptif mükemmeliyetçilik hatalardan korku ve aşırı öz-eleştiri içerir.</p>
+                    
+                    <h4>2024 Araştırma Bulguları</h4>
+                    <p>263 İspanyol genç sporcusu üzerinde yapılan 2024 araştırması, öz-güvenin mükemmeliyetçilik, kaygı ve spor performansı arasındaki negatif ilişkileri azaltan koruyucu bir faktör olduğunu doğrulamıştır.</p>
+                    
+                    <h4>Duygu Düzenleme ve Öz-Saygı</h4>
+                    <p>2024 araştırması, duygu düzenleme stratejilerinin mükemmeliyetçilikle öz-saygı arasında dolaylı bağlantı sağladığını incelemiştir. Mükemmeliyetçi eğilimler öz-güveni azaltabilir ve genel kaygı, yeterlik kaygısı ve depresyonu artırabilir.</p>
+                `
+            },
+            {
+                title: "Sporcu Kimliği Gelişimi",
+                content: `
+                    <h4>Kimlik Gelişim Evreleri</h4>
+                    <p>Marcia'nın kimlik gelişim teorisine göre, çocuklar kimlik arama, keşfetme ve kararlılık evrelerinden geçer. Sporcu kimliği bu genel kimlik gelişiminin bir parçası olarak şekillenir.</p>
+                    
+                    <h4>Tek Boyutlu Kimlik Riski</h4>
+                    <p>Sadece sporcu kimliğiyle tanımlanan çocuklar, sakatlık, performans düşüklüğü veya sporu bırakma durumlarında kimlik krizi yaşayabilirler. Çoklu kimlik gelişimi (öğrenci-sporcu-arkadaş) daha sağlıklıdır.</p>
+                    
+                    <h4>Geçiş Dönemleri Yönetimi</h4>
+                    <p>Çocuktan adölesan, liseliden üniversiteye, amatörden profesyonele geçiş dönemleri kimlik gelişimi açısından kritik anlardır. Bu dönemlerde ek psikolojik destek gerekebilir.</p>
+                `
+            },
+            {
+                title: "Ailenin Rolü - 2024 Araştırması",
+                content: `
+                    <h4>Ailelerin Kritik Etkisi</h4>
+                    <p>Ebeveynler, genç sporcuların deneyimlerini ve spora katılımlarını şekillendiren ana sosyal etkenlerden biridir, ancak literatürde en az araştırılan grupturda. Bu nedenle bu çalışmanın amacı, ebeveynlerin genç sporcuların motivasyonundaki rolü üzerine sistematik bir inceleme yapmaktır.</p>
+                    
+                    <h4>Pozitif ve Negatif Etkiler</h4>
+                    <p>Aileler çocuk sporcuların motivasyonunu hem pozitif hem de negatif yönde etkileyebilir. Destekleyici, sabırlı ve süreç odaklı yaklaşım pozitif sonuçlar verirken, aşırı baskı ve sonuç odaklılık zararlı olabilir.</p>
+                    
+                    <h4>Daha Fazla Araştırma İhtiyacı</h4>
+                    <p>2024 araştırması, ailelerin çocuk sporcuların psikolojik gelişimindeki rolünün daha fazla araştırılması gerektiğini vurgulamaktadır. Bu alan gelecekteki çalışmalar için büyük potansiyel taşımaktadır.</p>
+                `
+            },
+            {
+                title: "Stres ve Kaygı Yönetimi",
+                content: `
+                    <h4>Yaşa Uygun Gevşeme Teknikleri</h4>
+                    <p>Çocuk sporcular için stres ve kaygı yönetimi teknikleri yaşa uygun olmalıdır. Küçük çocuklar için basit nefes teknikleri ve kas gevşetme egzersizleri etkili olurken, büyük çocuklar daha karmaşık mindfulness teknikleri öğrenebilir.</p>
+                    
+                    <h4>Nefes ve Gevşeme Teknikleri</h4>
+                    <p>Derin karın nefesi, progressive muscle relaxation (kas gevşetme) ve mindfulness (şimdiki an farkındalığı) temel tekniklerdir. Bu becerilerin düzenli pratik edilmesi gerekir.</p>
+                    
+                    <h4>Yarışma Öncesi Rutinler</h4>
+                    <p>Tutarlı yarışma öncesi rutinler, çocuk sporculara kontrol duygusu verir ve kaygıyı azaltır. Bu rutinler kişiselleştirilmeli ve praktik olmalıdır.</p>
+                `
+            },
+            {
+                title: "Hedef Belirleme - SMART Yaklaşımı",
+                content: `
+                    <h4>SMART Kriterleri Çocuklar İçin</h4>
+                    <p>SMART hedef belirleme sistemi (Specific, Measurable, Achievable, Relevant, Time-bound) çocuk sporcular için uyarlanmalıdır. Hedefler yaşa uygun, anlaşılır ve ulaşılabilir olmalıdır.</p>
+                    
+                    <h4>Kısa ve Uzun Vadeli Hedefler</h4>
+                    <p>Çocuk sporcular için kısa vadeli hedefler (1-4 hafta) daha motivasyonel olurken, uzun vadeli hedefler (sezon/yıl) büyük resmi görmeleri için önemlidir. Denge kurmak kritiktir.</p>
+                    
+                    <h4>Süreç vs Sonuç Hedefleri</h4>
+                    <p>Çocuklar için süreç hedefleri (teknik gelişim, çaba gösterme) sonuç hedeflerinden (kazanma, sıralama) daha etkili ve sağlıklıdır. Bu yaklaşım uzun vadeli gelişimi destekler.</p>
+                `
+            },
+            {
+                title: "Sporda Erken Uzmanlaşma Psikolojisi",
+                content: `
+                    <h4>Uzmanlaşmış Sporcularda Mental Sağlık</h4>
+                    <p>Antrenörler, atletik eğitmenler ve diğer genç spor paydaşları, antrenman ve yarışma ortamları eğlenceli olduğunda, yaşam becerilerinin kasıtlı öğretimini içerdiğinde ve sporcunun ihtiyaçlarını destekleyen motivasyonel iklim sunduğunda uzmanlaşmış sporcularda pozitif mental sağlık sonuçlarının artırıldığını fark etmelidir.</p>
+                    
+                    <h4>Risk ve Koruyucu Faktörler</h4>
+                    <p>Erken uzmanlaşma hem fırsat hem de risk yaratır. Tükenmişlik, sosyal izolasyon ve kimlik problemleri risk faktörleri iken, yüksek beceri gelişimi ve başarı potansiyel faydalar arasındadır.</p>
+                    
+                    <h4>Dengeli Yaklaşımın Gerekliliği</h4>
+                    <p>Performans optimizasyonu ile psikolojik iyilik hali arasında denge kurmak, erken uzmanlaşan çocuk sporcular için kritiktir. Bu denge multidisipliner yaklaşım gerektirir.</p>
+                `
+            },
+            {
+                title: "Yaşa Uygun Mental Antrenman Yaklaşımları",
+                content: `
+                    <h4>6-11 Yaş Grubu Stratejileri</h4>
+                    <p>Bu yaş grubunda oyun tabanlı öğrenme, tekrarlı açıklamalar ve somut kavramlar kullanılmalıdır. Soyut düşünce henüz gelişmediği için görsel, dokunsal ve kinestetik öğrenme yöntemleri etkilidir.</p>
+                    
+                    <h4>12-14 Yaş Geçiş Dönemi</h4>
+                    <p>Bu dönemde karma yaklaşım kullanılır. Hem somut hem soyut kavramlar dengelenmelidir. Akran etkileşimi ve sosyal öğrenme önem kazanır.</p>
+                    
+                    <h4>15-18 Yaş İleri Düzey</h4>
+                    <p>Bu yaş grubunda karmaşık mental stratejiler, soyut düşünce gerektiren teknikler ve uzun vadeli planlama becerileri geliştirilebilir. Kişiselleştirilmiş yaklaşımlar daha da önemli hale gelir.</p>
+                `
+            },
+            {
+                title: "Uygulama ve Pratik Öneriler",
+                content: `
+                    <h4>Multidisipliner Yaklaşım</h4>
+                    <p>Başarılı çocuk spor psikolojisi programları, antrenör, spor psikoloğu, aileler ve çocuğun işbirliği içinde çalışmasını gerektirir. Her paydaşın rolü ve sorumluluğu açık olmalıdır.</p>
+                    
+                    <h4>Sabır ve Süreç Odağı</h4>
+                    <p>Mental becerilerin gelişimi fiziksel beceriler kadar zaman alır. Yavaş ilerleme normal ve beklenen bir durumdur. Sabır ve tutarlılık başarının anahtarıdır.</p>
+                    
+                    <h4>Sürekli Değerlendirme ve Uyarlama</h4>
+                    <p>Mental antrenman programları düzenli olarak değerlendirilmeli ve çocuğun gelişimine göre uyarlanmalıdır. Esnek yaklaşım ve bireyselleştirme kritik başarı faktörleridir.</p>
+                `
+            }
+        ];
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[index].classList.add('active');
+            document.getElementById('currentSlide').textContent = index + 1;
+            
+            // Update sidebar content
+            updateSidebar(index);
+        }
+
+        function updateSidebar(index) {
+            const sidebarContent = document.getElementById('sidebarContent');
+            const note = slideNotes[index];
+            sidebarContent.innerHTML = `
+                <h3>${note.title}</h3>
+                ${note.content}
+            `;
+        }
+
+        function nextSlide() {
+            currentSlideIndex = (currentSlideIndex + 1) % totalSlides;
+            showSlide(currentSlideIndex);
+        }
+
+        function prevSlide() {
+            currentSlideIndex = (currentSlideIndex - 1 + totalSlides) % totalSlides;
+            showSlide(currentSlideIndex);
+        }
+
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+        }
+
+        // Initialize sidebar with first slide content
+        updateSidebar(0);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            switch(event.key) {
+                case 'ArrowRight':
+                case ' ':
+                    nextSlide();
+                    break;
+                case 'ArrowLeft':
+                    prevSlide();
+                    break;
+                case 'Escape':
+                    document.getElementById('sidebar').classList.remove('active');
+                    break;
+                case 's':
+                case 'S':
+                    toggleSidebar();
+                    break;
+            }
+        });
+    </script>
+</body>
+</html>

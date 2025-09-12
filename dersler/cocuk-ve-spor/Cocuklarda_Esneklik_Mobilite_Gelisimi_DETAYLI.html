@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Çocuklarda Esneklik ve Mobilite Gelişimi - Pediatrik Hareket Bilimi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .sidebar {
+            width: 400px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            overflow-y: auto;
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            display: none;
+        }
+
+        .sidebar.active {
+            display: block;
+        }
+
+        .sidebar h3 {
+            color: #ffeb3b;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        .sidebar h4 {
+            color: #81d4fa;
+            margin-bottom: 10px;
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+
+        .sidebar p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+            font-size: 0.95em;
+            text-align: justify;
+        }
+
+        .slide {
+            display: none;
+            width: 90%;
+            max-width: 1000px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 60px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            animation: slideIn 0.6s ease-out;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            background: linear-gradient(45deg, #fff, #e0e0e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h2 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            color: #ffeb3b;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .slide-content {
+            font-size: 1.4em;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .highlight {
+            color: #4fc3f7;
+            font-weight: bold;
+        }
+
+        .emphasis {
+            color: #ffeb3b;
+            font-weight: bold;
+        }
+
+        .warning {
+            color: #ff6b6b;
+            font-weight: bold;
+        }
+
+        ul {
+            text-align: left;
+            font-size: 1.2em;
+            line-height: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        li {
+            margin-bottom: 10px;
+            list-style-type: none;
+            position: relative;
+            padding-left: 30px;
+        }
+
+        li::before {
+            content: "🤸‍♀️";
+            position: absolute;
+            left: 0;
+            font-size: 1.2em;
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 100;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .slide-number {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 18px;
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+
+        .sidebar-toggle {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            font-size: 20px;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .sidebar-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        .flexibility-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+
+        .development-box {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px 0;
+            text-align: left;
+        }
+
+        .technique-box {
+            background: rgba(76, 175, 80, 0.2);
+            border-left: 4px solid #4CAF50;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+
+        .age-group {
+            background: rgba(33, 150, 243, 0.2);
+            border-left: 4px solid #2196F3;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar-toggle" onclick="toggleSidebar()">📚</div>
+    <div class="slide-number">
+        <span id="currentSlide">1</span> / <span id="totalSlides">38</span>
+    </div>
+
+    <div class="main-content">
+        <div class="slide active">
+            <div class="flexibility-icon">🤸‍♀️🏃‍♂️</div>
+            <h1>Çocuklarda Esneklik ve Mobilite Gelişimi</h1>
+            <div class="slide-content">
+                <p class="highlight">Pediatrik Hareket Bilimi</p>
+                <p>Fonksiyonel Hareket ve Fasyal Sistem Yaklaşımı</p>
+                <p class="emphasis">2024 Güncel Meta-Analizleri ile Kapsamlı İnceleme</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🧬 Esneklik Gelişiminin Fizyolojik Temelleri</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Kollajen yapısı:</span> Çocuklarda daha elastik</li>
+                    <li><span class="highlight">Büyüme hızı:</span> Kemik > kas-tendon gelişimi</li>
+                    <li><span class="highlight">Nöromüsküler kontrol:</span> Gelişimsel değişkenlik</li>
+                    <li><span class="highlight">Hormonal etkiler:</span> Büyüme hormonu, IGF-1</li>
+                    <li><span class="emphasis">Yaşa özgü fizyolojik adaptasyonlar</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>⏰ "Fırsat Penceresi" Teorisi - 2024</h2>
+            <div class="slide-content">
+                <div class="development-box">
+                    <ul>
+                        <li><span class="highlight">Kritik dönem:</span> 6-11 yaş çocukluk dönemi</li>
+                        <li><span class="highlight">Yüksek volüm etkisi:</span> Sadece çocuklarda (adölesanlarda değil)</li>
+                        <li><span class="highlight">Eşik değer:</span> >3600 saniye/10 hafta</li>
+                        <li><span class="warning">Adölesanlarda volüm artışı ROM'u artırmaz</span></li>
+                        <li><span class="emphasis">Erken başlangıç maksimal fayda sağlar</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>📊 2024 Meta-Analiz Bulguları</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Minimum doz:</span> Hafta 3x, seans 2 set, egzersiz 2, süre 30s</li>
+                    <li><span class="highlight">Optimal protokol:</span> 10 hafta ≥3600s toplam</li>
+                    <li><span class="highlight">Çocuk avantajı:</span> Yüksek volümde daha iyi yanıt</li>
+                    <li><span class="highlight">Adölesan farklılığı:</span> Volümden bağımsız gelişim</li>
+                    <li><span class="emphasis">Kanıta dayalı dozaj rehberleri</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🚨 Modern Çocuklarda Esneklik Krizi</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="warning">Çömelme yapamayan:</span> İlkokul 4-5.sınıf %10-20</li>
+                    <li><span class="warning">Öne eğilme sorunu:</span> 5-6.sınıf %20-30</li>
+                    <li><span class="highlight">Hızlı kemik büyümesi:</span> Kas-tendon gerginliği</li>
+                    <li><span class="highlight">Sedanter yaşam:</span> Mobilite kaybı hızlandırıcı</li>
+                    <li><span class="emphasis">MSK bozukluk riski artışı</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🔬 Fasyal Sistem ve Çocuklar</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">3D sürekli yapı:</span> Tüm vücut sistemlerini sarar</li>
+                    <li><span class="highlight">İçerik:</span> Fasya, tendon, ligament, kapsül, membran</li>
+                    <li><span class="highlight">Çocuk özelliği:</span> Daha esnek, adapte olabilir</li>
+                    <li><span class="highlight">Entegre fonksiyon:</span> Tüm sistemlerin birlikte çalışması</li>
+                    <li><span class="emphasis">Holistik yaklaşım gerektirir</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🏃‍♂️ Dinamik vs Statik Germe</h2>
+            <div class="slide-content">
+                <div class="technique-box">
+                    <h3>Dinamik Germe (Isınma)</h3>
+                    <ul>
+                        <li><span class="highlight">Aktivasyon:</span> Nöromüsküler hazırlık</li>
+                        <li><span class="highlight">Sıcaklık artışı:</span> Doku esnekliği</li>
+                        <li><span class="highlight">Performans:</span> Güç ve hız hazırlığı</li>
+                    </ul>
+                    
+                    <h3>Statik Germe (Soğuma)</h3>
+                    <ul>
+                        <li><span class="highlight">Uzunluk artışı:</span> Kalıcı ROM gelişimi</li>
+                        <li><span class="highlight">Gevşeme:</span> Parasempatik aktivasyon</li>
+                        <li><span class="warning">Zıplama yasak:</span> Yaralanma riski</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>👶 6-8 Yaş: Temel Hareket Gelişimi</h2>
+            <div class="slide-content">
+                <div class="age-group">
+                    <ul>
+                        <li><span class="highlight">Oyun tabanlı:</span> Eğlenceli esneklik aktiviteleri</li>
+                        <li><span class="highlight">Taklit hareketleri:</span> Hayvan yürüyüşleri</li>
+                        <li><span class="highlight">Kısa süreli:</span> 10-15 saniye tutma</li>
+                        <li><span class="highlight">Görsel öğrenme:</span> Gösterip yaptırma</li>
+                        <li><span class="emphasis">Temel hareket kalıplarına odaklanma</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🧒 9-11 Yaş: Altın Dönem Optimizasyonu</h2>
+            <div class="slide-content">
+                <div class="age-group">
+                    <ul>
+                        <li><span class="highlight">Sistematik yaklaşım:</span> Planlı germe programları</li>
+                        <li><span class="highlight">Yüksek volüm:</span> >3600s/10 hafta protokolü</li>
+                        <li><span class="highlight">Tüm eklemler:</span> Kapsamlı ROM gelişimi</li>
+                        <li><span class="highlight">Teknik öğrenme:</span> Doğru germe prensipleri</li>
+                        <li><span class="emphasis">Maksimal kazanım için kritik dönem</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>👦 12-14 Yaş: Büyüme Spurtu Yönetimi</h2>
+            <div class="slide-content">
+                <div class="age-group">
+                    <ul>
+                        <li><span class="warning">Büyüme asimetrisi:</span> Kemik vs kas-tendon</li>
+                        <li><span class="highlight">Günlük rutin:</span> Büyüme gerginliğini azaltma</li>
+                        <li><span class="highlight">Problem bölgeler:</span> Kalça fleksörleri, hamstring</li>
+                        <li><span class="highlight">Bireysel tempo:</span> Matürasyon hızına göre</li>
+                        <li><span class="emphasis">Büyüme döneminde koruyucu yaklaşım</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>👨‍🎓 15-18 Yaş: Sport-Spesifik Gelişim</h2>
+            <div class="slide-content">
+                <div class="age-group">
+                    <ul>
+                        <li><span class="highlight">Spor odaklı:</span> Dal-spesifik esneklik geliştirme</li>
+                        <li><span class="highlight">İleri teknikler:</span> PNF, miyofasyal gevşeme</li>
+                        <li><span class="highlight">Performans entegrasyonu:</span> Güç-esneklik dengesi</li>
+                        <li><span class="highlight">Kişiselleştirme:</span> Bireysel sınırlamalar</li>
+                        <li><span class="emphasis">Mükemmellik odaklı yaklaşım</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🔍 Fonksiyonel Hareket Değerlendirmesi (FMS)</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">7 temel hareket:</span> Çömelme, adımla uzanma, tek bacak çömelme</li>
+                    <li><span class="highlight">Yaralanma riski:</span> Düşük skor = yüksek risk</li>
+                    <li><span class="highlight">Genç sporcu uyarlaması:</span> Biyolojik matürasyon etkisi</li>
+                    <li><span class="warning">Çocuklarda norm değerleri farklı</span></li>
+                    <li><span class="emphasis">Düzenli screening ve düzeltme</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🎯 Fonksiyonel Düzeltici Egzersizler</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Hedefli yaklaşım:</span> FMS skorunu artırma</li>
+                    <li><span class="highlight">8 haftalık program:</span> +5.3 puan ortalama artış</li>
+                    <li><span class="highlight">Geleneksele üstünlük:</span> İzole kas > fonksiyonel hareket</li>
+                    <li><span class="highlight">Entegre çalışma:</span> Mobibilite + stabilite</li>
+                    <li><span class="emphasis">Temel fonksiyonel mobiliteye odaklanma</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🌊 Miyofasyal Gevşeme (SMR) Teknikleri</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">2024 sistematik inceleme:</span> Performans artışı kanıtı</li>
+                    <li><span class="highlight">ROM gelişimi:</span> Foam roller ile mobilite artışı</li>
+                    <li><span class="highlight">Güç korunumu:</span> Strength kaybı olmadan esneklik</li>
+                    <li><span class="highlight">Çocuk uygulaması:</span> Hafif baskı, kısa süre</li>
+                    <li><span class="emphasis">Isınma, soğuma ve workout'ta entegrasyon</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🏋️‍♀️ PNF (Proprioseptif Nöromüsküler Fasilitasyon)</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">3 temel teknik:</span> Hold-relax, contract-relax, CRAC</li>
+                    <li><span class="highlight">Nörolojik mekanizma:</span> Golgi tendon organ inhibisyonu</li>
+                    <li><span class="highlight">Üstün etkililik:</span> Statik germeden %20-30 daha iyi</li>
+                    <li><span class="warning">12+ yaş önerisi:</span> Nöromüsküler matürite gerekli</li>
+                    <li><span class="emphasis">Uzman gözetiminde uygulama</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🏃‍♂️ Sport-Spesifik Esneklik Yaklaşımları</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Futbol:</span> Kalça fleksörleri, adduktörler, hamstring</li>
+                    <li><span class="highlight">Basketbol:</span> Ayak bileği mobilite, toraks rotasyon</li>
+                    <li><span class="highlight">Yüzme:</span> Omuz, göğüs, ayak bileği esnekliği</li>
+                    <li><span class="highlight">Jimnastik:</span> Global esneklik, spinal mobilite</li>
+                    <li><span class="emphasis">Spor taleplerini karşılayan özel programlar</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>⚡ Esneklik ve Performans İlişkisi</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Optimum aralık:</span> Çok sert = yaralanma, çok gevşek = instabilite</li>
+                    <li><span class="highlight">Güç-esneklik dengesi:</span> Stretch-shortening cycle</li>
+                    <li><span class="highlight">Sport-spesifik ROM:</span> Fonksiyonel gereksinimler</li>
+                    <li><span class="highlight">Timing önemi:</span> Antrenman öncesi/sonrası farklı</li>
+                    <li><span class="emphasis">Performans optimizasyonu için denge</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🏥 Yaralanma Önleme ve Esneklik</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Primer önleme:</span> Yeterli ROM yaralanma riskini azaltır</li>
+                    <li><span class="highlight">Sekunder önleme:</span> Tekrarlayan yaralanmaları önler</li>
+                    <li><span class="highlight">Kas dengesizlikleri:</span> Asimetrik esneklik düzeltme</li>
+                    <li><span class="highlight">Kompansasyon önleme:</span> Doğru hareket kalıpları</li>
+                    <li><span class="warning">Hipermobilite riski:</span> Aşırı esneklik de zararlı</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🧘‍♀️ Yoga ve Çocuklar</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Holistik yaklaşım:</span> Fiziksel + mental + sosyal</li>
+                    <li><span class="highlight">Mindfulness:</span> Vücut farkındalığı geliştirme</li>
+                    <li><span class="highlight">Progresif pozlar:</span> Yaşa uygun asana seçimi</li>
+                    <li><span class="highlight">Nefes çalışması:</span> Relaxation ve recovery</li>
+                    <li><span class="emphasis">Çocuk dostu modifikasyonlar</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🎮 Teknoloji ve Esneklik Antrenmanı</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Goniometre uygulamaları:</span> ROM ölçümü ve takip</li>
+                    <li><span class="highlight">Video analiz:</span> Hareket kalitesi değerlendirmesi</li>
+                    <li><span class="highlight">Wearable sensörler:</span> Real-time postür feedback</li>
+                    <li><span class="highlight">Virtual reality:</span> Motivasyonel germe programları</li>
+                    <li><span class="emphasis">Dijital çağ çocuklarına uygun yaklaşım</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>📚 Eğitim ve Farkındalık Programları</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Çocuk eğitimi:</span> Esnekliğin önemini anlatma</li>
+                    <li><span class="highlight">Aile katılımı:</span> Evde destekleyici ortam</li>
+                    <li><span class="highlight">Antrenör eğitimi:</span> Yaş grubuna uygun teknikler</li>
+                    <li><span class="highlight">Okul programları:</span> Günlük aktivite entegrasyonu</li>
+                    <li><span class="emphasis">Toplumsal farkındalık artışı</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>⚠️ Güvenlik ve Kontrendikasyonlar</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="warning">Akut yaralanma:</span> Germe yasak</li>
+                    <li><span class="warning">İnflamasyon varlığı:</span> İyileşme sonrası başlangıç</li>
+                    <li><span class="warning">Hipermobilite sendromu:</span> Stabilite öncelikli</li>
+                    <li><span class="highlight">Ağrı sınırları:</span> Hafif gerginlik kabul edilebilir</li>
+                    <li><span class="emphasis">Bireysel tolerans dikkate alma</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🔍 Değerlendirme ve İzleme</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Baseline ölçüm:</span> Başlangıç ROM değerleri</li>
+                    <li><span class="highlight">Periyodik değerlendirme:</span> 4-6 haftalık kontroller</li>
+                    <li><span class="highlight">Objektif ölçüm:</span> Goniometre, fotoğraf analizi</li>
+                    <li><span class="highlight">Fonksiyonel testler:</span> Günlük yaşam hareketleri</li>
+                    <li><span class="emphasis">İlerleme takibi ve program uyarlama</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🤸‍♀️ Esneklik Nedir? Neden Önemli?</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Esneklik:</span> Vücudunu rahatça hareket ettirme yeteneği</li>
+                    <li><span class="highlight">Lastik bant gibi:</span> Esnek = rahat hareket, katı = kırılma riski</li>
+                    <li><span class="highlight">Yaralanmadan korur:</span> Esnek kaslar daha güçlü</li>
+                    <li><span class="highlight">Daha iyi performans:</span> Hızlı koşu, yüksek zıplama</li>
+                    <li><span class="emphasis">Esnek olmak = Sağlıklı ve mutlu vücut!</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🤸 Kedi-İnek Hareketi</h2>
+            <div class="slide-content">
+                <div class="technique-box">
+                    <h3>🐱 Nasıl Yapılır?</h3>
+                    <ul>
+                        <li><span class="highlight">Başlangıç:</span> Dört ayak üzerinde (eller ve dizler yerde)</li>
+                        <li><span class="highlight">Kedi:</span> Sırtını kamburlaştır, kedi gibi</li>
+                        <li><span class="highlight">İnek:</span> Karnını yere doğru bırak, başını kaldır</li>
+                        <li><span class="highlight">Tekrar:</span> 10 kez yavaşça</li>
+                        <li><span class="emphasis">Omurganı esnetir, sırt ağrısını önler!</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🥶 Kelebek Hareketi</h2>
+            <div class="slide-content">
+                <div class="development-box">
+                    <h3>🦄 Eğlenceli Kelebek!</h3>
+                    <ul>
+                        <li><span class="highlight">Otur:</span> Yerde rahatça otur</li>
+                        <li><span class="highlight">Ayak tabanları:</span> Birbirine dokun</li>
+                        <li><span class="highlight">Dizler:</span> Kelebek kanatları gibi aç</li>
+                        <li><span class="highlight">Kanat çırpma:</span> Dizleri yavaşça aşağı-yukarı</li>
+                        <li><span class="highlight">Süre:</span> 30 saniye kanat çırp</li>
+                        <li><span class="emphasis">Kalça kaslarını esnetir!</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🐕 Köpek Pozu (Downward Dog)</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Başlangıç:</span> Dört ayak pozisyonu</li>
+                    <li><span class="highlight">Popoyu kaldır:</span> Tavana doğru it</li>
+                    <li><span class="highlight">Şekil:</span> Ters V harfi yap</li>
+                    <li><span class="highlight">Eller-ayaklar:</span> Yerde sabit kalır</li>
+                    <li><span class="highlight">Nefes:</span> Derin nefes al, 20 saniye tut</li>
+                    <li><span class="emphasis">Tüm vücudu esnetir, enerji verir!</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🌟 Yıldız Hareketi</h2>
+            <div class="slide-content">
+                <div class="age-group">
+                    <h3>⭐ 5 Köşeli Yıldız Ol!</h3>
+                    <ul>
+                        <li><span class="highlight">Ayakta dur:</span> Düz ve dik</li>
+                        <li><span class="highlight">Kollar ve bacaklar:</span> Genişçe aç</li>
+                        <li><span class="highlight">Yıldız şekli:</span> X gibi dur</li>
+                        <li><span class="highlight">Uzanma:</span> Elleri ve ayakları uzaklara uzat</li>
+                        <li><span class="highlight">Say:</span> 10'a kadar say, gevşe</li>
+                        <li><span class="emphasis">Tüm kasları uyanır!</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🧍‍♀️ Ayakta Öne Eğilme</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Ayakta dur:</span> Ayaklar omuz genişliğinde</li>
+                    <li><span class="highlight">Eğil:</span> Yavaşça öne doğru</li>
+                    <li><span class="highlight">Eller:</span> Ayak parmaklarına dokunmaya çalış</li>
+                    <li><span class="warning">Zorlanma:</span> Ağrı hissedersen dur!</li>
+                    <li><span class="highlight">Tut:</span> 15 saniye bekle</li>
+                    <li><span class="emphasis">Bacak arkası kaslarını esnetir!</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🌙 Ay Pozu (Crescent Lunge)</h2>
+            <div class="slide-content">
+                <div class="technique-box">
+                    <h3>🌙 Hilal Gibi Eğil!</h3>
+                    <ul>
+                        <li><span class="highlight">Öne adım:</span> Bir ayağı öne at</li>
+                        <li><span class="highlight">Arka bacak:</span> Düz arkada</li>
+                        <li><span class="highlight">Kollar:</span> Yukarı kaldır</li>
+                        <li><span class="highlight">Gövde:</span> Hafif geriye yaslan</li>
+                        <li><span class="highlight">Değiştir:</span> 15 saniye sonra diğer bacak</li>
+                        <li><span class="emphasis">Kalça kasını açar!</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🐢 Kapl umbağa Hareketi</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Sırt üstü yat:</span> Kollar yanlarda</li>
+                    <li><span class="highlight">Dizleri çek:</span> Göğüsüne doğru</li>
+                    <li><span class="highlight">Sarıl:</span> Bacaklarına sarıl</li>
+                    <li><span class="highlight">Yuvarlan:</span> Sağa-sola hafifçe sallan</li>
+                    <li><span class="highlight">Eğlen:</span> Kaplumbağa kabuğunda gibisin!</li>
+                    <li><span class="emphasis">Sırtını masaj yapar!</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🧿 Hayvan Yürüyüşleri</h2>
+            <div class="slide-content">
+                <div class="development-box">
+                    <h3>🐾 Hayvan Taklidi!</h3>
+                    <ul>
+                        <li><span class="highlight">Ayı yürüyüşü:</span> El ve ayaklar yerde</li>
+                        <li><span class="highlight">Yengeç yürüyüşü:</span> Yana doğru</li>
+                        <li><span class="highlight">Kertenkele sürünmesi:</span> Karın yerde</li>
+                        <li><span class="highlight">Tavşan zıplama:</span> Çömelip zıpla</li>
+                        <li><span class="highlight">Fil yürüyüşü:</span> Eller yerde, bacaklar düz</li>
+                        <li><span class="emphasis">Eğlenceli ve esnetici!</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🎲 Zar Atışı Oyunu</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Zar at:</span> 1-6 arası sayı</li>
+                    <li><span class="highlight">1 = Kelebek:</span> 30 saniye</li>
+                    <li><span class="highlight">2 = Köpek pozu:</span> 20 saniye</li>
+                    <li><span class="highlight">3 = Öne eğilme:</span> 15 saniye</li>
+                    <li><span class="highlight">4 = Yıldız:</span> 10 saniye</li>
+                    <li><span class="highlight">5 = Kedi-inek:</span> 5 tekrar</li>
+                    <li><span class="highlight">6 = Sen seç:</span> En sevdiğin hareket!</li>
+                    <li><span class="emphasis">Oyunla esneklik!</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>⏰ Ne Zaman Esneme Yapmalı?</h2>
+            <div class="slide-content">
+                <div class="age-group">
+                    <h3>🌅 Günlük Esneme Zamanı</h3>
+                    <ul>
+                        <li><span class="highlight">Sabah:</span> Uyanınca 5 dakika</li>
+                        <li><span class="highlight">Spor öncesi:</span> Dinamik hareketler</li>
+                        <li><span class="highlight">Spor sonrası:</span> Sakin esneme 10 dakika</li>
+                        <li><span class="highlight">Akşam:</span> Yatmadan önce 5 dakika</li>
+                        <li><span class="warning">Soğuk kasla esneme = Yaralanma!</span></li>
+                        <li><span class="emphasis">Her gün 15 dakika yeter!</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🌡️ Isınma Sonrası Esneme</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="warning">Önce ısın:</span> 5 dakika hafif koşu</li>
+                    <li><span class="highlight">Sıcak kas:</span> Daha kolay esner</li>
+                    <li><span class="highlight">Soğuk kas:</span> Lastik gibi kopar</li>
+                    <li><span class="highlight">Isınma örnekleri:</span> Yerinde koşu, jumping jack</li>
+                    <li><span class="emphasis">Isınmadan esneme = Tehlikeli!</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🚀 Dinamik vs Statik Esneme</h2>
+            <div class="slide-content">
+                <div class="technique-box">
+                    <h3>🏃 Dinamik (Hareketli)</h3>
+                    <ul>
+                        <li><span class="highlight">Ne zaman:</span> Spor öncesi</li>
+                        <li><span class="highlight">Nasıl:</span> Hareketli, sallanır</li>
+                        <li><span class="highlight">Örnek:</span> Bacak sallama, kol çevirme</li>
+                    </ul>
+                    
+                    <h3>🧘 Statik (Durarak)</h3>
+                    <ul>
+                        <li><span class="highlight">Ne zaman:</span> Spor sonrası</li>
+                        <li><span class="highlight">Nasıl:</span> Pozisyonda bekle</li>
+                        <li><span class="highlight">Örnek:</span> Öne eğilip tutma</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🎓 Doğru Esneme Teknikleri</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Yavaş:</span> Hızlı hareket yasak!</li>
+                    <li><span class="highlight">Zıplama yok:</span> Sabit tut, zıplamak zarar verir</li>
+                    <li><span class="highlight">Hafif gerginlik:</span> Ağrı değil, germe hissi</li>
+                    <li><span class="highlight">Nefes al:</span> Tutarken nefes almayı unutma</li>
+                    <li><span class="highlight">15-30 saniye:</span> Her pozisyonda</li>
+                    <li><span class="emphasis">Ağrı = DUR! Gerginlik = TAMAM!</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🎯 Pratik Uygulama Önerileri</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Günlük rutin:</span> 10-15 dakika minimum</li>
+                    <li><span class="highlight">Tutarlılık:</span> Düzenli uygulama başarının anahtarı</li>
+                    <li><span class="highlight">Progresyon:</span> Kademeli zorluk artırımı</li>
+                    <li><span class="highlight">Çeşitlilik:</span> Sıkılmayı önleyici farklı aktiviteler</li>
+                    <li><span class="emphasis">Yaşam boyu sürdürülebilir alışkanlık kazandırma</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar" id="sidebar">
+        <div id="sidebarContent">
+            <!-- Sidebar content will be populated by JavaScript -->
+        </div>
+    </div>
+
+    <div class="controls">
+        <button class="btn" onclick="prevSlide()">◀ Önceki</button>
+        <button class="btn" onclick="nextSlide()">Sonraki ▶</button>
+    </div>
+
+    <script>
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        
+        document.getElementById('totalSlides').textContent = totalSlides;
+
+        const slideNotes = [
+            {
+                title: "Çocuklarda Esneklik ve Mobilite Gelişimi",
+                content: `
+                    <h4>Pediatrik Hareket Biliminin Önemi</h4>
+                    <p>Çocuklarda esneklik ve mobilite gelişimi, sadece fiziksel performansı değil aynı zamanda uzun vadeli sağlık sonuçlarını da etkiler. 2024 yılındaki kapsamlı meta-analizler, çocukluk döneminde esneklik antrenmanının yaşam boyu fayda sağladığını göstermektedir.</p>
+                    
+                    <h4>Fonksiyonel Hareket Paradigması</h4>
+                    <p>Modern yaklaşım, izole kas germesi yerine fonksiyonel hareket kalıplarına odaklanır. Bu holistik bakış açısı, çocukların günlük yaşam aktivitelerini ve spor performansını destekler.</p>
+                    
+                    <h4>Fasyal Sistem Anlayışı</h4>
+                    <p>Fasyal sistem, vücudu sarıp entegre eden üç boyutlu sürekli yapıdır. Çocuklarda bu sistemin daha adapte edilebilir olması, erken dönem müdahalelerin etkinliğini artırır.</p>
+                `
+            },
+            {
+                title: "Esneklik Gelişiminin Fizyolojik Temelleri",
+                content: `
+                    <h4>Çocuk Kollajen Yapısının Özellikleri</h4>
+                    <p>Çocuklarda kollajen fibrilleri yetişkinlere göre daha az çapraz bağlanma içerir, bu da dokuların daha esnek olmasını sağlar. Bu fizyolojik avantaj, esneklik antrenmanına daha iyi yanıt verilmesini mümkün kılar.</p>
+                    
+                    <h4>Büyüme ve Esneklik İlişkisi</h4>
+                    <p>Hızlı büyüme dönemlerinde kemik uzaması kas-tendon uzunluğundan daha hızlı olur. Bu asimetri, geçici esneklik kaybına ve yaralanma riskinde artışa neden olabilir.</p>
+                    
+                    <h4>Nöromüsküler Gelişim Etkisi</h4>
+                    <p>Çocuklarda nöromüsküler kontrol sistemleri henüz olgunlaşmamıştır. Bu durum hem esneklik antrenmanının etkinliğini hem de motor kontrol gelişimini etkiler.</p>
+                `
+            },
+            {
+                title: '"Fırsat Penceresi" Teorisi - 2024',
+                content: `
+                    <h4>Meta-Analiz Bulguları</h4>
+                    <p>2024 yılında yayınlanan kapsamlı meta-analiz, 6-11 yaş arası çocuklarda esneklik antrenmanının yetişkinlere göre çok daha etkili olduğunu göstermektedir. Bu "kritik dönem" hipotezi, erken müdahalenin önemini vurgular.</p>
+                    
+                    <h4>Volüm-Yanıt İlişkisi</h4>
+                    <p>Araştırma, yüksek volümlü esneklik antrenmanının (>3600 saniye/10 hafta) çocuklarda anlamlı ROM artışları sağladığını, ancak adölesanlarda aynı etkiyi göstermediğini bulmuştur.</p>
+                    
+                    <h4>Nöral Plastisitenin Rolü</h4>
+                    <p>Çocukluk dönemindeki yüksek nöral plastisite, motor öğrenme ve adaptasyon kapasitesini artırır. Bu özellik, esneklik kazanımlarının uzun vadeli korunmasını destekler.</p>
+                `
+            },
+            {
+                title: "2024 Meta-Analiz Bulguları",
+                content: `
+                    <h4>Kanıta Dayalı Dozaj Protokolleri</h4>
+                    <p>Meta-analiz, minimum etkili dozu hafta 3 seans, seans başına 2 set, set başına 2 egzersiz, egzersiz başına 30 saniye olarak belirlemiştir. Bu protokol 10 hafta boyunca uygulandığında toplam 3600 saniye eder.</p>
+                    
+                    <h4>Yaş Grubu Farklılıkları</h4>
+                    <p>6-11 yaş çocuklar yüksek volüm antrenmanına pozitif yanıt verirken, 12-18 yaş adölesanlar volüm artışından fayda görmemektedir. Bu bulgu, yaşa özel antrenman programları geliştirilmesi gerektiğini gösterir.</p>
+                    
+                    <h4>Uzun Vadeli Sürdürülebilirlik</h4>
+                    <p>Çocukluk döneminde kazanılan esneklik gelişimlerinin yetişkinlik döneminde de korunma eğilimi vardır. Bu durum, erken dönem yatırımın yaşam boyu getirisini göstermektedir.</p>
+                `
+            },
+            {
+                title: "Modern Çocuklarda Esneklik Krizi",
+                content: `
+                    <h4>Alarming İstatistikler</h4>
+                    <p>2024 araştırmaları, çocuklarda temel hareket becerilerinde ciddi kayıplar olduğunu göstermektedir. İlkokul 4-5. sınıf öğrencilerinin %10-20'si çömelme hareketini yapamamakta, 5-6. sınıf öğrencilerinin %20-30'u öne eğilme konusunda sorun yaşamaktadır.</p>
+                    
+                    <h4>Modern Yaşam Tarzının Etkisi</h4>
+                    <p>Sedanter yaşam tarzı, teknoloji kullanımının artması ve fiziksel aktivite azlığı çocuklarda erken yaşta mobilite kaybına neden olmaktadır. Bu trend, gelecekteki MSK problemlerinin temelini oluşturmaktadır.</p>
+                    
+                    <h4>Büyüme Spurtu Komplikasyonları</h4>
+                    <p>Hızlı büyüme dönemlerinde kemik gelişimi kas-tendon adaptasyonundan hızlı olduğunda, kompansatör gerginlik ve hareket kısıtlılıkları gelişmektedir.</p>
+                `
+            },
+            {
+                title: "Fasyal Sistem ve Çocuklar",
+                content: `
+                    <h4>Fasyal Ağın Anatomisi</h4>
+                    <p>Fasyal sistem, adipöz doku, nörovasküler kılıflar, aponörozlar, derin ve yüzeyel fasya, eklem kapsülleri, ligamentler, membranlar, meninksler, endomysium, perimysium ve epimysium dahil olmak üzere tüm bağ dokularını içerir.</p>
+                    
+                    <h4>Çocuklarda Fasyal Özellikler</h4>
+                    <p>Çocuk fasyal dokusu daha az fibrotic, daha hidratize ve daha viskoelastik özelliklere sahiptir. Bu özellikler, fasyal gevşeme tekniklerinin çocuklarda daha etkili olmasını sağlar.</p>
+                    
+                    <h4>Entegre Fonksiyon Anlayışı</h4>
+                    <p>Fasyal sistem vücudun tüm organlarını, kaslarını, kemiklerini ve sinir fibrillerini çevrelediği için, fonksiyonel bir yapı sağlar ve tüm vücut sistemlerinin entegre bir şekilde çalışmasına olanak tanır.</p>
+                `
+            },
+            {
+                title: "Dinamik vs Statik Germe",
+                content: `
+                    <h4>Dinamik Germe Fizyolojisi</h4>
+                    <p>Dinamik germe, nöromüsküler aktivasyonu artırır, doku sıcaklığını yükseltir ve stretch-shortening cycle'ı optimize eder. Bu özellikler, performans öncesi hazırlık için ideal yapar.</p>
+                    
+                    <h4>Statik Germe Mekanizmaları</h4>
+                    <p>Statik germe, viskoelastik deformasyon, Golgi tendon organ inhibisyonu ve sarkomere eklenmesi yoluyla uzun vadeli ROM artışı sağlar. Post-exercise uygulanması recovery'yi destekler.</p>
+                    
+                    <h4>Çocuk-Spesifik Uygulamalar</h4>
+                    <p>Çocuklarda dinamik germe oyunlaştırılabilir ve eğlenceli hale getirilebilir. Statik germe ise rahatlatıcı bir aktivite olarak günlük rutine entegre edilebilir.</p>
+                `
+            },
+            {
+                title: "6-8 Yaş: Temel Hareket Gelişimi",
+                content: `
+                    <h4>Gelişimsel Özellikler</h4>
+                    <p>Bu yaş grubunda çocuklar somut öğrenme stilini benimserler ve taklit yoluyla öğrenme kapasiteleri yüksektir. Dikkat süreleri kısıtlı olduğu için aktiviteler kısa ve çeşitli olmalıdır.</p>
+                    
+                    <h4>Oyun Tabanlı Yaklaşım</h4>
+                    <p>Hayvan yürüyüşleri (ayı yürüyüşü, kurbağa sıçraması), yoga pozları (köpek, kedi, cobra) gibi taklit hareketleri hem eğlenceli hem de etkilidir.</p>
+                    
+                    <h4>Temel Hareket Kalıpları</h4>
+                    <p>Bu dönemde çömelme, öne eğilme, uzanma, dönme gibi temel hareket kalıplarının öğretilmesi kritiktir. Bu hareketler gelecekteki karmaşık becerilerin temelini oluşturur.</p>
+                `
+            },
+            {
+                title: "9-11 Yaş: Altın Dönem Optimizasyonu",
+                content: `
+                    <h4>Kritik Dönem Avantajları</h4>
+                    <p>Bu yaş grubu, esneklik gelişimi için en verimli dönemdir. Meta-analiz verileri, yüksek volümlü antrenmanın maksimal faydayı bu dönemde sağladığını göstermektedir.</p>
+                    
+                    <h4>Sistematik Yaklaşım</h4>
+                    <p>Çocuklar artık daha uzun dikkat süresine sahip oldukları için, sistematik ve planlı germe programları uygulanabilir. Hedef odaklı çalışma bu dönemde mümkündür.</p>
+                    
+                    <h4>Kapsamlı ROM Gelişimi</h4>
+                    <p>Tüm major eklem gruplarının (omuz, kalça, diz, ayak bileği, spinal) sistematik olarak çalışılması bu dönemde kritiktir. Asimetrik gelişimlerden kaçınmak için bilateral yaklaşım önemlidir.</p>
+                `
+            },
+            {
+                title: "12-14 Yaş: Büyüme Spurtu Yönetimi",
+                content: `
+                    <h4>Büyüme Spurtu Fizyolojisi</h4>
+                    <p>Bu dönemde kemik büyümesi kas-tendon uzamasından hızlı olur. Bu asimetri, geçici ama önemli esneklik kayıplarına neden olabilir ve yaralanma riskini artırır.</p>
+                    
+                    <h4>Problem Bölgelerin İdentifikasyonu</h4>
+                    <p>Kalça fleksörleri, hamstring, gastrocnemius-soleus kompleksi ve spinal erektorlar bu dönemde en çok etkilenen bölgelerdir. Bu alanlara özel dikkat gerektirir.</p>
+                    
+                    <h4>Bireysel Matürasyon Hızı</h4>
+                    <p>Her çocuğun büyüme hızı farklı olduğu için, bireysel değerlendirme ve program uyarlaması kritiktir. Tanner evrelerine göre program modifikasyonu gerekebilir.</p>
+                `
+            },
+            {
+                title: "15-18 Yaş: Sport-Spesifik Gelişim",
+                content: `
+                    <h4>Spor-Spesifik Gereksinimler</h4>
+                    <p>Bu yaş grubunda spor dalının özel gereksinimleri ön plana çıkar. Her sporun kendine özgü ROM gereksinimleri vardır ve bunlara odaklanmak gerekir.</p>
+                    
+                    <h4>İleri Teknik Kullanımı</h4>
+                    <p>PNF teknikleri, miyofasyal gevşeme, deep tissue mobilization gibi ileri teknikler bu yaş grubunda güvenle ve etkili şekilde kullanılabilir.</p>
+                    
+                    <h4>Performans Optimizasyonu</h4>
+                    <p>Esneklik artık sadece yaralanma önleme değil, aynı zamanda performans optimizasyonu aracıdır. Güç-esneklik dengesinin kurulması kritik önemde.</p>
+                `
+            },
+            {
+                title: "Fonksiyonel Hareket Değerlendirmesi (FMS)",
+                content: `
+                    <h4>FMS'in Pediatrik Uygulaması</h4>
+                    <p>FMS çocuk ve adölesanlarda yaralanma riskini öngörmede etkili bir araçtır. Ancak norm değerleri yaş grubu ve cinsiyet için uyarlanmalıdır.</p>
+                    
+                    <h4>7 Temel Hareket Testleri</h4>
+                    <p>Deep squat, hurdle step, in-line lunge, shoulder mobility, active straight leg raise, trunk stability push-up, rotary stability testleri temel hareket kapasitesini değerlendirir.</p>
+                    
+                    <h4>Biyolojik Matürasyon Etkisi</h4>
+                    <p>Çocuklarda FMS skorları büyüme ve gelişim durumundan etkilenir. Bu nedenle yaş kronolojik değil, biyolojik matürasyona göre değerlendirilmelidir.</p>
+                `
+            },
+            {
+                title: "Fonksiyonel Düzeltici Egzersizler",
+                content: `
+                    <h4>Hedefli Müdahale Stratejileri</h4>
+                    <p>FMS'de düşük skor alan hareket kalıplarına yönelik spesifik düzeltici egzersizler, 8 hafta içinde anlamlı iyileşmeler sağlayabilir. Ortalama 5.3 puan artış elde edilmektedir.</p>
+                    
+                    <h4>Fonksiyonel vs İzole Yaklaşım</h4>
+                    <p>Araştırmalar, fonksiyonel hareket egzersizlerinin izole kas güçlendirmesinden daha etkili olduğunu göstermektedir. Entegre yaklaşım daha iyi sonuç verir.</p>
+                    
+                    <h4>Mobilite-Stabilite Entegrasyonu</h4>
+                    <p>Etkili düzeltici programlar hem mobilite hem de stabilite bileşenlerini içerir. Sadece esneklik artışı yeterli değil, kontrol de geliştirilmelidir.</p>
+                `
+            },
+            {
+                title: "Miyofasyal Gevşeme (SMR) Teknikleri",
+                content: `
+                    <h4>2024 Sistematik İnceleme Bulguları</h4>
+                    <p>En son araştırmalar, SMR'nin ROM artışı, güç performansının korunması ve recovery sürecinin hızlandırılması konusunda etkili olduğunu göstermektedir.</p>
+                    
+                    <h4>Mekanizma ve Etki</h4>
+                    <p>SMR, fasyal yapılardaki adhezyon ve kısıtlılıkları azaltır, doku hidrasyonunu artırır ve nöromüsküler inhibisyon sağlar. Bu etkiler birlikte hareket kalitesini artırır.</p>
+                    
+                    <h4>Çocuk Uygulaması</h4>
+                    <p>Çocuklarda SMR daha hafif basınç ile ve kısa süreli (30-60 saniye) uygulanmalıdır. Ağrı eşiği yetişkinlerden farklı olduğu için dikkatli yaklaşım gerekir.</p>
+                `
+            },
+            {
+                title: "PNF (Proprioseptif Nöromüsküler Fasilitasyon)",
+                content: `
+                    <h4>PNF Tekniklerinin Nörolojik Temelleri</h4>
+                    <p>Hold-relax, contract-relax ve CRAC teknikleri Golgi tendon organlarının otojenik inhibisyon mekanizmasını kullanır. Bu nörolojik yol, refleks gevşeme sağlar.</p>
+                    
+                    <h4>Üstün Etkinlik Kanıtları</h4>
+                    <p>PNF teknikleri statik germeden %20-30 daha etkili ROM artışı sağlar. Ancak bu teknikler daha fazla enerji harcar ve uzman gözetim gerektirir.</p>
+                    
+                    <h4>Pediatrik Uygulamada Dikkat Edilecekler</h4>
+                    <p>12 yaş altı çocuklarda nöromüsküler matürite henüz tamamlanmadığı için PNF teknikleri dikkatli kullanılmalıdır. İyi koordinasyon ve anlayış gerektirir.</p>
+                `
+            },
+            {
+                title: "Sport-Spesifik Esneklik Yaklaşımları",
+                content: `
+                    <h4>Futbol Özel Gereksinimleri</h4>
+                    <p>Futbolda kalça fleksörleri (kicking), adduktörler (lateral movement), hamstring (sprinting) ve ayak bileği dorsifleksiyonu (agility) kritik bölgelerdir.</p>
+                    
+                    <h4>Basketbol Hareket Talepleri</h4>
+                    <p>Basketbolda ayak bileği mobilite (landing), toraks rotasyonu (shooting), kalça ekstensiyonu (jumping) ve omuz fleksiyonu (shooting/passing) önceliklidir.</p>
+                    
+                    <h4>Yüzme ve Jimnastik Özellikleri</h4>
+                    <p>Bu sporlar global esneklik gerektirir. Yüzmede özellikle omuz ve ayak bileği, jimnastikte spinal mobilite ve global ROM kritiktir.</p>
+                `
+            },
+            {
+                title: "Esneklik ve Performans İlişkisi",
+                content: `
+                    <h4>Optimal Esneklik Aralığı</h4>
+                    <p>Çok az esneklik yaralanma riskini artırırken, aşırı esneklik instabilite ve güç kaybına neden olur. Her spor için optimal ROM aralığı vardır.</p>
+                    
+                    <h4>Stretch-Shortening Cycle</h4>
+                    <p>Esneklik, kasın stretch-shortening cycle kapasitesini etkiler. Optimal esneklik, elastik enerji depolanması ve salınmasını maksimize eder.</p>
+                    
+                    <h4>Timing ve Performans</h4>
+                    <p>Statik germe antrenman öncesi güç performansını geçici olarak azaltabilir. Dinamik germe ise performansı artırır. Timing kritik önemde.</p>
+                `
+            },
+            {
+                title: "Yaralanma Önleme ve Esneklik",
+                content: `
+                    <h4>Primer Önleme Mekanizmaları</h4>
+                    <p>Yeterli ROM, eklem stress dağılımını optimize eder, kompansatör hareketleri azaltır ve doku toleransını artırır. Bu faktörler yaralanma riskini minimize eder.</p>
+                    
+                    <h4>Sekunder Önleme Stratejileri</h4>
+                    <p>Yaralanma geçiren sporcular genellikle skar doku oluşumu ve kompansatör kısıtlılıklar geliştirir. Sistematik esneklik çalışması bu sorunları adresler.</p>
+                    
+                    <h4>Hipermobilite Riski</h4>
+                    <p>Aşırı esneklik, özellikle hipermobil çocuklarda eklem instabilitesi yaratabilir. Bu durumda stabilite antrenmanı esneklikten daha önemlidir.</p>
+                `
+            },
+            {
+                title: "Yoga ve Çocuklar",
+                content: `
+                    <h4>Holistik Gelişim Yaklaşımı</h4>
+                    <p>Yoga sadece fiziksel esneklik değil, mental odaklanma, stres yönetimi ve sosyal beceri gelişimini de destekler. Bu çok boyutlu yaklaşım çocuklar için idealdir.</p>
+                    
+                    <h4>Mindfulness ve Vücut Farkındalığı</h4>
+                    <p>Yoga pratiği çocukların kendi vücutlarını daha iyi tanımalarını sağlar. Bu farkındalık yaralanma önleme ve optimal hareket kalıpları için kritiktir.</p>
+                    
+                    <h4>Çocuk Dostu Modifikasyonlar</h4>
+                    <p>Çocuk yogası hikayeler, oyunlar ve hayal kurma ile zenginleştirilir. Bu yaklaşım hem motivasyonu artırır hem de öğrenmeyi kolaylaştırır.</p>
+                `
+            },
+            {
+                title: "Teknoloji ve Esneklik Antrenmanı",
+                content: `
+                    <h4>Dijital Ölçüm Araçları</h4>
+                    <p>Smartphone goniometre uygulamaları, ROM ölçümünü daha erişilebilir hale getirir. Bu araçlar progress takibini kolaylaştırır ve motivasyonu artırır.</p>
+                    
+                    <h4>Video Analiz Sistemleri</h4>
+                    <p>Yüksek hızlı kameralar ve hareket analiz yazılımları, esneklik performansını objektif olarak değerlendirme imkanı sunar.</p>
+                    
+                    <h4>Wearable Teknoloji</h4>
+                    <p>IMU sensörleri ve akıllı giyilebilir cihazlar, real-time postür feedback sağlar ve günlük aktivite sırasında mobilite izleme imkanı verir.</p>
+                `
+            },
+            {
+                title: "Eğitim ve Farkındalık Programları",
+                content: `
+                    <h4>Çocuk Eğitim Stratejileri</h4>
+                    <p>Çocuklara esnekliğin önemini anlatırken yaşlarına uygun dil kullanılmalı, görsel materyaller desteklenmeli ve pratik örnekler verilmelidir.</p>
+                    
+                    <h4>Aile Katılımının Önemi</h4>
+                    <p>Evde destekleyici ortam oluşturmak için aile eğitimi kritiktir. Aileler temel teknikleri öğrenmeli ve çocuğun rutinini desteklemelidir.</p>
+                    
+                    <h4>Okul Tabanlı Programlar</h4>
+                    <p>Beden eğitimi derslerine entegre edilen esneklik programları, tüm çocuklara ulaşma imkanı sağlar ve toplumsal etki yaratır.</p>
+                `
+            },
+            {
+                title: "Güvenlik ve Kontrendikasyonlar",
+                content: `
+                    <h4>Mutlak Kontrendikasyonlar</h4>
+                    <p>Akut yaralanma, aktif inflamasyon, febril durumlar ve akut ağrı varlığında esneklik çalışması yapılmamalıdır. Önce iyileşme sağlanmalıdır.</p>
+                    
+                    <h4>Relatif Kontrendikasyonlar</h4>
+                    <p>Hipermobilite sendromu, eklem instabilitesi, nörolojik durumlar ve metabolik hastalıklar dikkatli yaklaşım gerektirir.</p>
+                    
+                    <h4>Güvenlik Prensipleri</h4>
+                    <p>Çocuklarda ağrı eşiği farklı olduğu için "hafif gerginlik" prensibi uygulanmalı, zorla germe yapılmamalı ve bireysel tolerans gözetilmelidir.</p>
+                `
+            },
+            {
+                title: "Değerlendirme ve İzleme",
+                content: `
+                    <h4>Başlangıç Değerlendirmesi</h4>
+                    <p>Kapsamlı ROM ölçümü, postür analizi, fonksiyonel hareket screening ve yaralanma geçmişi değerlendirmesi başlangıç için gereklidir.</p>
+                    
+                    <h4>Objektif Ölçüm Yöntemleri</h4>
+                    <p>Goniometre ölçümleri, fotoğraf analizi, sit-and-reach testi ve sport-spesifik fonksiyonel testler kullanılabilir.</p>
+                    
+                    <h4>Progress Takibi</h4>
+                    <p>4-6 haftalık periyotlar halinde değerlendirme yapılmalı, objektif ölçümler kayıt altına alınmalı ve program buna göre uyarlanmalıdır.</p>
+                `
+            },
+            {
+                title: "Pratik Uygulama Önerileri",
+                content: `
+                    <h4>Günlük Rutin Oluşturma</h4>
+                    <p>Günde minimum 10-15 dakika esneklik çalışması, yaşam boyu sürdürülebilir bir alışkanlık haline getirilmelidir. Sabah veya akşam rutinine entegrasyon önerilir.</p>
+                    
+                    <h4>Tutarlılık ve Progresyon</h4>
+                    <p>Düzenli uygulama başarının anahtarıdır. Kademeli zorluk artırımı ve çeşitlilik sıkılmayı önler ve motivasyonu sürdürür.</p>
+                    
+                    <h4>Uzun Vadeli Perspektif</h4>
+                    <p>Esneklik gelişimi hızlı bir süreç değildir. Sabırlı yaklaşım ve tutarlı çalışma ile 8-12 hafta içinde anlamlı gelişmeler görülür.</p>
+                `
+            }
+        ];
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[index].classList.add('active');
+            document.getElementById('currentSlide').textContent = index + 1;
+            
+            // Update sidebar content
+            updateSidebar(index);
+        }
+
+        function updateSidebar(index) {
+            const sidebarContent = document.getElementById('sidebarContent');
+            const note = slideNotes[index];
+            sidebarContent.innerHTML = `
+                <h3>${note.title}</h3>
+                ${note.content}
+            `;
+        }
+
+        function nextSlide() {
+            currentSlideIndex = (currentSlideIndex + 1) % totalSlides;
+            showSlide(currentSlideIndex);
+        }
+
+        function prevSlide() {
+            currentSlideIndex = (currentSlideIndex - 1 + totalSlides) % totalSlides;
+            showSlide(currentSlideIndex);
+        }
+
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+        }
+
+        // Initialize sidebar with first slide content
+        updateSidebar(0);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            switch(event.key) {
+                case 'ArrowRight':
+                case ' ':
+                    nextSlide();
+                    break;
+                case 'ArrowLeft':
+                    prevSlide();
+                    break;
+                case 'Escape':
+                    document.getElementById('sidebar').classList.remove('active');
+                    break;
+                case 's':
+                case 'S':
+                    toggleSidebar();
+                    break;
+            }
+        });
+    </script>
+</body>
+</html>

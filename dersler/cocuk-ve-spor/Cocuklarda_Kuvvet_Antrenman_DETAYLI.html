@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Çocuklarda Kuvvet Antrenmanı - Detaylı Sunum</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #8360c3 0%, #2ebf91 100%);
+            color: white;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .sidebar {
+            width: 400px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            overflow-y: auto;
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            display: none;
+        }
+
+        .sidebar.active {
+            display: block;
+        }
+
+        .sidebar h3 {
+            color: #ffeb3b;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        .sidebar h4 {
+            color: #81d4fa;
+            margin-bottom: 10px;
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+
+        .sidebar p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+            font-size: 0.95em;
+            text-align: justify;
+        }
+
+        .slide {
+            display: none;
+            width: 90%;
+            max-width: 1000px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 60px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            animation: slideIn 0.6s ease-out;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            background: linear-gradient(45deg, #fff, #e0e0e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h2 {
+            font-size: 2.5em;
+            margin-bottom: 25px;
+            color: #ffeb3b;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        h3 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #81d4fa;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        h4 {
+            font-size: 1.6em;
+            margin-bottom: 15px;
+            color: #a5d6a7;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        p, li {
+            font-size: 1.3em;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        ul {
+            text-align: left;
+            margin: 20px 0;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .navigation {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 100;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .notes-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 193, 7, 0.8);
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .notes-btn:hover {
+            background: rgba(255, 193, 7, 1);
+            transform: scale(1.05);
+        }
+
+        .progress-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: #ffeb3b;
+            transition: width 0.3s ease;
+            z-index: 100;
+        }
+
+        .slide-counter {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px 15px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .highlight {
+            background: linear-gradient(45deg, #ffeb3b, #ff9800);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: bold;
+            margin: 0 15px;
+            padding: 10px 20px;
+            border: 2px solid rgba(255, 235, 59, 0.3);
+            border-radius: 25px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .formula-box {
+            background: rgba(139, 69, 19, 0.3);
+            border: 2px solid #8b4513;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            text-align: left;
+            margin: 20px 0;
+        }
+
+        .three-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+            text-align: left;
+            margin: 20px 0;
+        }
+
+        .warning-box {
+            background: rgba(255, 193, 7, 0.2);
+            border: 2px solid #ffc107;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .danger-box {
+            background: rgba(244, 67, 54, 0.2);
+            border: 2px solid #f44336;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .success-box {
+            background: rgba(76, 175, 80, 0.2);
+            border: 2px solid #4caf50;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .info-box {
+            background: rgba(33, 150, 243, 0.2);
+            border: 2px solid #2196f3;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .age-tier {
+            padding: 20px;
+            border-radius: 15px;
+            margin: 15px 0;
+            border: 2px solid;
+        }
+
+        .tier-prepuberty {
+            background: rgba(76, 175, 80, 0.2);
+            border-color: #4caf50;
+        }
+
+        .tier-puberty {
+            background: rgba(255, 193, 7, 0.2);
+            border-color: #ffc107;
+        }
+
+        .tier-postpuberty {
+            background: rgba(244, 67, 54, 0.2);
+            border-color: #f44336;
+        }
+
+        @media (max-width: 1200px) {
+            .sidebar {
+                width: 350px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: 50%;
+                border-left: none;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            
+            .main-content {
+                height: 50%;
+            }
+            
+            .slide {
+                width: 95%;
+                padding: 40px 30px;
+            }
+            
+            h1 { font-size: 2.2em; }
+            h2 { font-size: 1.8em; }
+            h3 { font-size: 1.5em; }
+            h4 { font-size: 1.3em; }
+            p, li { font-size: 1.1em; }
+            
+            .two-column, .three-column {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+    <div class="slide-counter" id="slideCounter">1 / 12</div>
+    <button class="notes-btn" id="notesBtn">📝 Detaylı Notlar</button>
+
+    <div class="main-content">
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <h1>💪 ÇOCUKLARDA KUVVET ANTRENMANı</h1>
+            <h2>Bilimsel Temeller ve Uygulamalı Yaklaşım</h2>
+            <p style="font-size: 1.5em; margin-top: 40px;">2024 Güncel Araştırmalarıyla</p>
+            <div style="margin-top: 50px;">
+                <span class="highlight">Nöral Adaptasyonlar</span>
+                <span class="highlight">Hormonal Gelişim</span>
+                <span class="highlight">Güvenlik Protokolleri</span>
+                <span class="highlight">Yaşa Özgü Programlar</span>
+            </div>
+        </div>
+
+        <!-- Slide 2: Strength Classifications -->
+        <div class="slide">
+            <h2>🎯 Kuvvet Çeşitleri ve Sınıflandırma</h2>
+            <div class="three-column">
+                <div class="tier-prepuberty">
+                    <h4>⚡ Maksimal Kuvvet</h4>
+                    <ul>
+                        <li><strong>Tanım:</strong> Kas-sinir sisteminin ortaya koyduğu en yüksek kuvvet düzeyi</li>
+                        <li><strong>1RM:</strong> Bir tekrarla kaldırılan maksimum ağırlık</li>
+                        <li><strong>Çocuklarda:</strong> Nöral faktörler dominant</li>
+                        <li><strong>Test:</strong> İzometrik kuvvet testleri önerilir</li>
+                    </ul>
+                    <p><strong>Güvenlik:</strong> Çocuklarda 1RM testleri önerilmez</p>
+                </div>
+                
+                <div class="tier-puberty">
+                    <h4>🔥 Çabuk Kuvvet (Güç)</h4>
+                    <ul>
+                        <li><strong>Tanım:</strong> En kısa zaman aralığında en yüksek kuvveti oluşturabilme</li>
+                        <li><strong>Formül:</strong> Güç = Kuvvet × Hız</li>
+                        <li><strong>Çocuklarda:</strong> Gelişime açık alan</li>
+                        <li><strong>Test:</strong> Dikey sıçrama, sprint testleri</li>
+                    </ul>
+                    <p><strong>Avantaj:</strong> Pliometrik antrenmanla geliştirilebilir</p>
+                </div>
+                
+                <div class="tier-postpuberty">
+                    <h4>⏱️ Kuvvet Dayanıklılığı</h4>
+                    <ul>
+                        <li><strong>Tanım:</strong> Uzun zaman aralığında kasların kasılmayı sürdürebilmesi</li>
+                        <li><strong>Tipler:</strong> İzometrik, İzotonik, İzokinetik</li>
+                        <li><strong>Çocuklarda:</strong> Doğal yetenek</li>
+                        <li><strong>Test:</strong> Şınav, mekik testleri</li>
+                    </ul>
+                    <p><strong>Özellik:</strong> Yüksek tekrar sayıları ile gelişir</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Developmental Factors -->
+        <div class="slide">
+            <h2>📈 Çocuklarda Kuvvet Gelişimini Etkileyen Faktörler</h2>
+            <div class="two-column">
+                <div>
+                    <h4>🧬 Maturasyonal Faktörler</h4>
+                    <div class="success-box">
+                        <ul>
+                            <li><strong>Prepubertal (6-11 yaş):</strong> Nöral adaptasyonlar dominant</li>
+                            <li><strong>Pubertal (12-16 yaş):</strong> Hormonal değişiklikler başlar</li>
+                            <li><strong>Post-pubertal (17+ yaş):</strong> Yetişkin benzeri yanıtlar</li>
+                            <li><strong>PHV Etkisi:</strong> Boyca büyüme hız döneminde kas kütlesi artışı</li>
+                        </ul>
+                    </div>
+                    
+                    <h4>💉 Hormonal Değişiklikler</h4>
+                    <ul>
+                        <li><strong>Büyüme Hormonu:</strong> Protein sentezi artışı</li>
+                        <li><strong>Testosteron:</strong> Puberte ile dramatik artış</li>
+                        <li><strong>IGF-1:</strong> Kas büyümesi düzenleyicisi</li>
+                        <li><strong>Kortizol:</strong> Stres yanıt hormonu</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>🧠 Nöral Adaptasyonlar</h4>
+                    <div class="formula-box">
+                        <h5>Motor Ünit Değişikleri:</h5>
+                        <p>• Motor ünit rekrutmenti artışı</p>
+                        <p>• Ateşleme frekansı optimizasyonu</p>
+                        <p>• Senkronizasyon iyileştirmesi</p>
+                        <br>
+                        <h5>Kas İçi Koordinasyon:</h5>
+                        <p>• Agonist kas aktivasyonu</p>
+                        <p>• Antagonist kas inhibisyonu</p>
+                        <p>• Ko-aktivasyon azalması</p>
+                    </div>
+                    
+                    <h4>⚠️ Yaş Özgü Özellikler</h4>
+                    <div class="warning-box">
+                        <ul>
+                            <li><strong>8-12 Yaş:</strong> Nöral plastisitehasın yüksek</li>
+                            <li><strong>Miyelin:</strong> Hızlı miyelin gelişimi</li>
+                            <li><strong>Koordinasyon:</strong> Motor beceri öğrenme kapasitesi</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Neural vs Morphological -->
+        <div class="slide">
+            <h2>🧠 Nöral vs Morfolojik Adaptasyonlar</h2>
+            <div class="two-column">
+                <div>
+                    <h4>⚡ Nöral Adaptasyonlar (0-8 Hafta)</h4>
+                    <div class="info-box">
+                        <ul>
+                            <li><strong>Motor Ünit Rekrutmenti:</strong> Daha fazla motor ünit aktivasyonu</li>
+                            <li><strong>Ateşleme Frekansı:</strong> Sinir impuls sıklığı artışı</li>
+                            <li><strong>Senkronizasyon:</strong> Motor ünitlerin eş zamanlı çalışması</li>
+                            <li><strong>Kas İçi Koordinasyon:</strong> Agonist-antagonist dengeleme</li>
+                            <li><strong>Kas Arası Koordinasyon:</strong> Hareket kalitesi artışı</li>
+                        </ul>
+                        
+                        <h5>Çocuklarda Özellikler:</h5>
+                        <ul>
+                            <li>İlk 4 hafta %20-30 kuvvet artışı</li>
+                            <li>Miyelin gelişimi hızlı</li>
+                            <li>Motor öğrenme yeteneği yüksek</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h4>💪 Morfolojik Adaptasyonlar (8+ Hafta)</h4>
+                    <div class="success-box">
+                        <h5>Kas Hipertrofisi:</h5>
+                        <ul>
+                            <li><strong>Miyofibriller:</strong> Kasılır protein artışı</li>
+                            <li><strong>Sarkoplazma:</strong> Hücre sıvısı artışı</li>
+                            <li><strong>Kapiller yoğunluk:</strong> Kan dolaşımı iyileştirme</li>
+                            <li><strong>Mitokondri:</strong> Enerji üretim kapasitesi</li>
+                        </ul>
+                        
+                        <h5>Çocuklarda Sınırlamalar:</h5>
+                        <ul>
+                            <li>Düşük testosteron seviyeleri</li>
+                            <li>Minimal hipertrofi prepubertede</li>
+                            <li>Kas lifi sayısı değişmez</li>
+                        </ul>
+                    </div>
+                    
+                    <h4>📊 Zaman Çizelgesi</h4>
+                    <div class="formula-box">
+                        <ul>
+                            <li><strong>0-2 hafta:</strong> Motor öğrenme</li>
+                            <li><strong>2-8 hafta:</strong> Nöral adaptasyonlar</li>
+                            <li><strong>8+ hafta:</strong> Morfolojik değişiklikler</li>
+                            <li><strong>16+ hafta:</strong> Uzun dönem adaptasyonlar</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Hormonal Development -->
+        <div class="slide">
+            <h2>🧪 Hormonal Gelişim ve Kuvvet İlişkisi</h2>
+            <div class="two-column">
+                <div>
+                    <h4>📈 Testosteron ve Büyüme Hormonu</h4>
+                    <div class="success-box">
+                        <h5>Prepubertal Dönem:</h5>
+                        <ul>
+                            <li><strong>Testosteron:</strong> Çok düşük seviyeler</li>
+                            <li><strong>GH:</strong> Pulsatil salınım</li>
+                            <li><strong>IGF-1:</strong> Düşük-orta seviye</li>
+                            <li><strong>Kuvvet artışı:</strong> %124 artış (direncli antrenman)</li>
+                        </ul>
+                        
+                        <h5>Pubertal Dönem:</h5>
+                        <ul>
+                            <li><strong>Testosteron:</strong> 10-20 kat artış</li>
+                            <li><strong>GH:</strong> Gece salınımı artışı</li>
+                            <li><strong>IGF-1:</strong> 2-3 kat artış</li>
+                            <li><strong>Kuvvet artışı:</strong> %32 artış (direncli antrenman)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h4>🔬 2024 Araştırma Bulgularında</h4>
+                    <div class="info-box">
+                        <h5>Akut Hormonal Yanıt:</h5>
+                        <ul>
+                            <li><strong>GH Artışı:</strong> Her iki grupta belirgin</li>
+                            <li><strong>Testosteron:</strong> Pubertal grupta daha fazla</li>
+                            <li><strong>IGF-1:</strong> Yaşa bağlı farklı yanıt</li>
+                            <li><strong>Kortizol:</strong> Stres yanıt değişkenleri</li>
+                        </ul>
+                        
+                        <h5>Meta-Analiz Sonuçları:</h5>
+                        <ul>
+                            <li>Dirençli antrenman: +3.42 nmol/L testosteron</li>
+                            <li>Dayanıklılık antrenmanı: -0.01 nmol/L</li>
+                            <li>GH değişiklikleri minimal</li>
+                        </ul>
+                    </div>
+                    
+                    <h4>⚠️ Dikkat Edilecek Noktalar</h4>
+                    <div class="warning-box">
+                        <ul>
+                            <li>Maturasyon durumu bireysel değişkenlik</li>
+                            <li>Antrenman yanıtı yaşa bağlı</li>
+                            <li>Aşırı antrenman riski</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Safety Protocols -->
+        <div class="slide">
+            <h2>🛡️ Güvenlik Protokolleri ve Risk Yönetimi</h2>
+            <div class="two-column">
+                <div>
+                    <h4>✅ NSCA & ACSM Önerileri</h4>
+                    <div class="success-box">
+                        <ul>
+                            <li><strong>Yaş Sınırı:</strong> 6+ yaş güvenle başlanabilir</li>
+                            <li><strong>Süpervizyon:</strong> Kalifiye eğitmen zorunlu</li>
+                            <li><strong>Teknik Odak:</strong> Doğru hareket paterni öncelik</li>
+                            <li><strong>Progresyon:</strong> Kademeli yük artışı</li>
+                            <li><strong>Sıklık:</strong> Haftada 2-3 seans</li>
+                        </ul>
+                        
+                        <h5>2024 AAP Güncellemeleri:</h5>
+                        <ul>
+                            <li>Pozitif sağlık çıktıları onaylandı</li>
+                            <li>Yaralanma azaltma etkisi</li>
+                            <li>Fiziksel okuryazarlık geliştirme</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h4>⚠️ Risk Faktörleri ve Önlemler</h4>
+                    <div class="danger-box">
+                        <h5>Yüksek Risk Faktörleri:</h5>
+                        <ul>
+                            <li><strong>Yetersiz Süpervizyon:</strong> Teknik hatalar</li>
+                            <li><strong>Aşırı Yükleme:</strong> Yaşa uygun olmayan ağırlıklar</li>
+                            <li><strong>Yetersiz Isınma:</strong> Yaralanma riski artışı</li>
+                            <li><strong>1RM Testleri:</strong> Çocuklarda önerilmez</li>
+                        </ul>
+                        
+                        <h5>Güvenlik Önlemleri:</h5>
+                        <ul>
+                            <li>Teknik eğitim minimum 4-6 hafta</li>
+                            <li>%60-80 1RM yoğunluk üst sınır</li>
+                            <li>Set arası dinlenme: 2-3 dakika</li>
+                            <li>Düzenli sağlık kontrolü</li>
+                        </ul>
+                    </div>
+                    
+                    <h4>📋 Güvenlik Kontrol Listesi</h4>
+                    <div class="formula-box">
+                        <ul>
+                            <li><strong>Hekim onayı:</strong> Antrenman öncesi</li>
+                            <li><strong>Matürasyon değerlendirmesi</strong></li>
+                            <li><strong>Temel hareket becerileri</strong></li>
+                            <li><strong>Uygun ekipman seçimi</strong></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Age-Specific Programs -->
+        <div class="slide">
+            <h2>🎯 Yaşa Özgü Antrenman Programları</h2>
+            <div class="three-column">
+                <div class="tier-prepuberty">
+                    <h4>🟢 6-11 Yaş (Prepubertal)</h4>
+                    <h5>Program Özellikleri:</h5>
+                    <ul>
+                        <li><strong>Odak:</strong> Temel hareket becerileri</li>
+                        <li><strong>Ağırlık:</strong> Vücut ağırlığı + hafif yükler</li>
+                        <li><strong>Tekrar:</strong> 8-15 tekrar</li>
+                        <li><strong>Set:</strong> 1-2 set</li>
+                        <li><strong>Sıklık:</strong> 2-3x/hafta</li>
+                    </ul>
+                    
+                    <h5>Egzersiz Seçimi:</h5>
+                    <ul>
+                        <li>Squats (vücut ağırlığı)</li>
+                        <li>Push-ups (modifiye)</li>
+                        <li>Lunges</li>
+                        <li>Plank</li>
+                        <li>Direnç bantları</li>
+                    </ul>
+                </div>
+                
+                <div class="tier-puberty">
+                    <h4>🟡 12-16 Yaş (Pubertal)</h4>
+                    <h5>Program Özellikleri:</h5>
+                    <ul>
+                        <li><strong>Odak:</strong> Kuvvet ve güç geliştirme</li>
+                        <li><strong>Ağırlık:</strong> %60-80 1RM</li>
+                        <li><strong>Tekrar:</strong> 6-12 tekrar</li>
+                        <li><strong>Set:</strong> 2-4 set</li>
+                        <li><strong>Sıklık:</strong> 3-4x/hafta</li>
+                    </ul>
+                    
+                    <h5>Egzersiz Seçimi:</h5>
+                    <ul>
+                        <li>Goblet squats</li>
+                        <li>Dumbbell press</li>
+                        <li>Deadlifts (hafif)</li>
+                        <li>Pull-ups (yardımlı)</li>
+                        <li>Pliometrik egzersizler</li>
+                    </ul>
+                </div>
+                
+                <div class="tier-postpuberty">
+                    <h4>🔴 17+ Yaş (Post-pubertal)</h4>
+                    <h5>Program Özellikleri:</h5>
+                    <ul>
+                        <li><strong>Odak:</strong> Maksimal kuvvet</li>
+                        <li><strong>Ağırlık:</strong> %70-90 1RM</li>
+                        <li><strong>Tekrar:</strong> 1-8 tekrar</li>
+                        <li><strong>Set:</strong> 3-6 set</li>
+                        <li><strong>Sıklık:</strong> 4-6x/hafta</li>
+                    </ul>
+                    
+                    <h5>Egzersiz Seçimi:</h5>
+                    <ul>
+                        <li>Back squats</li>
+                        <li>Bench press</li>
+                        <li>Deadlifts</li>
+                        <li>Olympic lifts (teknik)</li>
+                        <li>İleri pliometrik</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Exercise Progressions -->
+        <div class="slide">
+            <h2>🎢 Egzersiz Progresyonları</h2>
+            <div class="two-column">
+                <div>
+                    <h4>📊 Progresyon Prensipleri</h4>
+                    <div class="info-box">
+                        <h5>Aşamalı İlerlem:</h5>
+                        <ul>
+                            <li><strong>1. Teknik Öğrenme:</strong> Ağırlık yok</li>
+                            <li><strong>2. Hafif Yük:</strong> %40-60 1RM</li>
+                            <li><strong>3. Orta Yük:</strong> %60-80 1RM</li>
+                            <li><strong>4. İleri Seviye:</strong> %80+ 1RM (sadece post-pubertal)</li>
+                        </ul>
+                        
+                        <h5>Progresyon Parametreleri:</h5>
+                        <ul>
+                            <li>Tekrar sayısı artışı önce</li>
+                            <li>Set sayısı ikinci adım</li>
+                            <li>Ağırlık artışı son adım</li>
+                            <li>Haftalık %2.5-5 artış</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h4>🏃 Örnek Progresyon: Squat</h4>
+                    <div class="success-box">
+                        <h5>Hafta 1-2:</h5>
+                        <p>Vücut ağırlığı squat: 2×8-10</p>
+                        
+                        <h5>Hafta 3-4:</h5>
+                        <p>Goblet squat (2kg): 2×8-12</p>
+                        
+                        <h5>Hafta 5-6:</h5>
+                        <p>Goblet squat (4kg): 3×8-12</p>
+                        
+                        <h5>Hafta 7-8:</h5>
+                        <p>Goblet squat (6kg): 3×10-15</p>
+                    </div>
+                    
+                    <h4>⚠️ Progresyon Kuralları</h4>
+                    <div class="warning-box">
+                        <ul>
+                            <li><strong>2+2 Kuralı:</strong> 2 set boyunca 2+ fazla tekrar</li>
+                            <li><strong>Teknik Önceliği:</strong> Form bozulursa dur</li>
+                            <li><strong>Bireysel Hız:</strong> Her çocuk farklı</li>
+                            <li><strong>Dinlenme Günleri:</strong> Zorunlu</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Periodization Models -->
+        <div class="slide">
+            <h2>📅 Periodizasyon Modelleri</h2>
+            <div class="two-column">
+                <div>
+                    <h4>🔄 LTAD Modeli</h4>
+                    <div class="success-box">
+                        <h5>Uzun Dönem Sporcu Gelişimi:</h5>
+                        <ul>
+                            <li><strong>Çok Yönlü Gelişim (6-10):</strong> Temel hareketler</li>
+                            <li><strong>Özel Biçimlendirme (11-14):</strong> Kuvvet temeli</li>
+                            <li><strong>Özelleşme (15-18):</strong> Güç geliştirme</li>
+                            <li><strong>Yüksek Verim (19+):</strong> Maksimal performans</li>
+                        </ul>
+                        
+                        <h5>Yaşa Özgü Adaptasyonlar:</h5>
+                        <ul>
+                            <li>Prepubertal: Motor beceri odaklı</li>
+                            <li>Pubertal: Kuvvet-güç entegrasyonu</li>
+                            <li>Post-pubertal: Performans odaklı</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h4>📈 Periodizasyon Stratejileri</h4>
+                    <div class="info-box">
+                        <h5>Makrosiklus (Yıllık):</h5>
+                        <ul>
+                            <li><strong>Hazırlık Dönemi:</strong> 4-6 ay temel kuvvet</li>
+                            <li><strong>Yarışma Dönemi:</strong> 3-4 ay güç odaklı</li>
+                            <li><strong>Geçiş Dönemi:</strong> 1-2 ay aktif dinlenme</li>
+                        </ul>
+                        
+                        <h5>Mesosiklus (Aylık):</h5>
+                        <ul>
+                            <li>Hafta 1: Yük artışı</li>
+                            <li>Hafta 2: Maksimal yük</li>
+                            <li>Hafta 3: Azalma</li>
+                            <li>Hafta 4: Aktif toparlanma</li>
+                        </ul>
+                    </div>
+                    
+                    <h4>🎯 Çocuklara Özgü Özellikler</h4>
+                    <div class="formula-box">
+                        <ul>
+                            <li><strong>Kısa dönemler:</strong> 4-6 hafta bloklar</li>
+                            <li><strong>Çeşitlilik:</strong> Motivasyon için</li>
+                            <li><strong>Oyunsal:</strong> Eğlence faktörü</li>
+                            <li><strong>Esneklik:</strong> Bireysel adaptasyon</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Recovery and Nutrition -->
+        <div class="slide">
+            <h2>🍎 Toparlanma ve Beslenme</h2>
+            <div class="two-column">
+                <div>
+                    <h4>😴 Toparlanma Stratejileri</h4>
+                    <div class="success-box">
+                        <h5>Uyku (En Kritik):</h5>
+                        <ul>
+                            <li><strong>6-10 yaş:</strong> 10-11 saat</li>
+                            <li><strong>11-14 yaş:</strong> 9-10 saat</li>
+                            <li><strong>15-18 yaş:</strong> 8-9 saat</li>
+                            <li><strong>GH Salınımı:</strong> %70 derin uyku fazında</li>
+                        </ul>
+                        
+                        <h5>Aktif Toparlanma:</h5>
+                        <ul>
+                            <li>Hafif aerobik aktivite</li>
+                            <li>Dinamik germe</li>
+                            <li>Yoga ve nefes egzersizleri</li>
+                            <li>Oyun temelli aktiviteler</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h4>🥗 Beslenme Stratejileri</h4>
+                    <div class="info-box">
+                        <h5>Antrenman Öncesi (1-2 saat):</h5>
+                        <ul>
+                            <li>Karmaşık karbonhidratlar</li>
+                            <li>Az miktarda protein</li>
+                            <li>Yeterli hidrasyon</li>
+                            <li>Sindirimi kolay gıdalar</li>
+                        </ul>
+                        
+                        <h5>Antrenman Sonrası (30 dk içinde):</h5>
+                        <ul>
+                            <li>Karbonhidrat:Protein 3:1</li>
+                            <li>Hızlı emilim karbonhidrat</li>
+                            <li>Kaliteli protein kaynağı</li>
+                            <li>Elektrolit replasmanı</li>
+                        </ul>
+                    </div>
+                    
+                    <h4>💧 Hidrasyon</h4>
+                    <div name="formula-box">
+                        <ul>
+                            <li><strong>Günlük:</strong> 30-35 ml/kg vücut ağırlığı</li>
+                            <li><strong>Antrenman öncesi:</strong> 500ml 2 saat önce</li>
+                            <li><strong>Antrenman sırası:</strong> 200ml her 20 dk</li>
+                            <li><strong>Sonrası:</strong> Kayıpın %150'i</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Technology and Monitoring -->
+        <div class="slide">
+            <h2>📱 Teknoloji ve İzleme</h2>
+            <div class="two-column">
+                <div>
+                    <h4>📊 Performans İzleme Araçları</h4>
+                    <div class="info-box">
+                        <h5>Teknoloji Destekli İzleme:</h5>
+                        <ul>
+                            <li><strong>Velocity-Based Training:</strong> Bar hızı ölçümü</li>
+                            <li><strong>Jump Plates:</strong> Sıçrama performansı</li>
+                            <li><strong>Mobile Apps:</strong> MyLift, Coach's Eye</li>
+                            <li><strong>Wearables:</strong> Kalp hızı monitörleri</li>
+                        </ul>
+                        
+                        <h5>Geleneksel Değerlendirme:</h5>
+                        <ul>
+                            <li>İzometrik kuvvet testleri</li>
+                            <li>Fonksiyonel hareket değerlendirmesi</li>
+                            <li>Video analizi</li>
+                            <li>Günlük antrenman kayıtları</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h4>🎯 İzleme Parametreleri</h4>
+                    <div class="success-box">
+                        <h5>Objektif Ölçümler:</h5>
+                        <ul>
+                            <li><strong>Kuvvet:</strong> İzometrik test sonuçları</li>
+                            <li><strong>Güç:</strong> Sıçrama yüksekliği</li>
+                            <li><strong>Dayanıklılık:</strong> Tekrar kapasitesi</li>
+                            <li><strong>Koordinasyon:</strong> Hareket kalitesi</li>
+                        </ul>
+                        
+                        <h5>Subjektif Değerlendirme:</h5>
+                        <ul>
+                            <li>RPE (Algılanan zorluk) 1-10</li>
+                            <li>Motivasyon seviyeleri</li>
+                            <li>Yorgunluk durumu</li>
+                            <li>Eğlence faktörü</li>
+                        </ul>
+                    </div>
+                    
+                    <h4>⚠️ Önemli Noktalar</h4>
+                    <div class="warning-box">
+                        <ul>
+                            <li><strong>Yaş uygun araçlar:</strong> Çocuk dostu teknoloji</li>
+                            <li><strong>Basit metrikler:</strong> Karmaşık hesaplamalardan kaçın</li>
+                            <li><strong>Motivasyon odağı:</strong> Gelişimi görselleştir</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Future Directions -->
+        <div class="slide">
+            <h2>🚀 Gelecek Yönelimler ve Sonuç</h2>
+            <div class="two-column">
+                <div>
+                    <h4>🔮 Gelecekteki Teknolojiler</h4>
+                    <div name="info-box">
+                        <h5>Yenilikçi Yaklaşımlar:</h5>
+                        <ul>
+                            <li><strong>AI Destekli Programlama:</strong> Bireysel adaptasyon</li>
+                            <li><strong>Virtual Reality:</strong> Teknik öğretim</li>
+                            <li><strong>Genetik Profiling:</strong> Potansiyel belirleme</li>
+                            <li><strong>Biomarker İzleme:</strong> Gerçek zamanlı analiz</li>
+                        </ul>
+                        
+                        <h5>Araştırma Alanları:</h5>
+                        <ul>
+                            <li>Uzun dönem sağlık etkiler</li>
+                            <li>Optimal başlama yaşı</li>
+                            <li>Cinsiyet-spesifik programlar</li>
+                            <li>Yaralanma önleme stratejileri</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h4>📋 Pratik Öneriler</h4>
+                    <div class="success-box">
+                        <h5>Antrenörler İçin:</h5>
+                        <ul>
+                            <li>Sürekli eğitim ve sertifikasyon</li>
+                            <li>Yaş-spesifik uzmanlaşma</li>
+                            <li>Güvenlik protokolleri öncelik</li>
+                            <li>Uzun dönem perspektif</li>
+                        </ul>
+                        
+                        <h5>Ebeveynler İçin:</h5>
+                        <ul>
+                            <li>Kalifiye antrenör seçimi</li>
+                            <li>Çocuğun gelişim takibi</li>
+                            <li>Beslenme ve uyku desteği</li>
+                            <li>Motivasyon ve destek</li>
+                        </ul>
+                    </div>
+                    
+                    <h4>🎯 Ana Sonuçlar</h4>
+                    <div class="formula-box">
+                        <ul>
+                            <li><strong>Güvenli ve Etkili:</strong> Doğru uygulandığında</li>
+                            <li><strong>Yaşa Özgü:</strong> Her dönemin kendine özgü yaklaşımı</li>
+                            <li><strong>Uzun Dönem:</strong> Yaşam boyu sağlık faydaları</li>
+                            <li><strong>Holistik:</strong> Fiziksel + zihinsel gelişim</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar" id="sidebar">
+        <!-- Sidebar content will be populated by JavaScript -->
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn">⬅ Önceki</button>
+        <button class="nav-btn" id="nextBtn">Sonraki ➡</button>
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCounter = document.getElementById('slideCounter');
+        const progressBar = document.getElementById('progressBar');
+        const notesBtn = document.getElementById('notesBtn');
+        const sidebar = document.getElementById('sidebar');
+        
+        let currentSlide = 0;
+
+        const slideNotes = [
+            {
+                title: "Çocuklarda Kuvvet Antrenmanının Bilimsel Temelleri ve Güvenlik Yaklaşımının Kapsamlı Analizi",
+                content: `
+                    <h4>💪 Çocuklarda Kuvvet Antrenmanı Biliminin Evrimsel Gelişimi ve Modern Paradigmalar</h4>
+                    <p>Çocuklarda kuvvet antrenmanı, spor bilimlerinin en karmaşık ve sürekli gelişen alanlarından biri olup, geçmişte güvenlik endişeleri nedeniyle tartışmalı olmasına rağmen, günümüzde kapsamlı bilimsel araştırmalar sayesinde güvenli ve etkili olduğu kanıtlanmış bir uygulama haline gelmiştir. National Strength and Conditioning Association (NSCA), American Academy of Pediatrics (AAP) ve American College of Sports Medicine (ACSM) gibi prestijli kuruluşlar, günümüzde çocuklarda kuvvet antrenmanının uygun süpervizyon ve yaşa uygun programlarla güvenli bir şekilde uygulanabileceğini ve çok sayıda sağlık faydasının elde edilebileceğini kabul etmektedir.</p>
+                    
+                    <p>NSCA'nın 2024 yılında güncellenen position statement'ına göre, çocuklar (yaklaşık 11 yaşına kadar kızlarda ve 13 yaşına kadar erkeklerde, Tanner evre 1 ve 2) ve adolesanlar (12-18 yaş kızlar, 14-18 yaş erkekler, Tanner evre 3 ve 4) için kuvvet antrenmanının birincil faydaları arasında kas gücünde artış, kemik mineral yoğunluğunda iyileşme, vücut kompozisyonunda olumlu değişiklikler, spor performansında artış, yaralanma riskinde azalma ve fiziksel okuryazarlık gelişimi yer almaktadır. American Academy of Pediatrics'in Kasım 2024'te yeniden onayladığı klinik rapor, dirençli antrenmanın çocuk ve adolesanlarda güç iyileştirmesinin olumlu sonuçlarının devam ettiğini kabul etmektedir.</p>
+                    
+                    <p>2024 yılında European Journal of Applied Physiology'de yayımlanan çığır açıcı araştırma, prepubertal ve pubertal erkek çocuklar arasındaki hormonal yanıt farklarını detaylı olarak incelemiş ve akut testosteron ile IGF-I yanıtlarının antrenman yapan prepubertal ve pubertal erkek çocuklar arasında anlamlı şekilde farklılık gösterdiğini bulmuştur. Bu araştırma, pubertal grubun daha büyük hormonal değişiklikler gösterdiğini ve orta şiddetli serbest ağırlık dirençli antrenmanın yorgunluğa kadar yapılmasının antrenman yapan prepubertal ve pubertal erkek çocuklarda farklı etkiler gösterebileceğini ortaya koymuştur.</p>
+                    
+                    <p>Çocuklarda kuvvet antrenmanının temel avantajlarından biri, yetişkinlerden farklı olarak nöral adaptasyonların morfolojik adaptasyonlardan daha dominant olmasıdır. Bu durum, çocukların kas kütlesinde minimum artış ile bile önemli kuvvet kazanımları elde edebilmelerine olanak tanımaktadır. 2023 yılında yayımlanan systematic review, prepubertal çocuklarda 8-12 hafta arasındaki kas gücü artışlarının temel olarak nöral adaptasyonlar tarafından üretildiğini, özellikle prepubertedeki yüksek nöral plastisite ve hızlı myelinizasyon değişiklikleri nedeniyle bu durumun gerçekleştiğini ortaya koymuştur.</p>
+                `
+            },
+            {
+                title: "Kuvvet Türleri ve Çocuklardaki Fizyolojik Adaptasyon Mekanizmaları",
+                content: `
+                    <h4>⚡ Maksimal Kuvvet, Çabuk Kuvvet ve Kuvvet Dayanıklılığının Gelişimsel Analizi</h4>
+                    <p>Çocuklarda kuvvet çeşitlerinin gelişimi, yetişkinlerden farklı paternler göstermekte ve her kuvvet türü kendine özgü adaptasyon mekanizmalarına sahip olmaktadır. Maksimal kuvvet, kas-sinir sisteminin ortaya koyabileceği en yüksek kuvvet düzeyini temsil etmekte olup, çocuklarda bu parametrenin gelişimi öncelikli olarak nöral faktörler tarafından belirlenmektedir. Tek tekrar maksimum (1RM) testleri çocuklarda güvenlik nedeniyle önerilmemekte, bunun yerine izometrik kuvvet testleri tercih edilmektedir. Bu yaklaşım hem güvenlik sağlamakta hem de çocukların gerçek kuvvet kapasitelerini değerlendirme imkanı vermektedir.</p>
+                    
+                    <p>Çabuk kuvvet veya güç, belirli bir süre içinde üretilen kuvvet miktarı olarak tanımlanmakta ve Güç = Kuvvet × Hız formülü ile hesaplanmaktadır. Çocuklarda bu parametrenin gelişimi oldukça promising olup, nöromüsküler koordinasyon ve motor ünit rekrutment kapasitesindeki iyileştirmeler sayesinde önemli kazanımlar elde edilebilmektedir. Dikey sıçrama ve sprint testleri, çocuklarda çabuk kuvvetin değerlendirilmesinde güvenli ve geçerli metodlar olarak kullanılmaktadır. Pliometrik antrenman protokolleri, çocuklarda çabuk kuvvet gelişiminde özellikle etkili olmaktadır.</p>
+                    
+                    <p>Kuvvet dayanıklılığı, kasların uzun süre boyunca kasılmayı sürdürebilme yeteneği olup, çocuklarda doğal olarak yetişkinlerden daha iyi seviyededir. Bu durum, çocukların kas liflerinin tip I (yavaş kasılan) lifler açısından zengin olması, laktik asit üretim kapasitelerinin düşük olması ve nöromüsküler yorgunluğa karşı dirençlerinin yüksek olması ile açıklanmaktadır. İzometrik (statik), izotonik (dinamik sabit direnç) ve izokinetik (sabit hız) kuvvet dayanıklılığı türleri, çocuklarda farklı antrenman modaliteleri ile geliştirilebilmektedir.</p>
+                    
+                    <p>Çocuklarda kuvvet türlerinin spesifik gelişimi, matürasyon düzeyi ile yakından ilişkili olmaktadır. Prepubertal dönemde nöral adaptasyonların dominantlığı nedeniyle maksimal kuvvet gelişimi sınırlı iken, koordinasyon ve teknik beceri gerektiren çabuk kuvvet parametrelerinde kayda değer iyileştirmeler gözlenmektedir. Pubertal dönemde hormonal değişikliklerin etkisiyle maksimal kuvvet kapasitesinde dramatik artışlar gerçekleşirken, post-pubertal dönemde yetişkin benzeri adaptasyon paternleri ortaya çıkmaktadır.</p>
+                `
+            },
+            {
+                title: "Maturasyonal Gelişim Sürecinin Kuvvet Adaptasyonları Üzerindeki Etkilerinin Detaylı İncelemesi",
+                content: `
+                    <h4>🧬 PHV, Hormonal Değişiklikler ve Nöromüsküler Gelişimin Entegratif Analizi</h4>
+                    <p>Çocuklarda kuvvet gelişimini etkileyen maturasyonal faktörler, karmaşık ve çok boyutlu bir sistem oluşturmaktadır. Peak Height Velocity (PHV), boyca büyümenin en hızlı olduğu dönem olup, anaerobik performans gelişimi için kritik bir pencere dönemini temsil etmektedir. Bu dönem sırasında kas kütlesi ve kemik mineral yoğunluğunda dramatik artışlar gözlenmekte, kas-iskelet sistemi orantısında önemli değişiklikler meydana gelmektedir. PHV döneminde kuvvet artışlarının %40-60 oranında olması, bu dönemin kuvvet antrenmanı açısından ne kadar kritik olduğunu göstermektedir.</p>
+                    
+                    <p>Hormonal değişiklikler, özellikle büyüme hormonu (GH), insulin-like growth factor-1 (IGF-1) ve testosterondaki artışlar, kas protein sentezini uyararak kas hipertrofisine katkıda bulunmaktadır. 2024 araştırmasına göre, prepubertal çocuklarda antrenman sonrası testosteron değerleri %124 artarken, pubertal çocuklarda bu artış %32 olarak bulunmuştur. Bu paradoksal durum, prepubertal çocukların düşük başlangıç seviyelerinden kaynaklanmakta ve relatif artışın daha büyük görünmesine neden olmaktadır. IGF-1 düzeylerindeki 2-3 kat artış, kas büyümesi ve kemik gelişimi için kritik önem taşımaktadır.</p>
+                    
+                    <p>Nöromüsküler sistem gelişimi, kuvvet antrenmanının etkinliğini belirleyen temel faktörlerden biridir. Motor ünit rekrutment kapasitesi, ateşleme frekansı optimizasyonu, motor ünit senkronizasyonu ve kas arası koordinasyon gibi nöral adaptasyonlar, özellikle prepubertal dönemde dominant adaptasyon mekanizmaları olmaktadır. Miyelin kılıf gelişimi, sinir iletim hızında artış ve nöromusküler eklemlerdeki olgunlaşma, çocukların kuvvet antrenmanına yanıt verme kapasitelerini önemli ölçüde etkilemektedir.</p>
+                    
+                    <p>Yaş özgü özellikler açısından, 8-12 yaş aralığında nöral plastisitenin yüksek olması, bu dönemde motor öğrenme ve koordinasyon gelişimi için optimal koşulları sağlamaktadır. Hızlı miyelin gelişimi, sinir iletim hızında iyileştirmeler yaratırken, motor beceri öğrenme kapasitesinin yüksek olması, çocukların kuvvet antrenmanında teknik becerileri hızla kazanabilmelerini mümkün kılmaktadır. Bu dönemde yapılan kuvvet antrenmanının uzun dönem adaptasyonlar açısından temel oluşturduğu bilinmektedir.</p>
+                `
+            },
+            {
+                title: "Nöral ve Morfolojik Adaptasyonların Zaman İçindeki Gelişimi ve Çocuk-Spesifik Özellikler",
+                content: `
+                    <h4>🧠 Çocuklarda Motor Ünit Adaptasyonları ve Miyelin Gelişiminin Kuvvet Performansına Etkisi</h4>
+                    <p>Çocuklarda kuvvet antrenmanının yarattığı adaptasyonlar, temporal açıdan nöral ve morfolojik olmak üzere iki ana kategoride incelenmekte ve bu adaptasyonların gelişim süreci yetişkinlerden belirgin farklılıklar göstermektedir. 2023 yılında yayımlanan systematic review, prepubertal çocuklarda ilk 8-12 hafta boyunca kas gücü artışlarının temel olarak nöral adaptasyonlar tarafından üretildiğini, bu durumun prepubertedeki yüksek nöral plastisite ve hızlı miyelin değişiklikleri ile açıklandığını ortaya koymuştur. Bu bulgular, çocuklarda kuvvet antrenmanının morfolojik değişiklikler gerektirmeden de etkili olabileceğini göstermektedir.</p>
+                    
+                    <p>Motor ünit rekrutment adaptasyonları, çocuklarda kuvvet artışının birincil mekanizmasını oluşturmaktadır. 2024 araştırmaları, kronik eksantrik kasılma antrenmanının rekrutment ve derekrutment eşiklerini önemli ölçüde azalttığını göstermektedir. İlk kazanımlar tipik olarak 4 haftalık dirençli antrenman sonrasında belirginleşmekte ve öncelikli olarak nöral modifikasyonlara atfedilmektedir. Bu adaptasyonlar, motor ünit adaptasyonlarının bağımsız olarak veya morfolojik değişikliklerle birlikte gerçekleşebileceğini göstermektedir.</p>
+                    
+                    <p>Ateşleme frekansı optimizasyonu, çocuklarda kuvvet gelişiminin bir diğer kritik bileşenini temsil etmektedir. 2023 systematic review, motor ünit deşarj hızında anlamlı artışlar, motor ünitlerin rekrutment-eşik kuvvetinde azalmalar ve motor nöronların benzer input-output kazanımı gibi spesifik adaptasyonları tanımlamıştır. Bu adaptasyonlar, çocukların mevcut kas kütlelerini daha etkin kullanabilmelerini sağlayarak, minimum morfolojik değişiklikle maksimum performans kazanımı elde etmelerini mümkün kılmaktadır.</p>
+                    
+                    <p>Motor ünit senkronizasyonu ve kas arası koordinasyon gelişimi, çocuklarda hareket kalitesi ve güvenlik açısından kritik öneme sahiptir. Çocuklarda nöral adaptasyonların zaman içinde dirençli antrenman yanıtı olarak devam edebileceği, ancak kas gücü artışına major katkılarının antrenmanın ilk 2-4 haftası içinde gerçekleştiği bilinmektedir. Bu durum, çocuklar için antrenman programlarının tasarımında nöral adaptasyon pencerelerinin optimize edilmesinin önemini vurgulamaktadır. Morfolojik adaptasyonlar ise genellikle 8. haftadan sonra başlamakta ve uzun dönem kuvvet gelişimi için gerekli altyapıyı sağlamaktadır.</p>
+                `
+            },
+            {
+                title: "Hormonal Gelişim Sürecinin Kuvvet Antrenmanı Yanıtları Üzerindeki Moleküler Etkileri",
+                content: `
+                    <h4>🧪 2024 Araştırmalarında Testosteron, GH ve IGF-1'in Yaşa Özgü Yanıt Paternleri</h4>
+                    <p>Çocuklarda hormonal gelişim ve kuvvet antrenmanı arasındaki ilişki, 2024 yılında yayımlanan çığır açıcı araştırmalarla yeni bir boyut kazanmıştır. European Journal of Applied Physiology'de yayımlanan çalışma, prepubertal (11.4±1.1 yaş) ve pubertal (15.8±0.7 yaş) erkek çocuklarda orta şiddetli serbest ağırlık dirençli antrenmanın hormonal yanıtlarını karşılaştırmış ve pubertal grubun akut testosteron ve IGF-I yanıtlarının anlamlı şekilde farklı olduğunu bulmuştur. Bu araştırma, antrenman öncesi, hemen sonrası ve 24 saat sonrası olmak üzere büyüme hormonu, IGF-I, kortizol, testosteron, IL-6 ve TNF-α seviyelerini ölçmüştür.</p>
+                    
+                    <p>Testosteron yanıtı açısından prepubertal ve pubertal dönem arasındaki farklılıklar dramatik boyutlardadır. 2022 meta-analizine göre, egzersiz antrenmanının testosteron seviyeleri üzerindeki genel etkisi anlamlı bulunmamış, ancak alt grup analizleri dirençli antrenmanın testosteron seviyelerini anlamlı şekilde artırdığını (MD = 3.42 nmol/L) ortaya koymuştur. Prepubertal erkek çocuklarda antrenman sonrası testosteron değerleri %124 artarken, pubertal erkek çocuklarda %32 artış gözlenmiştir. Bu paradoksal görünüm, prepubertal çocukların çok düşük başlangıç testosteron seviyelerinden kaynaklanmaktadır.</p>
+                    
+                    <p>Büyüme hormonu (GH) yanıtı, hem prepubertal hem de pubertal gruplarda anlamlı artışlar göstermiştir. Ancak egzersiz antrenmanının GH üzerindeki etkisi küçük ve anlamlı olmayan değişiklikler (MD = 0.48 ng/mL, p = 0.06) göstermiştir. GH'nin antrenman yanıtı matürasyondan etkilenebilmekte ve adolesanlarda belirgin olsa da çocuklarda görülmemektedir. IGF-I seviyeleri açısından da benzer bir pattern gözlenmekte, egzersiz antrenmanının IGF-I üzerinde küçük ve anlamlı olmayan değişiklikler (MD = -22.90 ng/mL, p = 0.07) yaratmaktadır.</p>
+                    
+                    <p>Kortizol yanıtı, stres adaptasyonu ve toparlanma süreçleri açısından kritik önem taşımaktadır. Çocuklarda kortizol yanıtının yaş ve matürasyon durumuna göre değişiklik gösterdiği, aşırı antrenman ve toparlanma yetersizliğinin erken belirtilerinin kortizol seviyelerindeki değişikliklerle izlenebileceği bilinmektedir. Bu hormonal parametrelerin birlikte değerlendirilmesi, çocuklarda kuvvet antrenmanının fizyolojik etkilerinin tam olarak anlaşılabilmesi ve optimal antrenman protokollerinin geliştirilmesi açısından fundamental önem taşımaktadır.</p>
+                `
+            },
+            {
+                title: "Çocuklarda Kuvvet Antrenmanı Güvenlik Protokolleri ve Evidence-Based Risk Yönetimi",
+                content: `
+                    <h4>🛡️ NSCA, ACSM ve AAP 2024 Güncellemelerine Dayalı Kapsamlı Güvenlik Sistemi</h4>
+                    <p>Çocuklarda kuvvet antrenmanı güvenliği, uluslararası spor organizasyonlarının kapsamlı position statement'larıyla desteklenen, evidence-based protokollerle yönetilmesi gereken kritik bir konudur. National Strength and Conditioning Association (NSCA)'nın güncel position statement'ı, çocukların 6 yaşından itibaren uygun süpervizyon altında güvenle kuvvet antrenmanı yapabileceklerini belirtmektedir. Bu görüş, American Academy of Pediatrics'in Kasım 2024'te yeniden onayladığı klinik raporla da desteklenmekte, dirençli antrenmanın çocuk ve adolesanlarda pozitif sağlık çıktıları, fitness iyileştirmesi, yaralanma rehabilitasyonu, yaralanma azaltma ve fiziksel okuryazarlık geliştirme açısından faydalı olduğu vurgulanmaktadır.</p>
+                    
+                    <p>Kalifiye süpervizyon gereksinimi, çocuk kuvvet antrenmanının en kritik güvenlik faktörüdür. NSCA standartlarına göre, çocuklarla çalışan antrenörler pediatrik egzersiz bilimi, spor tıbbı ve dirençli antrenman konularında klinik, pratik ve araştırma deneyimine sahip olmalıdır. American College of Sports Medicine'in önerileri, çocukların günlük 60 dakikalık fiziksel aktivitenin parçası olarak haftada en az üç gün kas güçlendirici aktivite yapmaları gerektiğini belirtmektedir. Bu aktiviteler aynı zamanda haftada en az üç gün kemik güçlendirici özellikte olmalıdır.</p>
+                    
+                    <p>Yaş-spesifik progresyon protokolleri, çocuklarda kuvvet antrenmanı güvenliğinin temelini oluşturmaktadır. Prepubertal çocuklar için %60-80 1RM yoğunluk üst sınırı önerilerken, 1RM testleri hiçbir yaş grubunda önerilmemektedir. Bunun yerine izometrik kuvvet testleri ve çoklu-tekrar maksimum (3RM, 5RM) testleri güvenli alternatifler olarak kullanılmaktadır. Teknik eğitim süreci minimum 4-6 hafta olarak planlanmalı ve çocukların doğru hareket patternlerini öğrenmesi sağlanmalıdır.</p>
+                    
+                    <p>Risk faktörleri ve önleme stratejileri sistematik olarak ele alınmalıdır. Yetersiz süpervizyon, yaşa uygun olmayan ağırlıklar, yetersiz ısınma protokolleri ve uygun olmayan 1RM testleri birincil risk faktörleridir. Güvenlik önlemleri arasında düzenli sağlık kontrolleri, matürasyon durumu değerlendirmesi, temel hareket becerileri analizi ve uygun ekipman seçimi yer almaktadır. Set arası dinlenme süreleri 2-3 dakika olarak uygulanmalı, haftalık progresyon %2.5-5 ile sınırlandırılmalı ve çocukların bireysel adaptasyon hızları dikkate alınmalıdır.</p>
+                `
+            },
+            {
+                title: "Yaş-Spesifik Antrenman Protokolleri ve Gelişimsel Dönemlere Özgü Program Tasarımı",
+                content: `
+                    <h4>🎯 Prepubertal, Pubertal ve Post-pubertal Dönemler için Optimized Antrenman Sistematiği</h4>
+                    <p>Çocuklarda yaş-spesifik antrenman protokolleri, her gelişim döneminin kendine özgü fizyolojik kapasiteleri ve sınırlamaları temelinde tasarlanmalıdır. Prepubertal dönem (6-11 yaş) için temel hareket becerilerinin kazanılması, nöromüsküler koordinasyonun geliştirilmesi ve kuvvet antrenmanına pozitif tutum oluşturulması öncelikli hedeflerdir. Bu dönemde vücut ağırlığı egzersizleri ve hafif external yüklerle çalışma tercih edilmelidir. Program parametreleri olarak 8-15 tekrar aralığında, 1-2 set ile başlayarak, haftada 2-3 seans uygulanması optimal sonuçlar vermektedir.</p>
+                    
+                    <p>Pubertal dönem (12-16 yaş) antrenman protokolleri, hormonal değişikliklerin avantajından faydalanarak kuvvet ve güç gelişimine odaklanmalıdır. Bu dönemde %60-80 1RM yoğunluk aralığında çalışılabilir, 6-12 tekrar aralığında 2-4 set uygulanabilir ve haftada 3-4 seans yapılabilir. Goblet squats, dumbbell press, hafif deadlifts ve yardımlı pull-up gibi compound movementlar tercih edilmelidir. Pliometrik egzersizlerin entegrasyonu bu dönemde güvenli ve etkili olmaktadır.</p>
+                    
+                    <p>Post-pubertal dönem (17+ yaş) protokolleri, yetişkin benzeri adaptasyon kapasitelerine sahip bireyler için tasarlanmaktadır. Maksimal kuvvet gelişimi bu dönemde primer hedef haline gelebilir, %70-90 1RM yoğunluk aralığında, 1-8 tekrar ile 3-6 set uygulanabilir. Haftada 4-6 seans yapılabilir ve back squat, bench press, deadlift gibi temel compound movementlar ile olympic lift teknikleri güvenli şekilde öğretilip uygulanabilir.</p>
+                    
+                    <p>Egzersiz seçimi prensipleri, her yaş grubunda compound movementlara öncelik verilmesi, bilateral ve unilateral egzersizlerin dengelenmesi, fonksiyonel hareket patternlerinin esas alınması ve çocukların ilgi ve motivasyonlarını yüksek tutacak çeşitliliğin sağlanması üzerine kurgulanmalıdır. Progresyon stratejileri, öncelikle tekrar sayısının artırılması, ikinci aşamada set sayısının artırılması ve son olarak external yükün artırılması şeklinde planlanmalıdır. Her çocuğun bireysel gelişim hızı farklı olacağından, standart protokollerin flexible uygulanması gerekmektedir.</p>
+                `
+            },
+            {
+                title: "Egzersiz Progresyonları ve Bireyselleştirilmiş Yük Yönetimi Sistemleri",
+                content: `
+                    <h4>📊 2+2 Kuralı, RPE Sistemi ve Teknik Odaklı Progresyon Metodolojileri</h4>
+                    <p>Çocuklarda egzersiz progresyonu, yetişkinlerden farklı parametreler ve güvenlik merkezli yaklaşımlar gerektirmektedir. Progresyon prensipleri, çocukların gelişimsel özelliklerini, bireysel farklılıklarını ve güvenlik gereksinimlerini dikkate alacak şekilde tasarlanmalıdır. Aşamalı ilerleme protokolü dört temel aşamadan oluşmaktadır: teknik öğrenme aşamasında ağırlık kullanılmadan hareket patternlerinin öğrenilmesi, hafif yük aşamasında %40-60 1RM ile tekniğin pekiştirilmesi, orta yük aşamasında %60-80 1RM ile kuvvet gelişiminin sağlanması ve ileri seviye aşamasında %80+ 1RM ile maksimal adaptasyonların elde edilmesi (sadece post-pubertal dönemde).</p>
+                    
+                    <p>Progresyon parametrelerinin hiyerarşik sıralaması, öncelikle tekrar sayısının artırılması, ikinci adımda set sayısının artırılması ve son olarak external yükün artırılması şeklinde planlanmalıdır. Bu yaklaşım, çocukların nöromüsküler adaptasyon kapasitelerinin optimize edilmesini sağlarken, yaralanma riskini minimum seviyede tutmaktadır. Haftalık progresyon oranı %2.5-5 ile sınırlandırılmalı ve çocukların bireysel yanıt paternleri sürekli izlenmelidir.</p>
+                    
+                    <p>2+2 kuralı, çocuklarda güvenli progresyon için pratik bir yaklaşım sunmaktadır. Bu kural, çocuğun 2 set boyunca hedeflenen tekrar sayısından 2 veya daha fazla tekrar yapabildiği durumda yükün artırılabileceğini öngörmektedir. Teknik öncelik prensibi, hareket kalitesinde herhangi bir bozulma gözlendiğinde progreyona ara verilmesi gerektiğini belirtmektedir. Bu yaklaşım, çocukların güvenliğini korurken optimal adaptasyon sağlamaya odaklanmaktadır.</p>
+                    
+                    <p>Bireysel hız yaklaşımı, her çocuğun gelişim sürecinin unique olduğunu kabul etmekte ve standart progresyon tablolarından ziyade bireysel yanıtlara dayalı progresyon stratejilerini benimse mektedir. RPE (Rating of Perceived Exertion) sistemi, çocukların subjektif zorlanma algılarını 1-10 skalasında değerlendirmelerine olanak tanımakta ve güvenli yoğunluk kontrolü sağlamaktadır. Dinlenme günlerinin zorunlu olması, çocukların toparlanma kapasitelerinin yetişkinlerden farklı olduğunu ve sürekli monitoring gerektirdiğini vurgulamaktadır.</p>
+                `
+            },
+            {
+                title: "Periodizasyon Modelleri ve Uzun Dönem Sporcu Gelişimi (LTAD) Sistematiği",
+                content: `
+                    <h4>🔄 Çocuklarda LTAD Modeli ve Gelişimsel Dönemlere Özgü Periodizasyon Stratejileri</h4>
+                    <p>Long-Term Athlete Development (LTAD) modeli, çocukların atletik gelişimini yaşam boyu perspektifle ele alan ve her gelişim döneminin kendine özgü ihtiyaçlarını karşılayan kapsamlı bir sistemdir. Bu modelde çok yönlü gelişim dönemi (6-10 yaş) temel hareket becerilerinin kazanılması, çeşitli spor dallarının deneyimlenmesi ve fiziksel aktiviteye yönelik pozitif tutum geliştirilmesi üzerine kuruludur. Bu dönemde kuvvet antrenmanı, oyun temelli aktiviteler ve temel hareket patternleri öğretimine entegre edilmelidir.</p>
+                    
+                    <p>Özel biçimlendirme dönemi (11-14 yaş), kuvvet antrenmanının sistematik olarak tanıtıldığı ve temel kuvvet kapasitelerinin geliştirildiği kritik bir aşamadır. Bu dönemde hormonal değişikliklerin başlaması ile birlikte kuvvet ve güç gelişimi için optimal koşullar oluşmaktadır. Antrenman programları, teknik mükemmellik arayışı ile birlikte kademeli yük artışını içermelidir. Spor-spesifik becerilerin geliştirilmeye başlandığı bu dönemde, genel kuvvet antrenmanının özel kuvvet ihtiyaçlarıyla entegrasyonu sağlanmalıdır.</p>
+                    
+                    <p>Özelleşme dönemi (15-18 yaş) ve yüksek verim dönemi (19+ yaş), spor dalına özgü kuvvet kapasitelerinin maksimize edildiği aşamalardır. Bu dönemlerde periodizasyon stratejileri, yarışma takvimi, antrenman yükleri ve toparlanma periyotları açısından yetişkin protokollerine yaklaşmaktadır. Ancak çocukluktan gelen temel hareket becerilerinin ve geniş motor repertuvarın korunması, uzun dönem başarı için kritik olmaktadır.</p>
+                    
+                    <p>Yaşa özgü adaptasyon stratejileri, her gelişim döneminin dominant adaptasyon mekanizmalarını dikkate almalıdır. Prepubertal dönemde motor beceri odaklı yaklaşımlar, nöromüsküler koordinasyon gelişimi ve hareket kalitesi önceliği benimsenmelidir. Pubertal dönemde kuvvet-güç entegrasyonu, hormonal avantajlardan faydalanma ve spor-spesifik adaptasyonlar ön plana çıkmalıdır. Post-pubertal dönemde performans odaklı yaklaşımlar, maksimal adaptasyonların elde edilmesi ve yarışma hazırlığı temel hedefler haline gelmelidir.</p>
+                `
+            },
+            {
+                title: "Toparlanma Fizyolojisi ve Çocuklarda Optimize Edilmiş Beslenme Stratejileri",
+                content: `
+                    <h4>😴 Büyüme Hormonu Salınımı, Uyku Fizyolojisi ve Kuvvet Adaptasyonları İlişkisi</h4>
+                    <p>Çocuklarda kuvvet antrenmanının başarısı, antrenman uygulaması kadar toparlanma stratejilerinin kalitesi ile de yakından ilişkilidir. Uyku, çocukların toparlanma sürecinin en kritik bileşenini oluşturmakta ve büyüme hormonunun %70'inin derin uyku fazında salınması nedeniyle kas protein sentezi ve doku onarımı için vazgeçilmez bir faktör olmaktadır. Yaşa göre optimal uyku süreleri 6-10 yaş için 10-11 saat, 11-14 yaş için 9-10 saat ve 15-18 yaş için 8-9 saat olarak belirlenmiştir. Uyku kalitesindeki bozulma, toparlanma sürecini %30-50 uzatabilmektedir.</p>
+                    
+                    <p>Aktif toparlanma stratejileri, çocukların fizyolojik ve psikolojik toparlanmalarını destekleyici aktiviteleri içermektedir. Hafif aerobik aktiviteler kan dolaşımını artırarak metabolik atık ürünlerinin uzaklaştırılmasını sağlarken, dinamik germe egzersizleri kas-eklem mobilitesini korumaktadır. Yoga ve nefes egzersizleri, çocukların stres yönetimi becerilerini geliştirirken parasempatik sinir sistemi aktivasyonunu desteklemektedir. Oyun temelli aktiviteler, çocukların motivasyonunu korurken aktif toparlanmanın faydalarını sağlamaktadır.</p>
+                    
+                    <p>Beslenme stratejileri, çocukların büyüme ve gelişim ihtiyaçları ile kuvvet antrenmanının metabolik taleplerini karşılayacak şekilde tasarlanmalıdır. Antrenman öncesi beslenme, 1-2 saat öncesinden karmaşık karbonhidratlar ve az miktarda protein alımını içermelidir. Sindirimi kolay gıdalar tercih edilmeli ve yeterli hidrasyon sağlanmalıdır. Bu yaklaşım, antrenman sırasında optimal enerji mevcudiyetini garanti ederken mide rahatsızlığı riskini minimize etmektedir.</p>
+                    
+                    <p>Antrenman sonrası beslenme, kas protein sentezi ve glikojen yeniden sentezi açısından kritik öneme sahiptir. Antrenman bitiminden itibaren 30 dakika içinde karbonhidrat-protein oranının 3:1 olacak şekilde tüketilmesi, optimal toparlanma için gereklidir. Hızlı emilim karbonhidratları glikojen depolarını hızla restore ederken, kaliteli protein kaynakları amino asit mevcudiyetini sağlamaktadır. Elektrolit replasmanı, özellikle yoğun antrenman seansları ve sıcak hava koşullarında ter kaybının telafi edilmesi için gereklidir.</p>
+                `
+            },
+            {
+                title: "Teknoloji Destekli İzleme ve Çocuk-Spesifik Performans Değerlendirme Sistemleri",
+                content: `
+                    <h4>📱 Velocity-Based Training, Wearable Technology ve AI Destekli Çocuk Performans Analizi</h4>
+                    <p>Çocuklarda kuvvet antrenmanının modern yaklaşımları, teknoloji destekli izleme ve değerlendirme sistemlerini içermektedir. Velocity-Based Training (VBT), bar hızı ölçümü yoluyla çocukların gerçek zamanlı performanslarını objektif olarak değerlendirme imkanı sunmaktadır. Bu yaklaşım, geleneksel yüzde-temelli programlamadan ziyade, çocukların günlük performans durumlarına göre antrenman yoğunluğunun ayarlanmasına olanak tanımaktadır. VBT sistemleri, çocuklarda güvenlik açısından kritik olan yorgunluk seviyelerinin erken tespitini mümkün kılmaktadır.</p>
+                    
+                    <p>Jump plates ve kuvvet platformları, çocukların güç üretim kapasitelerini hassas şekilde ölçerek, antrenman adaptasyonlarının objektif takibini sağlamaktadır. Bu teknolojiler, dikey sıçrama yüksekliği, güç çıkışı, sıçrama estratejileri ve landing mekaniklerinin detaylı analizini mümkün kılmaktadır. Çocukların motivasyonunu artıran gamification öğeleri ile birleştirildiğinde, hem performans izleme hem de engagement açısından üstün sonuçlar vermektedir.</p>
+                    
+                    <p>Mobile aplikasyonlar ve wearable teknolojiler, çocuk kuvvet antrenmanında praktik çözümler sunmaktadır. MyLift uygulaması velocity-based training implementasyonu için kullanılırken, Coach's Eye video analizi ile teknik gelişimin detaylı incelenmesini sağlamaktadır. Kalp hızı monitörleri, çocukların antrenman sırasındaki fizyolojik yanıtlarını gerçek zamanlı izleme ve aşırı yüklenme risklerini minimize etme imkanı vermektedir. Bu teknolojiler, çocuk-dostu tasarımları ve basit kullanım arayüzleri ile etkili monitoring sağlamaktadır.</p>
+                    
+                    <p>Objektif ve subjektif değerlendirme parametrelerinin entegrasyonu, çocukların holistik performans profillerinin oluşturulmasını sağlamaktadır. İzometrik kuvvet testleri, sıçrama performansı, tekrar kapasitesi ve koordinasyon değerlendirmeleri objektif metrikler olarak kullanılırken, RPE skalaları, motivasyon seviyeleri ve eğlence faktörü gibi subjektif parametreler çocukların psikolojik durumlarını yansıtmaktadır. Yaş uygun araçların seçimi, basit metriklerin kullanımı ve gelişim görselleştirme sistemleri, çocukların teknolojiyle pozitif etkileşim kurmalarını sağlamaktadır.</p>
+                `
+            },
+            {
+                title: "Gelecek Teknolojileri ve Çocuk Kuvvet Antrenmanının Evolüsyonel Perspektifi",
+                content: `
+                    <h4>🚀 AI, VR, Genetik Profiling ve Personalized Medicine'nin Çocuk Antrenmanına Entegrasyonu</h4>
+                    <p>Çocuk kuvvet antrenmanının geleceği, yapay zeka destekli programlama sistemleri, virtual reality teknolojileri, genetik profiling ve personalized medicine yaklaşımları ile şekillenmektedir. AI destekli programlama sistemleri, çocukların bireysel yanıt paternlerini analiz ederek optimal antrenman protokollerini gerçek zamanlı olarak adjust edebilme kapasitesine sahip olmaktadır. Bu sistemler, büyük veri setleri üzerinden machine learning algoritmaları kullanarak, her çocuğun unique fizyolojik ve psikolojik profiline uygun antrenman programları geliştirebilmektedir.</p>
+                    
+                    <p>Virtual reality teknolojileri, çocuk kuvvet antrenmanında teknik öğretim ve motivasyon açısından devrimsel değişiklikler yaratma potansiyeline sahiptir. VR sistemleri, çocukların karmaşık hareket patternlerini immersive ortamlarda öğrenmelerine, real-time feedback almalarına ve gamification öğeleri ile motivasyonlarını yüksek tutmalarına olanak tanımaktadır. Bu teknolojiler, özellikle teknik eğitim aşamasında güvenli öğrenme ortamları yaratarak, çocukların hareket kalitelerini optimize etmelerine katkıda bulunmaktadır.</p>
+                    
+                    <p>Genetik profiling, çocukların atletik potansiyellerinin belirlenmesi ve antrenman adaptasyonlarının optimize edilmesi açısından gelecek vaat etmektedir. ACTN3 (speed gene), ACE gen varyantları ve diğer performans-ilişkili genetik markerların analizi, çocukların hangi kuvvet modalitelerine daha iyi yanıt verebileceğinin tahmin edilmesini sağlayabilmektedir. Bu bilgiler, antrenman programlarının bireyselleştirilmesi ve uzun dönem atletik gelişim stratejilerinin optimize edilmesi için kullanılabilmektedir.</p>
+                    
+                    <p>Araştırma yönelimleri arasında uzun dönem sağlık etkilerinin belirlenmesi, optimal başlama yaşının tespiti, cinsiyet-spesifik programların geliştirilmesi ve yaralanma önleme stratejilerinin optimize edilmesi yer almaktadır. Praktik öneriler açısından, antrenörlerin sürekli eğitim ve sertifikasyon süreçlerine katılmaları, yaş-spesifik uzmanlaşma geliştirmeleri ve güvenlik protokollerini öncelik olarak benimsemeleri gerekmektedir. Ebeveynler için kalifiye antrenör seçimi, çocuğun gelişim takibi, beslenme ve uyku desteği sağlama kritik faktörlerdir. Sonuç olarak, çocuk kuvvet antrenmanı doğru uygulandığında güvenli ve etkili, yaşa özgü yaklaşımlar gerektiren, uzun dönem yaşam kalitesi faydaları sağlayan ve holistik gelişimi destekleyen bir uygulama alanıdır.</p>
+                `
+            }
+        ];
+
+        function updateSlide() {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[currentSlide].classList.add('active');
+            slideCounter.textContent = `${currentSlide + 1} / ${slides.length}`;
+            progressBar.style.width = `${((currentSlide + 1) / slides.length) * 100}%`;
+            
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === slides.length - 1;
+            
+            // Update sidebar content
+            if (slideNotes[currentSlide]) {
+                sidebar.innerHTML = `
+                    <h3>${slideNotes[currentSlide].title}</h3>
+                    ${slideNotes[currentSlide].content}
+                `;
+            }
+        }
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                updateSlide();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlide();
+            }
+        }
+
+        function toggleNotes() {
+            sidebar.classList.toggle('active');
+            notesBtn.textContent = sidebar.classList.contains('active') ? '❌ Notları Kapat' : '📝 Detaylı Notlar';
+        }
+
+        // Event listeners
+        nextBtn.addEventListener('click', nextSlide);
+        prevBtn.addEventListener('click', prevSlide);
+        notesBtn.addEventListener('click', toggleNotes);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                prevSlide();
+            } else if (e.key === 'Escape') {
+                if (sidebar.classList.contains('active')) {
+                    toggleNotes();
+                }
+            }
+        });
+
+        // Initialize
+        updateSlide();
+    </script>
+</body>
+</html>

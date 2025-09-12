@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Çocuklarda Koordinasyon ve Motor Beceri Gelişimi - Pediatrik Motor Öğrenme</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ff9a56 0%, #ffd89b 100%);
+            color: white;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .sidebar {
+            width: 400px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            overflow-y: auto;
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            display: none;
+        }
+
+        .sidebar.active {
+            display: block;
+        }
+
+        .sidebar h3 {
+            color: #ffeb3b;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        .sidebar h4 {
+            color: #81d4fa;
+            margin-bottom: 10px;
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+
+        .sidebar p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+            font-size: 0.95em;
+            text-align: justify;
+        }
+
+        .slide {
+            display: none;
+            width: 90%;
+            max-width: 1000px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 60px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            animation: slideIn 0.6s ease-out;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            background: linear-gradient(45deg, #fff, #e0e0e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h2 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            color: #ffeb3b;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .slide-content {
+            font-size: 1.4em;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .highlight {
+            color: #4fc3f7;
+            font-weight: bold;
+        }
+
+        .emphasis {
+            color: #ffeb3b;
+            font-weight: bold;
+        }
+
+        .warning {
+            color: #ff6b6b;
+            font-weight: bold;
+        }
+
+        ul {
+            text-align: left;
+            font-size: 1.2em;
+            line-height: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        li {
+            margin-bottom: 10px;
+            list-style-type: none;
+            position: relative;
+            padding-left: 30px;
+        }
+
+        li::before {
+            content: "⚽";
+            position: absolute;
+            left: 0;
+            font-size: 1.2em;
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 100;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .slide-number {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 18px;
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+
+        .sidebar-toggle {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            font-size: 20px;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .sidebar-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        .motor-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+
+        .development-stage {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px 0;
+            text-align: left;
+        }
+
+        .skill-category {
+            background: rgba(76, 175, 80, 0.2);
+            border-left: 4px solid #4CAF50;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+
+        .age-milestone {
+            background: rgba(33, 150, 243, 0.2);
+            border-left: 4px solid #2196F3;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar-toggle" onclick="toggleSidebar()">📚</div>
+    <div class="slide-number">
+        <span id="currentSlide">1</span> / <span id="totalSlides">22</span>
+    </div>
+
+    <div class="main-content">
+        <div class="slide active">
+            <div class="motor-icon">⚽🏃‍♂️</div>
+            <h1>Çocuklarda Koordinasyon ve Motor Beceri Gelişimi</h1>
+            <div class="slide-content">
+                <p class="highlight">Pediatrik Motor Öğrenme Bilimi</p>
+                <p>Temel Hareket Becerileri ve Fonksiyonel Gelişim</p>
+                <p class="emphasis">2024 Meta-Analizleri ile Kapsamlı İnceleme</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🧠 Motor Gelişimin Nörolojik Temelleri</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Beyin gelişimi:</span> Karmaşık motor müdahaleler beyin büyümesini destekler</li>
+                    <li><span class="highlight">Kritik dönem:</span> Beyin yapılarının pik büyüme zamanı</li>
+                    <li><span class="highlight">Miyelinasyon:</span> Motor yolların olgunlaşması</li>
+                    <li><span class="highlight">Sinaptik budanma:</span> Etkisiz bağlantıların eliminasyonu</li>
+                    <li><span class="emphasis">Erken yaş nöral plastisitesi maksimum</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🏗️ Temel Hareket Becerileri (FMS) Sınıflandırması</h2>
+            <div class="slide-content">
+                <div class="skill-category">
+                    <h3>Stabilite Becerileri</h3>
+                    <ul>
+                        <li><span class="highlight">Statik denge:</span> Tek ayak durma</li>
+                        <li><span class="highlight">Dinamik denge:</span> Hareket halinde denge</li>
+                        <li><span class="highlight">Rotasyon:</span> Vücut ekseni etrafında dönme</li>
+                    </ul>
+                    
+                    <h3>Lokomotor Beceriler</h3>
+                    <ul>
+                        <li><span class="highlight">Yürüme-Koşma:</span> Doğrusal hareket</li>
+                        <li><span class="highlight">Sıçrama-Zıplama:</span> Dikey/horizontal güç</li>
+                        <li><span class="highlight">Sürükleme:</span> Vücut taşıma becerileri</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🎯 Manipülatif Beceriler</h2>
+            <div class="slide-content">
+                <div class="skill-category">
+                    <ul>
+                        <li><span class="highlight">Atma becerileri:</span> Overhand, underhand, sidearm</li>
+                        <li><span class="highlight">Yakalama:</span> El-göz koordinasyonu</li>
+                        <li><span class="highlight">Vurma:</span> Timing ve güç kontrolü</li>
+                        <li><span class="highlight">Tekme:</span> Alt ekstremite koordinasyonu</li>
+                        <li><span class="highlight">Sürücü:</span> İtme ve çekme hareketleri</li>
+                        <li><span class="emphasis">Karmaşık spor becerilerinin temeli</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>📊 2024 Meta-Analiz: Motor Gelişim Odaklı Antrenman</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Üstün etkililik:</span> Ordinary PA'dan daha etkili</li>
+                    <li><span class="highlight">Beyin gelişimi:</span> Karmaşık motor müdahaleler optimal</li>
+                    <li><span class="highlight">Okul öncesi dönem:</span> En kritik yaş grubu</li>
+                    <li><span class="highlight">Yapılandırılmış yaklaşım:</span> Hedefli müdahaleler gerekli</li>
+                    <li><span class="emphasis">Genel aktiviteden özel antrenman superior</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>👶 0-2 Yaş: Refleksler ve İlkel Hareketler</h2>
+            <div class="slide-content">
+                <div class="age-milestone">
+                    <ul>
+                        <li><span class="highlight">İlkel refleksler:</span> Moro, tutma, emme refleksleri</li>
+                        <li><span class="highlight">Kaba motor:</span> Baş kontrolü, çevirme, oturma</li>
+                        <li><span class="highlight">İnce motor:</span> Prencher grasp → pincer grasp</li>
+                        <li><span class="highlight">Bilateral entegrasyon:</span> İki el birlikte kullanma</li>
+                        <li><span class="emphasis">Reflekslerin entegrasyon zamanı kritik</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🧒 3-5 Yaş: Temel Hareket Kalıpları</h2>
+            <div class="slide-content">
+                <div class="age-milestone">
+                    <ul>
+                        <li><span class="highlight">Yürüme matürasyonu:</span> Düzenli ritim, koordinasyon</li>
+                        <li><span class="highlight">Koşma gelişimi:</span> Hava fazı, alternatif arm swing</li>
+                        <li><span class="highlight">Sıçrama becerileri:</span> Bilateral → unilateral</li>
+                        <li><span class="highlight">Atma kalıpları:</span> Homoleteral → kontralateral</li>
+                        <li><span class="emphasis">FMS'in kritik öğrenme dönemi</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>👦 6-8 Yaş: Beceri Rafine Etme</h2>
+            <div class="slide-content">
+                <div class="age-milestone">
+                    <ul>
+                        <li><span class="highlight">Motor kalıp stabilizasyonu:</span> Tutarlı performans</li>
+                        <li><span class="highlight">Çok-limb koordinasyon:</span> Karmaşık hareket kombinasyonları</li>
+                        <li><span class="highlight">Timing gelişimi:</span> Ritimsel aktiviteler</li>
+                        <li><span class="highlight">Bilateral koordinasyon:</span> İki taraf entegrasyonu</li>
+                        <li><span class="emphasis">Sport-spesifik becerilere geçiş hazırlığı</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🏃‍♂️ 9-12 Yaş: Spor Beceri Öğrenme</h2>
+            <div class="slide-content">
+                <div class="age-milestone">
+                    <ul>
+                        <li><span class="highlight">Hız ve hassasiyet:</span> Motor programların optimizasyonu</li>
+                        <li><span class="highlight">Adaptasyon kapasitesi:</span> Değişken koşullara uyum</li>
+                        <li><span class="highlight">Karmaşık beceriler:</span> Multi-step motor sequences</li>
+                        <li><span class="highlight">Stratejik düşünce:</span> Motor planlama gelişimi</li>
+                        <li><span class="emphasis">Altın öğrenme çağı - skill acquisition peak</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>💪 13+ Yaş: Uzmanlık ve Özelleşme</h2>
+            <div class="slide-content">
+                <div class="age-milestone">
+                    <ul>
+                        <li><span class="highlight">Motor uzmanlık:</span> Sport-spesifik mükemmellik</li>
+                        <li><span class="highlight">Güç entegrasyonu:</span> Kuvvet + koordinasyon</li>
+                        <li><span class="highlight">Tahmine dayalı kontrol:</span> Antisipasyon becerileri</li>
+                        <li><span class="highlight">Performans tutarlılığı:</span> Pressure altında başarı</li>
+                        <li><span class="emphasis">Elite performans potansiyelinin gerçekleşmesi</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🎮 Motor Öğrenme Aşamaları (Fitts & Posner)</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Bilişsel aşama:</span> Çok düşünce, çok hata</li>
+                    <li><span class="highlight">Asosiatif aşama:</span> Hata azalması, tutarlılık artışı</li>
+                    <li><span class="highlight">Otonom aşama:</span> Otomatik performans, minimal dikkat</li>
+                    <li><span class="warning">Çocuklar yetişkinlerden farklı tempo</span></li>
+                    <li><span class="emphasis">Her çocuk bireysel öğrenme hızına sahip</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>💬 Feedback ve Motor Öğrenme - 2024</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Task-spesifik pratik:</span> En etkili yöntem</li>
+                    <li><span class="highlight">Bilgi türleri:</span> KR (results) vs KP (performance)</li>
+                    <li><span class="highlight">Dikkat odağı:</span> Eksternal > internal focus</li>
+                    <li><span class="highlight">Teknoloji desteği:</span> Augmented feedback etkili</li>
+                    <li><span class="emphasis">Kalite artırım mekanizması olarak feedback</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🎯 Hedefli Oyun Aktiviteleri</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Motor element geliştirme:</span> Kuvvet, dayanıklılık, çeviklik</li>
+                    <li><span class="highlight">Hız ve denge:</span> Dinamik stabilitede artış</li>
+                    <li><span class="highlight">Koordinasyon oyunları:</span> Çoklu beceri kombinasyonu</li>
+                    <li><span class="highlight">Motivasyon faktörü:</span> Eğlence odaklı öğrenme</li>
+                    <li><span class="emphasis">Oyun tabanlı yaklaşım çocuklar için optimal</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>⚠️ Gelişimsel Koordinasyon Bozukluğu (DCD)</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="warning">Prevalans:</span> Çocukların %5-6'sı</li>
+                    <li><span class="highlight">FMS antrenmanı:</span> 8-9 yaş için etkili müdahale</li>
+                    <li><span class="highlight">Okul tabanlı programlar:</span> Erişim ve etkinlik artışı</li>
+                    <li><span class="highlight">Motor performans:</span> Fiziksel uygunluk gelişimi</li>
+                    <li><span class="emphasis">Erken tanı ve müdahale kritik</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🧩 Otizm Spektrum ve Motor Beceriler</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">2024 karşılaştırmalı çalışma:</span> 7-10 yaş FMS farklılıkları</li>
+                    <li><span class="highlight">İnce motor zorluklary:</span> Manipülatif beceriler etkilenme</li>
+                    <li><span class="highlight">Kaba motor gecikme:</span> Lokomotor ve stabilite</li>
+                    <li><span class="highlight">Bireysel yaklaşım:</span> Özel eğitim stratejileri</li>
+                    <li><span class="emphasis">Adaptif programlar gerekli</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🏋️‍♂️ Fonksiyonel Antrenman ve Motor Beceriler</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">2024 sistematik inceleme:</span> FMS üzerinde pozitif etki</li>
+                    <li><span class="highlight">Çok-eklemli hareketler:</span> Fonksiyonel kalıplar</li>
+                    <li><span class="highlight">Gerçek yaşam transferi:</span> Günlük aktivite becerileri</li>
+                    <li><span class="highlight">Entegre yaklaşım:</span> Kuvvet + koordinasyon</li>
+                    <li><span class="emphasis">İzole kas çalışmasından üstün</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>⚽ Bilateral Koordinasyon Gelişimi</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Simetrik aktiviteler:</span> İki el/ayak aynı hareket</li>
+                    <li><span class="highlight">Alternatif koordinasyon:</span> Karşıt pattern</li>
+                    <li><span class="highlight">Asimetrik beceriler:</span> Dominant/non-dominant</li>
+                    <li><span class="highlight">Corpus callosum:</span> İnterhemsferik iletişim</li>
+                    <li><span class="emphasis">6-8 yaş kritik gelişim dönemi</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>👀 Görsel-Motor Entegrasyon</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">El-göz koordinasyonu:</span> Yakalama, atma becerileri</li>
+                    <li><span class="highlight">Verjikal pursuit:</span> Hareketli obje takibi</li>
+                    <li><span class="highlight">Saccadic hareketler:</span> Hızlı göz geçişleri</li>
+                    <li><span class="highlight">Peripheral vision:</span> Çevresel farkındalık</li>
+                    <li><span class="emphasis">Spor performansı için kritik</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🎵 Ritim ve Koordinasyon</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Auditorial-motor sync:</span> Müzik ve hareket</li>
+                    <li><span class="highlight">Temporal processing:</span> Timing becerileri</li>
+                    <li><span class="highlight">Metronom çalışması:</span> İç ritim gelişimi</li>
+                    <li><span class="highlight">Dans ve jimnastik:</span> Ritimsel spor dalları</li>
+                    <li><span class="emphasis">Nöral timing sistemlerini güçlendirir</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🧠 Kognitif-Motor İnteraksiyonu</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Dual-task performans:</span> Bilişsel + motor yük</li>
+                    <li><span class="highlight">Executif fonksiyonlar:</span> Planlama, inhibisyon</li>
+                    <li><span class="highlight">Çalışma belleği:</span> Motor sequence learning</li>
+                    <li><span class="highlight">Dikkat kontrolü:</span> Seçici odaklanma</li>
+                    <li><span class="emphasis">Motor ve kognitif gelişim paralel</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🏆 Değerlendirme ve Test Protokolleri</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">TGMD-3:</span> Test of Gross Motor Development</li>
+                    <li><span class="highlight">BOT-2:</span> Bruininks-Oseretsky Test</li>
+                    <li><span class="highlight">MABC-2:</span> Movement Assessment Battery</li>
+                    <li><span class="highlight">FMS protokolleri:</span> Standardize değerlendirme</li>
+                    <li><span class="emphasis">Objektif ölçüm araçları kritik</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🎯 Pratik Uygulama Önerileri</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Progresyon prensibi:</span> Basit → karmaşık</li>
+                    <li><span class="highlight">Çok duyusal yaklaşım:</span> Görsel, auditorial, kinestetik</li>
+                    <li><span class="highlight">Hataya toleranslı öğrenme:</span> Keşif odaklı</li>
+                    <li><span class="highlight">Bireysel tempo:</span> Her çocuğun hızına uygun</li>
+                    <li><span class="emphasis">Eğlenceli ve motive edici aktiviteler</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar" id="sidebar">
+        <div id="sidebarContent">
+            <!-- Sidebar content will be populated by JavaScript -->
+        </div>
+    </div>
+
+    <div class="controls">
+        <button class="btn" onclick="prevSlide()">◀ Önceki</button>
+        <button class="btn" onclick="nextSlide()">Sonraki ▶</button>
+    </div>
+
+    <script>
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        
+        document.getElementById('totalSlides').textContent = totalSlides;
+
+        const slideNotes = [
+            {
+                title: "Çocuklarda Koordinasyon ve Motor Beceri Gelişimi",
+                content: `
+                    <h4>Pediatrik Motor Öğrenme Biliminin Kapsamı</h4>
+                    <p>Çocuklarda koordinasyon ve motor beceri gelişimi, sadece fiziksel yeteneklerin artışı değil, aynı zamanda nörolojik matürasyon, bilişsel gelişim ve sosyal etkileşimlerin karmaşık bir sentezini temsil eder. 2024 araştırmaları, motor beceri gelişiminin çocuğun genel sağlık ve yaşam kalitesi üzerindeki derin etkilerini ortaya koymaktadır.</p>
+                    
+                    <h4>Temel Hareket Becerileri (FMS) Paradigması</h4>
+                    <p>Fundamental Movement Skills (FMS), çocukların çevresiyle etkileşim kurmasını sağlayan temel hareketlerdir ve daha karmaşık hareketlerin inşa edildiği temel yapıyı oluşturur. Bu beceriler yaşam boyu fiziksel aktivite katılımının ve spor mükemmeliyetinin temelini atar.</p>
+                    
+                    <h4>2024 Meta-Analiz Bulguları</h4>
+                    <p>Son meta-analizler, motor gelişim odaklı egzersiz antrenmanının sıradan fiziksel aktiviteden çok daha etkili olduğunu göstermektedir. Karmaşık motor müdahaleler, beyin gelişimini pozitif şekilde desteklemekte ve kritik nöral yapıların büyümesi sırasında optimal stimulus sağlamaktadır.</p>
+                `
+            },
+            {
+                title: "Motor Gelişimin Nörolojik Temelleri",
+                content: `
+                    <h4>Beyin Gelişimi ve Motor Öğrenme</h4>
+                    <p>Karmaşık motor müdahaleler, beyin gelişimini pozitif yönde etkilemekte ve kritik beyin yapılarının pik büyüme dönemlerinde optimal stimülasyon sağlamaktadır. Bu durum özellikle okul öncesi dönemde hayati öneme sahiptir.</p>
+                    
+                    <h4>Nöral Plastisite ve Kritik Dönemler</h4>
+                    <p>Erken yaşta nöral plastisite maksimum düzeydedir. Miyelinasyon süreci motor yolların olgunlaşmasını sağlarken, sinaptik budanma etkisiz nöral bağlantıları elimine ederek verimli motor ağlar oluşturur.</p>
+                    
+                    <h4>Motor Korteks Matürasyonu</h4>
+                    <p>Primer motor korteks, premotor alan ve serebellumun koordineli matürasyonu, karmaşık motor becerilerin öğrenilmesini mümkün kılar. Bu süreç adölesan döneme kadar devam eder ve bireysel farklılıklar gösterir.</p>
+                `
+            },
+            {
+                title: "Temel Hareket Becerileri (FMS) Sınıflandırması",
+                content: `
+                    <h4>Stabilite Becerileri: Hareket Kontrolünün Temeli</h4>
+                    <p>Stabilite becerileri, tüm hareket formlarının temelini oluşturur. Statik denge (tek ayak üzerinde durma) ve dinamik denge (hareket halinde denge koruma) becerileri, çocuğun günlük yaşam aktivitelerinden spor performansına kadar tüm motor aktivitelerini destekler.</p>
+                    
+                    <h4>Lokomotor Beceriler: Uzaysal Hareket</h4>
+                    <p>Yürüme, koşma, sıçrama, zıplama ve sürükleme gibi beceriler çocuğun uzayda hareket etme kapasitesini geliştirir. Bu beceriler kardiyovasküler kondisyonun yanı sıra koordinasyon ve ritim gelişimini destekler.</p>
+                    
+                    <h4>Manipülatif Beceriler: Nesne Kontrolü</h4>
+                    <p>El-göz koordinasyonu gerektiren bu beceriler, çocuğun objelerle etkileşim kurma yeteneğini geliştirir. Atma, yakalama, vurma ve tekme becerileri, gelecekteki spor-spesifik becerilerin temelini oluşturur.</p>
+                `
+            },
+            {
+                title: "Manipülatif Beceriler",
+                content: `
+                    <h4>Atma Becerilerinin Gelişim Sırası</h4>
+                    <p>Atma becerileri overhand (üstten), underhand (alttan) ve sidearm (yandan) formlarında gelişir. İlk aşamada homoleteral (aynı taraf el-ayak) patern gözlenir, matürasyon ile kontralateral (karşıt taraf) koordinasyon gelişir.</p>
+                    
+                    <h4>Yakalama: Tahmine Dayalı Motor Kontrol</h4>
+                    <p>Yakalama becerisi, görsel takip, trajectory tahmini ve motor timing'in karmaşık bir kombinasyonudur. Bu beceri, çocuğun tahmine dayalı motor kontrol sistemlerinin gelişimini gösterir.</p>
+                    
+                    <h4>Vurma ve Timing Kontrolü</h4>
+                    <p>Vurma becerileri (raket sporları, baseball) yüksek düzeyde timing kontrolü ve güç modulasyonu gerektirir. Bu beceriler genellikle 8-10 yaş sonrası tam olarak gelişir.</p>
+                `
+            },
+            {
+                title: "2024 Meta-Analiz: Motor Gelişim Odaklı Antrenman",
+                content: `
+                    <h4>Yapılandırılmış vs Serbest Oyun</h4>
+                    <p>2024 meta-analizi, motor gelişim odaklı strukturlu egzersiz antrenmanının, sıradan fiziksel aktivite ve serbest oyundan anlamlı derecede daha etkili olduğunu göstermektedir. Bu bulgu, planlanmış müdahalelerin önemini vurgulamaktadır.</p>
+                    
+                    <h4>Karmaşıklık ve Beyin Gelişimi</h4>
+                    <p>Karmaşık motor müdahaleler, beyin gelişimini pozitif yönde etkilemekte ve özellikle beyin yapılarının pik büyüme dönemlerinde maksimal fayda sağlamaktadır. Bu etki özellikle prefrontal korteks ve serebellum gelişiminde belirgindir.</p>
+                    
+                    <h4>Okul Öncesi Dönemin Kritik Önemi</h4>
+                    <p>3-6 yaş arasındaki okul öncesi dönem, motor öğrenme için en kritik zaman penceresidir. Bu dönemde yapılan yatırımların yaşam boyu süren faydaları olduğu kanıtlanmıştır.</p>
+                `
+            },
+            {
+                title: "0-2 Yaş: Refleksler ve İlkel Hareketler",
+                content: `
+                    <h4>İlkel Reflekslerin Entegrasyonu</h4>
+                    <p>Moro, tutma, emme gibi ilkel refleksler zamanında inhibe olmall ki kontrollü hareket gelişimi başlayabilsin. Bu reflekslerin persist etmesi ileriki motor gelişimi olumsuz etkiler.</p>
+                    
+                    <h4>Kaba Motor Milestones</h4>
+                    <p>Baş kontrolü (2-4 ay), çevirme (4-6 ay), desteksiz oturma (6-8 ay), emekleme (8-10 ay) ve desteksiz yürüme (12-15 ay) kritik gelişim milestones'larıdır.</p>
+                    
+                    <h4>İnce Motor Gelişimi</h4>
+                    <p>Prencher grasp'ten (tüm el kavrama) pincer grasp'e (başparmak-işaret parmağı) geçiş, korteks matürasyonunun önemli bir göstergesidir ve yaklaşık 9-12 ayda gerçekleşir.</p>
+                `
+            },
+            {
+                title: "3-5 Yaş: Temel Hareket Kalıpları",
+                content: `
+                    <h4>Yürüme Matürasyonu</h4>
+                    <p>3 yaşında çocuklar düzenli yürüme ritmine sahip olurlar. Koordinasyon, denge ve spatial farkındalık bu dönemde hızla gelişir. 4-5 yaşta merdiven çıkma-inme becerileri otomatikleşir.</p>
+                    
+                    <h4>Koşma Becerilerinin Gelişimi</h4>
+                    <p>Koşma sırasında "hava fazı"nın (flight phase) gelişimi, alternatif arm swing koordinasyonu ve trunk stabilizasyonu bu dönemde kazanılır. 5 yaşta mature koşma patterni gelişir.</p>
+                    
+                    <h4>Sıçrama Progressyonu</h4>
+                    <p>İlk olarak bilateral (iki ayak) sıçrama, daha sonra unilateral (tek ayak) hopping ve son olarak kompleks jumping sequences gelişir. Bu progression koordinasyon matürasyonunu yansıtır.</p>
+                `
+            },
+            {
+                title: "6-8 Yaş: Beceri Rafine Etme",
+                content: `
+                    <h4>Motor Kalıp Stabilizasyonu</h4>
+                    <p>Bu yaş grubunda temel motor kalıplar stabilize olur ve çocuk tutarlı performans sergilemeye başlar. Motor programlar daha az varyasyon gösterir ve tahmin edilebilir hale gelir.</p>
+                    
+                    <h4>Çok-Limb Koordinasyonu</h4>
+                    <p>Karmaşık hareket kombinasyonları bu dönemde mümkün hale gelir. Örneğin, koşarken top sürme veya sıçrarken el hareketleri koordine etme becerileri gelişir.</p>
+                    
+                    <h4>Bilateral Koordinasyon Matürasyonu</h4>
+                    <p>Corpus callosum'un matürasyonu ile iki taraf koordinasyonu gelişir. Bu dönem, müzik aletleri çalma, bisiklet kullanma gibi bilateral becerilerin öğrenilmesi için idealdir.</p>
+                `
+            },
+            {
+                title: "9-12 Yaş: Spor Beceri Öğrenme",
+                content: `
+                    <h4>Altın Öğrenme Çağı</h4>
+                    <p>Bu dönem motor öğrenme için "altın çağ" olarak kabul edilir. Nöral plastisite hala yüksek, ancak bilişsel kapasiteler karmaşık becerilerin anlaşılmasına olanak tanır.</p>
+                    
+                    <h4>Hız ve Hassasiyet Gelişimi</h4>
+                    <p>Motor programların optimizasyonu ile hız ve hassasiyet birlikte gelişir. Çocuklar artık hızlı ve doğru hareketler sergileyebilir.</p>
+                    
+                    <h4>Adaptif Kapasiteler</h4>
+                    <p>Değişken koşullara uyum sağlama yeteneği bu dönemde gelişir. Sporcular farklı ortam koşullarında performanslarını adapte edebilirler.</p>
+                `
+            },
+            {
+                title: "13+ Yaş: Uzmanlık ve Özelleşme",
+                content: `
+                    <h4>Motor Uzmanlık Dönemi</h4>
+                    <p>Adölesan dönemde motor beceriler uzmanlık seviyesine ulaşabilir. Sport-spesifik mükemmellik bu dönemde mümkündür ve elit performans potansiyeli ortaya çıkar.</p>
+                    
+                    <h4>Güç Entegrasyonu</h4>
+                    <p>Puberte ile birlikte artan kas kütlesi ve gücün koordinasyon ile entegrasyonu, güçlü ve kontrollu hareketler üretme kapasitesini artırır.</p>
+                    
+                    <h4>Tahmine Dayalı Kontrol</h4>
+                    <p>Antisipasyon becerileri bu dönemde zirve yapar. Sporcular rakip hareketlerini önceden tahmin ederek stratejik avantaj elde edebilirler.</p>
+                `
+            },
+            {
+                title: "Motor Öğrenme Aşamaları (Fitts & Posner)",
+                content: `
+                    <h4>Bilişsel Aşama</h4>
+                    <p>Öğrenmenin ilk aşamasında çocuklar yoğun bilişsel çaba harcar, çok hata yapar ve tutarsız performans sergiler. Bu aşamada sözel ipuçları ve gösteri önemlidir.</p>
+                    
+                    <h4>Asosiatif Aşama</h4>
+                    <p>Hataların azaldığı ve tutarlılığın arttığı dönemdir. Motor kalıplar stabilize olmaya başlar ve çocuk performansındaki küçük hataları fark etmeye başlar.</p>
+                    
+                    <h4>Otonom Aşama</h4>
+                    <p>Hareket otomatik hale gelir ve minimal dikkat gerektirir. Bu aşamada çocuk aynı anda başka görevleri yerine getirebilir (dual-task performance).</p>
+                `
+            },
+            {
+                title: "Feedback ve Motor Öğrenme - 2024",
+                content: `
+                    <h4>Task-Spesifik Pratiğin Üstünlüğü</h4>
+                    <p>2024 sistematik incelemesi, task-spesifik pratiğin motor becerilerin geliştirilmesinde en etkili yöntem olduğunu doğrulamıştır. Genel kondisyon çalışması yerine spesifik beceri pratiği daha etkilidir.</p>
+                    
+                    <h4>Feedback Türleri ve Etkinlikleri</h4>
+                    <p>Knowledge of Results (KR) ve Knowledge of Performance (KP) farklı öğrenme aşamalarında değişken etkinlik gösterir. Başlangıçta KR, ileri aşamalarda KP daha etkilidir.</p>
+                    
+                    <h4>Teknoloji Destekli Feedback</h4>
+                    <p>Augmented feedback teknolojilerinin (video analiz, real-time biofeedback) motor beceri öğrenimini hızlandırdığı ve kalitesini artırdığı kanıtlanmıştır.</p>
+                `
+            },
+            {
+                title: "Hedefli Oyun Aktiviteleri",
+                content: `
+                    <h4>Motor Element Geliştirme</h4>
+                    <p>Hedefli oyun aktiviteleri, kuvvet, dayanıklılık, çeviklik, hız ve dengeyi eşzamanlı olarak geliştirebilir. Bu holistik yaklaşım, çocukların çok yönlü motor gelişimini destekler.</p>
+                    
+                    <h4>Motivasyonel Avantajlar</h4>
+                    <p>Oyun formatında sunulan motor öğrenme aktiviteleri, çocukların intrinsik motivasyonunu artırır ve öğrenme sürecini sürdürülebilir kılar.</p>
+                    
+                    <h4>Sosyal Öğrenme Boyutu</h4>
+                    <p>Grup oyunları, sosyal beceri gelişiminin yanı sıra motor koordinasyonu da destekler. Takım oyunları, bireysel beceriler ile grup dinamiklerini entegre eder.</p>
+                `
+            },
+            {
+                title: "Gelişimsel Koordinasyon Bozukluğu (DCD)",
+                content: `
+                    <h4>Tanı ve Prevalans</h4>
+                    <p>DCD, çocukların yaklaşık %5-6'sını etkileyen nörogelişimsel bir durumdur. Günlük yaşam aktiviteleri ve akademik performansı olumsuz etkiler.</p>
+                    
+                    <h4>FMS Antrenmanının Etkinliği</h4>
+                    <p>2024 araştırması, 8-9 yaş DCD'li çocuklarda FMS antrenmanının motor performans ve fiziksel uygunluk üzerinde olumlu etkiler gösterdiğini bulmuştur.</p>
+                    
+                    <h4>Okul Tabanlı Müdahaleler</h4>
+                    <p>Okul ortamında uygulanan müdahale programları, DCD'li çocukların müdahaleye erişimini artırır ve stigmatizasyonu azaltır.</p>
+                `
+            },
+            {
+                title: "Otizm Spektrum ve Motor Beceriler",
+                content: `
+                    <h4>Motor Beceri Profilleri</h4>
+                    <p>2024 karşılaştırmalı çalışması, 7-10 yaş otizm spektrum bozukluğu olan çocuklarda FMS'de spesifik zorluklular olduğunu göstermiştir.</p>
+                    
+                    <h4>İnce Motor Zorlukları</h4>
+                    <p>Manipülatif beceriler (yazı yazma, makas kullanma) OSB'li çocuklarda özellikle etkilenir. Bu durum akademik performansı da olumsuz etkiler.</p>
+                    
+                    <h4>Adaptif Program Gereksinimleri</h4>
+                    <p>OSB'li çocuklar için özel eğitim stratejileri, yapılandırılmış ortam ve bireysel yaklaşım gerektirir. Sosyal motor becerilere özel önem verilmelidir.</p>
+                `
+            },
+            {
+                title: "Fonksiyonel Antrenman ve Motor Beceriler",
+                content: `
+                    <h4>2024 Sistematik İnceleme Bulguları</h4>
+                    <p>Fonksiyonel antrenmanın çocuklarda temel hareket becerileri üzerinde pozitif etkiler gösterdiği sistematik olarak incelenmiş ve doğrulanmıştır.</p>
+                    
+                    <h4>Çok-Eklemli Hareket Avantajları</h4>
+                    <p>İzole kas çalışması yerine çok-eklemli, fonksiyonel hareket kalıpları gerçek yaşam aktivitelerine daha iyi transfer sağlar.</p>
+                    
+                    <h4>Entegre Yaklaşımın Üstünlüğü</h4>
+                    <p>Kuvvet ve koordinasyonun entegre edildiği antrenman programları, sadece kuvvet odaklı programlardan daha etkili motor gelişim sağlar.</p>
+                `
+            },
+            {
+                title: "Bilateral Koordinasyon Gelişimi",
+                content: `
+                    <h4>Nöral Temel: Corpus Callosum</h4>
+                    <p>İki beyin yarımküre arasındaki iletişimi sağlayan corpus callosum'un matürasyonu, bilateral koordinasyon gelişiminin temelini oluşturur.</p>
+                    
+                    <h4>Koordinasyon Türleri</h4>
+                    <p>Simetrik (aynı hareket), alternatif (karşıt pattern) ve asimetrik (farklı görevler) koordinasyon türleri farklı yaşlarda gelişir.</p>
+                    
+                    <h4>6-8 Yaş Kritik Dönem</h4>
+                    <p>Bilateral koordinasyon becerileri 6-8 yaş arasında hızla gelişir. Bu dönem bisiklet kullanma, müzik aleti çalma için idealdir.</p>
+                `
+            },
+            {
+                title: "Görsel-Motor Entegrasyon",
+                content: `
+                    <h4>El-Göz Koordinasyonu</h4>
+                    <p>Atma, yakalama ve vurma becerileri için kritik olan el-göz koordinasyonu, visual tracking ve motor timing'in karmaşık entegrasyonunu gerektirir.</p>
+                    
+                    <h4>Oküler Motor Sistemler</h4>
+                    <p>Pursuit (izleme) ve saccadic (hızlı geçiş) göz hareketleri spor performansı için kritiktir. Bu sistemler 8-12 yaş arasında matüre olur.</p>
+                    
+                    <h4>Peripheral Vision</h4>
+                    <p>Çevresel görsel farkındalık, takım sporlarında spatial awareness için gereklidir. Bu beceri antrenmanla geliştirilebilir.</p>
+                `
+            },
+            {
+                title: "Ritim ve Koordinasyon",
+                content: `
+                    <h4>Auditorial-Motor Synchronization</h4>
+                    <p>Müzik ve hareketin senkronizasyonu, temporal processing becerilerini geliştirir ve motor öğrenmeyi destekler.</p>
+                    
+                    <h4>İç Ritim Gelişimi</h4>
+                    <p>Metronom çalışmaları çocukların internal timing sistemlerini güçlendirir. Bu beceri tüm sporlar için fundamental'dır.</p>
+                    
+                    <h4>Nöral Timing Networks</h4>
+                    <p>Serebellum ve basal ganglion'un oluşturduğu timing networks, ritimsel aktivitelerle güçlendirilebilir.</p>
+                `
+            },
+            {
+                title: "Kognitif-Motor İnteraksiyonu",
+                content: `
+                    <h4>Dual-Task Performans</h4>
+                    <p>Aynı anda bilişsel ve motor görev yapabilme yetisi, çocukların gelişen attentional kapasitelerini yansıtır.</p>
+                    
+                    <h4>Executive Functions ve Motor Control</h4>
+                    <p>Planning, inhibition ve working memory gibi executive functions, karmaşık motor becerilerin öğrenilmesi için kritiktir.</p>
+                    
+                    <h4>Paralel Gelişim</h4>
+                    <p>Motor ve kognitif gelişim paralel seyreder. Motor aktiviteler kognitif gelişimi desteklerken, kognitif matürasyon motor öğrenmeyi kolaylaştırır.</p>
+                `
+            },
+            {
+                title: "Değerlendirme ve Test Protokolleri",
+                content: `
+                    <h4>TGMD-3: Altın Standart</h4>
+                    <p>Test of Gross Motor Development-3, çocuklarda kaba motor becerileri değerlendirmek için en yaygın kullanılan standart testtir.</p>
+                    
+                    <h4>BOT-2: Kapsamlı Değerlendirme</h4>
+                    <p>Bruininks-Oseretsky Test-2, hem kaba hem de ince motor becerileri detaylı olarak değerlendirir.</p>
+                    
+                    <h4>MABC-2: Klinik Değerlendirme</h4>
+                    <p>Movement Assessment Battery for Children-2, özellikle motor zorluğu olan çocukları identifiye etmek için kullanılır.</p>
+                `
+            },
+            {
+                title: "Pratik Uygulama Önerileri",
+                content: `
+                    <h4>Progresyon Prensibi</h4>
+                    <p>Motor beceri öğretimi basit hareketlerden karmaşık kombinasyonlara doğru kademeli olarak ilerlemelidir. Çocuğun hazır olma durumu dikkate alınmalıdır.</p>
+                    
+                    <h4>Çok Duyusal Öğrenme</h4>
+                    <p>Görsel demonstrasyon, verbal ipucu ve kinestetik rehberliğin birlikte kullanılması öğrenmeyi hızlandırır ve farklı öğrenme stillerine hitap eder.</p>
+                    
+                    <h4>Hataya Toleranslı Yaklaşım</h4>
+                    <p>Çocukların hata yaparak öğrenmelerine olanak tanımak, keşif odaklı öğrenmeyi destekler ve yaratıcı problem çözme becerilerini geliştirir.</p>
+                `
+            }
+        ];
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[index].classList.add('active');
+            document.getElementById('currentSlide').textContent = index + 1;
+            
+            // Update sidebar content
+            updateSidebar(index);
+        }
+
+        function updateSidebar(index) {
+            const sidebarContent = document.getElementById('sidebarContent');
+            const note = slideNotes[index];
+            sidebarContent.innerHTML = `
+                <h3>${note.title}</h3>
+                ${note.content}
+            `;
+        }
+
+        function nextSlide() {
+            currentSlideIndex = (currentSlideIndex + 1) % totalSlides;
+            showSlide(currentSlideIndex);
+        }
+
+        function prevSlide() {
+            currentSlideIndex = (currentSlideIndex - 1 + totalSlides) % totalSlides;
+            showSlide(currentSlideIndex);
+        }
+
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+        }
+
+        // Initialize sidebar with first slide content
+        updateSidebar(0);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            switch(event.key) {
+                case 'ArrowRight':
+                case ' ':
+                    nextSlide();
+                    break;
+                case 'ArrowLeft':
+                    prevSlide();
+                    break;
+                case 'Escape':
+                    document.getElementById('sidebar').classList.remove('active');
+                    break;
+                case 's':
+                case 'S':
+                    toggleSidebar();
+                    break;
+            }
+        });
+    </script>
+</body>
+</html>
