@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Çocuklarda Anaerobik Performans - Detaylı Sunum</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .sidebar {
+            width: 400px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            overflow-y: auto;
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            display: none;
+        }
+
+        .sidebar.active {
+            display: block;
+        }
+
+        .sidebar h3 {
+            color: #ffeb3b;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        .sidebar h4 {
+            color: #81d4fa;
+            margin-bottom: 10px;
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+
+        .sidebar p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+            font-size: 0.95em;
+            text-align: justify;
+        }
+
+        .slide {
+            display: none;
+            width: 90%;
+            max-width: 1000px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 60px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            animation: slideIn 0.6s ease-out;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            background: linear-gradient(45deg, #fff, #e0e0e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h2 {
+            font-size: 2.5em;
+            margin-bottom: 25px;
+            color: #ffeb3b;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        h3 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #81d4fa;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        h4 {
+            font-size: 1.6em;
+            margin-bottom: 15px;
+            color: #a5d6a7;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        p, li {
+            font-size: 1.3em;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        ul {
+            text-align: left;
+            margin: 20px 0;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .navigation {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 100;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .notes-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 193, 7, 0.8);
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .notes-btn:hover {
+            background: rgba(255, 193, 7, 1);
+            transform: scale(1.05);
+        }
+
+        .progress-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: #ffeb3b;
+            transition: width 0.3s ease;
+            z-index: 100;
+        }
+
+        .slide-counter {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px 15px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .highlight {
+            background: linear-gradient(45deg, #ffeb3b, #ff9800);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: bold;
+            margin: 0 15px;
+            padding: 10px 20px;
+            border: 2px solid rgba(255, 235, 59, 0.3);
+            border-radius: 25px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .formula-box {
+            background: rgba(139, 69, 19, 0.3);
+            border: 2px solid #8b4513;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            text-align: left;
+            margin: 20px 0;
+        }
+
+        .three-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+            text-align: left;
+            margin: 20px 0;
+        }
+
+        .warning-box {
+            background: rgba(255, 193, 7, 0.2);
+            border: 2px solid #ffc107;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .danger-box {
+            background: rgba(244, 67, 54, 0.2);
+            border: 2px solid #f44336;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .success-box {
+            background: rgba(76, 175, 80, 0.2);
+            border: 2px solid #4caf50;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .info-box {
+            background: rgba(33, 150, 243, 0.2);
+            border: 2px solid #2196f3;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .age-tier {
+            padding: 20px;
+            border-radius: 15px;
+            margin: 15px 0;
+            border: 2px solid;
+        }
+
+        .tier-young {
+            background: rgba(76, 175, 80, 0.2);
+            border-color: #4caf50;
+        }
+
+        .tier-middle {
+            background: rgba(255, 193, 7, 0.2);
+            border-color: #ffc107;
+        }
+
+        .tier-older {
+            background: rgba(33, 150, 243, 0.2);
+            border-color: #2196f3;
+        }
+
+        @media (max-width: 1200px) {
+            .sidebar {
+                width: 350px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: 50%;
+                border-left: none;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            
+            .main-content {
+                height: 50%;
+            }
+            
+            .slide {
+                width: 95%;
+                padding: 40px 30px;
+            }
+            
+            h1 { font-size: 2.2em; }
+            h2 { font-size: 1.8em; }
+            h3 { font-size: 1.5em; }
+            h4 { font-size: 1.3em; }
+            p, li { font-size: 1.1em; }
+            
+            .two-column, .three-column {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+    <div class="slide-counter" id="slideCounter">1 / 12</div>
+    <button class="notes-btn" id="notesBtn">📝 Detaylı Notlar</button>
+
+    <div class="main-content">
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <h1>⚡ ÇOCUKLARDAANAEROBİK PERFORMANS</h1>
+            <h2>Gelişimsel Fizyoloji ve Bilimsel Yaklaşım</h2>
+            <p style="font-size: 1.5em; margin-top: 40px;">2024 Güncel Araştırma Bulgularıyla</p>
+            <div style="margin-top: 50px;">
+                <span class="highlight">Maturasyonal Gelişim</span>
+                <span class="highlight">Enerji Sistemleri</span>
+                <span class="highlight">Test Protokolleri</span>
+                <span class="highlight">Antrenman Stratejileri</span>
+            </div>
+        </div>
+
+        <!-- Slide 2: Energy Systems -->
+        <div class="slide">
+            <h2>🔋 Çocuklarda Anaerobik Enerji Sistemleri</h2>
+            <div class="three-column">
+                <div class="tier-young">
+                    <h4>⚡ Fosfokreatin Sistemi</h4>
+                    <ul>
+                        <li><strong>Süre:</strong> 0-10 saniye</li>
+                        <li><strong>Çocuklarda Kapasite:</strong> Yetişkinlerin %65-70'i</li>
+                        <li><strong>PCr Deposu:</strong> Yaşla logaritmik artış</li>
+                        <li><strong>Kreatin Kinaz:</strong> Puberte ile hızlı gelişim</li>
+                    </ul>
+                    <p><strong>Pik Güç:</strong> 6 yaş: %45 yetişkin, 16 yaş: %95 yetişkin</p>
+                </div>
+                
+                <div class="tier-middle">
+                    <h4>🔥 Glikoliz Sistemi</h4>
+                    <ul>
+                        <li><strong>Süre:</strong> 10 sn - 2 dakika</li>
+                        <li><strong>PFK Aktivitesi:</strong> Puberte ile dramatik artış</li>
+                        <li><strong>Laktat Üretimi:</strong> Çocuklarda sınırlı</li>
+                        <li><strong>Tamponlama:</strong> Yetişkin kapasitesinin %60-80'i</li>
+                    </ul>
+                    <p><strong>Laktat Pik:</strong> 8 yaş: 4-6 mmol/L, 16 yaş: 12-16 mmol/L</p>
+                </div>
+                
+                <div class="tier-older">
+                    <h4>🎯 Yaşa Göre Gelişim</h4>
+                    <ul>
+                        <li><strong>6-10 yaş:</strong> PCr dominant, glikoliz sınırlı</li>
+                        <li><strong>11-14 yaş:</strong> Geçiş dönemi, hızlı gelişim</li>
+                        <li><strong>15-18 yaş:</strong> Yetişkin seviyelerine yaklaşım</li>
+                        <li><strong>PHV Etkisi:</strong> Kritik pencere dönemi</li>
+                    </ul>
+                    <p><strong>Clearance:</strong> Laktat temizlenme %40-50 yavaş</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Maturation Effects -->
+        <div class="slide">
+            <h2>📈 Maturasyonal Gelişim ve PHV Etkisi</h2>
+            <div class="two-column">
+                <div>
+                    <h4>🧬 Peak Height Velocity (PHV) Dönemi</h4>
+                    <div class="success-box">
+                        <ul>
+                            <li><strong>Kızlar:</strong> 11.5 ± 1.2 yaş</li>
+                            <li><strong>Erkekler:</strong> 13.8 ± 1.1 yaş</li>
+                            <li><strong>PHV Sırasında:</strong> Anaerobik güç %40-60 artış</li>
+                            <li><strong>PHV+1 Yılında:</strong> En büyük kazanım dönemi</li>
+                        </ul>
+                    </div>
+                    
+                    <h4>💪 Nöromusküler Adaptasyonlar</h4>
+                    <ul>
+                        <li><strong>Motor Ünit Aktivasyonu:</strong> 14-16 yaş olgunlaşma</li>
+                        <li><strong>Tip II Lif Oranı:</strong> Puberte ile artış</li>
+                        <li><strong>Koordinasyon:</strong> Teknik beceri gelişimi</li>
+                        <li><strong>Güç-Hız İlişkisi:</strong> Optimizasyon</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>🧪 Hormonal ve Metabolik Değişimler</h4>
+                    <div class="formula-box">
+                        <h5>Büyüme Hormonu Etkisi:</h5>
+                        <p>• Protein sentezi artışı</p>
+                        <p>• Kas lifi hipertrofisi</p>
+                        <p>• Glikoliz enzim aktivitesi</p>
+                        <br>
+                        <h5>Testosteron (Erkeklerde):</h5>
+                        <p>• Kas kütlesi artışı</p>
+                        <p>• Güç geliştirme kapasitesi</p>
+                        <p>• Anaerobik kapasite büyük artış</p>
+                    </div>
+                    
+                    <h4>⚠️ Kritik Faktörler</h4>
+                    <div class="warning-box">
+                        <ul>
+                            <li><strong>Bireysel Fark:</strong> ±2 yıl varyasyon</li>
+                            <li><strong>Erken/Geç Gelişim:</strong> Farklı stratejiler</li>
+                            <li><strong>Cinsiyetler Arası Fark:</strong> Puberte sonrası büyür</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Testing Protocols -->
+        <div class="slide">
+            <h2>🧪 Anaerobik Performans Test Protokolleri</h2>
+            <div class="two-column">
+                <div>
+                    <h4>⚙️ Wingate Anaerobik Testi</h4>
+                    <div class="info-box">
+                        <ul>
+                            <li><strong>Standart Protokol:</strong> 30 saniye maksimal</li>
+                            <li><strong>Çocuk Modifikasyonu:</strong> 15 saniye daha uygun</li>
+                            <li><strong>Yük Ayarı:</strong> VÇ'nin %7.5'i (çocuklar)</li>
+                            <li><strong>Test-Retest:</strong> r=0.85-0.92 güvenilirlik</li>
+                        </ul>
+                        <br>
+                        <h5>Çıktı Parametreleri:</h5>
+                        <ul>
+                            <li>Pik güç (W ve W/kg)</li>
+                            <li>Ortalama güç (W ve W/kg)</li>
+                            <li>Yorgunluk indeksi (%)</li>
+                            <li>Güç düşüş oranı</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h4>🏃 Alan Testleri</h4>
+                    <div class="success-box">
+                        <h5>Sprint Testleri:</h5>
+                        <ul>
+                            <li><strong>10m:</strong> Akselerasyon</li>
+                            <li><strong>20m:</strong> Erken hız fazı</li>
+                            <li><strong>30m:</strong> Maksimal hız</li>
+                            <li><strong>RSA Test:</strong> 6×30m, 20sn dinlenme</li>
+                        </ul>
+                        
+                        <h5>Sıçrama Testleri:</h5>
+                        <ul>
+                            <li><strong>Dikey Sıçrama:</strong> Alt ekstremite güç</li>
+                            <li><strong>Yatay Sıçrama:</strong> Horizontal güç</li>
+                            <li><strong>Çoklu Sıçrama:</strong> Reaktif güç</li>
+                        </ul>
+                    </div>
+                    
+                    <h4>🔬 Yeni Nesil Testler</h4>
+                    <div class="formula-box">
+                        <ul>
+                            <li><strong>Force-Velocity Profiling</strong></li>
+                            <li><strong>Wearable Technology</strong></li>
+                            <li><strong>Video Analizi</strong></li>
+                            <li><strong>Submaksimal Protokoller</strong></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Age-specific Performance -->
+        <div class="slide">
+            <h2>📊 Yaşa Göre Performans Normatifları</h2>
+            <div class="three-column">
+                <div class="tier-young">
+                    <h4>🧒 6-10 Yaş Grubu</h4>
+                    <h5>Pik Güç (W/kg):</h5>
+                    <ul>
+                        <li><strong>Erkek:</strong> 6.2 ± 1.1</li>
+                        <li><strong>Kız:</strong> 5.8 ± 0.9</li>
+                    </ul>
+                    
+                    <h5>20m Sprint (sn):</h5>
+                    <ul>
+                        <li><strong>Erkek:</strong> 3.8 ± 0.3</li>
+                        <li><strong>Kız:</strong> 4.0 ± 0.3</li>
+                    </ul>
+                    
+                    <h5>Dikey Sıçrama (cm):</h5>
+                    <ul>
+                        <li><strong>Erkek:</strong> 22 ± 4</li>
+                        <li><strong>Kız:</strong> 20 ± 3</li>
+                    </ul>
+                    
+                    <p><strong>Özellik:</strong> PCr sisteminin temel gelişimi</p>
+                </div>
+                
+                <div class="tier-middle">
+                    <h4>👦 11-14 Yaş Grubu</h4>
+                    <h5>Pik Güç (W/kg):</h5>
+                    <ul>
+                        <li><strong>Erkek:</strong> 8.3 ± 1.4</li>
+                        <li><strong>Kız:</strong> 7.2 ± 1.1</li>
+                    </ul>
+                    
+                    <h5>20m Sprint (sn):</h5>
+                    <ul>
+                        <li><strong>Erkek:</strong> 3.2 ± 0.3</li>
+                        <li><strong>Kız:</strong> 3.5 ± 0.3</li>
+                    </ul>
+                    
+                    <h5>Dikey Sıçrama (cm):</h5>
+                    <ul>
+                        <li><strong>Erkek:</strong> 32 ± 6</li>
+                        <li><strong>Kız:</strong> 28 ± 5</li>
+                    </ul>
+                    
+                    <p><strong>Özellik:</strong> Hızlı gelişim ve adaptasyon</p>
+                </div>
+                
+                <div class="tier-older">
+                    <h4>🧑 15-18 Yaş Grubu</h4>
+                    <h5>Pik Güç (W/kg):</h5>
+                    <ul>
+                        <li><strong>Erkek:</strong> 11.2 ± 1.8</li>
+                        <li><strong>Kız:</strong> 8.1 ± 1.3</li>
+                    </ul>
+                    
+                    <h5>20m Sprint (sn):</h5>
+                    <ul>
+                        <li><strong>Erkek:</strong> 2.7 ± 0.2</li>
+                        <li><strong>Kız:</strong> 3.2 ± 0.3</li>
+                    </ul>
+                    
+                    <h5>Dikey Sıçrama (cm):</h5>
+                    <ul>
+                        <li><strong>Erkek:</strong> 45 ± 8</li>
+                        <li><strong>Kız:</strong> 35 ± 6</li>
+                    </ul>
+                    
+                    <p><strong>Özellik:</strong> Yetişkin seviyelerine yaklaşım</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Training Methods -->
+        <div class="slide">
+            <h2>💪 Yaşa Göre Anaerobik Antrenman</h2>
+            <div class="two-column">
+                <div>
+                    <h4>🎯 6-10 Yaş: Temel Hareket</h4>
+                    <div class="success-box">
+                        <ul>
+                            <li><strong>Yaklaşım:</strong> Oyun temelli</li>
+                            <li><strong>Süre:</strong> 10-15 saniye ataklar</li>
+                            <li><strong>Yoğunluk:</strong> %85-90 maksimal</li>
+                            <li><strong>Dinlenme:</strong> 60-90 saniye</li>
+                            <li><strong>Sıklık:</strong> Haftada 2-3 kez</li>
+                        </ul>
+                        
+                        <h5>Aktivite Örnekleri:</h5>
+                        <ul>
+                            <li>Kısa mesafe koşuları</li>
+                            <li>Çeviklik oyunları</li>
+                            <li>Temel pliometrik</li>
+                            <li>Koordinasyon egzersizleri</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h4>⚡ 11-18 Yaş: Gelişimsel Dönem</h4>
+                    <div class="info-box">
+                        <h5>11-14 Yaş Stratejisi:</h5>
+                        <ul>
+                            <li><strong>HIIT:</strong> 20-30sn, 8-10 set</li>
+                            <li><strong>Dirençli Sprint:</strong> Progresif yük</li>
+                            <li><strong>Pliometrik:</strong> 100-150 temas</li>
+                            <li><strong>Spor Spesifik:</strong> Teknik entegrasyonu</li>
+                        </ul>
+                        
+                        <h5>15-18 Yaş Stratejisi:</h5>
+                        <ul>
+                            <li><strong>HIIT:</strong> 30-45sn, 10-12 set</li>
+                            <li><strong>Laktat Threshold:</strong> Hedefli çalışma</li>
+                            <li><strong>Pliometrik:</strong> 200-400 temas</li>
+                            <li><strong>Periodizasyon:</strong> Yarışma odaklı</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="formula-box">
+                <h4>📋 HIIT Protokol Önerileri</h4>
+                <p><strong>8-10 yaş:</strong> 15-20sn çalışma, 60-90sn dinlenme, %85-90 maksimal, 6-8 set</p>
+                <p><strong>11-13 yaş:</strong> 20-30sn çalışma, 60-120sn dinlenme, %90-95 maksimal, 8-10 set</p>
+                <p><strong>14-16 yaş:</strong> 30-45sn çalışma, 90-180sn dinlenme, %95-100 maksimal, 10-12 set</p>
+            </div>
+        </div>
+
+        <!-- Slide 7: Plyometric Training -->
+        <div class="slide">
+            <h2>🦘 Çocuklarda Pliometrik Antrenman</h2>
+            <div class="two-column">
+                <div>
+                    <h4>📚 Yaşa Uygun Progresyon</h4>
+                    <div class="tier-young">
+                        <h5>🟢 Seviye 1 (6-9 yaş):</h5>
+                        <ul>
+                            <li>Yerinde sıçramalar</li>
+                            <li>İki ayak hop</li>
+                            <li>Lateral hop</li>
+                            <li>Tuck jump</li>
+                        </ul>
+                        <p><strong>Hacim:</strong> 60-100 temas, 2x/hafta</p>
+                    </div>
+                    
+                    <div class="tier-middle">
+                        <h5>🟡 Seviye 2 (10-12 yaş):</h5>
+                        <ul>
+                            <li>Single leg hop</li>
+                            <li>Split jump</li>
+                            <li>Broad jump</li>
+                            <li>Lateral bound</li>
+                        </ul>
+                        <p><strong>Hacim:</strong> 100-150 temas, 2-3x/hafta</p>
+                    </div>
+                </div>
+                <div>
+                    <div class="tier-older">
+                        <h5>🔵 Seviye 3 (13+ yaş):</h5>
+                        <ul>
+                            <li>Depth jump</li>
+                            <li>Reactive jump</li>
+                            <li>Multiple hop</li>
+                            <li>Sport-specific movements</li>
+                        </ul>
+                        <p><strong>Hacim:</strong> 150-400 temas, 3-4x/hafta</p>
+                    </div>
+                    
+                    <h4>⚡ Performans Faydaları</h4>
+                    <div class="success-box">
+                        <ul>
+                            <li><strong>Dikey Sıçrama:</strong> %12-18 artış</li>
+                            <li><strong>Sprint Performansı:</strong> %6-12 artış</li>
+                            <li><strong>Güç Üretimi:</strong> %10-25 artış</li>
+                            <li><strong>Reaktif Güç:</strong> %15-30 artış</li>
+                        </ul>
+                        <p><strong>Süre:</strong> 8-12 hafta için optimal sonuçlar</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Safety and Injury Prevention -->
+        <div class="slide">
+            <h2>🛡️ Güvenlik ve Yaralanma Önleme</h2>
+            <div class="two-column">
+                <div>
+                    <h4>⚠️ Risk Faktörleri</h4>
+                    <div class="danger-box">
+                        <ul>
+                            <li><strong>Aşırı Yükleme:</strong> Yetersiz dinlenme</li>
+                            <li><strong>Teknik Hatalar:</strong> Yanlış form</li>
+                            <li><strong>Maturasyonal Uyumsuzluk:</strong> Yaş uygun olmayan yük</li>
+                            <li><strong>Yetersiz Temel Fitness:</strong> Kondisyon eksikliği</li>
+                        </ul>
+                        
+                        <h5>Yaralanma İstatistikleri:</h5>
+                        <p><strong>Oran:</strong> 0.5-1.2 vaka/1000 antrenman saati</p>
+                        <p><strong>En Sık:</strong> Alt ekstremite, akut yaralanmalar</p>
+                    </div>
+                    
+                    <h4>🌡️ Çevresel Faktörler</h4>
+                    <div class="warning-box">
+                        <ul>
+                            <li><strong>Sıcaklık:</strong> >28°C dikkat</li>
+                            <li><strong>Nem:</strong> >60% yoğunluk azalt</li>
+                            <li><strong>Hidrasyon:</strong> Sürekli monitoring</li>
+                            <li><strong>Ekipman:</strong> Yaş uygun donanım</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h4>✅ Güvenlik Protokolleri</h4>
+                    <div class="success-box">
+                        <h5>Antrenman Öncesi:</h5>
+                        <ul>
+                            <li>Sağlık durumu kontrolü</li>
+                            <li>Maturasyon değerlendirmesi</li>
+                            <li>Temel fitness testi</li>
+                            <li>Teknik eğitim tamamlanması</li>
+                        </ul>
+                        
+                        <h5>Antrenman Sırası:</h5>
+                        <ul>
+                            <li>15-20 dakika ısınma</li>
+                            <li>Progresif yük artışı</li>
+                            <li>Kalite odaklı yaklaşım</li>
+                            <li>Sürekli teknik gözlem</li>
+                        </ul>
+                        
+                        <h5>Monitoring:</h5>
+                        <ul>
+                            <li>Günlük semptom takibi</li>
+                            <li>Yorgunluk skalaları</li>
+                            <li>Kalp hızı izlemi</li>
+                            <li>Uyku ve beslenme durumu</li>
+                        </ul>
+                    </div>
+                    
+                    <h4>🚨 Red Flag Belirtileri</h4>
+                    <div class="formula-box">
+                        <ul>
+                            <li>Sürekli yorgunluk ve performans düşüşü</li>
+                            <li>Motivasyon kaybı, antrenman kaçırma</li>
+                            <li>Tekrarlayan yaralanmalar</li>
+                            <li>Uyku bozuklukları, iştah kaybı</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Nutrition and Recovery -->
+        <div class="slide">
+            <h2>🍎 Beslenme ve Toparlanma</h2>
+            <div class="two-column">
+                <div>
+                    <h4>⏰ Antrenman Öncesi Beslenme</h4>
+                    <div class="info-box">
+                        <h5>Zamanlama Stratejisi:</h5>
+                        <ul>
+                            <li><strong>2-3 saat öncesi:</strong> Kompleks CHO + protein</li>
+                            <li><strong>30-60 dk öncesi:</strong> Hızlı CHO + az protein</li>
+                            <li><strong>15-30 dk öncesi:</strong> Sadece sıvı CHO</li>
+                        </ul>
+                        
+                        <h5>Yaş Grubuna Göre İhtiyaçlar:</h5>
+                        <ul>
+                            <li><strong>6-10 yaş:</strong> 1.0-1.5g/kg CHO</li>
+                            <li><strong>11-14 yaş:</strong> 1.5-2.0g/kg CHO</li>
+                            <li><strong>15-18 yaş:</strong> 2.0-2.5g/kg CHO</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h4>🔄 Antrenman Sonrası Toparlanma</h4>
+                    <div class="success-box">
+                        <h5>Toparlanma Pencereleri:</h5>
+                        <ul>
+                            <li><strong>0-30 dk:</strong> CHO:Protein 3:1 oranı</li>
+                            <li><strong>30-120 dk:</strong> Tam beslenme + elektrolit</li>
+                            <li><strong>2-24 saat:</strong> Anti-inflamatuar + uyku</li>
+                        </ul>
+                        
+                        <h5>Kritik Faktörler:</h5>
+                        <ul>
+                            <li><strong>Protein:</strong> 0.3-1.0g/kg yaşa göre</li>
+                            <li><strong>Karbonhidrat:</strong> 1.0-1.5g/kg</li>
+                            <li><strong>Sıvı:</strong> Kayıpın %150'si</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="formula-box">
+                <h4>💧 Hidrasyon Stratejileri</h4>
+                <div class="three-column">
+                    <div>
+                        <h5>Antrenman Öncesi:</h5>
+                        <p>• 2-3 saat öncesinden başla</p>
+                        <p>• 400-600ml sıvı</p>
+                        <p>• Elektrolit dengesi</p>
+                    </div>
+                    <div>
+                        <h5>Antrenman Sırası:</h5>
+                        <p>• 15-20 dakikada bir</p>
+                        <p>• 150-200ml sıvı</p>
+                        <p>• Soğuk sıcaklık tercihi</p>
+                    </div>
+                    <div>
+                        <h5>Antrenman Sonrası:</h5>
+                        <p>• Kayıp ağırlığın %150'si</p>
+                        <p>• Elektrolit replasmanı</p>
+                        <p>• 24 saat süreçte tamamlama</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Sport-Specific Applications -->
+        <div class="slide">
+            <h2>⚽ Spor Dallarına Göre Özelleştirme</h2>
+            <div class="three-column">
+                <div class="tier-young">
+                    <h4>🏃 Takım Sporları</h4>
+                    <h5>Futbol:</h5>
+                    <ul>
+                        <li><strong>Dominant Sistem:</strong> PCr %40 + Glikoliz %30</li>
+                        <li><strong>Test:</strong> RSA (6×30m, 20sn dinlenme)</li>
+                        <li><strong>Antrenman:</strong> Repeated sprint ability</li>
+                        <li><strong>Özel:</strong> Çok yönlü hareket paternleri</li>
+                    </ul>
+                    
+                    <h5>Basketbol:</h5>
+                    <ul>
+                        <li><strong>Dominant Sistem:</strong> PCr %45 + Glikoliz %35</li>
+                        <li><strong>Test:</strong> Vertical jump + T-agility</li>
+                        <li><strong>Antrenman:</strong> Vertical power + çeviklik</li>
+                        <li><strong>Özel:</strong> Sıçrama gücü odaklı</li>
+                    </ul>
+                </div>
+                
+                <div class="tier-middle">
+                    <h4>🏊 Bireysel Sporlar</h4>
+                    <h5>Sprint Koşu:</h5>
+                    <ul>
+                        <li><strong>100m:</strong> PCr %85, maksimal güç</li>
+                        <li><strong>400m:</strong> Glikoliz %60, laktat toleransı</li>
+                        <li><strong>Test:</strong> 30m, 60m sprint zamanları</li>
+                        <li><strong>Antrenman:</strong> Hız dayanıklılığı</li>
+                    </ul>
+                    
+                    <h5>Yüzme:</h5>
+                    <ul>
+                        <li><strong>50m:</strong> PCr %75, stroke power</li>
+                        <li><strong>100m:</strong> Glikoliz %50, teknik sürdürme</li>
+                        <li><strong>Test:</strong> 25m sprint, dikey sıçrama</li>
+                        <li><strong>Antrenman:</strong> Su içi pliometrik</li>
+                    </ul>
+                </div>
+                
+                <div class="tier-older">
+                    <h4>🤸 Estetik ve Dövüş</h4>
+                    <h5>Cimnastik:</h5>
+                    <ul>
+                        <li><strong>Dominant Sistem:</strong> PCr %70</li>
+                        <li><strong>Test:</strong> Vertical jump, core güç</li>
+                        <li><strong>Antrenman:</strong> Explosive power</li>
+                        <li><strong>Özel:</strong> Güç-koordinasyon entegrasyonu</li>
+                    </ul>
+                    
+                    <h5>Dövüş Sporları:</h5>
+                    <ul>
+                        <li><strong>Sistem:</strong> PCr %40 + Glikoliz %40</li>
+                        <li><strong>Test:</strong> RSA + güç testleri</li>
+                        <li><strong>Antrenman:</strong> İnterval + pliometrik</li>
+                        <li><strong>Özel:</strong> Güç endurance kombinasyonu</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Technology and Monitoring -->
+        <div class="slide">
+            <h2>📱 Teknoloji ve Performans Takibi</h2>
+            <div class="two-column">
+                <div>
+                    <h4>⌚ Wearable Technology</h4>
+                    <div class="info-box">
+                        <h5>GPS ve İvmeölçer Sistemleri:</h5>
+                        <ul>
+                            <li><strong>Parametreler:</strong> Sprint sayısı, maksimal hız</li>
+                            <li><strong>Threshold:</strong> >5.5 m/s (çocuk), >7.0 m/s (adolesan)</li>
+                            <li><strong>Load Monitoring:</strong> Player load, mekanik stres</li>
+                            <li><strong>Recovery:</strong> Kalp hızı variabilitesi</li>
+                        </ul>
+                        
+                        <h5>Mobil Uygulamalar:</h5>
+                        <ul>
+                            <li><strong>MyLift:</strong> Velocity-based training</li>
+                            <li><strong>Freelap:</strong> Sprint zamanlama</li>
+                            <li><strong>Coach's Eye:</strong> Video analizi</li>
+                            <li><strong>SportTracks:</strong> Performans takibi</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h4>🔬 Laboratuvar vs Saha</h4>
+                    <div class="success-box">
+                        <h5>Laboratuvar Avantajları:</h5>
+                        <ul>
+                            <li>Kontrollü çevre koşulları</li>
+                            <li>Hassas ölçüm cihazları</li>
+                            <li>Standardize protokoller</li>
+                            <li>Detaylı fizyolojik analiz</li>
+                        </ul>
+                        
+                        <h5>Saha Testi Avantajları:</h5>
+                        <ul>
+                            <li>Spor-spesifik koşullar</li>
+                            <li>Pratik uygulanabilirlik</li>
+                            <li>Maliyet etkinliği</li>
+                            <li>Grup testleri imkanı</li>
+                        </ul>
+                    </div>
+                    
+                    <h4>💰 Maliyet-Fayda Analizi</h4>
+                    <div class="formula-box">
+                        <ul>
+                            <li><strong>GPS Saatleri:</strong> Düşük maliyet, 8+ yaş</li>
+                            <li><strong>IMU Sensörleri:</strong> Orta maliyet, 12+ yaş</li>
+                            <li><strong>Force Plates:</strong> Yüksek maliyet, 10+ yaş</li>
+                            <li><strong>Video Analizi:</strong> Orta maliyet, 6+ yaş</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Future and Conclusions -->
+        <div class="slide">
+            <h2>🚀 Gelecek Araştırmaları ve Sonuçlar</h2>
+            <div class="two-column">
+                <div>
+                    <h4>🔮 Emerging Teknolojiler</h4>
+                    <div class="info-box">
+                        <h5>Artificial Intelligence:</h5>
+                        <ul>
+                            <li><strong>Predictive Modeling:</strong> Yaralanma riski</li>
+                            <li><strong>Personalized Training:</strong> Bireysel algoritma</li>
+                            <li><strong>Performance Analytics:</strong> Gelişmiş analiz</li>
+                            <li><strong>Recovery Optimization:</strong> Optimal zamanlama</li>
+                        </ul>
+                        
+                        <h5>Genetik Faktörler:</h5>
+                        <ul>
+                            <li><strong>ACTN3 Gen:</strong> Hız geni varyantları</li>
+                            <li><strong>ACE Gen:</strong> Dayanıklılık polimorfizmi</li>
+                            <li><strong>Epigenetik:</strong> Çevresel etkileşimler</li>
+                            <li><strong>Personalized Medicine:</strong> Hassas yaklaşım</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h4>📋 Pratik Öneriler</h4>
+                    <div class="success-box">
+                        <h5>Antrenörler İçin:</h5>
+                        <ul>
+                            <li>Maturasyon durumu değerlendirmesi</li>
+                            <li>Bireyselleştirilmiş yük yönetimi</li>
+                            <li>Progresif ve güvenli yaklaşım</li>
+                            <li>Uzun dönem gelişim perspektifi</li>
+                        </ul>
+                        
+                        <h5>Ebeveynler İçin:</h5>
+                        <ul>
+                            <li>Kaliteli beslenme desteği</li>
+                            <li>Yeterli uyku sağlama (9-11 saat)</li>
+                            <li>Stres yönetimi ve denge</li>
+                            <li>Çocuğun gelişim sürecine saygı</li>
+                        </ul>
+                    </div>
+                    
+                    <h4>🎯 Ana Sonuçlar</h4>
+                    <div class="formula-box">
+                        <ul>
+                            <li><strong>PHV Dönemi:</strong> Kritik gelişim penceresi</li>
+                            <li><strong>Bireysel Farklılıklar:</strong> Yetişkinlerden fazla</li>
+                            <li><strong>Güvenlik Önceliği:</strong> Performanstan önce</li>
+                            <li><strong>Uzun Dönem Yaklaşım:</strong> 10+ yıl perspektifi</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar" id="sidebar">
+        <!-- Sidebar content will be populated by JavaScript -->
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn">⬅ Önceki</button>
+        <button class="nav-btn" id="nextBtn">Sonraki ➡</button>
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCounter = document.getElementById('slideCounter');
+        const progressBar = document.getElementById('progressBar');
+        const notesBtn = document.getElementById('notesBtn');
+        const sidebar = document.getElementById('sidebar');
+        
+        let currentSlide = 0;
+
+        const slideNotes = [
+            {
+                title: "Çocuklarda Anaerobik Performans Gelişiminin Temel Prensipleri ve Bilimsel Çerçeve",
+                content: `
+                    <h4>⚡ Çocuklarda Anaerobik Performans Biliminin Kapsamlı Temelleri ve Gelişimsel Perspektif</h4>
+                    <p>Çocuklarda anaerobik performans gelişimi, spor fizyolojisinin en karmaşık ve multidisipliner yaklaşım gerektiren alanlarından biridir. Bu konu sadece biyolojik matürasyonu değil, aynı zamanda nöromusküler gelişim, hormonal değişimler, metabolik adaptasyonlar ve psikososyal faktörlerin karmaşık etkileşimini de içermektedir. Anaerobik performansın çocuklarda yetişkinlerden farklı gelişim göstermesinin temel nedeni, enerji sistemlerinin yaşa bağlı matürasyonel değişikliklerinin doğrusal olmayan bir seyir izlemesidir.</p>
+                    
+                    <p>Çocuk ve adolesanlarda anaerobik kapasite, yetişkinlerin aksine sürekli gelişim halinde olan bir sistemdir. Bu gelişim süreci özellikle Peak Height Velocity (PHV) döneminde dramatik değişimler göstermektedir. PHV, boyca büyümenin en hızlı olduğu dönemi ifade etmekte olup, bu dönemde anaerobik güçte %40-60 oranında artış gözlenmektedir. Bu dönem kızlarda ortalama 11.5±1.2 yaş, erkeklerde ise 13.8±1.1 yaş civarında gerçekleşmektedir. Ancak bireysel farklılıklar bu ortalamalardan ±2 yıl sapma gösterebilmektedir.</p>
+                    
+                    <p>Anaerobik performans değerlendirmesinde 2020-2024 dönemi araştırmaları özellikle COVID-19 pandemisinin etkilerini de ortaya koymuştur. Bu dönemde yapılan geniş çaplı meta-analizler, çocuk popülasyonunda anaerobik kapasitede %8-15 oranında düşüş olduğunu göstermiştir. Bu bulgular, çocuklarda anaerobik kapasitenin çevresel faktörlere ne kadar duyarlı olduğunu ve detraining etkilerinin ne kadar hızlı geliştiğini ortaya koymuştur. Toparlanma sürecinin de yetişkinlere göre daha uzun sürdüğü gözlemlenmiştir.</p>
+                    
+                    <p>Maturasyonal gelişim açısından bakıldığında, anaerobik performans üç temel dönemde incelenmektedir: pre-pubertal (6-10 yaş), pubertal (11-16 yaş) ve post-pubertal (17+ yaş). Bu dönemlerin her birinde farklı fizyolojik mekanizmalar dominant olmakta ve antrenman stratejileri de buna göre şekillendirilmelidir. Pre-pubertal dönemde fosfokreatin sistemi dominant olmakla birlikte kapasitesi sınırlıdır, pubertal dönemde hızlı gelişim ve adaptasyon gözlenirken, post-pubertal dönemde yetişkin seviyelerine yaklaşım söz konusudur.</p>
+                `
+            },
+            {
+                title: "Anaerobik Enerji Sistemlerinin Yaşa Bağlı Gelişimi ve Metabolik Adaptasyonlar",
+                content: `
+                    <h4>🔋 Çocuklarda Anaerobik Enerji Sistemlerinin Detaylı Fizyolojik Analizi ve Gelişimsel Süreçler</h4>
+                    <p>Anaerobik enerji sistemleri, çocuklarda yetişkinlerden çok farklı bir gelişim profili göstermektedir. Fosfokreatin sistemi, 0-10 saniye arasındaki maksimal çaba aktivitelerinde dominant olup, çocuklarda kapasitesi yetişkinlerin %65-70'i seviyesindedir. Bu sistemin gelişimi yaşla birlikte logaritmik bir artış göstermekte ve özellikle puberte döneminde dramatik değişiklikler yaşanmaktadır. Kreatin kinaz enzim aktivitesi, 6 yaşında yetişkin değerinin %45'i iken, 16 yaşında %95'ine ulaşmaktadır.</p>
+                    
+                    <p>Fosfokreatin deposu açısından bakıldığında, çocuklarda kas içi kreatin konsantrasyonu yetişkinlerin önemli ölçüde altında bulunmaktadır. Normal koşullarda yetişkin kas kreatini 20-25 mmol/kg kuru kas ağırlığı iken, çocuklarda bu değer 12-18 mmol/kg seviyesindedir. Bu durum, çocukların kısa süreli maksimal aktivitelerde güç sürdürme kapasitelerini önemli ölçüde etkilemektedir. Ancak puberte ile birlikte kreatin sentezi ve kas içi depolama kapasitesi hızla artmaktadır.</p>
+                    
+                    <p>Glikoliz sistemi, 10 saniye - 2 dakika arasındaki aktivitelerde dominant olmakla birlikte, çocuklarda çok daha sınırlı kapasiteye sahiptir. Fosfofruktokinaz (PFK) enzim aktivitesi, glikoliz hızının temel belirleyicisi olup, çocuklarda yetişkin seviyesinin %50-60'ı kadardır. Bu durum, özellikle 1-4 dakika arasındaki yüksek şiddetli aktivitelerde çocukların performans sınırlılığının temel nedenidir. Puberte döneminde PFK aktivitesi dramatik artış göstererek yetişkin seviyelerine yaklaşmaktadır.</p>
+                    
+                    <p>Laktat üretimi ve metabolizması açısından çocuklar özel bir profil göstermektedir. Çocuklarda maksimal laktat seviyeleri 4-6 mmol/L iken, adolesanlarda 8-12 mmol/L, yetişkinlerde ise 15-20 mmol/L seviyelerine ulaşabilmektedir. Bu durum sadece glikoliz kapasitesinin sınırlılığını değil, aynı zamanda asit-baz tampenleme sisteminin de gelişmemiş olduğunu göstermektedir. Laktat clearance hızı da çocuklarda %40-50 daha yavaştır, bu nedenle dinlenme süreleri daha uzun tutulmalıdır.</p>
+                    
+                    <p>Tamponlama kapasitesi, anaerobik performansın sürdürülmesinde kritik rol oynamaktadır. Çocuklarda kas içi tamponlama kapasitesi yetişkinlerin %60-80'i seviyesinde olup, bu durum özellikle tekrarlı yüksek şiddetli aktivitelerde belirgin performans düşüşüne neden olmaktadır. Beta alanin ve karnosin seviyeleri de yaşla birlikte artmakta, bu da yüksek şiddetli egzersiz toleransında iyileşme sağlamaktadır.</p>
+                `
+            },
+            {
+                title: "Peak Height Velocity ve Maturasyonal Gelişimin Anaerobik Performansa Etkileri",
+                content: `
+                    <h4>📈 PHV Döneminin Anaerobik Kapasite Üzerindeki Devrimsel Etkisi ve Hormonal Düzenlemeler</h4>
+                    <p>Peak Height Velocity (PHV) dönemi, çocuklarda anaerobik performans gelişiminin en kritik pencere dönemidir. Bu dönem, boyca büyümenin en hızlı olduğu 12-18 aylık periyodu ifade etmekte ve anaerobik performans parametrelerinde çarpıcı değişiklikler yaşanmaktadır. PHV sırasında anaerobik güçte %40-60 oranında artış gözlenmesi, bu dönemin ne kadar kritik olduğunu göstermektedir. PHV+1 yılında ise en büyük kazanım dönemi yaşanmakta, kızlarda %45-65, erkeklerde %55-75 oranında artış görülmektedir.</p>
+                    
+                    <p>PHV döneminde gerçekleşen hormonal değişiklikler, anaerobik performans gelişiminin temel motorudur. Büyüme hormonu sekresyonundaki artış, protein sentezini uyararak kas liflerinde hipertrofi sağlamaktadır. İnsülin-like growth factor-1 (IGF-1) seviyeleri bu dönemde 2-3 kat artmakta ve kas büyümesini doğrudan etkilemektedir. Erkeklerde testosteron seviyelerindeki dramatik artış (10-20 kat), anaerobik kapasitede kızlara göre daha büyük artışların yaşanmasının temel nedenidir.</p>
+                    
+                    <p>Nöromusküler sistem açısından PHV dönemi, motor ünit rekrutment paternlerinin optimize edildiği kritik bir dönemdir. Tip II kas lifi oranı bu dönemde önemli ölçüde artmakta ve güç üretim kapasitesi gelişmektedir. Motor ünit senkronizasyonu ve intermüsküler koordinasyon da bu dönemde olgunlaşarak, güç transferi etkinliğinde iyileşme sağlanmaktadır. Agonist-antagonist kas dengeleri de bu dönemde yeniden düzenlenmektedir.</p>
+                    
+                    <p>PHV döneminin bireysel varyasyonları büyük önem taşımaktadır. Erken gelişen çocuklar (early maturing) geç gelişenlere göre (late maturing) geçici avantaj elde etseler de, uzun dönem performans potansiyelleri farklılık göstermektedir. Erken gelişenler daha erken yaşta yüksek performans sergileyebilmekte ancak tavan etkisi yaşayabilmektedirler. Geç gelişenler ise daha uzun süre gelişim potansiyeline sahip olmaktadırlar.</p>
+                    
+                    <p>Metabolik enzim sistemlerindeki değişiklikler de PHV döneminde kritik önem taşımaktadır. Kreatin kinaz aktivitesi bu dönemde 2-3 kat artmakta, fosfofruktokinaz ve laktat dehidrojenaz aktiviteleri de dramatik artış göstermektedir. Mitokondriyal yoğunluk ve oksidatif enzim kapasitesi de paralel olarak gelişmekte, böylece aerobik ve anaerobik sistemler arasında daha iyi entegrasyon sağlanmaktadır.</p>
+                `
+            },
+            {
+                title: "Çocuklarda Anaerobik Performans Test Protokolleri ve Değerlendirme Yöntemleri",
+                content: `
+                    <h4>🧪 Çocuk Popülasyonuna Özgü Test Metodolojileri ve Geçerlilik-Güvenilirlik Analizleri</h4>
+                    <p>Çocuklarda anaerobik performans değerlendirmesi, yetişkinlerden farklı metodolojik yaklaşımlar gerektirmektedir. Wingate Anaerobik Testi, altın standart olarak kabul edilmekle birlikte, çocuklar için özel modifikasyonlar gerekmektedir. Standart 30 saniye protokolü yerine 15 saniye protokolünün çocuklar için daha uygun olduğu son araştırmalarda gösterilmiştir. Bu kısaltılmış protokol, çocukların fizyolojik kapasitelerine daha uygun sonuçlar vermekte ve güvenlik açısından da üstün olmaktadır.</p>
+                    
+                    <p>Test-retest güvenilirlik katsayısı çocuklarda r=0.85-0.92 arasında bulunmaktadır, bu da testin tutarlı sonuçlar verdiğini göstermektedir. Ancak test tekrarı için en az 72 saat ara verilmesi gerekmektedir çünkü çocuklarda toparlanma süresi yetişkinlerden daha uzundur. Yük ayarlaması açısından vücut ağırlığının %7.5'i çocuklar için optimal bulunmuş olup, %8.5-10 gibi yüksek yükler güvenlik riski oluşturmaktadır.</p>
+                    
+                    <p>Alan testleri, pratik uygulanabilirlik açısından önemli avantajlar sunmaktadır. 20 metre sprint testi, Wingate pik güç ile r=0.78 korelasyon göstermekte ve pratik kullanım için yeterli geçerliliğe sahip olmaktadır. 10 metre sprint akselerasyon kapasitesini, 20 metre erken hız fazını, 30 metre ise maksimal hız kapasitesini değerlendirmektedir. Repeated Sprint Ability (RSA) testi, çocuklarda 6×30m, 20 saniye dinlenme protokolü ile uygulanmakta ve takım sporları için özel önem taşımaktadır.</p>
+                    
+                    <p>Sıçrama testleri, alt ekstremite anaerobik gücünün değerlendirilmesinde kritik rol oynamaktadır. Dikey sıçrama (countermovement jump) testi, çocuklarda dikey güç kapasitesini gösterirken, yatay sıçrama (standing long jump) horizontal güç üretimini değerlendirmektedir. Çoklu sıçrama testleri ise reaktif güç kapasitesini ölçmekte ve pliometrik antrenman etkilerinin takibinde kullanılmaktadır.</p>
+                    
+                    <p>Yeni nesil test protokolleri arasında Force-Velocity profiling özel önem taşımaktadır. Bu metodoloji, bireysel güç-hız karakteristiklerini belirlemeye olanak tanımakta ve antrenman programlarının kişiselleştirilmesine katkıda bulunmaktadır. Wearable technology kullanımı da yaygınlaşmakta, GPS saatleri ve ivmeölçer sistemleri gerçek zamanlı performans takibi sağlamaktadır. Video analizi teknikleri ise hareket kalitesi değerlendirmesinde devrimsel gelişmeler sunmaktadır.</p>
+                `
+            },
+            {
+                title: "Yaş Gruplarına Göre Anaerobik Performans Normatif Değerleri ve Popülasyon Referansları",
+                content: `
+                    <h4>📊 Çocuk ve Adolesanlarda Anaerobik Performans Standartları ve Karşılaştırmalı Analiz</h4>
+                    <p>Çocuklarda anaerobik performans normatif değerleri, yaş, cinsiyet ve maturasyon durumuna göre büyük farklılıklar göstermektedir. 6-10 yaş grubunda pik güç değerleri erkeklerde 6.2±1.1 W/kg, kızlarda ise 5.8±0.9 W/kg seviyesindedir. Bu değerler yetişkin seviyelerinin yaklaşık %45-50'si kadardır. Sprint performansında 20 metre zamanları erkeklerde 3.8±0.3 saniye, kızlarda 4.0±0.3 saniye olarak ölçülmektedir. Dikey sıçrama performansları ise erkeklerde 22±4 cm, kızlarda 20±3 cm seviyelerindedir.</p>
+                    
+                    <p>11-14 yaş grubu, hızlı gelişim ve adaptasyon dönemini temsil etmektedir. Bu dönemde pik güç değerleri erkeklerde 8.3±1.4 W/kg, kızlarda 7.2±1.1 W/kg seviyelerine yükselmektedir. Bu değerler yetişkin seviyesinin %65-70'ini oluşturmaktadır. Sprint performansında belirgin iyileşme gözlenmekte, 20 metre zamanları erkeklerde 3.2±0.3 saniye, kızlarda 3.5±0.3 saniye'ye düşmektedir. Dikey sıçrama kapasitesi erkeklerde 32±6 cm, kızlarda 28±5 cm'ye yükselmektedir.</p>
+                    
+                    <p>15-18 yaş grubunda yetişkin seviyelerine yaklaşım gözlenmektedir. Pik güç değerleri erkeklerde 11.2±1.8 W/kg, kızlarda 8.1±1.3 W/kg seviyelerine ulaşmaktadır. Erkeklerde yetişkin seviyesinin %90-95'ine, kızlarda %85-90'ına erişilmektedir. Sprint performansı erkeklerde 2.7±0.2 saniye, kızlarda 3.2±0.3 saniye seviyesindedir. Dikey sıçrama kapasitesi erkeklerde 45±8 cm, kızlarda 35±6 cm'ye yükselmektedir.</p>
+                    
+                    <p>Etnik farklılıklar da normatif değerlerde önemli rol oynamaktadır. Asya kökenli çocuklarda Avrupa kökenli çocuklara göre %8-12 daha düşük anaerobik güç değerleri gözlenmektedir. Afrika kökenli çocuklarda ise özellikle sprint performansında üstün değerler görülmektedir. Bu farklılıklar genetik faktörler, kas lifi tip dağılımı ve antropometrik özelliklerden kaynaklanmaktadır.</p>
+                    
+                    <p>Sosyoekonomik faktörlerin etkisi de göz ardı edilmemelidir. Yüksek sosyoekonomik düzeydeki çocuklarda %15-20 daha yüksek anaerobik performans değerleri görülmektedir. Bu durum beslenme kalitesi, spor imkanlarına erişim ve yaşam tarzı farklılıklarından kaynaklanmaktadır. Mevsimsel değişimler de performans üzerinde etkili olmakta, yaz aylarında kış aylarına göre %5-8 daha yüksek değerler kaydedilmektedir.</p>
+                `
+            },
+            {
+                title: "Çocuklarda Yaşa Özgü Anaerobik Antrenman Metodolojileri ve Progresyon Stratejileri",
+                content: `
+                    <h4>💪 Gelişimsel Dönemlere Göre Optimized Anaerobik Antrenman Yaklaşımları ve Bilimsel Temeller</h4>
+                    <p>Çocuklarda anaerobik antrenman metodolojisi, yaşa özgü fizyolojik kapasiteler ve gelişimsel gereksinimler temelinde şekillendirilmelidir. 6-10 yaş grubu için temel hareket becerilerine odaklanan oyun temelli yaklaşım benimsenmelidir. Bu dönemde 10-15 saniye süren kısa ataklar, %85-90 maksimal yoğunlukta uygulanmalı ve 60-90 saniye dinlenme süreleri verilmelidir. Haftada 2-3 seans optimal sıklık olup, çocukların dikkat sürelerinin sınırlılığı göz önünde bulundurularak 20-30 dakika süren seanslar planlanmalıdır.</p>
+                    
+                    <p>11-14 yaş grubu, gelişimsel dönemin kritik evresi olup, daha yapılandırılmış antrenman programları uygulanabilmektedir. HIIT protokolleri bu dönemde etkili olmaya başlamakta, 20-30 saniye çalışma, 60-120 saniye dinlenme ile 8-10 set uygulanabilmektedir. Yoğunluk %90-95 maksimal seviyeye çıkarılabilmekte ve haftada 3 seansa kadar artırılabilmektedir. Dirençli sprint çalışmaları bu dönemde güvenli şekilde başlatılabilmekte, progresif yük artışı uygulanabilmektedir.</p>
+                    
+                    <p>15-18 yaş grubu için yetişkin benzeri protokoller uygulanabilmektedir. HIIT seansları 30-45 saniye çalışma, 90-180 saniye dinlenme ile 10-12 set olarak planlanabilmektedir. Yoğunluk %95-100 maksimal seviyeye çıkarılabilmekte ve laktat threshold çalışmaları hedefli olarak yapılabilmektedir. Bu dönemde periodizasyon prensipleri tam olarak uygulanabilmekte ve yarışma odaklı antrenman stratejileri benimsenebilmektedir.</p>
+                    
+                    <p>HIIT protokollerinin etkinliği çocuklarda özellikle dikkat çekmektedir. 2024 araştırmaları, çocuklarda HIIT antrenmanlarının geleneksel anaerobik antrenmanlara göre %25-35 daha etkili olduğunu göstermektedir. Motivasyon ve katılım açısından da üstün sonuçlar elde edilmektedir. Çalışma:dinlenme oranı çocuklarda 1:3-1:4, adolesanlarda 1:2-1:3 olarak uygulanmalıdır. Recovery ratios çocukların yavaş toparlanma kapasitesi göz önünde bulundurularak ayarlanmalıdır.</p>
+                    
+                    <p>Spor-spesifik adaptasyonlar da yaş gruplarına göre farklılık göstermektedir. Küçük yaş gruplarında genel motor becerilere odaklanılırken, büyük yaş gruplarında spor dalına özgü hareket paternleri entegre edilmelidir. Teknik beceri öğretimi ile anaerobik antrenmanın kombinasyonu, performans transfer etkinliğini %15-20 artırmaktadır. Çok yönlü hareket paternleri, tek yönlü antrenmanlara göre %25-35 daha etkili sonuçlar vermektedir.</p>
+                `
+            },
+            {
+                title: "Pliometrik Antrenmanın Çocuklarda Uygulanması ve Yaralanma Önleme Stratejileri",
+                content: `
+                    <h4>🦘 Çocuk ve Adolesanlarda Pliometrik Antrenmanın Bilimsel Temelleri ve Güvenlik Protokolleri</h4>
+                    <p>Pliometrik antrenman, çocuklarda anaerobik güç geliştirmede en etkili yöntemlerden biri olmakla birlikte, yaşa uygun progresyon ve güvenlik protokolleri kritik önem taşımaktadır. Çocuklarda kas-tendon kompleksinin yetişkinlerden farklı özellikler göstermesi nedeniyle, pliometrik yükler dikkatli şekilde artırılmalıdır. Tendon stiffness çocuklarda yetişkinlerin %60-70'i seviyesinde olup, bu durum enerji depolama ve geri verme kapasitesini etkilemektedir.</p>
+                    
+                    <p>6-9 yaş grubunda düşük yoğunluklu sıçramalar ile başlanmalı, yerinde sıçramalar, iki ayak hop, lateral hop ve tuck jump gibi temel hareketler uygulanmalıdır. Günlük 60-100 temas ile sınırlandırılmalı ve haftada 2 seans aşılmamalıdır. Bu dönemde amaç, temel hareket paternlerinin öğrenilmesi ve nöromusküler koordinasyonun geliştirilmesidir. Yükseklikten sıçrama (depth jump) gibi ileri seviye hareketlerden kaçınılmalıdır.</p>
+                    
+                    <p>10-12 yaş grubunda çok yönlü sıçramalara geçiş yapılabilmektedir. Single leg hop, split jump, broad jump ve lateral bound gibi hareketler güvenli şekilde eklenebilmektedir. Günlük 100-150 temas ve haftada 2-3 seans uygun olmaktadır. Bu dönemde bilateral ve unilateral hareketlerin dengeli kombinasyonu önem taşımaktadır. Ground reaction force'ların kademeli artırılması, adaptasyon sürecini güvenli hale getirmektedir.</p>
+                    
+                    <p>13+ yaş grubunda ileri seviye pliometrik hareketler uygulanabilmektedir. Depth jump, reactive jump, multiple hop ve spor-spesifik hareketler programa dahil edilebilmektedir. Günlük 150-400 temas ve haftada 3-4 seans optimal seviyeyi oluşturmaktadır. Bu dönemde yüksek yoğunluklu pliometrik antrenmanlar güvenli şekilde uygulanabilmekte ve performans adaptasyonları maksimize edilebilmektedir.</p>
+                    
+                    <p>Pliometrik antrenmanın performans faydaları çocuklarda çarpıcı boyutlardadır. Systematic review sonuçlarına göre, 8-12 haftalık pliometrik antrenman dikey sıçrama performansını %12-18, sprint performansını %6-12 oranında iyileştirmektedir. Güç üretimi %10-25, reaktif güç kapasitesi ise %15-30 oranında artış göstermektedir. Bu faydalar özellikle puberte döneminde daha belirgin olmaktadır.</p>
+                    
+                    <p>Güvenlik açısından landing mekaniği eğitimi kritik öneme sahiptir. Proper landing tekniği öğretimi yaralanma riskini %40-60 azaltmaktadır. Dizlerin valgus pozisyonuna geçmesinin engellenmesi, ayak bileği stabilizasyonunun sağlanması ve core aktivasyonunun öğretilmesi temel güvenlik prensipleridir. Progressive overload prensibi dikkatli şekilde uygulanmalı, haftalık %5-10 artış kuralına uyulmalıdır.</p>
+                `
+            },
+            {
+                title: "Çocuklarda Anaerobik Antrenman Güvenliği ve Kapsamlı Risk Yönetimi",
+                content: `
+                    <h4>🛡️ Pediyatrik Spor Populasyonunda Güvenlik Protokolleri ve Evidence-Based Risk Değerlendirmesi</h4>
+                    <p>Çocuklarda anaerobik antrenman güvenliği, yetişkinlerden farklı bir yaklaşım gerektirmektedir. Yaralanma statistikleri incelendiğinde, çocuklarda anaerobik antrenman yaralanma oranı 1000 antrenman saatinde 0.5-1.2 vaka olarak görülmektedir. Bu oran genel spor yaralanmalarından düşük olmakla birlikte, yaralanmaların %70'i akut, %30'u aşırı kullanım kaynaklı olmaktadır. En sık görülen yaralanmalar alt ekstremitede gerçekleşmekte ve özellikle diz ve ayak bileği bölgelerini etkilemektedir.</p>
+                    
+                    <p>Risk faktörlerinin sistematik analizi, yaralanma önlemede kritik önem taşımaktadır. Aşırı yükleme, en önemli risk faktörü olup, yetişkinlere göre %10 artış kuralı yerine çocuklarda %5-8 artış kuralının uygulanması gerekmektedir. Teknik hatalar, yetersiz öğrenme ve yanlış form diğer majör risk faktörleridir. Maturasyonal uyumsuzluk, yaşa uygun olmayan yüklerin uygulanması sonucu ortaya çıkmakta ve özellikle erken maturing çocuklarda görülmektedir.</p>
+                    
+                    <p>Çevresel faktörler de göz ardı edilmemelidir. Sıcaklık >28°C ve nem >60% olduğunda antrenman yoğunluğu azaltılmalıdır. Çocuklarda termoregülasyon kapasitesi yetişkinlerden düşük olup, ısı hastalığı riski daha yüksektir. Ter elektrolit konsantrasyonu da farklı olup (Na: 20-40 mmol/L), elektrolit replasmanı stratejileri buna göre düzenlenmelidir. Hidrasyon monitoring sürekli yapılmalı, ağırlık kaybı %2'yi geçmemelidir.</p>
+                    
+                    <p>Medical clearance protokolleri, yüksek yoğunluklu anaerobik antrenman öncesi uygulanmalıdır. Kardiyovasküler screening, özellikle aile öyküsü olan çocuklarda kritik önem taşımaktadır. Hipertrofik kardiyomiyopati, aritmojenik sağ ventrikül kardiyomiyopatisi ve uzun QT sendromu gibi durumlar mutlaka taranmalıdır. EKG ve ekokardiografi, yüksek riskli popülasyonlarda gerekli olabilmektedir.</p>
+                    
+                    <p>Red flag belirtilerinin tanınması ve erken müdahalesi kritik önem taşımaktadır. Sürekli yorgunluk ve performans düşüşü, overtraining sendromunun erken belirtileri olabilmektedir. Motivasyon kaybı, antrenman kaçırma ve davranış değişiklikleri de dikkat gerektirmektedir. Tekrarlayan yaralanmalar, yetersiz toparlanma veya aşırı yüklemenin göstergesi olabilmektedir. Uyku bozuklukları ve iştah kaybı, stres hormon dengesizliğinin belirtileri olarak değerlendirilmelidir.</p>
+                `
+            },
+            {
+                title: "Çocuklarda Anaerobik Antrenman Beslenmesi ve Optimized Toparlanma Stratejileri",
+                content: `
+                    <h4>🍎 Pediyatrik Popülasyonda Anaerobik Performans Beslenmesi ve Bilimsel Temelli Recovery Protokolleri</h4>
+                    <p>Çocuklarda anaerobik antrenman beslenmesi, büyüme ve gelişme ihtiyaçları ile performans gereksinimlerinin optimize edilmiş kombinasyonunu gerektirmektedir. Antrenman öncesi beslenme stratejisi, zamanlama açısından kritik önem taşımaktadır. 2-3 saat öncesinde kompleks karbonhidrat ve protein kombinasyonu, glikojen depolarını maksimize ederken, 30-60 dakika öncesinde hızlı karbonhidrat ve minimal protein alımı, gastrik boşalmayı hızlandırmaktadır. 15-30 dakika öncesinde sadece sıvı karbonhidrat alımı optimal olmaktadır.</p>
+                    
+                    <p>Yaş grubuna göre karbonhidrat ihtiyaçları büyük farklılık göstermektedir. 6-10 yaş grubunda 1.0-1.5g/kg, 11-14 yaş grubunda 1.5-2.0g/kg, 15-18 yaş grubunda ise 2.0-2.5g/kg karbonhidrat optimal performans için gereklidir. Protein ihtiyaçları da 0.3-1.0g/kg arasında değişmekte, yaş ve antrenman yoğunluğuna bağlı olarak artmaktadır. Bu ihtiyaçların karşılanmaması durumunda performans %10-20 düşebilmektedir.</p>
+                    
+                    <p>Antrenman sonrası toparlanma, çocuklarda daha kritik önem taşımaktadır. Toparlanma pencereleri zamanlaması şu şekildedir: 0-30 dakika içinde karbonhidrat:protein 3:1 oranında alım, kas glikojen ressentezi ve protein sentezi için optimal olmaktadır. 30-120 dakika arasında tam beslenme ve elektrolit replasmanı, homeostazın restore edilmesi için gereklidir. 2-24 saat arasında anti-inflamatuar besinler ve uyku optimizasyonu, adaptasyon sürecini desteklemektedir.</p>
+                    
+                    <p>Hidrasyon stratejileri çocuklarda özel dikkat gerektirir. 2024 araştırmaları, çocuklarda %2 dehidratasyonun bile anaerobik performansta %10-15 düşüşe neden olduğunu göstermektedir. Elektrolit dengesi yetişkinlerden daha kritik olup, özellikle sodyum ve potasyum dengesinin korunması önem taşımaktadır. Antrenman öncesinde 2-3 saat öncesinden 400-600ml, antrenman sırasında 15-20 dakikada bir 150-200ml, antrenman sonrasında kayıp ağırlığın %150'si kadar sıvı alımı optimal olmaktadır.</p>
+                    
+                    <p>Toparlanma sürecinde uyku kalitesi kritik rol oynamaktadır. Çocuklarda 9-11 saat uyku süresi optimal olmakla birlikte, anaerobik antrenman günlerinde bu süre daha da kritik hale gelmektedir. Büyüme hormonu salınımının %70'i derin uyku fazında gerçekleşmekte, protein sentezi ve doku onarımı bu dönemde maksimize olmaktadır. Uyku kalitesinin bozulması durumunda toparlanma süreci %30-50 uzamaktadır.</p>
+                `
+            },
+            {
+                title: "Spor Dallarına Özgü Anaerobik Antrenman Stratejileri ve Transfer Optimization",
+                content: `
+                    <h4>⚽ Spor-Spesifik Anaerobik Kapasiteler ve Hassas Antrenman Metodolojileri</h4>
+                    <p>Spor dallarına özgü anaerobik antrenman stratejileri, her sporun kendine özgü enerji sistemi taleplerine göre şekillendirilmelidir. Takım sporlarında çoklu sistem entegrasyonu gerektiren bir yapı söz konusudur. Futbolda PCr sistemi %40, glikoliz sistemi %30 oranında dominant olmakla birlikte, aerobik sistem de %30 katkı sağlamaktadır. Bu nedenle repeated sprint ability (RSA) odaklı antrenmanlar kritik önem taşımaktadır. 6×30m, 20 saniye dinlenme protokolü, maç sırasındaki sprint paternlerini simüle etmektedir.</p>
+                    
+                    <p>Basketbolda vertikal güç komponenti öne çıkmaktadır. PCr sistemi %45, glikoliz sistemi %35 oranında dominant olmakla birlikte, sıçrama gücü ve çeviklik kritik faktörlerdir. Vertical jump ve T-agility testleri, basketbola özgü performans değerlendirmesinde kullanılmaktadır. Antrenman programlarında vertical power geliştirici pliometrik egzersizler ve çok yönlü hareket paternleri ön plana çıkmaktadır. Çocuk basketbolcularında vertical jump performansı %25-35 geliştirilebilmektedir.</p>
+                    
+                    <p>Bireysel sporlarda daha spesifik adaptasyonlar gerekmektedir. Sprint koşuda 100 metre için PCr sistemi %85 dominant olup, maksimal güç geliştirme kritik olmaktadır. 400 metre koşuda ise glikoliz sistemi %60 dominant olmakla birlikte, laktat toleransı antrenmanları ön plana çıkmaktadır. Yüzmede su içi spesifik adaptasyonlar gerekmekte, 50m için PCr %75, 100m için glikoliz %50 dominant olmaktadır. Stroke power ve teknik sürdürme kapasitesi kritik faktörlerdir.</p>
+                    
+                    <p>Spor-spesifik adaptasyonların transfer etkinliği, genel antrenmanlara göre %20-30 daha yüksektir. 2023 araştırmaları, spor-spesifik hareket paternleri ve enerji sistemi spesifik yaklaşımların kritik öneme sahip olduğunu göstermektedir. Çok yönlü hareket paternleri tek yönlü antrenmanlara göre %25-35 daha etkili sonuçlar vermektedir. Skill integration yaklaşımında teknik beceri ile anaerobik antrenmanın entegrasyonu performansı %15-20 artırmaktadır.</p>
+                    
+                    <p>Dövüş sporlarında intermittent karakter dominant olmakta, PCr %40 ve glikoliz %40 oranında katkı sağlamaktadır. Round bazlı antrenman simulasyonları ve güç endurance kombinasyonu kritik olmaktadır. Çocuk dövüşçülerinde özellikle core stability ve rotational power geliştirici çalışmalar önem taşımaktadır. Cimnastikte ise PCr sistemi %70 dominant olmakla birlikte, explosive power ve güç-koordinasyon entegrasyonu kritik faktörlerdir.</p>
+                `
+            },
+            {
+                title: "Çocuklarda Anaerobik Performans Teknolojisi ve Gelişmiş Monitoring Sistemleri",
+                content: `
+                    <h4>📱 Pediyatrik Popülasyonda Teknoloji Destekli Performans Takibi ve Analiz Sistemleri</h4>
+                    <p>Çocuklarda anaerobik performans teknolojisi, son yıllarda büyük gelişmeler kaydetmiştir. Wearable technology kullanımı, gerçek zamanlı performans takibi ve objektif değerlendirme imkanı sunmaktadır. GPS ve ivmeölçer sistemleri, sprint sayısı, maksimal hız, ivme-deceleration profillerini hassas şekilde ölçebilmektedir. Çocuklar için threshold değerler >5.5 m/s, adolesanlar için >7.0 m/s olarak belirlenmiştir. Bu değerler, yetişkin threshold değerlerinden %15-20 düşük olmaktadır.</p>
+                    
+                    <p>Player load monitoring, mekanik stress ve yorgunluk takibinde kritik rol oynamaktadır. Çocuklarda yetişkinlere göre daha düşük threshold değerleri kullanılmalıdır. Günlük player load 300-500 AU (arbitrary units) çocuklar için optimal aralık olmakla birlikte, haftalık toplam 2000-3500 AU aşılmamalıdır. Bu değerler bireysel farklılıklara göre %20-30 varyasyon gösterebilmektedir. Heart rate variability (HRV) monitoring, toparlanma durumunun objektif değerlendirmesinde kullanılmaktadır.</p>
+                    
+                    <p>Mobil uygulama teknolojileri büyük kolaylık sağlamaktadır. MyLift uygulaması velocity-based training için kullanılmakta, bar speed monitoring ile güç geliştirme takibi yapılabilmektedir. Freelap sistemi sprint zamanlama için hassas ölçümler sağlamakta, 1/100 saniye hassasiyetle çalışabilmektedir. Coach's Eye video analizi, hareket kalitesi değerlendirmesinde devrimsel gelişmeler sunmakta, frame-by-frame analiz imkanı vermektedir. SportTracks uygulaması ise kapsamlı performans takibi sağlamaktadır.</p>
+                    
+                    <p>Maliyet-fayda analizi açısından teknoloji seçimi kritik önem taşımaktadır. GPS saatleri düşük maliyet ile temel parametreleri sağlamakta, 8+ yaş grubu için uygun olmaktadır. IMU sensörleri orta maliyet ile detaylı mekanik analiz sunmakta, 12+ yaş grubu için optimal olmaktadır. Force plates yüksek maliyet ile hassas güç ölçümü sağlamakta, 10+ yaş grubu ve ileri seviye sporcular için uygun olmaktadır. Video analizi orta maliyet ile geniş yaş yelpazesinde kullanılabilmektedir.</p>
+                    
+                    <p>Laboratuvar ve saha testi karşılaştırması da teknoloji seçiminde önemlidir. Laboratuvar testleri kontrollü çevre koşulları, hassas ölçüm cihazları ve standardize protokoller sunmaktadır. Ancak maliyet yüksek ve erişilebilirlik sınırlıdır. Saha testleri spor-spesifik koşullar, pratik uygulanabilirlik ve maliyet etkinliği sağlamaktadır. Grup testleri imkanı da saha testlerinin avantajıdır. Teknoloji entegrasyonu ile saha testlerinin hassasiyeti artırılabilmektedir.</p>
+                `
+            },
+            {
+                title: "Çocuklarda Anaerobik Performansın Geleceği ve Kapsamlı Sonuç Değerlendirmesi",
+                content: `
+                    <h4>🚀 Pediyatrik Anaerobik Performans Biliminin Gelecek Perspektifleri ve Evidence-Based Öneriler</h4>
+                    <p>Çocuklarda anaerobik performans alanının geleceği, teknolojik gelişmeler ve kişiselleştirilmiş yaklaşımlar etrafında şekillenmektedir. Artificial Intelligence (AI) ve machine learning teknolojilerinin entegrasyonu, performans tahminlemesi ve yaralanma riski değerlendirmesinde devrimsel gelişmeler sağlamaktadır. Predictive modeling ile bireysel gelişim trajektorileri tahmin edilebilmekte, optimal antrenman dozajı hesaplanabilmektedir. Personalized training algoritmaları, bireysel yanıt paternlerine göre antrenman programlarını otomatik optimize edebilmektedir.</p>
+                    
+                    <p>Genetik faktörlerin rolü giderek daha iyi anlaşılmaktadır. ACTN3 geni (hız geni) varyantlarının çocuklarda anaerobik performans gelişimine etkisi araştırılmakta, %15-25 performans farklılığı gösterdiği bulunmuştur. ACE geni polimorfizmlerinin dayanıklılık kapasitesi üzerindeki etkileri de çocuk popülasyonunda net olarak ortaya konmuştur. Epigenetik faktörler, çevresel etkileşimler ve gen ekspresyonu modülasyonları da gelecek araştırmaların odağında yer almaktadır.</p>
+                    
+                    <p>Personalized medicine yaklaşımı, gelecekte çocuk anaerobik performans değerlendirmesini tamamen dönüştürecektir. Genomik profilleme, metabolomik analizi, proteomik değerlendirme ve mikrobiom karakterizasyonu ile bireysel performans potansiyeli ve antrenman yanıtı tahmin edilebilecektir. Bu yaklaşım, yaralanma riskini %90+ doğrulukla tahmin edebilme potansiyeline sahiptir. 2030 vizyonuna göre, çocuk anaerobik performans değerlendirmesi tamamen kişiselleştirilmiş ve yapay zeka destekli olacaktır.</p>
+                    
+                    <p>Pratik uygulamalar açısından antrenörler için temel öneriler kritik önem taşımaktadır. Maturasyon durumu değerlendirmesi, tüm antrenman programlarının temelini oluşturmalıdır. Bireyselleştirilmiş yük yönetimi, çocukların farklı gelişim hızlarını dikkate almalıdır. Progresif ve güvenli yaklaşım, uzun dönem sağlık ve performans için şarttır. Uzun dönem gelişim perspektifi (10+ yıl) ile hareket edilmeli, kısa vadeli kazançlar için uzun vadeli potansiyel feda edilmemelidir.</p>
+                    
+                    <p>Ana sonuçlar değerlendirildiğinde, PHV döneminin kritik gelişim penceresi olduğu, bireysel farklılıkların yetişkinlerden çok daha fazla olduğu, güvenlik önceliğinin performanstan önce gelmesi gerektiği ve uzun dönem yaklaşımın şart olduğu görülmektedir. Çocuklarda anaerobik performans gelişimi, sabır, bilimsel yaklaşım ve bireysel takip gerektiren karmaşık bir süreçtir. Bu sürecin doğru yönetilmesi, hem kısa vadeli performans kazanımları hem de uzun vadeli sağlık ve spor başarısı için kritik önem taşımaktadır.</p>
+                `
+            }
+        ];
+
+        function updateSlide() {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[currentSlide].classList.add('active');
+            slideCounter.textContent = `${currentSlide + 1} / ${slides.length}`;
+            progressBar.style.width = `${((currentSlide + 1) / slides.length) * 100}%`;
+            
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === slides.length - 1;
+            
+            // Update sidebar content
+            if (slideNotes[currentSlide]) {
+                sidebar.innerHTML = `
+                    <h3>${slideNotes[currentSlide].title}</h3>
+                    ${slideNotes[currentSlide].content}
+                `;
+            }
+        }
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                updateSlide();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlide();
+            }
+        }
+
+        function toggleNotes() {
+            sidebar.classList.toggle('active');
+            notesBtn.textContent = sidebar.classList.contains('active') ? '❌ Notları Kapat' : '📝 Detaylı Notlar';
+        }
+
+        // Event listeners
+        nextBtn.addEventListener('click', nextSlide);
+        prevBtn.addEventListener('click', prevSlide);
+        notesBtn.addEventListener('click', toggleNotes);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                prevSlide();
+            } else if (e.key === 'Escape') {
+                if (sidebar.classList.contains('active')) {
+                    toggleNotes();
+                }
+            }
+        });
+
+        // Initialize
+        updateSlide();
+    </script>
+</body>
+</html>

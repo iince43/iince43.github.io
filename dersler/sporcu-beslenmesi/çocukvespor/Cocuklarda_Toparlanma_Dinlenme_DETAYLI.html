@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Çocuklarda Toparlanma ve Dinlenme - Pediatrik Recovery Bilimi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .sidebar {
+            width: 400px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            overflow-y: auto;
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            display: none;
+        }
+
+        .sidebar.active {
+            display: block;
+        }
+
+        .sidebar h3 {
+            color: #ffeb3b;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        .sidebar h4 {
+            color: #81d4fa;
+            margin-bottom: 10px;
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+
+        .sidebar p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+            font-size: 0.95em;
+            text-align: justify;
+        }
+
+        .slide {
+            display: none;
+            width: 90%;
+            max-width: 1000px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 60px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            animation: slideIn 0.6s ease-out;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            background: linear-gradient(45deg, #fff, #e0e0e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h2 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            color: #ffeb3b;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .slide-content {
+            font-size: 1.4em;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .highlight {
+            color: #4fc3f7;
+            font-weight: bold;
+        }
+
+        .emphasis {
+            color: #ffeb3b;
+            font-weight: bold;
+        }
+
+        .warning {
+            color: #ff6b6b;
+            font-weight: bold;
+        }
+
+        ul {
+            text-align: left;
+            font-size: 1.2em;
+            line-height: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        li {
+            margin-bottom: 10px;
+            list-style-type: none;
+            position: relative;
+            padding-left: 30px;
+        }
+
+        li::before {
+            content: "😴";
+            position: absolute;
+            left: 0;
+            font-size: 1.2em;
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 100;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .slide-number {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 18px;
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+
+        .sidebar-toggle {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            font-size: 20px;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .sidebar-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        .recovery-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+
+        .sleep-box {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px 0;
+            text-align: left;
+        }
+
+        .recovery-method {
+            background: rgba(76, 175, 80, 0.2);
+            border-left: 4px solid #4CAF50;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+
+        .warning-box {
+            background: rgba(244, 67, 54, 0.2);
+            border-left: 4px solid #f44336;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar-toggle" onclick="toggleSidebar()">📚</div>
+    <div class="slide-number">
+        <span id="currentSlide">1</span> / <span id="totalSlides">30</span>
+    </div>
+
+    <div class="main-content">
+        <div class="slide active">
+            <div class="recovery-icon">😴💤</div>
+            <h1>Çocuklarda Toparlanma ve Dinlenme</h1>
+            <div class="slide-content">
+                <p class="highlight">Pediatrik Recovery Bilimi</p>
+                <p>Uyku, Regenerasyon ve Optimal Performans</p>
+                <p class="emphasis">2024 Güncel Araştırmaları ile Kapsamlı İnceleme</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🧬 Toparlanmanın Fizyolojik Temelleri</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Protein sentezi:</span> Kas onarımı ve adaptasyon</li>
+                    <li><span class="highlight">Glikojen yenilenmesi:</span> Enerji depoları restorasyonu</li>
+                    <li><span class="highlight">Hormonal regülasyon:</span> Büyüme hormonu, kortizol dengesi</li>
+                    <li><span class="highlight">İnflamasyon çözümü:</span> Anti-inflamatuar süreçler</li>
+                    <li><span class="emphasis">Çocuklarda yetişkinlerden farklı recovery kinetikleri</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>😴 Uyku Gereksinimleri - Yaş Gruplarına Göre</h2>
+            <div class="slide-content">
+                <div class="sleep-box">
+                    <ul>
+                        <li><span class="highlight">0-6 yaş:</span> 10+ saat/gece (minimum)</li>
+                        <li><span class="highlight">6-12 yaş:</span> 9-12 saat/gece (AAP önerisi)</li>
+                        <li><span class="highlight">13-18 yaş:</span> 8-10 saat/gece</li>
+                        <li><span class="warning">Genç sporcuların çoğu yeterli uyku alamıyor</span></li>
+                        <li><span class="emphasis">Büyüme ve gelişim için uyku kritik</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>📊 2024 Uyku Araştırması Bulguları</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="warning">%14.8:</span> 7 saatten az uyuyan sporcu</li>
+                    <li><span class="warning">%33.2:</span> 7-8 saat arası uyuyanlar</li>
+                    <li><span class="highlight">Sadece %52:</span> 8+ saat uyuyan genç sporcu</li>
+                    <li><span class="highlight">Yaş aralığı:</span> 14.4-17 yaş, 196 yarışmacı sporcu</li>
+                    <li><span class="emphasis">Akademik yük + antrenman = uyku yetersizliği</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🌙 Uyku ve Büyüme Hormonu İlişkisi</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">GH salınımı:</span> Derin uyku fazında maksimum</li>
+                    <li><span class="highlight">Kas onarımı:</span> Protein sentezi ve regenerasyon</li>
+                    <li><span class="highlight">Kemik gelişimi:</span> Longitudinal büyüme desteği</li>
+                    <li><span class="highlight">Immün sistem:</span> Güçlendirme ve koruma</li>
+                    <li><span class="emphasis">Çocuk sporcularda GH eksikliği = gelişim sorunları</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>⚡ Uyku Eksikliği: Performans ve Yaralanma</h2>
+            <div class="slide-content">
+                <div class="warning-box">
+                    <ul>
+                        <li><span class="warning">Performans azalması:</span> Reaksiyon zamanı, odaklanma</li>
+                        <li><span class="warning">Yorgunluk artışı:</span> Düşük enerji seviyeleri</li>
+                        <li><span class="warning">Yaralanma riski:</span> Kronik uyku eksikliği = ↑ injury</li>
+                        <li><span class="warning">Bilişsel fonksiyon:</span> Karar verme, öğrenme bozukluğu</li>
+                        <li><span class="emphasis">Adölesan sporcularda yaralanma-uyku korelasyonu güçlü</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🛏️ Uyku Hijyeni ve Kalitesi</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Tutarlı program:</span> Aynı saatlerde yatma-kalkma</li>
+                    <li><span class="highlight">Ortam optimizasyonu:</span> Karanlık, serin, sessiz</li>
+                    <li><span class="highlight">Dijital detox:</span> Yatmadan 1 saat önce ekran yok</li>
+                    <li><span class="highlight">Kafein kısıtı:</span> Öğleden sonra sonrası yasak</li>
+                    <li><span class="emphasis">Kaliteli uyku > miktar (ama ikisi de gerekli)</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🏃‍♂️ Aktif vs Pasif Toparlanma</h2>
+            <div class="slide-content">
+                <div class="recovery-method">
+                    <h3>Aktif Toparlanma</h3>
+                    <ul>
+                        <li><span class="highlight">Düşük yoğunluk:</span> %30-50 max kalp atışı</li>
+                        <li><span class="highlight">Süre:</span> 10-20 dakika</li>
+                        <li><span class="highlight">Aktiviteler:</span> Yürüme, hafif jogging, yüzme</li>
+                        <li><span class="highlight">Fayda:</span> Laktik asit temizleme hızlandırma</li>
+                    </ul>
+                    
+                    <h3>Pasif Toparlanma</h3>
+                    <ul>
+                        <li><span class="highlight">Tam dinlenme:</span> Minimal fiziksel aktivite</li>
+                        <li><span class="highlight">Süre:</span> 24-72 saat</li>
+                        <li><span class="highlight">Uyku:</span> Primer recovery mechanism</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🗓️ Dinlenme Günleri - AAP Önerileri</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Minimum:</span> Haftada 2 gün tam dinlenme</li>
+                    <li><span class="highlight">Organize spor yasak:</span> Rest günlerinde antrenman yok</li>
+                    <li><span class="highlight">Diğer takım sporları:</span> Dinlenme günlerinde yasak</li>
+                    <li><span class="highlight">Yarışma yasağı:</span> Recovery günlerinde müsabaka yok</li>
+                    <li><span class="emphasis">2 gün/hafta = minimum, daha fazlası daha iyi</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>⚠️ Aşırı Antrenman Sendromu</h2>
+            <div class="slide-content">
+                <div class="warning-box">
+                    <ul>
+                        <li><span class="warning">Tanım:</span> Recovery < training load (uzun süreli)</li>
+                        <li><span class="warning">Performans düşüşü:</span> Persistent azalma</li>
+                        <li><span class="warning">Yaralanma-hastalık:</span> Artmış risk</li>
+                        <li><span class="warning">Uyarı işaretleri:</span> Sürekli yorgunluk, mood değişikliği</li>
+                        <li><span class="emphasis">Genç sporcularda sık görülme eğilimi</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🚨 Aşırı Antrenman Belirtileri</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="warning">Persistent yorgunluk:</span> Dinlenmeme hissi</li>
+                    <li><span class="warning">Performans düşüşü:</span> Açıklanamayan azalma</li>
+                    <li><span class="warning">Sık hastalık:</span> İmmün sistem zayıflığı</li>
+                    <li><span class="warning">Mood değişiklikleri:</span> İrritabilite, depresyon</li>
+                    <li><span class="warning">Uyku bozuklukları:</span> İnsomnia, fragmentasyon</li>
+                    <li><span class="emphasis">Erken tanı ve müdahale kritik</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>📈 2024: Training Load ve Recovery Monitoring</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Well-being anketleri:</span> Subjektif recovery değerlendirme</li>
+                    <li><span class="highlight">RPE takibi:</span> Perceived exertion monitoring</li>
+                    <li><span class="highlight">External load:</span> Objektif antrenman yükü</li>
+                    <li><span class="highlight">Efficiency index:</span> Performans/yük oranı</li>
+                    <li><span class="emphasis">Genç basketbolcularda etkili monitoring sistemi</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🧊 Kryo-Terapi ve Genç Sporcular</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Buz banyoları:</span> 10-15°C, 10-15 dakika</li>
+                    <li><span class="highlight">Kryo-sauna:</span> -110 ile -160°C, 2-4 dakika</li>
+                    <li><span class="highlight">Vasokonstrüksiyon:</span> İnflamasyon azaltma</li>
+                    <li><span class="warning">Çocuklarda dikkatli:</span> Termoregülasyon farklılıkları</li>
+                    <li><span class="emphasis">Süpervizyon ve kısa ekspojur gerekli</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🌡️ Termal Terapi</h2>
+            <div class="slide-content">
+                <div class="recovery-method">
+                    <ul>
+                        <li><span class="highlight">Sıcak banyo:</span> 38-40°C, 12-15 dakika</li>
+                        <li><span class="highlight">Sauna:</span> 80-100°C, 15-20 dakika</li>
+                        <li><span class="highlight">Kontrast terapi:</span> Sıcak-soğuk alternatif</li>
+                        <li><span class="highlight">Vasodilatation:</span> Kan akımı artışı</li>
+                        <li><span class="emphasis">Çocuklarda kısa süreli, monitörlü uygulama</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>💆‍♂️ Masaj ve Manuel Terapi</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">İsveç masajı:</span> Genel relaxation ve kan dolaşımı</li>
+                    <li><span class="highlight">Derin doku masajı:</span> Myofascial tension release</li>
+                    <li><span class="highlight">Compression therapy:</span> Lymphatic drainage</li>
+                    <li><span class="highlight">Self-massage:</span> Foam roller, massage ball</li>
+                    <li><span class="emphasis">Çocuklar için hafif basınç, kısa süreli</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🧘‍♀️ Mental Recovery ve Stres Yönetimi</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Mindfulness:</span> Present moment awareness</li>
+                    <li><span class="highlight">Progresif kas gevşemesi:</span> Systematic relaxation</li>
+                    <li><span class="highlight">Visualization:</span> Guided imagery techniques</li>
+                    <li><span class="highlight">Nefes egzersizleri:</span> Parasempatik aktivasyon</li>
+                    <li><span class="emphasis">Mental toparlanma fiziksel kadar önemli</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🥗 Toparlanma Beslenmesi</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Golden hour:</span> Antrenman sonrası 0-2 saat</li>
+                    <li><span class="highlight">Karbonhidrat:</span> 1-1.2 g/kg glikojen restorasyonu</li>
+                    <li><span class="highlight">Protein:</span> 0.3 g/kg kas onarımı</li>
+                    <li><span class="highlight">Hidrasyon:</span> %150 kayıp sıvının yerine koyma</li>
+                    <li><span class="emphasis">Çocuklar için tam foods, minimal supp</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>📱 Teknoloji ve Recovery Monitoring</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Wearable devices:</span> HRV, uyku kalitesi, aktivite</li>
+                    <li><span class="highlight">Smartphone apps:</span> Subjektif wellness tracking</li>
+                    <li><span class="highlight">GPS monitoring:</span> Training load quantification</li>
+                    <li><span class="highlight">Biochemical markers:</span> CK, LDH, urea</li>
+                    <li><span class="emphasis">Objektif + subjektif data kombinasyonu</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>👨‍👩‍👧‍👦 Aile ve Antrenör Rolü</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Uyku önceliği:</span> Academic-athletic balance</li>
+                    <li><span class="highlight">Erken uyarı sistemi:</span> Overtraining belirtilerini tanıma</li>
+                    <li><span class="highlight">Ortam desteği:</span> Recovery'yi destekleyici ev/tesis</li>
+                    <li><span class="highlight">Eğitim:</span> Recovery importance farkındalığı</li>
+                    <li><span class="emphasis">Çocuğun sağlığı performanstan önce gelir</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🌅 Sabah Rutinleri ve Uyanma</h2>
+            <div class="slide-content">
+                <div class="recovery-method">
+                    <h3>🌞 İdeal Sabah Rutini</h3>
+                    <ul>
+                        <li><span class="highlight">Tutarlı uyanma saati:</span> Hafta sonu da dahil aynı saat</li>
+                        <li><span class="highlight">Doğal ışık:</span> Uyanır uyanmaz 15 dakika güneş ışığı</li>
+                        <li><span class="highlight">Hafif germe:</span> 5-10 dakikalık stretching</li>
+                        <li><span class="highlight">Hidrasyon:</span> 1-2 bardak su ile güne başlama</li>
+                        <li><span class="emphasis">Sabah rutini vücut saatini düzenler</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🌙 Akşam Rutinleri ve Yatma Hazırlığı</h2>
+            <div class="slide-content">
+                <div class="sleep-box">
+                    <h3>📱 Dijital Detoks (Yatmadan 1 Saat Önce)</h3>
+                    <ul>
+                        <li><span class="warning">Telefon yasağı:</span> Yatak odasına telefon sokmama</li>
+                        <li><span class="warning">TV kapatma:</span> Mavi ışık melatonin üretimini bozar</li>
+                        <li><span class="highlight">Kitap okuma:</span> Rahatlayıcı aktiviteler</li>
+                        <li><span class="highlight">Müzik dinleme:</span> Sakin, klasik müzik</li>
+                        <li><span class="emphasis">Mavi ışık = düşman, kırmızı ışık = dost</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🏠 İdeal Uyku Ortamı Nasıl Olmalı?</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Sıcaklık:</span> 18-21°C arası (serin oda)</li>
+                    <li><span class="highlight">Karanlık:</span> Blackout perdeler, göz bandı</li>
+                    <li><span class="highlight">Sessizlik:</span> Kulak tıkacı ya da white noise</li>
+                    <li><span class="highlight">Temiz hava:</span> Pencere açık ya da havalandırma</li>
+                    <li><span class="highlight">Rahat yatak:</span> Kaliteli yatak ve yastık</li>
+                    <li><span class="emphasis">Beyniniz serin, karanlık ortamda daha iyi dinlenir</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>💤 Uykunun Aşamaları - Basit Anlatım</h2>
+            <div class="slide-content">
+                <div class="sleep-box">
+                    <h3>🌊 Uyku Döngüleri (90 Dakikalık Turlar)</h3>
+                    <ul>
+                        <li><span class="highlight">Hafif uyku:</span> Düşler görmeye başlama (15 dk)</li>
+                        <li><span class="highlight">Derin uyku:</span> Vücut onarım moduna girer (45 dk)</li>
+                        <li><span class="highlight">REM uykusu:</span> Rüya görmek, hafıza güçlendirme (20 dk)</li>
+                        <li><span class="highlight">Tekrar:</span> Gece boyunca 4-6 kez döngü</li>
+                        <li><span class="emphasis">Derin uyku = büyüme, REM = öğrenme</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🍎 Beslenme ve Uyku İlişkisi</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="warning">Yatmadan 3 saat önce:</span> Ağır yemek yememe</li>
+                    <li><span class="warning">Kafein yasağı:</span> Öğleden sonra kahve/çay/kola yok</li>
+                    <li><span class="highlight">İyi besinler:</span> Süt, muz, badem - uykuyu destekler</li>
+                    <li><span class="highlight">Kötü besinler:</span> Şeker, çikolata - uyanık tutar</li>
+                    <li><span class="emphasis">Mide dolu = uyku yok, mide aç = uyku yok</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🚿 Banyo ve Su Aktiviteleri</h2>
+            <div class="slide-content">
+                <div class="recovery-method">
+                    <h3>🛁 Su ile Toparlanma</h3>
+                    <ul>
+                        <li><span class="highlight">Soğuk duş:</span> 5 dakika, 15°C - iltihapları azaltır</li>
+                        <li><span class="highlight">Sıcak banyo:</span> 10 dakika, 38°C - kasları gevşetir</li>
+                        <li><span class="highlight">Sıcak-soğuk:</span> 2 dk sıcak, 30 sn soğuk, 3 kez tekrar</li>
+                        <li><span class="highlight">Yüzme havuzu:</span> Su basıncı masaj etkisi yapar</li>
+                        <li><span class="emphasis">Su vücudun en iyi doktoru</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🧘‍♂️ Basit Nefes Egzersizleri</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">4-7-8 Tekniği:</span> 4 sn nefes al, 7 sn tut, 8 sn ver</li>
+                    <li><span class="highlight">Karın nefesi:</span> Göğsü değil karnı şişir</li>
+                    <li><span class="highlight">Burun nefesi:</span> Ağızdan değil burundan nefes al</li>
+                    <li><span class="highlight">5 dakika kural:</span> Günde 5 dakika derin nefes</li>
+                    <li><span class="emphasis">Derin nefes = sakin kalp = iyi uyku</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🏃‍♀️ Hafif Toparlanma Aktiviteleri</h2>
+            <div class="slide-content">
+                <div class="recovery-method">
+                    <h3>⚡ Aktif Dinlenme Örnekleri</h3>
+                    <ul>
+                        <li><span class="highlight">Yavaş yürüyüş:</span> 15 dakika, konuşabileceğin hızda</li>
+                        <li><span class="highlight">Hafif bisiklet:</span> Düz yolda, zorlanmadan</li>
+                        <li><span class="highlight">Yavaş yüzme:</span> Nefes nefese kalmadan</li>
+                        <li><span class="highlight">Hafif germe:</span> 10 dakika stretch</li>
+                        <li><span class="emphasis">Yorulmayacak kadar hafif = aktif dinlenme</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🎮 Oyun ve Eğlenceli Toparlanma</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Arkadaşlarla sohbet:</span> Sosyal bağlar güçlendirir</li>
+                    <li><span class="highlight">Müzik dinleme:</span> Sevdiğin şarkılarla relax</li>
+                    <li><span class="highlight">Sakin oyunlar:</span> Satranç, puzzle, boyama</li>
+                    <li><span class="highlight">Doğada vakit:</span> Park, orman, deniz kenarı</li>
+                    <li><span class="highlight">Pet therapy:</span> Hayvanlarla oynama</li>
+                    <li><span class="emphasis">Mutlu ol = daha hızlı iyileş</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>📚 Okul ve Spor Dengesi</h2>
+            <div class="slide-content">
+                <div class="warning-box">
+                    <h3>⚖️ Denge Nasıl Kurulur?</h3>
+                    <ul>
+                        <li><span class="warning">Çok yorulma:</span> Okul + spor = fazla stres olabilir</li>
+                        <li><span class="highlight">Zaman planlaması:</span> Ders, spor, dinlenme saatleri</li>
+                        <li><span class="highlight">Öncelik sırası:</span> Sağlık > okul > spor</li>
+                        <li><span class="highlight">Yardım isteme:</span> Anne-baba-öğretmen-antrenörden</li>
+                        <li><span class="emphasis">Yorgun beyin öğrenemez, yorgun vücut gelişemez</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🤒 Hasta Olduğunda Ne Yapmalı?</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="warning">Tam dinlenme:</span> Hasta iken spor yasak</li>
+                    <li><span class="highlight">Çok su içme:</span> Günde 8-10 bardak</li>
+                    <li><span class="highlight">Bol uyku:</span> Normal sürenin +2 saati</li>
+                    <li><span class="highlight">Sağlıklı yemek:</span> Vitamin, protein, meyve</li>
+                    <li><span class="highlight">Doktora git:</span> Ateş, öksürük, ağrı varsa</li>
+                    <li><span class="emphasis">Hasta iken spor = daha hasta ol</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>📱 Teknoloji ve Uyku</h2>
+            <div class="slide-content">
+                <div class="warning-box">
+                    <h3>📵 Teknoloji Kuralları</h3>
+                    <ul>
+                        <li><span class="warning">Yatak = telefon yasak bölgesi:</span> Charge alette bırak</li>
+                        <li><span class="warning">Gece modu:</span> Akşam mavi ışığı filtrele</li>
+                        <li><span class="highlight">Uyku uygulamaları:</span> Sleep tracking apps yararlı</li>
+                        <li><span class="highlight">Alarm saati:</span> Yumuşak sesle, snooze yok</li>
+                        <li><span class="emphasis">Telefon = uyanık kal makinesi</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>🎯 Pratik Uygulama Önerileri</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><span class="highlight">Bireyselleştirme:</span> Her çocuğun recovery ihtiyacı farklı</li>
+                    <li><span class="highlight">Periodizasyon:</span> Yoğun dönemler → recovery dönemi</li>
+                    <li><span class="highlight">Holistic yaklaşım:</span> Fiziksel + mental + sosyal</li>
+                    <li><span class="highlight">Sürekli monitoring:</span> Adaptasyon ve ayarlama</li>
+                    <li><span class="emphasis">Yaşam boyu sürdürülebilir alışkanlıklar</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar" id="sidebar">
+        <div id="sidebarContent">
+            <!-- Sidebar content will be populated by JavaScript -->
+        </div>
+    </div>
+
+    <div class="controls">
+        <button class="btn" onclick="prevSlide()">◀ Önceki</button>
+        <button class="btn" onclick="nextSlide()">Sonraki ▶</button>
+    </div>
+
+    <script>
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        const slideNotes = [
+            {
+                title: "Çocuklarda Toparlanma ve Dinlenme",
+                content: `
+                    <h4>Pediatrik Recovery Biliminin Önemi</h4>
+                    <p>Çocuk ve adölesan sporcularda toparlanma ve dinlenme, yetişkinlerden çok daha kritik öneme sahiptir. Büyüme ve gelişim süreçleri, akademik talepler ve spor aktiviteleri aynı anda devam ettiği için recovery stratejileri özelleştirilmiş yaklaşım gerektirir.</p>
+                    
+                    <h4>2024 Araştırma Bulguları</h4>
+                    <p>Son araştırmalar, genç sporcuların büyük çoğunluğunun yeterli uyku alamadığını ve bu durumun hem performans hem yaralanma riski üzerinde ciddi etkiler yarattığını göstermektedir.</p>
+                    
+                    <h4>Holistik Recovery Yaklaşımı</h4>
+                    <p>Modern pediatrik recovery bilimi, sadece fiziksel toparlanma değil, mental, sosyal ve akademik faktörleri de içeren bütünsel bir yaklaşım benimser.</p>
+                `
+            },
+            {
+                title: "Toparlanmanın Fizyolojik Temelleri",
+                content: `
+                    <h4>Çocuk-Spesifik Recovery Süreçleri</h4>
+                    <p>Çocuklarda recovery süreçleri yetişkinlerden farklı kinetiklere sahiptir. Protein sentezi daha hızlıdır ancak glikojen depoları daha küçük olduğu için karbonhidrat yenilemesi daha kritiktir.</p>
+                    
+                    <h4>Hormonal Regülasyon</h4>
+                    <p>Büyüme hormonu salınımı, kortizol yanıtı ve insulin sensitivitesi çocuklarda farklı paternler gösterir. Bu hormonlar recovery sürecinin kalitesini doğrudan etkiler.</p>
+                    
+                    <h4>İnflamatuar Yanıt</h4>
+                    <p>Çocuklarda exercise-induced inflammation daha hafif ancak resolution süreçleri daha hızlıdır. Anti-inflamatuar süreçler büyüme faktörleri ile yakından ilişkilidir.</p>
+                `
+            },
+            {
+                title: "Uyku Gereksinimleri - Yaş Gruplarına Göre",
+                content: `
+                    <h4>American Academy of Pediatrics Önerileri</h4>
+                    <p>AAP, çocukluk çağı uyku rehberlerinde yaş gruplarına göre spesifik öneriler sunmaktadır. Bu öneriler çocuk sporcularda daha da kritik hale gelir çünkü fiziksel aktivite uyku ihtiyacını artırır.</p>
+                    
+                    <h4>Yaş-Spesifik İhtiyaçlar</h4>
+                    <p>0-6 yaş arası çocuklar günde 10+ saat, 6-12 yaş arası 9-12 saat, 13-18 yaş arası 8-10 saat uyku almalıdır. Bu süreler minimum değerlerdir ve aktif çocuklar daha fazla uyku ihtiyacı duyabilir.</p>
+                    
+                    <h4>Büyüme ve Gelişim İlişkisi</h4>
+                    <p>Uyku süresinin büyüme ve gelişim üzerindeki etkisi doğrudan ve çok güçlüdür. Growth hormone'un %80'i derin uyku fazlarında salınır.</p>
+                `
+            },
+            {
+                title: "2024 Uyku Araştırması Bulguları",
+                content: `
+                    <h4>Alarming İstatistikler</h4>
+                    <p>2024 yılında 196 yarışmacı genç sporcu üzerinde yapılan çalışma endişe verici bulgular ortaya koymuştur. Sporcuların yarısına yakını optimal uyku süresini alamıyor.</p>
+                    
+                    <h4>Akademik Yük ve Antrenman Çakışması</h4>
+                    <p>Çalışma, akademik sorumluluklar, antrenman saatleri ve seyahat gereksinimlerinin çocuk sporcularda uyku yoksunluğunun ana nedenleri olduğunu göstermiştir.</p>
+                    
+                    <h4>Uyku Debt Konsekansları</h4>
+                    <p>Kronik uyku borcu biriken çocuk sporcuların performans düşüklüğü, yaralanma artışı ve akademik başarı azalması yaşadığı dokumentanize edilmiştir.</p>
+                `
+            },
+            {
+                title: "Uyku ve Büyüme Hormonu İlişkisi",
+                content: `
+                    <h4>Growth Hormone Fizyolojisi</h4>
+                    <p>Büyüme hormonu salınımının büyük kısmı derin uyku fazlarında (slow-wave sleep) gerçekleşir. Bu fazın kalitesi ve süresi, çocuk sporcularda kritik önem taşır.</p>
+                    
+                    <h4>Anabolik Süreçler</h4>
+                    <p>GH, protein sentezini stimüle eder, kas onarımını hızlandırır ve kemik gelişimini destekler. Uyku kalitesi bu süreçlerin etkinliğini doğrudan belirler.</p>
+                    
+                    <h4>İmmün Sistem Desteği</h4>
+                    <p>Kaliteli uyku, bağışıklık sistemini güçlendirir ve çocuk sporcuları hastalıklara karşı korur. Bu özellikle yoğun antrenman dönemlerinde hayati önemdedir.</p>
+                `
+            },
+            {
+                title: "Uyku Eksikliği: Performans ve Yaralanma",
+                content: `
+                    <h4>Performans Üzerindeki Etkiler</h4>
+                    <p>Uyku eksikliği reaksiyon zamanını yavaşlatır, dikkat konsantrasyonunu azaltır ve karar verme yeteneklerini bozar. Bu etkiler özellikle teknik sporlarda belirgindir.</p>
+                    
+                    <h4>Yaralanma Risk Faktörü</h4>
+                    <p>Adölesan sporcularda kronik uyku eksikliğinin yaralanma riski ile güçlü korelasyonu kanıtlanmıştır. Yorgun sporcular propriosepsiyon ve motor kontrol kaybı yaşar.</p>
+                    
+                    <h4>Bilişsel Fonksiyon Bozukluğu</h4>
+                    <p>Uyku yoksunluğu, öğrenme kapasitesi, hafıza konsolidasyonu ve akademik performansı olumsuz etkiler. Bu durum öğrenci-sporcu dengesini bozar.</p>
+                `
+            },
+            {
+                title: "Uyku Hijyeni ve Kalitesi",
+                content: `
+                    <h4>Sleep Hygiene Prensipleri</h4>
+                    <p>İyi uyku hijyeni, tutarlı yatma-kalkma saatleri, optimal uyku ortamı (karanlık, serin, sessiz) ve dijital cihazlardan uzak durma ile sağlanır.</p>
+                    
+                    <h4>Circadian Rhythm Düzenlemesi</h4>
+                    <p>Çocuk sporcularda circadian rhythms'in korunması için sabah güneş ışığı, akşam dim light ve tutarlı günlük rutinler önemlidir.</p>
+                    
+                    <h4>Uyku Kalitesi vs Miktar</h4>
+                    <p>Sadece uyku süresi değil, uyku kalitesi de kritiktir. Derin uyku fazlarının optimize edilmesi recovery için hayati önemdedir.</p>
+                `
+            },
+            {
+                title: "Aktif vs Pasif Toparlanma",
+                content: `
+                    <h4>Aktif Recovery Avantajları</h4>
+                    <p>Düşük yoğunluklu aktivite, kan dolaşımını artırır, metabolik artıkları temizler ve muscle stiffness'ı azaltır. Çocuklar için 15-20 dakika yeterlidir.</p>
+                    
+                    <h4>Pasif Recovery Gereksinimleri</h4>
+                    <p>Tam dinlenme dönemleri, özellikle yoğun training camp'ler sonrası gereklidir. Bu dönemlerde uyku, nutrition ve mental relaxation önceliktir.</p>
+                    
+                    <h4>Optimal Kombinasyon</h4>
+                    <p>En etkili recovery, aktif ve pasif metodların kombinasyonu ile sağlanır. Timing ve intensity çocuğun yaşı ve training load'una göre ayarlanmalıdır.</p>
+                `
+            },
+            {
+                title: "Dinlenme Günleri - AAP Önerileri",
+                content: `
+                    <h4>Minimum Rest Day Gereksinimleri</h4>
+                    <p>American Academy of Pediatrics, çocuk sporcularda haftada minimum 2 tam rest day önerir. Bu günlerde organize spor aktiviteleri yasaktır.</p>
+                    
+                    <h4>Rest Day Aktivite Kısıtlamaları</h4>
+                    <p>Rest günlerinde diğer organize takım sporları, yarışmalar ve structured training seansları da yasaktır. Serbest oyun ve rekreasyonel aktivite kabul edilebilir.</p>
+                    
+                    <h4>Recovery Optimization</h4>
+                    <p>Rest günleri sadece physical recovery değil, mental refreshing ve social interaction için de kullanılmalıdır. Bu holistik yaklaşım burnout'ı önler.</p>
+                `
+            },
+            {
+                title: "Aşırı Antrenman Sendromu",
+                content: `
+                    <h4>Overtraining Syndrome Tanımı</h4>
+                    <p>Training load'un recovery kapasitesini kronik olarak aşması durumunda gelişir. Çocuk sporcularda tanı koymak zor çünkü semptomlar değişkendir.</p>
+                    
+                    <h4>Sistematik Konsekanslar</h4>
+                    <p>Performans düşüşü, yaralanma ve hastalık riskinde artış, hormonal disbalance ve psikolojik semptomlar görülür. Bu durum gelişimi olumsuz etkiler.</p>
+                    
+                    <h4>Prevalans ve Risk Faktörleri</h4>
+                    <p>Genç sporcularda overtraining syndrome giderek daha sık görülmektedir. Early specialization ve year-round training ana risk faktörleridir.</p>
+                `
+            },
+            {
+                title: "Aşırı Antrenman Belirtileri",
+                content: `
+                    <h4>Fiziksel Belirtiler</h4>
+                    <p>Persistent yorgunluk, performance decrement, frequent illness ve sleep disturbances tipik fiziksel belirtilerdir. Bu semptomlar objektif olarak ölçülebilir.</p>
+                    
+                    <h4>Psikolojik Değişiklikler</h4>
+                    <p>İrritabilite, depresif mood, anxiety ve motivation kaybı yaygın psikolojik semptomlarıdır. Bu değişiklikler aileler tarafından fark edilebilir.</p>
+                    
+                    <h4>Erken Müdahale Stratejileri</h4>
+                    <p>Belirtilerin erken tanınması ve müdahale edilmesi kritiktir. Training load azaltma, recovery time artırma ve professional yardım gerekebilir.</p>
+                `
+            },
+            {
+                title: "2024: Training Load ve Recovery Monitoring",
+                content: `
+                    <h4>Subjektif Monitoring Araçları</h4>
+                    <p>2024 araştırması, well-being questionnaires ve recovery scales'in genç basketbolcularda training load modifikasyonu için etkili olduğunu göstermiştir.</p>
+                    
+                    <h4>Objective Load Quantification</h4>
+                    <p>GPS data, accelerometry ve heart rate monitoring external ve internal load'u objektif olarak quantify eder. Bu data recovery planning için kullanılır.</p>
+                    
+                    <h4>Performance Efficiency Tracking</h4>
+                    <p>Efficiency index (performance/load ratio), training quality'nin indicator'üdür. Bu metric recovery status'un tahmininde yararlıdır.</p>
+                `
+            },
+            {
+                title: "Kryo-Terapi ve Genç Sporcular",
+                content: `
+                    <h4>Cold Water Immersion Protokolleri</h4>
+                    <p>10-15°C su sıcaklığında 10-15 dakikalık immersion, inflammation azaltır ve recovery hızlandırır. Çocuklarda süre ve sıcaklık daha conservative olmalıdır.</p>
+                    
+                    <h4>Whole Body Cryotherapy</h4>
+                    <p>-110 ile -160°C arasında 2-4 dakikalık exposure, systematic anti-inflammatory effects yaratır. Çocuklarda kullanım sınırlıdır ve medical supervision gerektirir.</p>
+                    
+                    <h4>Pediatrik Güvenlik Önlemleri</h4>
+                    <p>Çocuklarda thermoregulation farklılıkları nedeniyle cryotherapy daha dikkatli uygulanmalıdır. Süre kısıtlaması ve sürekli monitoring şarttır.</p>
+                `
+            },
+            {
+                title: "Termal Terapi",
+                content: `
+                    <h4>Heat Therapy Modaliteleri</h4>
+                    <p>Sıcak banyo (38-40°C), sauna (80-100°C) ve contrast therapy (sıcak-soğuk) farklı fizyolojik etkiler yaratır. Çocuklarda kısa sürelidir.</p>
+                    
+                    <h4>Vasodilatation ve Blood Flow</h4>
+                    <p>Isı uygulaması vasodilatationa neden olur, kan akımını artırır ve metabolic waste clearance'ı hızlandırır.</p>
+                    
+                    <h4>Çocuk Güvenlik Protokolleri</h4>
+                    <p>Pediatrik popülasyonda heat therapy, yetişkin protokollerinden daha kısa sürelidir ve sürekli monitörleme gerektirir. Dehidrasyon riski yüksektir.</p>
+                `
+            },
+            {
+                title: "Masaj ve Manuel Terapi",
+                content: `
+                    <h4>Masaj Modaliteleri</h4>
+                    <p>İsveç masajı general relaxation sağlarken, deep tissue massage myofascial tension'ı release eder. Compression therapy lymphatic drainage'ı stimüle eder.</p>
+                    
+                    <h4>Self-Massage Teknikleri</h4>
+                    <p>Foam rolling ve massage ball kullanımı çocuklara öğretilebilir. Bu teknikler autonomy sağlar ve daily recovery routine'in parçası olabilir.</p>
+                    
+                    <h4>Pediatrik Modifikasyonlar</h4>
+                    <p>Çocuklarda masaj daha hafif basınçla ve kısa süreli uygulanmalıdır. Psychological comfort ve trust building önceliklidir.</p>
+                `
+            },
+            {
+                title: "Mental Recovery ve Stres Yönetimi",
+                content: `
+                    <h4>Mindfulness ve Present Moment Awareness</h4>
+                    <p>Mindfulness teknikleri çocuk sporcularda mental recovery'yi destekler ve competitive anxiety'yi azaltır. Age-appropriate practices kullanılmalıdır.</p>
+                    
+                    <h4>Progressive Muscle Relaxation</h4>
+                    <p>Systematic muscle tensing ve relaxing, physical ve mental tension'ı azaltır. Bu teknik çocuklara kolayca öğretilebilir.</p>
+                    
+                    <h4>Visualization ve Guided Imagery</h4>
+                    <p>Mental imagery techniques hem recovery hem performance enhancement için kullanılabilir. Çocukların imagination capacity'si bu alanda avantaj sağlar.</p>
+                `
+            },
+            {
+                title: "Toparlanma Beslenmesi",
+                content: `
+                    <h4>Golden Hour Nutrition</h4>
+                    <p>Exercise sonrası ilk 2 saat, nutrition timing açısından kritiktir. Bu dönemde glycogen resynthesis ve protein synthesis maksimaldır.</p>
+                    
+                    <h4>Macronutrient Ratios</h4>
+                    <p>Recovery için 3-4:1 carbohydrate:protein oranı optimal kabul edilir. Çocuklar için 1-1.2 g/kg carbohydrate ve 0.3 g/kg protein önerilir.</p>
+                    
+                    <h4>Hydration Strategies</h4>
+                    <p>Recovery hydration, lost fluid'in %150'si kadar intake gerektirir. Electrolyte replacement uzun duration activities sonrası önemlidir.</p>
+                `
+            },
+            {
+                title: "Teknoloji ve Recovery Monitoring",
+                content: `
+                    <h4>Wearable Technology</h4>
+                    <p>Heart rate variability (HRV), sleep quality metrics ve activity tracking, recovery status hakkında objective data sağlar. Bu data interpretation için expertise gerektirir.</p>
+                    
+                    <h4>Smartphone Applications</h4>
+                    <p>Subjective wellness tracking apps, daily recovery perception'ı quantify eder. Çocuklar için user-friendly interface önemlidir.</p>
+                    
+                    <h4>Integration ve Interpretation</h4>
+                    <p>Objective ve subjective data'nın kombinasyonu, comprehensive recovery assessment sağlar. Data interpretation sports science background gerektirir.</p>
+                `
+            },
+            {
+                title: "Aile ve Antrenör Rolü",
+                content: `
+                    <h4>Sleep Prioritization</h4>
+                    <p>Aileler academic ve athletic demands arasında balance kurmalı, sleep'i prioritize etmelidir. Bu sometimes scheduling sacrifices gerektirir.</p>
+                    
+                    <h4>Early Warning Systems</h4>
+                    <p>Overtraining belirtilerinin tanınması için aileler ve antrenörler educate edilmelidir. Early intervention long-term consequences'ı önler.</p>
+                    
+                    <h4>Supportive Environment</h4>
+                    <p>Recovery-supportive home ve training facility environment yaratmak, optimal recovery için gereklidir. Bu physical ve psychological aspects içerir.</p>
+                `
+            },
+            {
+                title: "Pratik Uygulama Önerileri",
+                content: `
+                    <h4>Individualization Prensibi</h4>
+                    <p>Her çocuğun recovery needs'i farklıdır. Age, training history, sport type ve individual response patterns dikkate alınmalıdır.</p>
+                    
+                    <h4>Periodization İntegrasyonu</h4>
+                    <p>Recovery planning, training periodization'ın integral parçası olmalıdır. Yoğun training block'ları recovery period'ları ile dengelenmelidir.</p>
+                    
+                    <h4>Sustainable Habits</h4>
+                    <p>Recovery strategies, yaşam boyu sürdürülebilir alışkanlıklar olacak şekilde öğretilmelidir. Bu health promotion açısından kritiktir.</p>
+                `
+            }
+        ];
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[index].classList.add('active');
+            document.getElementById('currentSlide').textContent = index + 1;
+            
+            // Update sidebar content
+            updateSidebar(index);
+        }
+
+        function updateSidebar(index) {
+            const sidebarContent = document.getElementById('sidebarContent');
+            const note = slideNotes[index];
+            sidebarContent.innerHTML = `
+                <h3>${note.title}</h3>
+                ${note.content}
+            `;
+        }
+
+        function nextSlide() {
+            currentSlideIndex = (currentSlideIndex + 1) % totalSlides;
+            showSlide(currentSlideIndex);
+        }
+
+        function prevSlide() {
+            currentSlideIndex = (currentSlideIndex - 1 + totalSlides) % totalSlides;
+            showSlide(currentSlideIndex);
+        }
+
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+        }
+
+        // Initialize sidebar with first slide content
+        updateSidebar(0);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            switch(event.key) {
+                case 'ArrowRight':
+                case ' ':
+                    nextSlide();
+                    break;
+                case 'ArrowLeft':
+                    prevSlide();
+                    break;
+                case 'Escape':
+                    document.getElementById('sidebar').classList.remove('active');
+                    break;
+                case 's':
+                case 'S':
+                    toggleSidebar();
+                    break;
+            }
+        });
+    </script>
+</body>
+</html>
