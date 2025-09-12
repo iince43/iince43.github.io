@@ -9,7 +9,512 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <nav class="navbar"><!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ders Notları - İzzet İNCE</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
     <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>İzzet İNCE</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Ana Sayfa</a></li>
+                <li><a href="cv.html" class="nav-link">Akademik Yayınlarım</a></li>
+                <li><a href="projelerim.html" class="nav-link">TÜBİTAK Destekli Projelerim</a></li>
+                <li><a href="dersler.html" class="nav-link active">Ders Notları</a></li>
+                <li><a href="galeri.html" class="nav-link">Fotoğraf Galerisi</a></li>
+                <li><a href="index.html#contact" class="nav-link">İletişim</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="courses-container">
+        <div class="page-header">
+            <h1><i class="fas fa-book-open"></i> Ders Notları</h1>
+            <p>Lisans, Yüksek Lisans ve Doktora dersleri için hazırlanmış eğitim materyalleri</p>
+        </div>
+
+        <!-- Ders Seviyeleri Tabları -->
+        <div class="course-tabs">
+            <button class="tab-btn active" data-level="lisans">
+                <i class="fas fa-graduation-cap"></i> Lisans
+            </button>
+            <button class="tab-btn" data-level="yukseklisans">
+                <i class="fas fa-user-graduate"></i> Yüksek Lisans
+            </button>
+            <button class="tab-btn" data-level="doktora">
+                <i class="fas fa-microscope"></i> Doktora
+            </button>
+        </div>
+
+        <!-- Lisans Dersleri -->
+        <div class="course-level active" id="lisans">
+            <h2 class="level-title">Lisans Dersleri</h2>
+            
+            <!-- Sporcu Beslenmesi Dersi -->
+            <div class="course-card">
+                <div class="course-header">
+                    <h3><i class="fas fa-apple-alt"></i> Sporcu Beslenmesi</h3>
+                    <span class="course-code">ANT301</span>
+                </div>
+                <div class="course-info">
+                    <p class="course-description">
+                        Sporcu beslenmesinin temel ilkeleri, makro ve mikro besinler, antrenman öncesi-sırası-sonrası beslenme, 
+                        hidrasyon, takviyeler ve spor spesifik beslenme stratejileri.
+                    </p>
+                    <div class="course-stats">
+                        <span><i class="fas fa-file-alt"></i> 9 Konu</span>
+                        <span><i class="fas fa-clock"></i> 14 Hafta</span>
+                        <span><i class="fas fa-users"></i> 3. Sınıf</span>
+                    </div>
+                </div>
+                
+                <!-- Ders İçerikleri -->
+                <div class="course-content">
+                    <h4>Ders Konuları</h4>
+                    <div class="topics-grid">
+                        <a href="dersler/sporcu-beslenmesi/01_Temel_Beslenme_Ilkeleri_Sunum.html" class="topic-card" target="_blank">
+                            <div class="topic-number">01</div>
+                            <div class="topic-info">
+                                <h5>Temel Beslenme İlkeleri</h5>
+                                <p>Beslenmenin temel kavramları ve sporcu beslenmesine giriş</p>
+                            </div>
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+
+                        <a href="dersler/sporcu-beslenmesi/02_Makro_Besinler_Sunum.html" class="topic-card" target="_blank">
+                            <div class="topic-number">02</div>
+                            <div class="topic-info">
+                                <h5>Makro Besinler</h5>
+                                <p>Karbonhidratlar, proteinler ve yağların sporcu beslenmesindeki yeri</p>
+                            </div>
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+
+                        <a href="dersler/sporcu-beslenmesi/03_Antrenman_Oncesi_Beslenme_Sunum.html" class="topic-card" target="_blank">
+                            <div class="topic-number">03</div>
+                            <div class="topic-info">
+                                <h5>Antrenman Öncesi Beslenme</h5>
+                                <p>Performans için optimal antrenman öncesi beslenme stratejileri</p>
+                            </div>
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+
+                        <a href="dersler/sporcu-beslenmesi/04_Antrenman_Sirasi_Sonrasi_Sunum.html" class="topic-card" target="_blank">
+                            <div class="topic-number">04</div>
+                            <div class="topic-info">
+                                <h5>Antrenman Sırası ve Sonrası Beslenme</h5>
+                                <p>Egzersiz sırasında ve sonrasında beslenme yaklaşımları</p>
+                            </div>
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+
+                        <a href="dersler/sporcu-beslenmesi/05_Hidrasyon_Sunum.html" class="topic-card" target="_blank">
+                            <div class="topic-number">05</div>
+                            <div class="topic-info">
+                                <h5>Hidrasyon</h5>
+                                <p>Sporcular için sıvı dengesi ve hidrasyon stratejileri</p>
+                            </div>
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+
+                        <a href="dersler/sporcu-beslenmesi/06_Takviye_ve_Supplementler_Sunum.html" class="topic-card" target="_blank">
+                            <div class="topic-number">06</div>
+                            <div class="topic-info">
+                                <h5>Takviye ve Supplementler</h5>
+                                <p>Sporcu takviyelerinin bilimsel değerlendirmesi</p>
+                            </div>
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+
+                        <a href="dersler/sporcu-beslenmesi/07_Mikro_Besinler_Sunum.html" class="topic-card" target="_blank">
+                            <div class="topic-number">07</div>
+                            <div class="topic-info">
+                                <h5>Mikro Besinler</h5>
+                                <p>Vitaminler ve minerallerin sporcu performansındaki rolü</p>
+                            </div>
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+
+                        <a href="dersler/sporcu-beslenmesi/08_Ozel_Populasyonlar_Sunum.html" class="topic-card" target="_blank">
+                            <div class="topic-number">08</div>
+                            <div class="topic-info">
+                                <h5>Özel Popülasyonlar</h5>
+                                <p>Kadın sporcular, genç sporcular ve özel durumlarda beslenme</p>
+                            </div>
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+
+                        <a href="dersler/sporcu-beslenmesi/09_Spor_Spesifik_Beslenme_Sunum.html" class="topic-card" target="_blank">
+                            <div class="topic-number">09</div>
+                            <div class="topic-info">
+                                <h5>Spor Spesifik Beslenme</h5>
+                                <p>Farklı spor dallarına özgü beslenme stratejileri</p>
+                            </div>
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Yüksek Lisans Dersleri -->
+        <div class="course-level" id="yukseklisans">
+            <h2 class="level-title">Yüksek Lisans Dersleri</h2>
+            <div class="empty-state">
+                <i class="fas fa-book"></i>
+                <p>Yüksek lisans ders içerikleri yakında eklenecektir.</p>
+            </div>
+        </div>
+
+        <!-- Doktora Dersleri -->
+        <div class="course-level" id="doktora">
+            <h2 class="level-title">Doktora Dersleri</h2>
+            <div class="empty-state">
+                <i class="fas fa-microscope"></i>
+                <p>Doktora ders içerikleri yakında eklenecektir.</p>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 İzzet İNCE. Tüm hakları saklıdır.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Tab switching functionality
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const courseLevels = document.querySelectorAll('.course-level');
+
+        tabButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const targetLevel = btn.getAttribute('data-level');
+                
+                // Remove active class from all tabs and levels
+                tabButtons.forEach(b => b.classList.remove('active'));
+                courseLevels.forEach(level => level.classList.remove('active'));
+                
+                // Add active class to clicked tab and corresponding level
+                btn.classList.add('active');
+                document.getElementById(targetLevel).classList.add('active');
+            });
+        });
+    </script>
+
+<style>
+.page-header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 20px 0;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.page-header h1 {
+    font-size: 2.5rem;
+    color: var(--text-color);
+    margin-bottom: 10px;
+}
+
+.page-header p {
+    color: var(--text-light);
+    font-size: 1.1rem;
+}
+
+/* Course Tabs */
+.course-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+
+.tab-btn {
+    padding: 12px 30px;
+    border: 2px solid #e0e0e0;
+    background: white;
+    color: #666;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+}
+
+.tab-btn:hover {
+    background: #f5f5f5;
+    transform: translateY(-2px);
+}
+
+.tab-btn.active {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+    box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+}
+
+.tab-btn i {
+    font-size: 18px;
+}
+
+/* Course Levels */
+.course-level {
+    display: none;
+}
+
+.course-level.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.level-title {
+    color: var(--text-color);
+    margin-bottom: 30px;
+    font-size: 1.8rem;
+    text-align: center;
+}
+
+/* Course Card */
+.course-card {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    margin-bottom: 30px;
+    border-left: 5px solid var(--primary-color);
+}
+
+.course-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.course-header h3 {
+    color: var(--text-color);
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.course-header i {
+    color: var(--primary-color);
+}
+
+.course-code {
+    background: #f0f7ff;
+    color: var(--primary-color);
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.course-info {
+    margin-bottom: 25px;
+}
+
+.course-description {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.course-stats {
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.course-stats span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #888;
+    font-size: 14px;
+}
+
+.course-stats i {
+    color: var(--primary-color);
+}
+
+/* Course Content */
+.course-content {
+    border-top: 1px solid #e0e0e0;
+    padding-top: 25px;
+}
+
+.course-content h4 {
+    color: var(--text-color);
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+}
+
+/* Topics Grid */
+.topics-grid {
+    display: grid;
+    gap: 15px;
+}
+
+.topic-card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+    border: 1px solid #e0e0e0;
+}
+
+.topic-card:hover {
+    background: white;
+    transform: translateX(5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-color: var(--primary-color);
+}
+
+.topic-number {
+    width: 50px;
+    height: 50px;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.topic-info {
+    flex: 1;
+}
+
+.topic-info h5 {
+    color: var(--text-color);
+    margin-bottom: 5px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.topic-info p {
+    color: #666;
+    font-size: 14px;
+    margin: 0;
+}
+
+.topic-card i.fa-chevron-right {
+    color: #999;
+    transition: all 0.3s ease;
+}
+
+.topic-card:hover i.fa-chevron-right {
+    color: var(--primary-color);
+    transform: translateX(5px);
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #999;
+}
+
+.empty-state i {
+    font-size: 60px;
+    margin-bottom: 20px;
+    opacity: 0.3;
+}
+
+.empty-state p {
+    font-size: 16px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .course-tabs {
+        gap: 10px;
+    }
+    
+    .tab-btn {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+    
+    .tab-btn i {
+        font-size: 16px;
+    }
+    
+    .course-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .course-stats {
+        gap: 15px;
+    }
+    
+    .topic-card {
+        padding: 15px;
+        gap: 15px;
+    }
+    
+    .topic-number {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+    
+    .page-header h1 {
+        font-size: 2rem;
+    }
+}
+</style>
+
+</body>
+</html>
         <div class="nav-container">
             <div class="nav-logo">
                 <h2>İzzet İNCE</h2>
