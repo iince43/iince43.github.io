@@ -1,447 +1,142 @@
 <!DOCTYPE html>
-<html lang="tr" class="no-js" data-color-scheme="system">
+<html lang="tr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>İzzet İNCE — Akademik Portfolyo</title>
-  <meta name="description" content="Doç. Dr. İzzet İNCE'nin akademik portfolyosu: araştırma alanları, yayınlar, projeler, ödüller ve iletişim bilgileri." />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://example.com/" />
-  <meta name="theme-color" content="#0b1020" media="(prefers-color-scheme: dark)">
-  <meta name="theme-color" content="#f7f9fc" media="(prefers-color-scheme: light)">
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="İzzet İNCE — Akademik Portfolyo" />
-  <meta property="og:description" content="Spor teknolojisi, uygulamalı biyomekanik ve performans analizi" />
-  <meta property="og:url" content="https://example.com/" />
-  <meta property="og:image" content="/images/cover.jpg" />
-  <meta name="twitter:card" content="summary_large_image" />
-
-  <!-- Fonts & Icons (preconnect + display swap) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <style>
-    /* ====== Design Tokens ====== */
     :root{
-      --bg:#0b1020;/* deep navy */
-      --bg-soft:#0f152a;
-      --card:#121a34;
-      --text:#e8ecf8;
-      --muted:#b8c0d9;
-      --brand:#6ea8fe; /* soft blue */
-      --brand-2:#00d1b2; /* aqua */
-      --accent:#ffd166; /* warm */
-      --outline:rgba(255,255,255,.10);
-      --shadow:0 8px 30px rgba(0,0,0,.25);
-      --radius:18px;
-      --focus: 0 0 0 3px color-mix(in oklab, var(--brand) 35%, transparent);
+      --bg:#07091a;
+      --bg-soft:#0b0f29;
+      --card:#0e1433;
+      --text:#eaf1ff;
+      --muted:#a6b0d4;
+      --brand:#8b5cf6; /* neon violet */
+      --brand-2:#06b6d4; /* neon cyan */
+      --accent:#f472b6; /* neon pink */
+      --outline:rgba(139,92,246,.35);
+      --shadow:0 8px 30px rgba(0,0,0,.35);
+      --radius:20px;
     }
-    :root.light{
-      --bg:#f7f9fc;
-      --bg-soft:#ffffff;
-      --card:#ffffff;
-      --text:#101427;
-      --muted:#5b6275;
-      --brand:#3366ff;
-      --brand-2:#0db39e;
-      --accent:#f59e0b;
-      --outline:rgba(16,20,39,.10);
-      --shadow:0 8px 30px rgba(0,0,0,.08);
-      --focus: 0 0 0 3px color-mix(in oklab, var(--brand) 35%, transparent);
-    }
-
-    /* ====== Global ====== */
-    html,body{height:100%}
-    *{box-sizing:border-box}
     body{
-      margin:0; font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial; color:var(--text);
+      margin:0; font-family:Inter, system-ui; background:var(--bg); color:var(--text);
       background:
-        radial-gradient(1200px 600px at 10% -10%, rgba(51,102,255,.15), transparent 60%),
-        radial-gradient(1000px 500px at 90% -20%, rgba(13,179,158,.15), transparent 60%),
-        var(--bg);
-      -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+        radial-gradient(1200px 600px at 10% -10%, color-mix(in oklab, var(--brand) 25%, transparent), transparent 60%),
+        radial-gradient(1000px 500px at 90% -20%, color-mix(in oklab, var(--brand-2) 25%, transparent), transparent 60%),
+        linear-gradient(180deg, #05070f 0%, #0a0f28 100%);
     }
-    a{color:inherit; text-decoration:none}
-    a:focus-visible, button:focus-visible { outline: none; box-shadow: var(--focus); border-radius: 10px; }
-    .container{width:min(1100px, 92%); margin-inline:auto}
-    .visually-hidden{position:absolute !important; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0}
-    .skip-link{position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden}
-    .skip-link:focus{left:1rem; top:1rem; width:auto; height:auto; padding:.6rem 1rem; background:var(--brand); color:#fff; border-radius:10px; z-index:1000}
-
-    /* ====== Header / Navbar ====== */
-    header{position:sticky; top:0; z-index:50; backdrop-filter:saturate(160%) blur(10px);
-      background:linear-gradient(135deg, color-mix(in oklab, var(--brand) 8%, var(--bg-soft)), color-mix(in oklab, var(--brand-2) 6%, var(--bg-soft)));
-      border-bottom:1px solid var(--outline);
-      box-shadow:0 4px 20px color-mix(in oklab, var(--brand) 12%, transparent)
+    header{
+      position:sticky; top:0; z-index:10;
+      background:linear-gradient(90deg, var(--brand), var(--accent), var(--brand-2));
+      padding:14px; display:flex; justify-content:center;
     }
-    .nav{display:flex; align-items:center; justify-content:space-between; padding:14px 0}
-    .brand{display:flex; gap:10px; align-items:center}
-    .brand img{width:36px; height:36px; border-radius:10px}
-    .brand .title{font-weight:700; letter-spacing:.2px}
-    .nav-menu{display:flex; gap:10px; align-items:center}
-    .nav-menu a{padding:10px 14px; border-radius:12px; color:var(--muted); border:1px solid transparent; font-weight:500; transition:all 0.25s ease}
-    .nav-menu a[aria-current="page"], .nav-menu a:hover{color:var(--text); border-color:var(--brand);
-      background:linear-gradient(135deg, color-mix(in oklab, var(--brand) 10%, transparent), color-mix(in oklab, var(--brand-2) 5%, transparent));
-      transform:translateY(-1px); box-shadow:0 4px 12px color-mix(in oklab, var(--brand) 20%, transparent)
+    header nav a{
+      margin:0 12px; color:#fff; font-weight:700; text-decoration:none;
+      transition:0.3s; padding:8px 14px; border-radius:12px;
     }
-    .hamburger{display:none; flex-direction:column; cursor:pointer; gap:5px; padding:6px}
-    .hamburger span{width:24px; height:3px; background:var(--text); border-radius:3px; transition:.3s}
-    .hamburger[aria-expanded="true"] span:nth-child(1){transform:rotate(-45deg) translate(-5px, 6px)}
-    .hamburger[aria-expanded="true"] span:nth-child(2){opacity:0}
-    .hamburger[aria-expanded="true"] span:nth-child(3){transform:rotate(45deg) translate(-5px, -6px)}
-
-    /* ====== Hero ====== */
-    .hero{position:relative; padding:48px 0 24px}
-    .hero-grid{display:grid; grid-template-columns:1.2fr .8fr; gap:24px; align-items:center}
-    .hero-card{background:linear-gradient(180deg, color-mix(in oklab, var(--card) 88%, transparent), var(--card)); border:1px solid var(--outline); border-radius:var(--radius); box-shadow:var(--shadow); padding:24px}
-    .kicker{display:inline-flex; gap:8px; align-items:center; color:var(--muted); font-size:13px}
-    .kicker .dot{width:6px; height:6px; border-radius:999px; background:var(--brand)}
-    .hero h1{font-size:30px; line-height:1.2; margin:8px 0 6px; font-weight:700}
-    .subtitle{display:flex; gap:8px; flex-wrap:wrap; color:var(--muted); font-size:16px}
-    .badges{display:flex; gap:8px; margin-top:12px; flex-wrap:wrap}
-    .badge{border:1px solid var(--outline); padding:6px 10px; border-radius:999px; font-size:12px; background:color-mix(in oklab, var(--bg-soft) 90%, transparent)}
-    .cta{display:flex; gap:10px; margin-top:14px; flex-wrap:wrap}
-    .btn{display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:12px; border:1px solid var(--brand); background:color-mix(in oklab, var(--brand) 14%, transparent); color:var(--text); font-weight:600}
-    .btn.secondary{border-color:var(--outline); background:var(--bg-soft); color:var(--muted)}
-    .btn:hover{transform:translateY(-1px); box-shadow:0 6px 16px rgba(0,0,0,.15)}
-
-    .social{display:flex; gap:10px; margin-top:12px}
-    .social a{width:36px; height:36px; display:grid; place-items:center; border-radius:10px; border:1px solid var(--brand); background:white; transition: all 0.2s ease}
-    .social a i{color:var(--brand) !important; font-size:16px}
-    .social a:hover{background:var(--brand); transform:translateY(-1px)}
-    .social a:hover i{color:white !important}
-    :root.light .social a{background:#f7f9fc; border-color:var(--brand)}
-
-    .portrait{display:grid; place-items:center}
-    .portrait .circle{width:min(220px, 85%); aspect-ratio:1; border-radius:50%; background:
-      conic-gradient(from 180deg at 50% 50%, color-mix(in oklab, var(--brand) 70%, transparent), color-mix(in oklab, var(--brand-2) 70%, transparent));
-      padding:4px; box-shadow:0 4px 20px rgba(0,0,0,.15)}
-    .portrait .inner{width:100%; height:100%; border-radius:inherit; background:linear-gradient(160deg, var(--card), color-mix(in oklab, var(--card) 85%, transparent)); display:grid; place-items:center; border:1px solid var(--outline)}
-    .portrait img{width:100%; height:100%; border-radius:50%; object-fit:cover}
-
-    /* ====== Sections ====== */
-    section{padding:40px 0}
-    section h2{font-size:24px; margin-bottom:20px}
-    .cards-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:20px}
-    .card{background:var(--card); border:1px solid var(--outline); border-radius:var(--radius); padding:20px; box-shadow:var(--shadow)}
-    .card h3{color:var(--brand); margin-bottom:8px; font-size:18px}
-    .card p{color:var(--muted); line-height:1.65}
-
-    .timeline{display:grid; gap:14px}
-    .tl-item{display:grid; grid-template-columns:96px 1fr; gap:16px; align-items:flex-start}
-    .tl-year{font-weight:700; color:var(--brand)}
-    .tl-dot{width:10px; height:10px; border-radius:50%; background:var(--accent); margin-top:6px}
-    .tl-body{border-left:2px dashed var(--outline); padding-left:16px}
-
-    .contact{background:var(--card); border:1px solid var(--outline); border-radius:var(--radius); padding:28px; box-shadow:var(--shadow)}
-    .contact-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:16px}
-    .contact-item{display:flex; gap:12px; align-items:center}
-    .contact-item i{width:32px; height:32px; display:grid; place-items:center; border-radius:8px; background:var(--bg-soft); color:var(--brand)}
-
-    footer{padding:40px 0; color:var(--muted); text-align:center}
-
-    /* ====== Gallery (optional keep) ====== */
-    .gallery-filters{display:flex; justify-content:center; gap:10px; margin-bottom:20px; flex-wrap:wrap}
-    .filter-btn{padding:8px 14px; border:1px solid var(--outline); background:var(--bg-soft); color:var(--muted); border-radius:25px; cursor:pointer; font-size:14px; font-weight:500; transition:.3s}
-    .filter-btn.active, .filter-btn:hover{background:var(--brand); color:#fff; border-color:var(--brand); transform:translateY(-2px)}
-    .gallery-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:16px}
-    .gallery-item{position:relative; border-radius:14px; overflow:hidden; cursor:pointer; background:var(--card); border:1px solid var(--outline); transition:.3s}
-    .gallery-item:hover{transform:translateY(-4px); box-shadow:0 12px 28px rgba(0,0,0,.18)}
-    .gallery-item img{width:100%; aspect-ratio:4/3; object-fit:cover; display:block}
-    .overlay{position:absolute; inset:0; display:grid; place-items:center; color:#fff; background:linear-gradient(135deg, rgba(0,0,0,.6), rgba(0,0,0,.35)); opacity:0; transition:.3s; text-align:center; padding:10px}
-    .gallery-item:hover .overlay{opacity:1}
-
-    /* ====== Mobile ====== */
-    @media (max-width: 860px) {
-      .hero-grid{grid-template-columns:1fr; text-align:center}
-      .timeline{gap:18px}
-      .tl-item{grid-template-columns:1fr;}
-      .nav-menu{position:fixed; top:64px; left:-100%; width:100%; height:calc(100vh - 64px); background:var(--bg-soft);
-        flex-direction:column; gap:20px; padding:28px 16px; transition:left .3s; z-index:60; box-shadow:0 8px 18px rgba(0,0,0,.18)}
-      .nav-menu.active{left:0}
-      .nav-menu a{width:100%; text-align:center; border:1px solid var(--outline); border-radius:14px}
-      .hamburger{display:flex}
+    header nav a:hover{
+      background:var(--brand-2); color:#000; box-shadow:0 0 12px var(--brand-2);
     }
-
-    /* Respect reduced motion */
-    @media (prefers-reduced-motion: reduce){
-      *{scroll-behavior:auto !important; transition:none !important; animation:none !important}
-      header{backdrop-filter:none}
+    .hero{
+      display:grid; grid-template-columns:1fr 1fr; gap:30px; padding:60px 10%; align-items:center;
     }
-
-    /* Print-friendly */
-    @media print{
-      header, .hamburger, .nav-menu a[href^="#"], .gallery-filters, .theme-toggle{display:none !important}
-      body{background:#fff; color:#000}
-      .card, .hero-card, .contact{box-shadow:none; border:1px solid #ddd}
+    .hero-text h1{
+      font-size:2.7rem; font-weight:900;
+      background:linear-gradient(90deg,var(--brand),var(--accent),var(--brand-2));
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+      text-shadow:0 0 24px color-mix(in oklab, var(--brand) 25%, transparent);
+    }
+    .hero-text p{
+      font-size:1.1rem; line-height:1.7; color:var(--muted);
+    }
+    .hero img{
+      width:100%; border-radius:50%; box-shadow:0 0 25px var(--brand-2);
+    }
+    section{padding:60px 10%;}
+    section h2{
+      font-size:2rem; margin-bottom:20px; font-weight:800;
+      background:linear-gradient(90deg,var(--brand-2),var(--accent),var(--brand));
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+      position:relative; display:inline-block;
+    }
+    section h2:after{
+      content:""; position:absolute; left:0; right:0; bottom:-6px; height:3px; border-radius:3px;
+      background:linear-gradient(90deg, var(--brand), var(--accent), var(--brand-2));
+      box-shadow:0 0 14px rgba(124,58,237,.6);
+    }
+    .card{
+      background:var(--card); padding:22px; border-radius:var(--radius);
+      box-shadow:0 0 15px rgba(139,92,246,0.25);
+      transition:0.3s;
+    }
+    .card:hover{
+      transform:translateY(-5px); box-shadow:0 0 25px var(--accent);
+    }
+    .timeline{border-left:2px solid var(--brand-2); padding-left:20px;}
+    .timeline div{margin-bottom:20px; position:relative;}
+    .timeline div::before{
+      content:""; position:absolute; left:-12px; top:4px; width:12px; height:12px;
+      border-radius:50%; background:var(--brand-2); box-shadow:0 0 8px var(--brand-2);
+    }
+    footer{
+      text-align:center; padding:20px; font-size:0.9rem; color:var(--muted);
+      border-top:1px solid rgba(255,255,255,0.1);
     }
   </style>
 </head>
-<body itemscope itemtype="https://schema.org/Person">
-  <a href="#main" class="skip-link">İçeriğe geç</a>
-
-  <header role="banner">
-    <div class="container nav" aria-label="Üst gezinme">
-      <a class="brand" href="/" aria-label="Ana sayfa">
-        <img src="/images/avatar-izzet.jpg" alt="İzzet İNCE profil görseli" width="72" height="72" loading="eager" decoding="async" />
-        <span class="title" itemprop="name">İzzet İNCE</span>
-      </a>
-      <nav class="nav-menu" aria-label="Birincil">
-        <a href="index.html" aria-current="page">Ana Sayfa</a>
-        <a href="yayinlar.html">Yayınlar</a>
-        <a href="projelerim.html">Projeler</a>
-        <a href="dersler.html">Ders Notları</a>
-        <a href="#galeri">Galeri</a>
-        <a href="#iletisim">İletişim</a>
-      </nav>
-      <button class="hamburger" id="hamburger" aria-controls="primary-menu" aria-expanded="false" aria-label="Menüyü aç/kapat">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
+<body>
+  <header>
+    <nav>
+      <a href="#hakkimda">Hakkımda</a>
+      <a href="#basarilar">Başarılar</a>
+      <a href="#arastirma">Araştırma Alanları</a>
+      <a href="#iletisim">İletişim</a>
+    </nav>
   </header>
-
-  <main id="main" tabindex="-1">
-    <!-- Hero -->
-    <section class="hero">
-      <div class="container hero-grid">
-        <article class="hero-card" itemprop="description">
-          <div class="kicker" aria-hidden="true"><span class="dot"></span> Spor Teknolojisi • Uygulamalı Biyomekanik</div>
-          <h1>Doç. Dr. İzzet İNCE</h1>
-          <p class="subtitle" aria-label="Ünvan ve kurum">
-            <span>Öğretim Üyesi</span><span>•</span><span itemprop="worksFor">Ankara Yıldırım Beyazıt Üniversitesi</span>
-          </p>
-          <div class="badges" aria-label="Bölüm ve fakülte">
-            <span class="badge">Spor Bilimleri Fakültesi</span>
-            <span class="badge">Antrenörlük Eğitimi</span>
-          </div>
-          <div class="cta" role="group" aria-label="Hızlı eylemler">
-            <a class="btn" href="/docs/izzet-ince-cv.pdf" download>
-              <i class="fa-solid fa-file-arrow-down" aria-hidden="true"></i> CV İndir (PDF)
-            </a>
-            <a class="btn secondary" href="#iletisim">
-              <i class="fa-solid fa-paper-plane" aria-hidden="true"></i> İletişime Geç
-            </a>
-          </div>
-          <div class="social" aria-label="Sosyal bağlantılar" itemprop="sameAs" itemscope itemtype="https://schema.org/URL">
-            <a href="https://github.com/iince43" target="_blank" rel="noopener" title="GitHub"><i class="fab fa-github"></i></a>
-            <a href="https://www.researchgate.net/profile/Izzet-Ince-2" target="_blank" rel="noopener" title="ResearchGate"><i class="fab fa-researchgate"></i></a>
-            <a href="https://scholar.google.com/citations?hl=tr&user=wb0h-uEAAAAJ" target="_blank" rel="noopener" title="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
-            <a href="https://www.linkedin.com/in/izzet-ince-267b47a5" target="_blank" rel="noopener" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-            <a href="mailto:izzetince43@gmail.com" title="E-posta"><i class="fas fa-envelope"></i></a>
-          </div>
-        </article>
-
-        <aside class="portrait" aria-label="Profil görseli">
-          <div class="circle"><div class="inner">
-            <img src="/images/profile.jpg" alt="İzzet İNCE" width="440" height="440" loading="eager" decoding="async" />
-          </div></div>
-        </aside>
-      </div>
-    </section>
-
-    <!-- Hakkımda -->
-    <section class="container" id="hakkimda">
-      <h2>Hakkımda</h2>
-      <article class="card" style="margin-bottom: 16px;" itemprop="description">
-        <p style="line-height:1.7">İzzet İnce, 1981 Kütahya doğumlu. 1994'te haltere başladı; 2004 Atina ve 2008 Pekin Olimpiyatları'nda Türkiye'yi temsil etti. 2004 ve 2007 Avrupa Şampiyonluğu başta olmak üzere birçok uluslararası madalya sahibidir. Akademik yaşamında spor performansı optimizasyonu, spor teknolojisi ve yazılım geliştirme ile uygulamalı biyomekanik alanlarında çalışmaktadır.</p>
-        <p style="line-height:1.7">MEB'de 7 yıl beden eğitimi öğretmenliği sonrası 2016'da AYBÜ'ye araştırma görevlisi olarak katıldı; 2018'de Dr. Öğr. Üyesi, 2021'de Doçent oldu. Halen AYBÜ Spor Bilimleri Fakültesi'nde görev yapmaktadır.</p>
-      </article>
-    </section>
-
-    <!-- Uluslararası Başarılar (Timeline) -->
-    <section class="container" aria-labelledby="basarilar-heading">
-      <h2 id="basarilar-heading">Uluslararası Başarılar</h2>
-      <div class="card timeline" role="list">
-        <div class="tl-item" role="listitem"><div class="tl-year">2010</div><div class="tl-body"><div class="tl-dot" aria-hidden="true"></div> Büyükler Avrupa Halter Şampiyonası — İkincilik</div></div>
-        <div class="tl-item" role="listitem"><div class="tl-year">2009</div><div class="tl-body"><div class="tl-dot"></div> Akdeniz Oyunları — Birincilik; Avrupa — Üçüncülük</div></div>
-        <div class="tl-item" role="listitem"><div class="tl-year">2008</div><div class="tl-body"><div class="tl-dot"></div> Pekin Olimpiyatları — Katılım; Avrupa — Üçüncülük</div></div>
-        <div class="tl-item" role="listitem"><div class="tl-year">2007</div><div class="tl-body"><div class="tl-dot"></div> Avrupa — Birincilik</div></div>
-        <div class="tl-item" role="listitem"><div class="tl-year">2006</div><div class="tl-body"><div class="tl-dot"></div> Üniversiteliler Dünya — Birincilik</div></div>
-        <div class="tl-item" role="listitem"><div class="tl-year">2005</div><div class="tl-body"><div class="tl-dot"></div> Avrupa — Üçüncülük</div></div>
-        <div class="tl-item" role="listitem"><div class="tl-year">2004</div><div class="tl-body"><div class="tl-dot"></div> Atina Olimpiyatları — Katılım; Avrupa — Birincilik</div></div>
-        <div class="tl-item" role="listitem"><div class="tl-year">2003</div><div class="tl-body"><div class="tl-dot"></div> Avrupa — Üçüncülük</div></div>
-        <div class="tl-item" role="listitem"><div class="tl-year">2002</div><div class="tl-body"><div class="tl-dot"></div> Üniversiteliler Dünya — İkincilik</div></div>
-        <div class="tl-item" role="listitem"><div class="tl-year">2001</div><div class="tl-body"><div class="tl-dot"></div> Gençler Dünya — İkincilik; Gençler Avrupa — Birincilik</div></div>
-      </div>
-    </section>
-
-    <!-- Araştırma Alanları -->
-    <section class="container">
-      <h2>Araştırma Alanları</h2>
-      <div class="cards-grid">
-        <article class="card"><h3><i class="fas fa-apple-alt" aria-hidden="true"></i> Sporcu Beslenmesi</h3><p>Performans odaklı beslenme stratejileri, ergojenik destekler.</p></article>
-        <article class="card"><h3><i class="fas fa-dumbbell" aria-hidden="true"></i> Antrenman Bilimi</h3><p>Periodizasyon, kuvvet-hız profilleme, RFD ölçümleri.</p></article>
-        <article class="card"><h3><i class="fas fa-heartbeat" aria-hidden="true"></i> Spor Fizyolojisi</h3><p>Adaptasyon mekanizmaları, saha testleri, metabolik yanıtlar.</p></article>
-        <article class="card"><h3><i class="fas fa-chart-line" aria-hidden="true"></i> Performans Analizi</h3><p>Spor teknolojileri, veri görselleştirme ve sensör füzyonu.</p></article>
-      </div>
-    </section>
-
-    <!-- Öne Çıkan Çalışmalar -->
-    <section class="container">
-      <h2>Öne Çıkan Çalışmalar</h2>
-      <div class="cards-grid">
-        <article class="card"><h3>Athletic Shoulder Test Geçerliliği</h3><p><strong>2025</strong> — Journal of Musculoskeletal & Neuronal Interactions</p></article>
-        <article class="card"><h3>Elektriksel Kas Stimülasyonu Etkileri</h3><p><strong>2025</strong> — Journal of Exercise Science & Fitness</p></article>
-        <article class="card"><h3>TÜBİTAK Kuvvet Platformu Projesi</h3><p><strong>2024–2025</strong> — Çift Plakalı Kuvvet Platformu Tasarımı</p></article>
-      </div>
-    </section>
-
-    <!-- (Opsiyonel) Galeri -->
-    <section class="container" id="galeri" aria-labelledby="galeri-heading">
-      <h2 id="galeri-heading">Fotoğraf Galerisi</h2>
-      <div class="gallery-filters" role="tablist">
-        <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">Tümü</button>
-        <button class="filter-btn" data-filter="lab" role="tab" aria-selected="false">Laboratuvar</button>
-        <button class="filter-btn" data-filter="yarismalar" role="tab" aria-selected="false">Yarışmalar</button>
-      </div>
-      <div class="gallery-grid" id="gallery" aria-live="polite">
-        <figure class="gallery-item lab" data-caption="Performans Laboratuvarı">
-          <img src="/images/lab-1.jpg" alt="Performans laboratuvarından bir kare" loading="lazy" decoding="async">
-          <figcaption class="overlay">Performans Laboratuvarı</figcaption>
-        </figure>
-        <figure class="gallery-item yarismalar" data-caption="Avrupa Şampiyonası">
-          <img src="/images/comp-1.jpg" alt="Avrupa Şampiyonası'ndan görüntü" loading="lazy" decoding="async">
-          <figcaption class="overlay">Avrupa Şampiyonası</figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <!-- İletişim -->
-    <section class="container" id="iletisim">
-      <h2>İletişim</h2>
-      <div class="contact" itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
-        <div class="contact-grid">
-          <div class="contact-item">
-            <i class="fas fa-envelope" aria-hidden="true"></i>
-            <div><strong>E-posta</strong><br>
-              <a href="mailto:izzetince@aybu.edu.tr"><span itemprop="email">izzetince@aybu.edu.tr</span></a> • 
-              <a href="mailto:izzetince43@gmail.com">izzetince43@gmail.com</a>
-            </div>
-          </div>
-          <div class="contact-item">
-            <i class="fas fa-building" aria-hidden="true"></i>
-            <div><strong>Kurum</strong><br>
-              Ankara Yıldırım Beyazıt Üniversitesi — Spor Bilimleri Fakültesi
-            </div>
-          </div>
-          <div class="contact-item">
-            <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
-            <div><strong>Konum</strong><br>
-              <span itemprop="addressLocality">Ankara</span>, <span itemprop="addressCountry">Türkiye</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="container">© <span id="yil"></span> İzzet İNCE — Tüm hakları saklıdır.</div>
-  </footer>
-
-  <!-- Lightbox Modal -->
-  <div class="visually-hidden" id="lightbox" aria-hidden="true" aria-modal="true" role="dialog">
-    <div>
-      <img id="lightbox-img" alt="" />
-      <p id="lightbox-caption"></p>
-      <button type="button" id="lightbox-close">Kapat</button>
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Sahadan Laboratuvara: Spor Teknolojisi ve Biyomekanik</h1>
+      <p>2× Avrupa Şampiyonu ve 2× Olimpiyat sporcusu olarak edindiğim tecrübeyi, akademik vizyonla birleştiriyorum. Spor teknolojisi, kuvvet–hız profilleme ve biyomekanik alanında neon enerjisiyle parlayan çözümler geliştiriyorum.</p>
     </div>
-  </div>
-
-  <button class="btn" id="theme-toggle" style="position:fixed; bottom:20px; right:20px" aria-label="Tema değiştir">
-    <i class="fas fa-sun" aria-hidden="true"></i>
-    <span class="visually-hidden">Tema değiştir</span>
-  </button>
-
-  <!-- JSON-LD: Person -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "İzzet İNCE",
-    "jobTitle": "Doç. Dr.",
-    "affiliation": {"@type": "Organization", "name": "Ankara Yıldırım Beyazıt Üniversitesi"},
-    "url": "https://example.com/",
-    "image": "https://example.com/images/profile.jpg",
-    "sameAs": [
-      "https://github.com/iince43",
-      "https://www.researchgate.net/profile/Izzet-Ince-2",
-      "https://scholar.google.com/citations?hl=tr&user=wb0h-uEAAAAJ",
-      "https://www.linkedin.com/in/izzet-ince-267b47a5"
-    ],
-    "award": [
-      "Avrupa Halter Şampiyonası Birinciliği (2004, 2007)",
-      "Akdeniz Oyunları Birinciliği (2009)"
-    ]
-  }
-  </script>
-
-  <script>
-    // Theme boot (respect system first time)
-    const root = document.documentElement;
-    const savedTheme = localStorage.getItem('theme');
-    if(savedTheme === 'light'){ root.classList.add('light'); }
-    if(savedTheme === 'dark'){ root.classList.remove('light'); }
-
-    // Toggle theme
-    const themeBtn = document.getElementById('theme-toggle');
-    themeBtn.addEventListener('click', () => {
-      root.classList.toggle('light');
-      const mode = root.classList.contains('light') ? 'light' : 'dark';
-      localStorage.setItem('theme', mode);
-      themeBtn.querySelector('i').className = mode === 'light' ? 'fas fa-moon' : 'fas fa-sun';
-    });
-    // Initialize icon state
-    themeBtn.querySelector('i').className = root.classList.contains('light') ? 'fas fa-moon' : 'fas fa-sun';
-
-    // Mobile menu
-    const hamburger = document.getElementById('hamburger');
-    const navMenu = document.querySelector('.nav-menu');
-    const links = document.querySelectorAll('.nav-menu a');
-    hamburger?.addEventListener('click', () => {
-      const expanded = hamburger.getAttribute('aria-expanded') === 'true';
-      hamburger.setAttribute('aria-expanded', String(!expanded));
-      navMenu.classList.toggle('active');
-    });
-    links.forEach(l => l.addEventListener('click', () => {
-      hamburger.setAttribute('aria-expanded','false');
-      navMenu.classList.remove('active');
-    }));
-
-    // Gallery filter
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    const galleryItems = document.querySelectorAll('.gallery-item');
-    filterButtons.forEach(btn => btn.addEventListener('click', () => {
-      filterButtons.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const v = btn.dataset.filter;
-      galleryItems.forEach(it => {
-        it.style.display = (v === 'all' || it.classList.contains(v)) ? 'block' : 'none';
-      });
-    }));
-
-    // Lightbox (progressive enhancement)
-    const lb = document.getElementById('lightbox');
-    const lbImg = document.getElementById('lightbox-img');
-    const lbCap = document.getElementById('lightbox-caption');
-    const lbClose = document.getElementById('lightbox-close');
-    document.getElementById('gallery')?.addEventListener('click', e => {
-      const fig = e.target.closest('.gallery-item');
-      if(!fig) return;
-      const img = fig.querySelector('img');
-      lbImg.src = img.src; lbImg.alt = img.alt; lbCap.textContent = fig.dataset.caption || '';
-      lb.classList.remove('visually-hidden'); lb.setAttribute('aria-hidden','false');
-      document.body.style.overflow = 'hidden';
-    });
-    lbClose?.addEventListener('click', () => { closeLB(); });
-    lb?.addEventListener('click', (e) => { if(e.target === lb) closeLB(); });
-    document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeLB(); });
-    function closeLB(){ lb.classList.add('visually-hidden'); lb.setAttribute('aria-hidden','true'); document.body.style.overflow='auto'; }
-
-    // Year in footer
-    document.getElementById('yil').textContent = new Date().getFullYear();
-  </script>
+    <div>
+      <img src="/images/profile.jpg" alt="İzzet İNCE">
+    </div>
+  </section>
+  <section id="hakkimda">
+    <h2>Hakkımda</h2>
+    <div class="card">
+      <p>1981 Kütahya doğumluyum. 2004 Atina ve 2008 Pekin Olimpiyatları'nda ülkemizi temsil ettim; Avrupa ve Dünya şampiyonlukları kazandım. Akademik hayatımda spor teknolojisi, biyomekanik ve performans analizi üzerine yoğunlaşıyorum. Sporcu geçmişimle bilimi birleştirerek daha güçlü bir gelecek için çalışıyorum.</p>
+    </div>
+  </section>
+  <section id="basarilar">
+    <h2>Uluslararası Başarılar</h2>
+    <div class="timeline">
+      <div><strong>2010</strong> – Avrupa Halter Şampiyonası: İkincilik</div>
+      <div><strong>2009</strong> – Akdeniz Oyunları: Birincilik, Avrupa Şampiyonası: Üçüncülük</div>
+      <div><strong>2007</strong> – Avrupa Halter Şampiyonası: Birincilik</div>
+      <div><strong>2004</strong> – Avrupa Halter Şampiyonası: Birincilik, Atina Olimpiyatları Katılım</div>
+    </div>
+  </section>
+  <section id="arastirma">
+    <h2>Araştırma Alanları</h2>
+    <div class="card">
+      <h3>Spor Teknolojisi</h3>
+      <p>Neon hızında veri analizi, kuvvet–hız profilleme ve akıllı sensör sistemleri.</p>
+    </div>
+    <div class="card" style="margin-top:20px;">
+      <h3>Biyomekanik</h3>
+      <p>Hareket analizi, markerless motion capture doğrulama ve performans optimizasyonu.</p>
+    </div>
+  </section>
+  <section id="iletisim">
+    <h2>İletişim</h2>
+    <div class="card">
+      <p><i class="fas fa-envelope"></i> izzetince@aybu.edu.tr</p>
+      <p><i class="fab fa-linkedin"></i> linkedin.com/in/izzet-ince-267b47a5</p>
+    </div>
+  </section>
+  <footer>© 2025 İzzet İNCE — Neon Akademik Portfolyo</footer>
 </body>
 </html>
