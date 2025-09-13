@@ -1,492 +1,447 @@
 <!DOCTYPE html>
-<html lang="tr" class="no-js">
+<html lang="tr" class="no-js" data-color-scheme="system">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>İzzet İNCE — Akademik Portfolyo</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>İzzet İNCE — Akademik Portfolyo</title>
+  <meta name="description" content="Doç. Dr. İzzet İNCE'nin akademik portfolyosu: araştırma alanları, yayınlar, projeler, ödüller ve iletişim bilgileri." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://example.com/" />
+  <meta name="theme-color" content="#0b1020" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f7f9fc" media="(prefers-color-scheme: light)">
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="İzzet İNCE — Akademik Portfolyo" />
+  <meta property="og:description" content="Spor teknolojisi, uygulamalı biyomekanik ve performans analizi" />
+  <meta property="og:url" content="https://example.com/" />
+  <meta property="og:image" content="/images/cover.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
 
-<!-- Fonts & Icons -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- Fonts & Icons (preconnect + display swap) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-<!-- Base Styles (single-file) -->
-<style>
-:root{
---bg:#0b1020;/* deep navy */
---bg-soft:#0f152a;
---card:#121a34;
---text:#e8ecf8;
---muted:#b8c0d9;
---brand:#6ea8fe; /* soft blue */
---brand-2:#00d1b2; /* aqua */
---accent:#ffd166; /* warm */
---outline:rgba(255,255,255,.08);
---shadow: 0 8px 30px rgba(0,0,0,.25);
---radius:18px;
-}
-:root.light{
---bg:#f7f9fc;
---bg-soft:#ffffff;
---card:#ffffff;
---text:#101427;
---muted:#5b6275;
---brand:#3366ff;
---brand-2:#0db39e;
---accent:#f59e0b;
---outline:rgba(16,20,39,.08);
---shadow: 0 8px 30px rgba(0,0,0,.08);
-}
-html,body{height:100%}
-*{box-sizing:border-box}
-body{
-margin:0; font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial; color:var(--text); background: radial-gradient(1200px 600px at 10% -10%, rgba(51,102,255,.15), transparent 60%), radial-gradient(1000px 500px at 90% -20%, rgba(13,179,158,.15), transparent 60%), var(--bg);
-}
-a{color:inherit; text-decoration:none}
-.container{width:min(1100px, 92%); margin-inline:auto}
+  <style>
+    /* ====== Design Tokens ====== */
+    :root{
+      --bg:#0b1020;/* deep navy */
+      --bg-soft:#0f152a;
+      --card:#121a34;
+      --text:#e8ecf8;
+      --muted:#b8c0d9;
+      --brand:#6ea8fe; /* soft blue */
+      --brand-2:#00d1b2; /* aqua */
+      --accent:#ffd166; /* warm */
+      --outline:rgba(255,255,255,.10);
+      --shadow:0 8px 30px rgba(0,0,0,.25);
+      --radius:18px;
+      --focus: 0 0 0 3px color-mix(in oklab, var(--brand) 35%, transparent);
+    }
+    :root.light{
+      --bg:#f7f9fc;
+      --bg-soft:#ffffff;
+      --card:#ffffff;
+      --text:#101427;
+      --muted:#5b6275;
+      --brand:#3366ff;
+      --brand-2:#0db39e;
+      --accent:#f59e0b;
+      --outline:rgba(16,20,39,.10);
+      --shadow:0 8px 30px rgba(0,0,0,.08);
+      --focus: 0 0 0 3px color-mix(in oklab, var(--brand) 35%, transparent);
+    }
 
-/* Navbar */
-.navbar{position:sticky; top:0; z-index:50; backdrop-filter:saturate(160%) blur(10px); background:linear-gradient(135deg, color-mix(in oklab, var(--brand) 8%, var(--bg-soft)), color-mix(in oklab, var(--brand-2) 6%, var(--bg-soft))); border-bottom:2px solid var(--brand); box-shadow:0 4px 20px color-mix(in oklab, var(--brand) 15%, transparent)}
-.nav-wrap{display:flex; align-items:center; justify-content:space-between; padding:16px 0}
-.nav-menu{display:flex; gap:20px; align-items:center}
-.nav-menu a{padding:10px 16px; border-radius:12px; color:var(--muted); border:1px solid transparent; font-weight:500; transition:all 0.3s ease}
-.nav-menu a.active, .nav-menu a:hover{color:var(--text); border-color:var(--brand); background:linear-gradient(135deg, color-mix(in oklab, var(--brand) 10%, transparent), color-mix(in oklab, var(--brand-2) 5%, transparent)); transform:translateY(-1px); box-shadow:0 4px 12px color-mix(in oklab, var(--brand) 20%, transparent)}
-.toggle{border:1px solid var(--outline); background:var(--bg-soft); padding:8px 12px; border-radius:12px; cursor:pointer}
+    /* ====== Global ====== */
+    html,body{height:100%}
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial; color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 10% -10%, rgba(51,102,255,.15), transparent 60%),
+        radial-gradient(1000px 500px at 90% -20%, rgba(13,179,158,.15), transparent 60%),
+        var(--bg);
+      -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    }
+    a{color:inherit; text-decoration:none}
+    a:focus-visible, button:focus-visible { outline: none; box-shadow: var(--focus); border-radius: 10px; }
+    .container{width:min(1100px, 92%); margin-inline:auto}
+    .visually-hidden{position:absolute !important; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0}
+    .skip-link{position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden}
+    .skip-link:focus{left:1rem; top:1rem; width:auto; height:auto; padding:.6rem 1rem; background:var(--brand); color:#fff; border-radius:10px; z-index:1000}
 
-/* Hero */
-.hero{position:relative; padding:40px 0 20px}
-.hero-grid{display:grid; grid-template-columns:1.2fr .8fr; gap:24px; align-items:center}
-.hero-card{background:linear-gradient(180deg, color-mix(in oklab, var(--card) 88%, transparent), var(--card)); border:1px solid var(--outline); border-radius:var(--radius); box-shadow:var(--shadow); padding:24px}
-.kicker{display:inline-flex; gap:8px; align-items:center; color:var(--muted); font-size:13px}
-.kicker .dot{width:6px; height:6px; border-radius:999px; background:var(--brand)}
-.hero h2{font-size:28px; line-height:1.2; margin:8px 0 6px; font-weight:600}
-.title{display:flex; gap:8px; flex-wrap:wrap; color:var(--muted); font-size:16px}
-.badges{display:flex; gap:8px; margin-top:12px; flex-wrap:wrap}
-.badge{border:1px solid var(--outline); padding:6px 10px; border-radius:999px; font-size:12px; background:color-mix(in oklab, var(--bg-soft) 90%, transparent)}
-.social{display:flex; gap:10px; margin-top:12px}
-.social a{width:36px; height:36px; display:grid; place-items:center; border-radius:10px; border:1px solid var(--brand); background:white; transition: all 0.2s ease}
-.social a i{color:var(--brand) !important; font-size:16px}
-.social a:hover{background:var(--brand); transform:translateY(-1px)}
-.social a:hover i{color:white !important}
-/* Light mode için */
-:root.light .social a{background:#f7f9fc; border-color:var(--brand)}
-:root.light .social a i{color:var(--brand) !important}
-.stats{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:16px}
-.stat{background:var(--bg-soft); border:1px solid var(--outline); border-radius:12px; padding:12px; text-align:center}
-.stat b{font-size:18px; display:block; color:var(--brand)}
-.stat span{font-size:11px; color:var(--muted)}
+    /* ====== Header / Navbar ====== */
+    header{position:sticky; top:0; z-index:50; backdrop-filter:saturate(160%) blur(10px);
+      background:linear-gradient(135deg, color-mix(in oklab, var(--brand) 8%, var(--bg-soft)), color-mix(in oklab, var(--brand-2) 6%, var(--bg-soft)));
+      border-bottom:1px solid var(--outline);
+      box-shadow:0 4px 20px color-mix(in oklab, var(--brand) 12%, transparent)
+    }
+    .nav{display:flex; align-items:center; justify-content:space-between; padding:14px 0}
+    .brand{display:flex; gap:10px; align-items:center}
+    .brand img{width:36px; height:36px; border-radius:10px}
+    .brand .title{font-weight:700; letter-spacing:.2px}
+    .nav-menu{display:flex; gap:10px; align-items:center}
+    .nav-menu a{padding:10px 14px; border-radius:12px; color:var(--muted); border:1px solid transparent; font-weight:500; transition:all 0.25s ease}
+    .nav-menu a[aria-current="page"], .nav-menu a:hover{color:var(--text); border-color:var(--brand);
+      background:linear-gradient(135deg, color-mix(in oklab, var(--brand) 10%, transparent), color-mix(in oklab, var(--brand-2) 5%, transparent));
+      transform:translateY(-1px); box-shadow:0 4px 12px color-mix(in oklab, var(--brand) 20%, transparent)
+    }
+    .hamburger{display:none; flex-direction:column; cursor:pointer; gap:5px; padding:6px}
+    .hamburger span{width:24px; height:3px; background:var(--text); border-radius:3px; transition:.3s}
+    .hamburger[aria-expanded="true"] span:nth-child(1){transform:rotate(-45deg) translate(-5px, 6px)}
+    .hamburger[aria-expanded="true"] span:nth-child(2){opacity:0}
+    .hamburger[aria-expanded="true"] span:nth-child(3){transform:rotate(45deg) translate(-5px, -6px)}
 
-.portrait{display:grid; place-items:center}
-.portrait .circle{width:min(220px, 85%); aspect-ratio:1; border-radius:50%; background:
-conic-gradient(from 180deg at 50% 50%, color-mix(in oklab, var(--brand) 70%, transparent), color-mix(in oklab, var(--brand-2) 70%, transparent));
-padding:4px; box-shadow:0 4px 20px rgba(0,0,0,.15)}
-.portrait .inner{width:100%; height:100%; border-radius:inherit; background:linear-gradient(160deg, var(--card), color-mix(in oklab, var(--card) 85%, transparent)); display:grid; place-items:center; border:1px solid var(--outline)}
-.portrait i{font-size:64px; color:var(--brand)}
+    /* ====== Hero ====== */
+    .hero{position:relative; padding:48px 0 24px}
+    .hero-grid{display:grid; grid-template-columns:1.2fr .8fr; gap:24px; align-items:center}
+    .hero-card{background:linear-gradient(180deg, color-mix(in oklab, var(--card) 88%, transparent), var(--card)); border:1px solid var(--outline); border-radius:var(--radius); box-shadow:var(--shadow); padding:24px}
+    .kicker{display:inline-flex; gap:8px; align-items:center; color:var(--muted); font-size:13px}
+    .kicker .dot{width:6px; height:6px; border-radius:999px; background:var(--brand)}
+    .hero h1{font-size:30px; line-height:1.2; margin:8px 0 6px; font-weight:700}
+    .subtitle{display:flex; gap:8px; flex-wrap:wrap; color:var(--muted); font-size:16px}
+    .badges{display:flex; gap:8px; margin-top:12px; flex-wrap:wrap}
+    .badge{border:1px solid var(--outline); padding:6px 10px; border-radius:999px; font-size:12px; background:color-mix(in oklab, var(--bg-soft) 90%, transparent)}
+    .cta{display:flex; gap:10px; margin-top:14px; flex-wrap:wrap}
+    .btn{display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:12px; border:1px solid var(--brand); background:color-mix(in oklab, var(--brand) 14%, transparent); color:var(--text); font-weight:600}
+    .btn.secondary{border-color:var(--outline); background:var(--bg-soft); color:var(--muted)}
+    .btn:hover{transform:translateY(-1px); box-shadow:0 6px 16px rgba(0,0,0,.15)}
 
-/* Sections */
-.section{padding:40px 0}
-.section h3{font-size:24px; margin-bottom:20px; color:var(--text)}
-.cards-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:20px}
-.info-card{background:var(--card); border:1px solid var(--outline); border-radius:var(--radius); padding:20px; box-shadow:var(--shadow)}
-.info-card h4{color:var(--brand); margin-bottom:8px}
-.info-card p{color:var(--muted); line-height:1.6}
+    .social{display:flex; gap:10px; margin-top:12px}
+    .social a{width:36px; height:36px; display:grid; place-items:center; border-radius:10px; border:1px solid var(--brand); background:white; transition: all 0.2s ease}
+    .social a i{color:var(--brand) !important; font-size:16px}
+    .social a:hover{background:var(--brand); transform:translateY(-1px)}
+    .social a:hover i{color:white !important}
+    :root.light .social a{background:#f7f9fc; border-color:var(--brand)}
 
-/* Contact */
-.contact{background:var(--card); border:1px solid var(--outline); border-radius:var(--radius); padding:28px; margin:40px 0; box-shadow:var(--shadow)}
-.contact h3{color:var(--text); margin-bottom:16px}
-.contact-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:16px}
-.contact-item{display:flex; gap:12px; align-items:center}
-.contact-item i{width:32px; height:32px; display:grid; place-items:center; border-radius:8px; background:var(--bg-soft); color:var(--brand)}
+    .portrait{display:grid; place-items:center}
+    .portrait .circle{width:min(220px, 85%); aspect-ratio:1; border-radius:50%; background:
+      conic-gradient(from 180deg at 50% 50%, color-mix(in oklab, var(--brand) 70%, transparent), color-mix(in oklab, var(--brand-2) 70%, transparent));
+      padding:4px; box-shadow:0 4px 20px rgba(0,0,0,.15)}
+    .portrait .inner{width:100%; height:100%; border-radius:inherit; background:linear-gradient(160deg, var(--card), color-mix(in oklab, var(--card) 85%, transparent)); display:grid; place-items:center; border:1px solid var(--outline)}
+    .portrait img{width:100%; height:100%; border-radius:50%; object-fit:cover}
 
-/* Gallery Styles */
-.gallery-filters{display:flex; justify-content:center; gap:15px; margin-bottom:40px; flex-wrap:wrap}
-.filter-btn{padding:10px 20px; border:1px solid var(--outline); background:var(--bg-soft); color:var(--muted); border-radius:25px; cursor:pointer; font-size:14px; font-weight:500; transition:all 0.3s ease}
-.filter-btn.active, .filter-btn:hover{background:var(--brand); color:white; border-color:var(--brand); transform:translateY(-2px); box-shadow:0 4px 12px color-mix(in oklab, var(--brand) 30%, transparent)}
+    /* ====== Sections ====== */
+    section{padding:40px 0}
+    section h2{font-size:24px; margin-bottom:20px}
+    .cards-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:20px}
+    .card{background:var(--card); border:1px solid var(--outline); border-radius:var(--radius); padding:20px; box-shadow:var(--shadow)}
+    .card h3{color:var(--brand); margin-bottom:8px; font-size:18px}
+    .card p{color:var(--muted); line-height:1.65}
 
-.gallery-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:20px}
-.gallery-item{position:relative; border-radius:var(--radius); overflow:hidden; cursor:pointer; background:var(--card); border:1px solid var(--outline); transition:all 0.3s ease}
-.gallery-item:hover{transform:translateY(-5px); box-shadow:0 15px 35px rgba(0,0,0,.2)}
-.gallery-item img{width:100%; height:250px; object-fit:cover; transition:transform 0.3s ease}
-.gallery-item:hover img{transform:scale(1.05)}
+    .timeline{display:grid; gap:14px}
+    .tl-item{display:grid; grid-template-columns:96px 1fr; gap:16px; align-items:flex-start}
+    .tl-year{font-weight:700; color:var(--brand)}
+    .tl-dot{width:10px; height:10px; border-radius:50%; background:var(--accent); margin-top:6px}
+    .tl-body{border-left:2px dashed var(--outline); padding-left:16px}
 
-.overlay{position:absolute; top:0; left:0; width:100%; height:100%; background:linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,0,0,0.4)); display:flex; flex-direction:column; align-items:center; justify-content:center; opacity:0; transition:all 0.3s ease; color:white; text-align:center}
-.gallery-item:hover .overlay{opacity:1}
-.overlay i{font-size:32px; margin-bottom:10px; color:var(--brand)}
-.overlay h5{margin:0 0 5px 0; font-size:16px; font-weight:600}
-.overlay p{margin:0; font-size:14px; opacity:0.9}
+    .contact{background:var(--card); border:1px solid var(--outline); border-radius:var(--radius); padding:28px; box-shadow:var(--shadow)}
+    .contact-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:16px}
+    .contact-item{display:flex; gap:12px; align-items:center}
+    .contact-item i{width:32px; height:32px; display:grid; place-items:center; border-radius:8px; background:var(--bg-soft); color:var(--brand)}
 
-/* Lightbox Modal */
-.lightbox{position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); display:none; align-items:center; justify-content:center; z-index:1000; backdrop-filter:blur(5px)}
-.lightbox.active{display:flex}
-.lightbox-content{position:relative; max-width:90%; max-height:90%; text-align:center}
-.lightbox img{max-width:100%; max-height:80vh; object-fit:contain; border-radius:10px; box-shadow:0 20px 60px rgba(0,0,0,0.5)}
-.lightbox-caption{color:white; margin-top:20px; font-size:16px; background:rgba(0,0,0,0.7); padding:10px 20px; border-radius:25px; display:inline-block}
-.lightbox-close{position:absolute; top:-40px; right:-40px; color:white; font-size:30px; cursor:pointer; width:40px; height:40px; border-radius:50%; background:rgba(255,255,255,0.1); display:flex; align-items:center; justify-content:center; transition:all 0.3s ease}
-.lightbox-close:hover{background:var(--brand); transform:scale(1.1)}
+    footer{padding:40px 0; color:var(--muted); text-align:center}
 
-/* Theme Toggle */
-.theme-toggle{position:fixed; bottom:20px; right:20px; width:50px; height:50px; border-radius:50%; background:var(--brand); color:white; border:none; cursor:pointer; box-shadow:var(--shadow); z-index:100}
+    /* ====== Gallery (optional keep) ====== */
+    .gallery-filters{display:flex; justify-content:center; gap:10px; margin-bottom:20px; flex-wrap:wrap}
+    .filter-btn{padding:8px 14px; border:1px solid var(--outline); background:var(--bg-soft); color:var(--muted); border-radius:25px; cursor:pointer; font-size:14px; font-weight:500; transition:.3s}
+    .filter-btn.active, .filter-btn:hover{background:var(--brand); color:#fff; border-color:var(--brand); transform:translateY(-2px)}
+    .gallery-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:16px}
+    .gallery-item{position:relative; border-radius:14px; overflow:hidden; cursor:pointer; background:var(--card); border:1px solid var(--outline); transition:.3s}
+    .gallery-item:hover{transform:translateY(-4px); box-shadow:0 12px 28px rgba(0,0,0,.18)}
+    .gallery-item img{width:100%; aspect-ratio:4/3; object-fit:cover; display:block}
+    .overlay{position:absolute; inset:0; display:grid; place-items:center; color:#fff; background:linear-gradient(135deg, rgba(0,0,0,.6), rgba(0,0,0,.35)); opacity:0; transition:.3s; text-align:center; padding:10px}
+    .gallery-item:hover .overlay{opacity:1}
 
-/* Hamburger Menu */
-.hamburger{display:none; flex-direction:column; cursor:pointer; padding:5px}
-.hamburger span{width:25px; height:3px; background:var(--text); margin:3px 0; transition:0.3s; border-radius:3px}
-.hamburger.active span:nth-child(1){transform:rotate(-45deg) translate(-5px, 6px)}
-.hamburger.active span:nth-child(2){opacity:0}
-.hamburger.active span:nth-child(3){transform:rotate(45deg) translate(-5px, -6px)}
+    /* ====== Mobile ====== */
+    @media (max-width: 860px) {
+      .hero-grid{grid-template-columns:1fr; text-align:center}
+      .timeline{gap:18px}
+      .tl-item{grid-template-columns:1fr;}
+      .nav-menu{position:fixed; top:64px; left:-100%; width:100%; height:calc(100vh - 64px); background:var(--bg-soft);
+        flex-direction:column; gap:20px; padding:28px 16px; transition:left .3s; z-index:60; box-shadow:0 8px 18px rgba(0,0,0,.18)}
+      .nav-menu.active{left:0}
+      .nav-menu a{width:100%; text-align:center; border:1px solid var(--outline); border-radius:14px}
+      .hamburger{display:flex}
+    }
 
-/* Mobile */
-@media (max-width: 768px) {
-  .hero-grid{grid-template-columns:1fr; text-align:center}
-  .nav-menu{
-    position:fixed; top:70px; left:-100%; width:100%; height:calc(100vh - 70px); 
-    background:var(--bg-soft); flex-direction:column; justify-content:flex-start; 
-    align-items:center; padding-top:50px; transition:left 0.3s ease; z-index:99;
-    gap:30px; box-shadow:0 5px 20px rgba(0,0,0,0.1);
-  }
-  .nav-menu.active{left:0}
-  .nav-menu a{
-    padding:15px 30px; font-size:18px; width:80%; text-align:center; 
-    border-radius:15px; border:2px solid var(--outline);
-  }
-  .hamburger{display:flex}
-  .stats{grid-template-columns:1fr}
-  .toggle{display:none}
-}
-</style>
+    /* Respect reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      *{scroll-behavior:auto !important; transition:none !important; animation:none !important}
+      header{backdrop-filter:none}
+    }
+
+    /* Print-friendly */
+    @media print{
+      header, .hamburger, .nav-menu a[href^="#"], .gallery-filters, .theme-toggle{display:none !important}
+      body{background:#fff; color:#000}
+      .card, .hero-card, .contact{box-shadow:none; border:1px solid #ddd}
+    }
+  </style>
 </head>
-<body>
+<body itemscope itemtype="https://schema.org/Person">
+  <a href="#main" class="skip-link">İçeriğe geç</a>
 
-<nav class="navbar">
-  <div class="container">
-    <div class="nav-wrap">
-      <div class="nav-menu">
-        <a href="index.html" class="active">Ana Sayfa</a>
-        <a href="yayinlar.html">Akademik Yayınlarım</a>
-        <a href="projelerim.html">TÜBİTAK Destekli Projelerim</a>
+  <header role="banner">
+    <div class="container nav" aria-label="Üst gezinme">
+      <a class="brand" href="/" aria-label="Ana sayfa">
+        <img src="/images/avatar-izzet.jpg" alt="İzzet İNCE profil görseli" width="72" height="72" loading="eager" decoding="async" />
+        <span class="title" itemprop="name">İzzet İNCE</span>
+      </a>
+      <nav class="nav-menu" aria-label="Birincil">
+        <a href="index.html" aria-current="page">Ana Sayfa</a>
+        <a href="yayinlar.html">Yayınlar</a>
+        <a href="projelerim.html">Projeler</a>
         <a href="dersler.html">Ders Notları</a>
-        <a href="galeri.html">Fotoğraf Galerisi</a>
-        <a href="#contact">İletişim</a>
-      </div>
-      <div class="hamburger">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
+        <a href="#galeri">Galeri</a>
+        <a href="#iletisim">İletişim</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-controls="primary-menu" aria-expanded="false" aria-label="Menüyü aç/kapat">
+        <span></span><span></span><span></span>
+      </button>
     </div>
-  </div>
-</nav>
+  </header>
 
-<main>
-  <section class="hero">
-    <div class="container">
-      <div class="hero-grid">
-        <div class="hero-card">
-          
-          <h2>İzzet İNCE</h2>
-          
-          <div class="title">
-            <span>Doç. Dr.</span>
-            <span>•</span>
-            <span>Spor Bilimleri Öğretim Üyesi</span>
+  <main id="main" tabindex="-1">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <article class="hero-card" itemprop="description">
+          <div class="kicker" aria-hidden="true"><span class="dot"></span> Spor Teknolojisi • Uygulamalı Biyomekanik</div>
+          <h1>Doç. Dr. İzzet İNCE</h1>
+          <p class="subtitle" aria-label="Ünvan ve kurum">
+            <span>Öğretim Üyesi</span><span>•</span><span itemprop="worksFor">Ankara Yıldırım Beyazıt Üniversitesi</span>
+          </p>
+          <div class="badges" aria-label="Bölüm ve fakülte">
+            <span class="badge">Spor Bilimleri Fakültesi</span>
+            <span class="badge">Antrenörlük Eğitimi</span>
           </div>
-          
-          <div class="badges">
-            <div class="badge">Ankara Yıldırım Beyazıt Üniversitesi</div>
-            <div class="badge">Spor Bilimleri Fakültesi</div>
-            <div class="badge">Antrenörlük Eğitimi</div>
-          </div>
-          
-          <div class="social">
-            <a href="https://github.com/iince43" target="_blank" title="GitHub">
-              <i class="fab fa-github"></i>
+          <div class="cta" role="group" aria-label="Hızlı eylemler">
+            <a class="btn" href="/docs/izzet-ince-cv.pdf" download>
+              <i class="fa-solid fa-file-arrow-down" aria-hidden="true"></i> CV İndir (PDF)
             </a>
-            <a href="https://www.researchgate.net/profile/Izzet-Ince-2" target="_blank" title="ResearchGate">
-              <i class="fab fa-researchgate"></i>
-            </a>
-            <a href="https://scholar.google.com/citations?hl=tr&user=wb0h-uEAAAAJ" target="_blank" title="Google Scholar">
-              <i class="fas fa-graduation-cap"></i>
-            </a>
-            <a href="https://www.linkedin.com/in/izzet-ince-267b47a5" target="_blank" title="LinkedIn">
-              <i class="fab fa-linkedin"></i>
-            </a>
-            <a href="mailto:izzetince43@gmail.com" title="E-posta">
-              <i class="fas fa-envelope"></i>
+            <a class="btn secondary" href="#iletisim">
+              <i class="fa-solid fa-paper-plane" aria-hidden="true"></i> İletişime Geç
             </a>
           </div>
-          
-        </div>
-        
-        <div class="portrait">
-          <div class="circle">
-            <div class="inner">
-              <img src="images/profile.jpg" alt="İzzet İNCE" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+          <div class="social" aria-label="Sosyal bağlantılar" itemprop="sameAs" itemscope itemtype="https://schema.org/URL">
+            <a href="https://github.com/iince43" target="_blank" rel="noopener" title="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://www.researchgate.net/profile/Izzet-Ince-2" target="_blank" rel="noopener" title="ResearchGate"><i class="fab fa-researchgate"></i></a>
+            <a href="https://scholar.google.com/citations?hl=tr&user=wb0h-uEAAAAJ" target="_blank" rel="noopener" title="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
+            <a href="https://www.linkedin.com/in/izzet-ince-267b47a5" target="_blank" rel="noopener" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="mailto:izzetince43@gmail.com" title="E-posta"><i class="fas fa-envelope"></i></a>
+          </div>
+        </article>
+
+        <aside class="portrait" aria-label="Profil görseli">
+          <div class="circle"><div class="inner">
+            <img src="/images/profile.jpg" alt="İzzet İNCE" width="440" height="440" loading="eager" decoding="async" />
+          </div></div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Hakkımda -->
+    <section class="container" id="hakkimda">
+      <h2>Hakkımda</h2>
+      <article class="card" style="margin-bottom: 16px;" itemprop="description">
+        <p style="line-height:1.7">İzzet İnce, 1981 Kütahya doğumlu. 1994'te haltere başladı; 2004 Atina ve 2008 Pekin Olimpiyatları'nda Türkiye'yi temsil etti. 2004 ve 2007 Avrupa Şampiyonluğu başta olmak üzere birçok uluslararası madalya sahibidir. Akademik yaşamında spor performansı optimizasyonu, spor teknolojisi ve yazılım geliştirme ile uygulamalı biyomekanik alanlarında çalışmaktadır.</p>
+        <p style="line-height:1.7">MEB'de 7 yıl beden eğitimi öğretmenliği sonrası 2016'da AYBÜ'ye araştırma görevlisi olarak katıldı; 2018'de Dr. Öğr. Üyesi, 2021'de Doçent oldu. Halen AYBÜ Spor Bilimleri Fakültesi'nde görev yapmaktadır.</p>
+      </article>
+    </section>
+
+    <!-- Uluslararası Başarılar (Timeline) -->
+    <section class="container" aria-labelledby="basarilar-heading">
+      <h2 id="basarilar-heading">Uluslararası Başarılar</h2>
+      <div class="card timeline" role="list">
+        <div class="tl-item" role="listitem"><div class="tl-year">2010</div><div class="tl-body"><div class="tl-dot" aria-hidden="true"></div> Büyükler Avrupa Halter Şampiyonası — İkincilik</div></div>
+        <div class="tl-item" role="listitem"><div class="tl-year">2009</div><div class="tl-body"><div class="tl-dot"></div> Akdeniz Oyunları — Birincilik; Avrupa — Üçüncülük</div></div>
+        <div class="tl-item" role="listitem"><div class="tl-year">2008</div><div class="tl-body"><div class="tl-dot"></div> Pekin Olimpiyatları — Katılım; Avrupa — Üçüncülük</div></div>
+        <div class="tl-item" role="listitem"><div class="tl-year">2007</div><div class="tl-body"><div class="tl-dot"></div> Avrupa — Birincilik</div></div>
+        <div class="tl-item" role="listitem"><div class="tl-year">2006</div><div class="tl-body"><div class="tl-dot"></div> Üniversiteliler Dünya — Birincilik</div></div>
+        <div class="tl-item" role="listitem"><div class="tl-year">2005</div><div class="tl-body"><div class="tl-dot"></div> Avrupa — Üçüncülük</div></div>
+        <div class="tl-item" role="listitem"><div class="tl-year">2004</div><div class="tl-body"><div class="tl-dot"></div> Atina Olimpiyatları — Katılım; Avrupa — Birincilik</div></div>
+        <div class="tl-item" role="listitem"><div class="tl-year">2003</div><div class="tl-body"><div class="tl-dot"></div> Avrupa — Üçüncülük</div></div>
+        <div class="tl-item" role="listitem"><div class="tl-year">2002</div><div class="tl-body"><div class="tl-dot"></div> Üniversiteliler Dünya — İkincilik</div></div>
+        <div class="tl-item" role="listitem"><div class="tl-year">2001</div><div class="tl-body"><div class="tl-dot"></div> Gençler Dünya — İkincilik; Gençler Avrupa — Birincilik</div></div>
+      </div>
+    </section>
+
+    <!-- Araştırma Alanları -->
+    <section class="container">
+      <h2>Araştırma Alanları</h2>
+      <div class="cards-grid">
+        <article class="card"><h3><i class="fas fa-apple-alt" aria-hidden="true"></i> Sporcu Beslenmesi</h3><p>Performans odaklı beslenme stratejileri, ergojenik destekler.</p></article>
+        <article class="card"><h3><i class="fas fa-dumbbell" aria-hidden="true"></i> Antrenman Bilimi</h3><p>Periodizasyon, kuvvet-hız profilleme, RFD ölçümleri.</p></article>
+        <article class="card"><h3><i class="fas fa-heartbeat" aria-hidden="true"></i> Spor Fizyolojisi</h3><p>Adaptasyon mekanizmaları, saha testleri, metabolik yanıtlar.</p></article>
+        <article class="card"><h3><i class="fas fa-chart-line" aria-hidden="true"></i> Performans Analizi</h3><p>Spor teknolojileri, veri görselleştirme ve sensör füzyonu.</p></article>
+      </div>
+    </section>
+
+    <!-- Öne Çıkan Çalışmalar -->
+    <section class="container">
+      <h2>Öne Çıkan Çalışmalar</h2>
+      <div class="cards-grid">
+        <article class="card"><h3>Athletic Shoulder Test Geçerliliği</h3><p><strong>2025</strong> — Journal of Musculoskeletal & Neuronal Interactions</p></article>
+        <article class="card"><h3>Elektriksel Kas Stimülasyonu Etkileri</h3><p><strong>2025</strong> — Journal of Exercise Science & Fitness</p></article>
+        <article class="card"><h3>TÜBİTAK Kuvvet Platformu Projesi</h3><p><strong>2024–2025</strong> — Çift Plakalı Kuvvet Platformu Tasarımı</p></article>
+      </div>
+    </section>
+
+    <!-- (Opsiyonel) Galeri -->
+    <section class="container" id="galeri" aria-labelledby="galeri-heading">
+      <h2 id="galeri-heading">Fotoğraf Galerisi</h2>
+      <div class="gallery-filters" role="tablist">
+        <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">Tümü</button>
+        <button class="filter-btn" data-filter="lab" role="tab" aria-selected="false">Laboratuvar</button>
+        <button class="filter-btn" data-filter="yarismalar" role="tab" aria-selected="false">Yarışmalar</button>
+      </div>
+      <div class="gallery-grid" id="gallery" aria-live="polite">
+        <figure class="gallery-item lab" data-caption="Performans Laboratuvarı">
+          <img src="/images/lab-1.jpg" alt="Performans laboratuvarından bir kare" loading="lazy" decoding="async">
+          <figcaption class="overlay">Performans Laboratuvarı</figcaption>
+        </figure>
+        <figure class="gallery-item yarismalar" data-caption="Avrupa Şampiyonası">
+          <img src="/images/comp-1.jpg" alt="Avrupa Şampiyonası'ndan görüntü" loading="lazy" decoding="async">
+          <figcaption class="overlay">Avrupa Şampiyonası</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- İletişim -->
+    <section class="container" id="iletisim">
+      <h2>İletişim</h2>
+      <div class="contact" itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+        <div class="contact-grid">
+          <div class="contact-item">
+            <i class="fas fa-envelope" aria-hidden="true"></i>
+            <div><strong>E-posta</strong><br>
+              <a href="mailto:izzetince@aybu.edu.tr"><span itemprop="email">izzetince@aybu.edu.tr</span></a> • 
+              <a href="mailto:izzetince43@gmail.com">izzetince43@gmail.com</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-building" aria-hidden="true"></i>
+            <div><strong>Kurum</strong><br>
+              Ankara Yıldırım Beyazıt Üniversitesi — Spor Bilimleri Fakültesi
+            </div>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+            <div><strong>Konum</strong><br>
+              <span itemprop="addressLocality">Ankara</span>, <span itemprop="addressCountry">Türkiye</span>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
-  <section class="section" id="hakkimda">
-    <div class="container">
-      <h3>Hakkımda</h3>
-      <div class="info-card" style="margin-bottom: 30px;">
-        <p style="line-height: 1.8; font-size: 15px; color: var(--text);">
-          İzzet İnce, 1981 yılında Kütahya'da doğdu. Halter sporuna 1994'te başladı ve 1996'da Yıldızlar Millî Takımı'na seçildi. Uluslararası alanda, 2004 Atina ve 2008 Pekin Olimpiyat Oyunları'nda ülkemizi temsil etti. 
-          Büyükler kategorisinde 2004 ve 2007 yıllarında Avrupa Şampiyonu oldu. Kariyerinde çok sayıda Dünya Şampiyonası, Avrupa Şampiyonası ve diğer uluslararası yarışmalarda madalyalar kazandı.
-        </p>
-        <p style="line-height: 1.8; font-size: 15px; color: var(--text);">
-          İlköğretim, ortaöğretim ve lise eğitimini Kütahya'da tamamladı. Akademik eğitimine Selçuk Üniversitesinde başladı. Doktora eğitimini, Hacettepe Üniversitesi ve Dumlupınar Üniversitesinde ders dönemlerini tamamlayarak Dumlupınar Üniversitesinde tamamladı.
-        </p>
-        <p style="line-height: 1.8; font-size: 15px; color: var(--text);">
-          Mesleki hayatına Millî Eğitim Bakanlığında yedi yıl beden eğitimi öğretmenliği yaparak başladı. 2016 yılında Ankara Yıldırım Beyazıt Üniversitesinde araştırma görevlisi olarak akademik kariyerine adım attı. 
-          2018'de doktor öğretim üyesi, 2021'de ise doçent unvanlarını aldı. Hâlen spor performansı optimizasyonu, spor teknolojisi ve yazılım geliştirme ile uygulamalı biyomekanik alanlarında araştırmalarını aynı üniversitede sürdürmektedir.
-        </p>
-      </div>
-      
+  <footer>
+    <div class="container">© <span id="yil"></span> İzzet İNCE — Tüm hakları saklıdır.</div>
+  </footer>
 
-      <h3>Uluslararası Başarılar</h3>
-      <div class="info-card">
-        <div style="display: grid; gap: 16px;">
-          <div style="border-left: 3px solid var(--brand); padding-left: 16px;">
-            <strong style="color: var(--brand);">2010</strong><br>
-            <span>Büyükler Avrupa Halter Şampiyonası: İkincilik</span>
-          </div>
-          <div style="border-left: 3px solid #ffd700; padding-left: 16px;">
-            <strong style="color: #ffd700;">2009</strong><br>
-            <span>Akdeniz Oyunları: Birincilik</span><br>
-            <span>Büyükler Avrupa Halter Şampiyonası: Üçüncülük</span>
-          </div>
-          <div style="border-left: 3px solid var(--accent); padding-left: 16px;">
-            <strong style="color: var(--accent);">2008</strong><br>
-            <span>Pekin Olimpiyat Oyunları: Katılım</span><br>
-            <span>Büyükler Avrupa Halter Şampiyonası: Üçüncülük</span>
-          </div>
-          <div style="border-left: 3px solid #ffd700; padding-left: 16px;">
-            <strong style="color: #ffd700;">2007</strong><br>
-            <span>Büyükler Avrupa Halter Şampiyonası: Birincilik</span>
-          </div>
-          <div style="border-left: 3px solid #ffd700; padding-left: 16px;">
-            <strong style="color: #ffd700;">2006</strong><br>
-            <span>Üniversiteliler Dünya Halter Şampiyonası: Birincilik</span>
-          </div>
-          <div style="border-left: 3px solid var(--brand); padding-left: 16px;">
-            <strong style="color: var(--brand);">2005</strong><br>
-            <span>Büyükler Avrupa Halter Şampiyonası: Üçüncülük</span>
-          </div>
-          <div style="border-left: 3px solid var(--accent); padding-left: 16px;">
-            <strong style="color: var(--accent);">2004</strong><br>
-            <span>Atina Olimpiyat Oyunları: Katılım</span><br>
-            <span>Büyükler Avrupa Halter Şampiyonası: Birincilik</span>
-          </div>
-          <div style="border-left: 3px solid var(--brand); padding-left: 16px;">
-            <strong style="color: var(--brand);">2003</strong><br>
-            <span>Büyükler Avrupa Halter Şampiyonası: Üçüncülük</span>
-          </div>
-          <div style="border-left: 3px solid var(--brand); padding-left: 16px;">
-            <strong style="color: var(--brand);">2002</strong><br>
-            <span>Üniversiteliler Dünya Halter Şampiyonası: İkincilik</span>
-          </div>
-          <div style="border-left: 3px solid #ffd700; padding-left: 16px;">
-            <strong style="color: #ffd700;">2001</strong><br>
-            <span>Gençler Dünya Halter Şampiyonası: İkincilik</span><br>
-            <span>Gençler Avrupa Halter Şampiyonası: Birincilik</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <h3>Araştırma Alanları</h3>
-      <div class="cards-grid">
-        <div class="info-card">
-          <h4><i class="fas fa-apple-alt"></i> Sporcu Beslenmesi</h4>
-          <p>Sporda beslenme stratejileri, makro-mikro besinler ve performans optimizasyonu</p>
-        </div>
-        <div class="info-card">
-          <h4><i class="fas fa-dumbbell"></i> Antrenman Bilimi</h4>
-          <p>Antrenman teorisi, periodizasyon ve performans geliştirme metodları</p>
-        </div>
-        <div class="info-card">
-          <h4><i class="fas fa-heartbeat"></i> Spor Fizyolojisi</h4>
-          <p>Egzersiz fizyolojisi, adaptasyonlar ve spor performans analizi</p>
-        </div>
-        <div class="info-card">
-          <h4><i class="fas fa-chart-line"></i> Performans Analizi</h4>
-          <p>Spor teknolojileri, veri analizi ve sporcu değerlendirme teknikleri</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-
-  <section class="section">
-    <div class="container">
-      <h3>Öne Çıkan Çalışmalar</h3>
-      <div class="cards-grid">
-        <div class="info-card">
-          <h4>Athletic Shoulder Test Geçerliliği</h4>
-          <p><strong>2025</strong> - Journal of Musculoskeletal Neuronal Interactions</p>
-        </div>
-        <div class="info-card">
-          <h4>Elektriksel Kas Stimülasyonu Etkileri</h4>
-          <p><strong>2025</strong> - Journal of Exercise Science and Fitness</p>
-        </div>
-        <div class="info-card">
-          <h4>TÜBİTAK Kuvvet Platformu Projesi</h4>
-          <p><strong>2024-2025</strong> - Çift Plakali Kuvvet Platformu Tasarımı</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="container">
-    <div class="contact" id="contact">
-      <h3>İletişim Bilgileri</h3>
-      <div class="contact-grid">
-        <div class="contact-item">
-          <i class="fas fa-envelope"></i>
-          <div>
-            <strong>E-posta</strong><br>
-            <span style="color:var(--muted)">izzetince@aybu.edu.tr<br>izzetince43@gmail.com</span>
-          </div>
-        </div>
-        <div class="contact-item">
-          <i class="fas fa-building"></i>
-          <div>
-            <strong>Kurum</strong><br>
-            <span style="color:var(--muted)">Ankara Yıldırım Beyazıt Üniversitesi<br>Spor Bilimleri Fakültesi</span>
-          </div>
-        </div>
-        <div class="contact-item">
-          <i class="fas fa-map-marker-alt"></i>
-          <div>
-            <strong>Konum</strong><br>
-            <span style="color:var(--muted)">Ankara, Türkiye</span>
-          </div>
-        </div>
-      </div>
+  <!-- Lightbox Modal -->
+  <div class="visually-hidden" id="lightbox" aria-hidden="true" aria-modal="true" role="dialog">
+    <div>
+      <img id="lightbox-img" alt="" />
+      <p id="lightbox-caption"></p>
+      <button type="button" id="lightbox-close">Kapat</button>
     </div>
   </div>
-</main>
 
-<!-- Lightbox Modal -->
-<div class="lightbox" id="lightbox">
-  <div class="lightbox-content">
-    <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
-    <img id="lightbox-img" src="" alt="">
-    <div class="lightbox-caption" id="lightbox-caption"></div>
-  </div>
-</div>
+  <button class="btn" id="theme-toggle" style="position:fixed; bottom:20px; right:20px" aria-label="Tema değiştir">
+    <i class="fas fa-sun" aria-hidden="true"></i>
+    <span class="visually-hidden">Tema değiştir</span>
+  </button>
 
-<button class="theme-toggle" onclick="toggleTheme()" title="Tema Değiştir">
-  <i class="fas fa-sun"></i>
-</button>
-
-<script>
-function toggleTheme() {
-  const html = document.documentElement;
-  const toggleBtn = document.querySelector('.theme-toggle i');
-  
-  if (html.classList.contains('light')) {
-    html.classList.remove('light');
-    toggleBtn.className = 'fas fa-sun';
-    localStorage.setItem('theme', 'dark');
-  } else {
-    html.classList.add('light');
-    toggleBtn.className = 'fas fa-moon';
-    localStorage.setItem('theme', 'light');
+  <!-- JSON-LD: Person -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "İzzet İNCE",
+    "jobTitle": "Doç. Dr.",
+    "affiliation": {"@type": "Organization", "name": "Ankara Yıldırım Beyazıt Üniversitesi"},
+    "url": "https://example.com/",
+    "image": "https://example.com/images/profile.jpg",
+    "sameAs": [
+      "https://github.com/iince43",
+      "https://www.researchgate.net/profile/Izzet-Ince-2",
+      "https://scholar.google.com/citations?hl=tr&user=wb0h-uEAAAAJ",
+      "https://www.linkedin.com/in/izzet-ince-267b47a5"
+    ],
+    "award": [
+      "Avrupa Halter Şampiyonası Birinciliği (2004, 2007)",
+      "Akdeniz Oyunları Birinciliği (2009)"
+    ]
   }
-}
+  </script>
 
-// Mobile navigation functionality
-document.addEventListener('DOMContentLoaded', () => {
-  // Load saved theme
-  const savedTheme = localStorage.getItem('theme');
-  const toggleBtn = document.querySelector('.theme-toggle i');
-  
-  if (savedTheme === 'light') {
-    document.documentElement.classList.add('light');
-    toggleBtn.className = 'fas fa-moon';
-  }
-  
-  // Mobile menu toggle
-  const hamburger = document.querySelector('.hamburger');
-  const navMenu = document.querySelector('.nav-menu');
+  <script>
+    // Theme boot (respect system first time)
+    const root = document.documentElement;
+    const savedTheme = localStorage.getItem('theme');
+    if(savedTheme === 'light'){ root.classList.add('light'); }
+    if(savedTheme === 'dark'){ root.classList.remove('light'); }
 
-  if (hamburger && navMenu) {
-    hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('active');
+    // Toggle theme
+    const themeBtn = document.getElementById('theme-toggle');
+    themeBtn.addEventListener('click', () => {
+      root.classList.toggle('light');
+      const mode = root.classList.contains('light') ? 'light' : 'dark';
+      localStorage.setItem('theme', mode);
+      themeBtn.querySelector('i').className = mode === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+    });
+    // Initialize icon state
+    themeBtn.querySelector('i').className = root.classList.contains('light') ? 'fas fa-moon' : 'fas fa-sun';
+
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+    const links = document.querySelectorAll('.nav-menu a');
+    hamburger?.addEventListener('click', () => {
+      const expanded = hamburger.getAttribute('aria-expanded') === 'true';
+      hamburger.setAttribute('aria-expanded', String(!expanded));
       navMenu.classList.toggle('active');
     });
+    links.forEach(l => l.addEventListener('click', () => {
+      hamburger.setAttribute('aria-expanded','false');
+      navMenu.classList.remove('active');
+    }));
 
-    // Close menu when clicking on a link
-    document.querySelectorAll('.nav-menu a').forEach(link => {
-      link.addEventListener('click', () => {
-        hamburger.classList.remove('active');
-        navMenu.classList.remove('active');
-      });
-    });
-  }
-  
-  // Gallery filter functionality
-  const filterButtons = document.querySelectorAll('.filter-btn');
-  const galleryItems = document.querySelectorAll('.gallery-item');
-  
-  filterButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      // Remove active class from all buttons
+    // Gallery filter
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    filterButtons.forEach(btn => btn.addEventListener('click', () => {
       filterButtons.forEach(b => b.classList.remove('active'));
-      // Add active class to clicked button
       btn.classList.add('active');
-      
-      const filterValue = btn.getAttribute('data-filter');
-      
-      galleryItems.forEach(item => {
-        if (filterValue === 'all' || item.classList.contains(filterValue)) {
-          item.style.display = 'block';
-        } else {
-          item.style.display = 'none';
-        }
+      const v = btn.dataset.filter;
+      galleryItems.forEach(it => {
+        it.style.display = (v === 'all' || it.classList.contains(v)) ? 'block' : 'none';
       });
-    });
-  });
-  
-  // Lightbox functionality
-  galleryItems.forEach(item => {
-    item.addEventListener('click', () => {
-      const img = item.querySelector('img');
-      const caption = item.getAttribute('data-caption');
-      
-      document.getElementById('lightbox-img').src = img.src;
-      document.getElementById('lightbox-caption').textContent = caption;
-      document.getElementById('lightbox').classList.add('active');
+    }));
+
+    // Lightbox (progressive enhancement)
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lightbox-img');
+    const lbCap = document.getElementById('lightbox-caption');
+    const lbClose = document.getElementById('lightbox-close');
+    document.getElementById('gallery')?.addEventListener('click', e => {
+      const fig = e.target.closest('.gallery-item');
+      if(!fig) return;
+      const img = fig.querySelector('img');
+      lbImg.src = img.src; lbImg.alt = img.alt; lbCap.textContent = fig.dataset.caption || '';
+      lb.classList.remove('visually-hidden'); lb.setAttribute('aria-hidden','false');
       document.body.style.overflow = 'hidden';
     });
-  });
-});
+    lbClose?.addEventListener('click', () => { closeLB(); });
+    lb?.addEventListener('click', (e) => { if(e.target === lb) closeLB(); });
+    document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeLB(); });
+    function closeLB(){ lb.classList.add('visually-hidden'); lb.setAttribute('aria-hidden','true'); document.body.style.overflow='auto'; }
 
-function closeLightbox() {
-  document.getElementById('lightbox').classList.remove('active');
-  document.body.style.overflow = 'auto';
-}
-
-// Close lightbox with ESC key
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') {
-    closeLightbox();
-  }
-});
-
-// Close lightbox when clicking outside the image
-document.getElementById('lightbox').addEventListener('click', (e) => {
-  if (e.target === e.currentTarget) {
-    closeLightbox();
-  }
-});
-</script>
-
+    // Year in footer
+    document.getElementById('yil').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
