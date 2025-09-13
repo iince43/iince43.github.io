@@ -17,10 +17,10 @@
   --card:#0e1433;
   --text:#eaf1ff;
   --muted:#a6b0d4;
-  --brand:#8b5cf6;       /* neon violet */
-  --brand-2:#06b6d4;     /* neon cyan */
-  --accent:#f472b6;      /* neon pink */
-  --outline:rgba(139,92,246,.35);
+  --brand:#9a6bff;       /* brighter neon violet */
+  --brand-2:#22e7ff;     /* brighter neon cyan */
+  --accent:#ff5bd1;      /* brighter neon pink */
+  --outline:rgba(154,107,255,.45);
   --shadow: 0 8px 30px rgba(0,0,0,.25);
   --radius:18px;
 }
@@ -30,30 +30,30 @@
   --card:#ffffff;
   --text:#0a102a;
   --muted:#49507a;
-  --brand:#7c3aed;
-  --brand-2:#0ea5e9;
-  --accent:#d946ef;
-  --outline:rgba(124,58,237,.25);
-  --shadow: 0 8px 30px rgba(124,58,237,.10);
+  --brand:#8357ff;
+  --brand-2:#1ec7ff;
+  --accent:#ff4fc9;
+  --outline:rgba(131,87,255,.30);
+  --shadow: 0 8px 30px rgba(131,87,255,.12);
 }
 html,body{height:100%}
 *{box-sizing:border-box}
 body{
   margin:0; font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial; color:var(--text);
   background:
-    radial-gradient(1200px 600px at 10% -10%, rgba(139,92,246,.15), transparent 60%),
-    radial-gradient(1000px 500px at 90% -20%, rgba(6,182,212,.15), transparent 60%),
+    radial-gradient(1200px 600px at 10% -10%, rgba(154,107,255,.25), transparent 60%),
+    radial-gradient(1000px 500px at 90% -20%, rgba(34,231,255,.22), transparent 60%),
     var(--bg);
 }
 a{color:inherit; text-decoration:none}
 .container{width:min(1100px, 92%); margin-inline:auto}
 
 /* Navbar */
-.navbar{position:sticky; top:0; z-index:50; backdrop-filter:saturate(160%) blur(10px); background:linear-gradient(135deg, color-mix(in oklab, var(--brand) 8%, var(--bg-soft)), color-mix(in oklab, var(--brand-2) 6%, var(--bg-soft))); border-bottom:2px solid var(--brand); box-shadow:0 4px 20px color-mix(in oklab, var(--brand) 15%, transparent)}
+.navbar{position:sticky; top:0; z-index:50; backdrop-filter:saturate(160%) blur(10px); background:linear-gradient(135deg, color-mix(in oklab, var(--brand) 12%, var(--bg-soft)), color-mix(in oklab, var(--brand-2) 9%, var(--bg-soft))); border-bottom:2px solid var(--brand); box-shadow:0 4px 20px color-mix(in oklab, var(--brand) 22%, transparent)}
 .nav-wrap{display:flex; align-items:center; justify-content:space-between; padding:16px 0}
 .nav-menu{display:flex; gap:20px; align-items:center}
 .nav-menu a{padding:10px 16px; border-radius:12px; color:var(--muted); border:1px solid transparent; font-weight:500; transition:all 0.3s ease}
-.nav-menu a.active, .nav-menu a:hover{color:var(--text); border-color:var(--brand); background:linear-gradient(135deg, color-mix(in oklab, var(--brand) 10%, transparent), color-mix(in oklab, var(--brand-2) 5%, transparent)); transform:translateY(-1px); box-shadow:0 4px 12px color-mix(in oklab, var(--brand) 20%, transparent)}
+.nav-menu a.active, .nav-menu a:hover{color:var(--text); border-color:var(--brand); background:linear-gradient(135deg, color-mix(in oklab, var(--brand) 16%, transparent), color-mix(in oklab, var(--brand-2) 10%, transparent)); transform:translateY(-1px); box-shadow:0 4px 14px color-mix(in oklab, var(--brand) 28%, transparent)}
 .toggle{border:1px solid var(--outline); background:var(--bg-soft); padding:8px 12px; border-radius:12px; cursor:pointer}
 
 /* Hero */
@@ -62,14 +62,18 @@ a{color:inherit; text-decoration:none}
 .hero-card{background:linear-gradient(180deg, color-mix(in oklab, var(--card) 88%, transparent), var(--card)); border:1px solid var(--outline); border-radius:var(--radius); box-shadow:var(--shadow); padding:24px}
 .kicker{display:inline-flex; gap:8px; align-items:center; color:var(--muted); font-size:13px}
 .kicker .dot{width:6px; height:6px; border-radius:999px; background:var(--brand)}
-.hero h2{font-size:28px; line-height:1.2; margin:8px 0 6px; font-weight:600}
+.hero h2{font-size:28px; line-height:1.2; margin:8px 0 6px; font-weight:700;
+  background:linear-gradient(92deg, var(--brand) 0%, var(--accent) 50%, var(--brand-2) 100%);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  text-shadow:0 0 22px color-mix(in oklab, var(--brand) 28%, transparent);
+}
 .title{display:flex; gap:8px; flex-wrap:wrap; color:var(--muted); font-size:16px}
 .badges{display:flex; gap:8px; margin-top:12px; flex-wrap:wrap}
 .badge{border:1px solid var(--outline); padding:6px 10px; border-radius:999px; font-size:12px; background:color-mix(in oklab, var(--bg-soft) 90%, transparent)}
 .social{display:flex; gap:10px; margin-top:12px}
 .social a{width:36px; height:36px; display:grid; place-items:center; border-radius:10px; border:1px solid var(--brand); background:white; transition: all 0.2s ease}
 .social a i{color:var(--brand) !important; font-size:16px}
-.social a:hover{background:var(--brand); transform:translateY(-1px)}
+.social a:hover{background:var(--brand); transform:translateY(-1px); box-shadow:0 0 14px var(--brand)}
 .social a:hover i{color:white !important}
 /* Light mode için */
 :root.light .social a{background:#f7f8ff; border-color:var(--brand)}
@@ -82,7 +86,7 @@ a{color:inherit; text-decoration:none}
 .portrait{display:grid; place-items:center}
 .portrait .circle{width:min(220px, 85%); aspect-ratio:1; border-radius:50%; background:
 conic-gradient(from 180deg at 50% 50%, color-mix(in oklab, var(--brand) 70%, transparent), color-mix(in oklab, var(--brand-2) 70%, transparent));
-padding:4px; box-shadow:0 4px 20px rgba(0,0,0,.15)}
+padding:4px; box-shadow:0 0 26px color-mix(in oklab, var(--brand-2) 38%, transparent)}
 .portrait .inner{width:100%; height:100%; border-radius:inherit; background:linear-gradient(160deg, var(--card), color-mix(in oklab, var(--card) 85%, transparent)); display:grid; place-items:center; border:1px solid var(--outline)}
 .portrait i{font-size:64px; color:var(--brand)}
 
@@ -93,6 +97,16 @@ padding:4px; box-shadow:0 4px 20px rgba(0,0,0,.15)}
 .info-card{background:var(--card); border:1px solid var(--outline); border-radius:var(--radius); padding:20px; box-shadow:var(--shadow)}
 .info-card h4{color:var(--brand); margin-bottom:8px}
 .info-card p{color:var(--muted); line-height:1.6}
+
+/* Hakkımda kartına neon çerçeve ve hafif yukarı kalkış */
+.info-card.neon{
+  border:1px solid var(--brand);
+  box-shadow:
+    0 0 0 2px color-mix(in oklab, var(--brand) 22%, transparent) inset,
+    0 0 18px color-mix(in oklab, var(--brand) 35%, transparent),
+    0 16px 40px rgba(0,0,0,.35);
+  transform:translateY(-10px);
+}
 
 /* Contact */
 .contact{background:var(--card); border:1px solid var(--outline); border-radius:var(--radius); padding:28px; margin:40px 0; box-shadow:var(--shadow)}
@@ -185,7 +199,7 @@ padding:4px; box-shadow:0 4px 20px rgba(0,0,0,.15)}
       <div class="hero-grid">
         <div class="hero-card">
           
-          <h2>İzzet İNCE</h2>
+          <h2>Doç. Dr. İzzet İNCE</h2>
           
           <div class="title">
             <span>Doç. Dr.</span>
@@ -233,7 +247,8 @@ padding:4px; box-shadow:0 4px 20px rgba(0,0,0,.15)}
   <section class="section" id="hakkimda">
     <div class="container">
       <h3>Hakkımda</h3>
-      <div class="info-card" style="margin-bottom: 30px;">
+      <!-- NEON çerçeve ve yukarı kalkış için 'neon' sınıfı eklendi -->
+      <div class="info-card neon" style="margin-bottom: 30px;">
         <p style="line-height: 1.8; font-size: 15px; color: var(--text);">
           İzzet İnce, 1981 yılında Kütahya'da doğdu. Halter sporuna 1994'te başladı ve 1996'da Yıldızlar Millî Takımı'na seçildi. Uluslararası alanda, 2004 Atina ve 2008 Pekin Olimpiyat Oyunları'nda ülkemizi temsil etti. 
           Büyükler kategorisinde 2004 ve 2007 yıllarında Avrupa Şampiyonu oldu. Kariyerinde çok sayıda Dünya Şampiyonası, Avrupa Şampiyonası ve diğer uluslararası yarışmalarda madalyalar kazandı.
