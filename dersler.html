@@ -133,6 +133,45 @@
             </div>
 
             <!-- Placeholder kartları gelecekteki dersler için -->
+            <!-- Bilimsel Araştırma Dersi -->
+            <div class="course-card" data-level="yukseklisans">
+                <div class="course-image">
+                    <i class="fas fa-search course-icon"></i>
+                    <div class="course-level-badge">Y. Lisans</div>
+                </div>
+                <div class="course-content">
+                    <div class="course-header">
+                        <h3>Bilimsel Araştırma Yöntemleri</h3>
+                        <span class="course-code">SAY501</span>
+                    </div>
+                    <p class="course-description">
+                        Bilimsel araştırma süreçleri, metodoloji, veri toplama teknikleri, istatistiksel analiz ve rapor yazma teknikleri.
+                    </p>
+                    <div class="course-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-book-open"></i>
+                            <span>15 Konu</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-clock"></i>
+                            <span>14 Hafta</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-users"></i>
+                            <span>Yüksek Lisans</span>
+                        </div>
+                    </div>
+                    <div class="course-actions">
+                        <button class="btn-primary" onclick="openCourseModal('bilimsel-arastirma')">
+                            <i class="fas fa-play"></i> Dersi Görüntüle
+                        </button>
+                        <button class="btn-secondary" onclick="downloadCourse('bilimsel-arastirma')">
+                            <i class="fas fa-download"></i> İndir
+                        </button>
+                    </div>
+                </div>
+            </div>
+
             <div class="course-card coming-soon" data-level="yukseklisans">
                 <div class="course-image">
                     <i class="fas fa-user-graduate course-icon"></i>
@@ -330,6 +369,148 @@
                         </a>
                     </div>
                 `;
+            } else if (courseType === 'bilimsel-arastirma') {
+                modalTitle.textContent = 'Bilimsel Araştırma Yöntemleri - Ders Konuları';
+                modalBody.innerHTML = `
+                    <div class="topics-list">
+                        <a href="dersler/bilimsel-arastirma/hafta0.html" class="topic-item" target="_blank">
+                            <div class="topic-number">00</div>
+                            <div class="topic-content">
+                                <h4>Bilimsel Araştırma - Temel Kavramlar</h4>
+                                <p>Bilim ve bilimsel araştırmanın temel ilkeleri</p>
+                            </div>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <a href="dersler/bilimsel-arastirma/hafta1.html" class="topic-item" target="_blank">
+                            <div class="topic-number">01</div>
+                            <div class="topic-content">
+                                <h4>Bilim ve Bilimsel Araştırmanın Felsefi Temelleri</h4>
+                                <p>Epistemoloji, metodoloji ve bilimsel yaklaşımlar</p>
+                            </div>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <a href="dersler/bilimsel-arastirma/hafta2.html" class="topic-item" target="_blank">
+                            <div class="topic-number">02</div>
+                            <div class="topic-content">
+                                <h4>Araştırma Türleri ve Tasarımları</h4>
+                                <p>Niceliksel ve niteliksel araştırma yaklaşımları</p>
+                            </div>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <a href="dersler/bilimsel-arastirma/hafta3.html" class="topic-item" target="_blank">
+                            <div class="topic-number">03</div>
+                            <div class="topic-content">
+                                <h4>Literatür Taraması ve Kaynak Değerlendirme</h4>
+                                <p>Bilimsel kaynak arama ve değerlendirme teknikleri</p>
+                            </div>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <a href="dersler/bilimsel-arastirma/hafta4.html" class="topic-item" target="_blank">
+                            <div class="topic-number">04</div>
+                            <div class="topic-content">
+                                <h4>Araştırma Problemi ve Hipotez Oluşturma</h4>
+                                <p>Problem tanımlama ve araştırma sorularının geliştirilmesi</p>
+                            </div>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <a href="dersler/bilimsel-arastirma/hafta5.html" class="topic-item" target="_blank">
+                            <div class="topic-number">05</div>
+                            <div class="topic-content">
+                                <h4>Örnekleme Yöntemleri</h4>
+                                <p>Evren, örneklem seçimi ve örnekleme teknikleri</p>
+                            </div>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <a href="dersler/bilimsel-arastirma/hafta6.html" class="topic-item" target="_blank">
+                            <div class="topic-number">06</div>
+                            <div class="topic-content">
+                                <h4>Veri Toplama Teknikleri</h4>
+                                <p>Anket, görüşme, gözlem ve dokuman analizi</p>
+                            </div>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <a href="dersler/bilimsel-arastirma/hafta7.html" class="topic-item" target="_blank">
+                            <div class="topic-number">07</div>
+                            <div class="topic-content">
+                                <h4>Ölçme Araçları ve Geçerlik-Güvenirlik</h4>
+                                <p>Veri toplama araçlarının nitelik değerlendirmesi</p>
+                            </div>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <a href="dersler/bilimsel-arastirma/hafta8.html" class="topic-item" target="_blank">
+                            <div class="topic-number">08</div>
+                            <div class="topic-content">
+                                <h4>Betimsel İstatistik</h4>
+                                <p>Merkezi eğilim, dağılım ölçüleri ve veri görselleştirme</p>
+                            </div>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <a href="dersler/bilimsel-arastirma/hafta9.html" class="topic-item" target="_blank">
+                            <div class="topic-number">09</div>
+                            <div class="topic-content">
+                                <h4>Parametrik Testler</h4>
+                                <p>t-testi, ANOVA ve ilişkisel analizler</p>
+                            </div>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <a href="dersler/bilimsel-arastirma/hafta10.html" class="topic-item" target="_blank">
+                            <div class="topic-number">10</div>
+                            <div class="topic-content">
+                                <h4>Non-Parametrik Testler</h4>
+                                <p>Parametrik olmayan istatistiksel analiz teknikleri</p>
+                            </div>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <a href="dersler/bilimsel-arastirma/hafta11.html" class="topic-item" target="_blank">
+                            <div class="topic-number">11</div>
+                            <div class="topic-content">
+                                <h4>Çoklu Regresyon ve Korelasyon</h4>
+                                <p>İlişkisel analizler ve tahmin modelleri</p>
+                            </div>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <a href="dersler/bilimsel-arastirma/hafta12.html" class="topic-item" target="_blank">
+                            <div class="topic-number">12</div>
+                            <div class="topic-content">
+                                <h4>Niteliksel Araştırma Yöntemleri</h4>
+                                <p>Etnografi, fenomenoloji ve içerik analizi</p>
+                            </div>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <a href="dersler/bilimsel-arastirma/hafta13.html" class="topic-item" target="_blank">
+                            <div class="topic-number">13</div>
+                            <div class="topic-content">
+                                <h4>Araştırma Etiği</h4>
+                                <p>Etik kurallar, katılımcı hakları ve etik kurul süreçleri</p>
+                            </div>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <a href="dersler/bilimsel-arastirma/hafta14.html" class="topic-item" target="_blank">
+                            <div class="topic-number">14</div>
+                            <div class="topic-content">
+                                <h4>Rapor Yazımı ve Sunum Teknikleri</h4>
+                                <p>Bilimsel yazım kuralları ve akademik sunum</p>
+                            </div>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <a href="dersler/bilimsel-arastirma/kaynaklar.html" class="topic-item" target="_blank">
+                            <div class="topic-number">📚</div>
+                            <div class="topic-content">
+                                <h4>Kaynaklar ve Referanslar</h4>
+                                <p>Ders kaynak listesi ve önerilen okumalar</p>
+                            </div>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <a href="dersler/bilimsel-arastirma/ders-plani.html" class="topic-item" target="_blank">
+                            <div class="topic-number">📋</div>
+                            <div class="topic-content">
+                                <h4>Ders Planı</h4>
+                                <p>Haftalık ders planı ve değerlendirme kriterleri</p>
+                            </div>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                `;
             } else if (courseType === 'cocuk-ve-spor') {
                 modalTitle.textContent = 'Çocuk ve Spor - Ders Konuları';
                 modalBody.innerHTML = `
@@ -494,498 +675,5 @@
         }
     </script>
 
-    <style>
-        /* Modern CSS Variables */
-        :root {
-            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            --warning-gradient: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            --hover-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-            --border-radius: 15px;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        /* Layout Containers */
-        .main-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-            min-height: calc(100vh - 200px);
-        }
-
-        /* Header */
-        .page-header {
-            text-align: center;
-            margin-bottom: 3rem;
-            padding: 2rem 0;
-        }
-
-        .page-header h1 {
-            font-size: 2.8rem;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-
-        .page-header p {
-            font-size: 1.2rem;
-            color: #6c757d;
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-
-        /* Filter Tabs */
-        .filter-tabs {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 1rem 2rem;
-            border: 2px solid #e9ecef;
-            background: white;
-            border-radius: 50px;
-            font-weight: 500;
-            color: #495057;
-            cursor: pointer;
-            transition: var(--transition);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        }
-
-        .filter-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--card-shadow);
-            border-color: #667eea;
-        }
-
-        .filter-btn.active {
-            background: var(--primary-gradient);
-            color: white;
-            border-color: transparent;
-            box-shadow: var(--card-shadow);
-        }
-
-        .filter-btn i {
-            font-size: 1.1rem;
-        }
-
-        /* Courses Grid */
-        .courses-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        /* Course Cards */
-        .course-card {
-            background: white;
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            box-shadow: var(--card-shadow);
-            transition: var(--transition);
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        .course-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: var(--hover-shadow);
-        }
-
-        .course-card.coming-soon {
-            opacity: 0.7;
-            position: relative;
-        }
-
-        .course-card.coming-soon::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(2px);
-        }
-
-        /* Course Image */
-        .course-image {
-            height: 200px;
-            background: var(--primary-gradient);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .course-card[data-level="lisans"] .course-image {
-            background: var(--primary-gradient);
-        }
-
-        .course-card[data-level="yukseklisans"] .course-image {
-            background: var(--secondary-gradient);
-        }
-
-        .course-card[data-level="doktora"] .course-image {
-            background: var(--warning-gradient);
-        }
-
-        .course-icon {
-            font-size: 4rem;
-            color: rgba(255, 255, 255, 0.9);
-            z-index: 2;
-        }
-
-        .course-level-badge {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        /* Course Content */
-        .course-content {
-            padding: 2rem;
-        }
-
-        .course-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
-        .course-header h3 {
-            font-size: 1.4rem;
-            font-weight: 600;
-            color: #2c3e50;
-            margin: 0;
-        }
-
-        .course-code {
-            background: #e9ecef;
-            color: #495057;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        .course-description {
-            color: #6c757d;
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-            font-size: 0.95rem;
-        }
-
-        /* Course Stats */
-        .course-stats {
-            display: flex;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .stat-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: #6c757d;
-            font-size: 0.9rem;
-        }
-
-        .stat-item i {
-            color: #667eea;
-            font-size: 1rem;
-        }
-
-        /* Course Actions */
-        .course-actions {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .btn-primary, .btn-secondary {
-            flex: 1;
-            min-width: 120px;
-            padding: 1rem;
-            border: none;
-            border-radius: 10px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            text-decoration: none;
-        }
-
-        .btn-primary {
-            background: var(--primary-gradient);
-            color: white;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-        }
-
-        .btn-secondary {
-            background: #f8f9fa;
-            color: #495057;
-            border: 1px solid #dee2e6;
-        }
-
-        .btn-secondary:hover {
-            background: #e9ecef;
-            transform: translateY(-2px);
-            box-shadow: var(--card-shadow);
-        }
-
-        /* Coming Soon Badge */
-        .coming-soon-badge {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            padding: 1rem;
-            background: #fff3cd;
-            color: #856404;
-            border-radius: 10px;
-            font-weight: 500;
-            margin-top: 1rem;
-        }
-
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(5px);
-            z-index: 1000;
-            opacity: 0;
-            transition: var(--transition);
-        }
-
-        .modal.show {
-            opacity: 1;
-        }
-
-        .modal-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0.9);
-            background: white;
-            border-radius: var(--border-radius);
-            box-shadow: var(--hover-shadow);
-            max-width: 800px;
-            width: 90%;
-            max-height: 80vh;
-            overflow: hidden;
-            transition: var(--transition);
-        }
-
-        .modal.show .modal-content {
-            transform: translate(-50%, -50%) scale(1);
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 2rem;
-            background: var(--primary-gradient);
-            color: white;
-        }
-
-        .modal-header h2 {
-            margin: 0;
-            font-size: 1.5rem;
-        }
-
-        .close-btn {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: 0.5rem;
-            border-radius: 50%;
-            transition: var(--transition);
-        }
-
-        .close-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: rotate(90deg);
-        }
-
-        .modal-body {
-            padding: 2rem;
-            max-height: 60vh;
-            overflow-y: auto;
-        }
-
-        /* Topics List */
-        .topics-list {
-            display: grid;
-            gap: 1rem;
-        }
-
-        .topic-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1.5rem;
-            background: #f8f9fa;
-            border-radius: 10px;
-            text-decoration: none;
-            color: inherit;
-            transition: var(--transition);
-            border: 2px solid transparent;
-        }
-
-        .topic-item:hover {
-            background: white;
-            box-shadow: var(--card-shadow);
-            border-color: #667eea;
-            transform: translateX(5px);
-        }
-
-        .topic-number {
-            width: 40px;
-            height: 40px;
-            background: var(--primary-gradient);
-            color: white;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            flex-shrink: 0;
-        }
-
-        .topic-content {
-            flex: 1;
-        }
-
-        .topic-content h4 {
-            margin: 0 0 0.5rem 0;
-            color: #2c3e50;
-            font-size: 1.1rem;
-        }
-
-        .topic-content p {
-            margin: 0;
-            color: #6c757d;
-            font-size: 0.9rem;
-        }
-
-        .topic-item i.fa-external-link-alt {
-            color: #667eea;
-            font-size: 1.1rem;
-            transition: var(--transition);
-        }
-
-        .topic-item:hover i.fa-external-link-alt {
-            transform: translateX(3px);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .main-container {
-                padding: 1rem;
-            }
-
-            .page-header h1 {
-                font-size: 2.2rem;
-            }
-
-            .page-header p {
-                font-size: 1rem;
-            }
-
-            .filter-tabs {
-                gap: 0.5rem;
-            }
-
-            .filter-btn {
-                padding: 0.8rem 1.5rem;
-                font-size: 0.9rem;
-            }
-
-            .courses-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-
-            .course-actions {
-                flex-direction: column;
-            }
-
-            .modal-content {
-                width: 95%;
-                max-height: 90vh;
-            }
-
-            .modal-header, .modal-body {
-                padding: 1.5rem;
-            }
-
-            .topic-item {
-                padding: 1rem;
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .course-stats {
-                justify-content: space-around;
-                gap: 1rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .course-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 1rem;
-            }
-
-            .filter-btn {
-                padding: 0.6rem 1rem;
-                font-size: 0.8rem;
-            }
-
-            .filter-btn i {
-                font-size: 1rem;
-            }
-        }
-    </style>
 </body>
 </html>
