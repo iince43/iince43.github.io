@@ -1,12 +1,137 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="tr" class="no-js">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fotoğraf Galerisi - İzzet İNCE</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Modern Design System (inline CSS) -->
+    <style>
+:root{
+--bg:#0b1020;/* deep navy */
+--bg-soft:#0f152a;
+--card:#121a34;
+--text:#e8ecf8;
+--muted:#b8c0d9;
+--brand:#6ea8fe; /* soft blue */
+--brand-2:#00d1b2; /* aqua */
+--accent:#ffd166; /* warm */
+--outline:rgba(255,255,255,.08);
+--shadow: 0 8px 30px rgba(0,0,0,.25);
+--radius:18px;
+}
+:root.light{
+--bg:#f7f9fc;
+--bg-soft:#ffffff;
+--card:#ffffff;
+--text:#101427;
+--muted:#5b6275;
+--brand:#3366ff;
+--brand-2:#0db39e;
+--accent:#f59e0b;
+--outline:rgba(16,20,39,.08);
+--shadow: 0 8px 30px rgba(0,0,0,.08);
+}
+html,body{height:100%}
+*{box-sizing:border-box}
+body{
+margin:0; font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial; color:var(--text); background: radial-gradient(1200px 600px at 10% -10%, rgba(51,102,255,.15), transparent 60%), radial-gradient(1000px 500px at 90% -20%, rgba(13,179,158,.15), transparent 60%), var(--bg);
+}
+a{color:inherit; text-decoration:none}
+.container{width:min(1100px, 92%); margin-inline:auto}
+
+/* Navbar */
+.navbar{position:sticky; top:0; z-index:50; backdrop-filter:saturate(160%) blur(10px); background:linear-gradient(135deg, color-mix(in oklab, var(--brand) 8%, var(--bg-soft)), color-mix(in oklab, var(--brand-2) 6%, var(--bg-soft))); border-bottom:2px solid var(--brand); box-shadow:0 4px 20px color-mix(in oklab, var(--brand) 15%, transparent)}
+.nav-container{display:flex; align-items:center; justify-content:space-between; padding:16px 0; width:min(1100px, 92%); margin-inline:auto}
+.nav-menu{display:flex; gap:20px; align-items:center; list-style:none}
+.nav-menu a{padding:10px 16px; border-radius:12px; color:var(--muted); border:1px solid transparent; font-weight:500; transition:all 0.3s ease}
+.nav-menu a.active, .nav-menu a:hover{color:var(--text); border-color:var(--brand); background:linear-gradient(135deg, color-mix(in oklab, var(--brand) 10%, transparent), color-mix(in oklab, var(--brand-2) 5%, transparent)); transform:translateY(-1px); box-shadow:0 4px 12px color-mix(in oklab, var(--brand) 20%, transparent)}
+.nav-logo h2{color:var(--brand); font-size:1.5rem; margin:0}
+.toggle{border:1px solid var(--outline); background:var(--bg-soft); padding:8px 12px; border-radius:12px; cursor:pointer}
+
+/* Page Header */
+.page-header{text-align:center; padding:60px 0 40px; background:linear-gradient(180deg, color-mix(in oklab, var(--card) 88%, transparent), var(--card)); border:1px solid var(--outline); border-radius:var(--radius); box-shadow:var(--shadow); margin:40px 0}
+.page-header h1{font-size:2.5rem; margin-bottom:15px; color:var(--text); display:flex; align-items:center; justify-content:center; gap:15px}
+.page-header i{color:var(--brand)}
+.page-header p{color:var(--muted); font-size:1.1rem}
+
+/* Gallery Filters */
+.gallery-filters{display:flex; justify-content:center; gap:15px; margin-bottom:40px; flex-wrap:wrap}
+.filter-btn{padding:12px 24px; border:1px solid var(--outline); background:var(--bg-soft); color:var(--muted); border-radius:25px; cursor:pointer; font-size:14px; font-weight:500; transition:all 0.3s ease}
+.filter-btn.active, .filter-btn:hover{background:var(--brand); color:white; border-color:var(--brand); transform:translateY(-2px); box-shadow:0 4px 12px color-mix(in oklab, var(--brand) 30%, transparent)}
+
+/* Gallery Grid */
+.gallery-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:25px; margin-bottom:60px}
+.gallery-item{position:relative; border-radius:var(--radius); overflow:hidden; cursor:pointer; background:var(--card); border:1px solid var(--outline); transition:all 0.3s ease; box-shadow:var(--shadow)}
+.gallery-item:hover{transform:translateY(-8px) scale(1.02); box-shadow:0 20px 40px rgba(0,0,0,.3); border-color:var(--brand)}
+.gallery-item img{width:100%; height:280px; object-fit:cover; transition:transform 0.3s ease}
+.gallery-item:hover img{transform:scale(1.08)}
+
+/* Gallery Overlay */
+.gallery-overlay{position:absolute; top:0; left:0; width:100%; height:100%; background:linear-gradient(135deg, rgba(0,0,0,0.8), rgba(0,0,0,0.4)); display:flex; flex-direction:column; align-items:center; justify-content:center; opacity:0; transition:all 0.3s ease; color:white; text-align:center}
+.gallery-item:hover .gallery-overlay{opacity:1}
+.gallery-info{padding:20px}
+.gallery-info h4{margin:0 0 8px 0; font-size:1.2rem; font-weight:600; color:var(--brand)}
+.gallery-info p{margin:0; font-size:14px; opacity:0.9}
+
+/* Lightbox Modal */
+.lightbox{position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); display:none; align-items:center; justify-content:center; z-index:1000; backdrop-filter:blur(10px)}
+.lightbox.active{display:flex}
+.lightbox-content{position:relative; max-width:90%; max-height:90%; text-align:center}
+.lightbox img{max-width:100%; max-height:80vh; object-fit:contain; border-radius:15px; box-shadow:0 25px 80px rgba(0,0,0,0.6)}
+.lightbox-caption{color:white; margin-top:25px; font-size:18px; background:linear-gradient(135deg, color-mix(in oklab, var(--brand) 80%, transparent), color-mix(in oklab, var(--brand-2) 60%, transparent)); padding:15px 30px; border-radius:30px; display:inline-block; backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,0.2)}
+.lightbox-close{position:absolute; top:-50px; right:-50px; color:white; font-size:32px; cursor:pointer; width:50px; height:50px; border-radius:50%; background:rgba(255,255,255,0.1); display:flex; align-items:center; justify-content:center; transition:all 0.3s ease; backdrop-filter:blur(10px)}
+.lightbox-close:hover{background:var(--brand); transform:scale(1.1); box-shadow:0 8px 25px rgba(0,0,0,0.3)}
+
+/* Footer */
+footer{background:var(--card); border-top:2px solid var(--outline); margin-top:80px; padding:30px 0; text-align:center; color:var(--muted)}
+
+/* Theme Toggle */
+.theme-toggle{position:fixed; bottom:20px; right:20px; width:50px; height:50px; border-radius:50%; background:var(--brand); color:white; border:none; cursor:pointer; box-shadow:var(--shadow); z-index:100; transition:all 0.3s ease}
+.theme-toggle:hover{transform:scale(1.1); background:var(--brand-2)}
+.theme-toggle i{font-size:20px}
+
+/* Hamburger Menu */
+.hamburger{display:none; flex-direction:column; cursor:pointer; padding:5px}
+.hamburger span{width:25px; height:3px; background:var(--text); margin:3px 0; transition:0.3s; border-radius:3px}
+.hamburger.active span:nth-child(1){transform:rotate(-45deg) translate(-5px, 6px)}
+.hamburger.active span:nth-child(2){opacity:0}
+.hamburger.active span:nth-child(3){transform:rotate(45deg) translate(-5px, -6px)}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .page-header h1{font-size:2rem; flex-direction:column; gap:10px}
+  .nav-menu{
+    position:fixed; top:70px; left:-100%; width:100%; height:calc(100vh - 70px);
+    background:var(--bg-soft); flex-direction:column; justify-content:flex-start;
+    align-items:center; padding-top:50px; transition:left 0.3s ease; z-index:99;
+    gap:30px; box-shadow:0 5px 20px rgba(0,0,0,0.3); backdrop-filter:blur(20px);
+  }
+  .nav-menu.active{left:0}
+  .nav-menu a{
+    padding:15px 30px; font-size:18px; width:80%; text-align:center;
+    border-radius:15px; border:2px solid var(--outline);
+  }
+  .hamburger{display:flex}
+  .gallery-grid{grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:20px}
+  .gallery-item{border-radius:15px}
+  .gallery-item img{height:220px}
+  .lightbox-close{top:-40px; right:-40px; width:40px; height:40px; font-size:24px}
+  .gallery-filters{gap:10px}
+  .filter-btn{padding:8px 16px; font-size:13px}
+}
+
+@media (max-width: 480px) {
+  .gallery-grid{grid-template-columns:1fr; gap:15px}
+  .gallery-item img{height:200px}
+  .page-header{padding:40px 0 30px; margin:20px 0}
+  .page-header h1{font-size:1.8rem}
+}
+    </style>
 </head>
 <body>
     <nav class="navbar">
@@ -14,14 +139,14 @@
             <div class="nav-logo">
                 <h2>İzzet İNCE</h2>
             </div>
-            <ul class="nav-menu">
-                <li><a href="index.html" class="nav-link">Ana Sayfa</a></li>
-                <li><a href="cv.html" class="nav-link">Akademik Yayınlarım</a></li>
-                <li><a href="projelerim.html" class="nav-link">TÜBİTAK Destekli Projelerim</a></li>
-                <li><a href="dersler.html" class="nav-link">Ders Notları</a></li>
-                <li><a href="galeri.html" class="nav-link active">Fotoğraf Galerisi</a></li>
-                <li><a href="index.html#contact" class="nav-link">İletişim</a></li>
-            </ul>
+            <div class="nav-menu">
+                <a href="index.html">Ana Sayfa</a>
+                <a href="yayinlar.html">Akademik Yayınlarım</a>
+                <a href="projelerim.html">TÜBİTAK Destekli Projelerim</a>
+                <a href="dersler.html">Ders Notları</a>
+                <a href="galeri.html" class="active">Fotoğraf Galerisi</a>
+                <a href="index.html#contact">İletişim</a>
+            </div>
             <div class="hamburger">
                 <span></span>
                 <span></span>
@@ -178,59 +303,98 @@
         </div>
     </footer>
 
+    <button class="theme-toggle" onclick="toggleTheme()" title="Tema Değiştir">
+        <i class="fas fa-sun"></i>
+    </button>
+
     <script>
-        // Mobile menu toggle
-        const hamburger = document.querySelector('.hamburger');
-        const navMenu = document.querySelector('.nav-menu');
+        function toggleTheme() {
+            const html = document.documentElement;
+            const toggleBtn = document.querySelector('.theme-toggle i');
 
-        if (hamburger && navMenu) {
-            hamburger.addEventListener('click', () => {
-                hamburger.classList.toggle('active');
-                navMenu.classList.toggle('active');
-            });
-
-            // Close menu when clicking on a link
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', () => {
-                    hamburger.classList.remove('active');
-                    navMenu.classList.remove('active');
-                });
-            });
+            if (html.classList.contains('light')) {
+                html.classList.remove('light');
+                toggleBtn.className = 'fas fa-sun';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                html.classList.add('light');
+                toggleBtn.className = 'fas fa-moon';
+                localStorage.setItem('theme', 'light');
+            }
         }
 
-        // Gallery filter functionality
-        const filterButtons = document.querySelectorAll('.filter-btn');
-        const galleryItems = document.querySelectorAll('.gallery-item');
+        // Mobile navigation and theme functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load saved theme
+            const savedTheme = localStorage.getItem('theme');
+            const toggleBtn = document.querySelector('.theme-toggle i');
 
-        filterButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Remove active class from all buttons
-                filterButtons.forEach(b => b.classList.remove('active'));
-                // Add active class to clicked button
-                btn.classList.add('active');
-                
-                const filterValue = btn.getAttribute('data-filter');
-                
-                galleryItems.forEach(item => {
-                    if (filterValue === 'all' || item.classList.contains(filterValue)) {
-                        item.style.display = 'block';
-                    } else {
-                        item.style.display = 'none';
-                    }
+            if (savedTheme === 'light') {
+                document.documentElement.classList.add('light');
+                toggleBtn.className = 'fas fa-moon';
+            }
+
+            // Mobile menu toggle
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+
+            if (hamburger && navMenu) {
+                hamburger.addEventListener('click', () => {
+                    hamburger.classList.toggle('active');
+                    navMenu.classList.toggle('active');
+                });
+
+                // Close menu when clicking on a link
+                document.querySelectorAll('.nav-menu a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        hamburger.classList.remove('active');
+                        navMenu.classList.remove('active');
+                    });
+                });
+            }
+
+            // Gallery filter functionality
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+
+            filterButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(b => b.classList.remove('active'));
+                    // Add active class to clicked button
+                    btn.classList.add('active');
+
+                    const filterValue = btn.getAttribute('data-filter');
+
+                    galleryItems.forEach(item => {
+                        if (filterValue === 'all' || item.classList.contains(filterValue)) {
+                            item.style.display = 'block';
+                            setTimeout(() => {
+                                item.style.opacity = '1';
+                                item.style.transform = 'scale(1)';
+                            }, 50);
+                        } else {
+                            item.style.opacity = '0';
+                            item.style.transform = 'scale(0.8)';
+                            setTimeout(() => {
+                                item.style.display = 'none';
+                            }, 300);
+                        }
+                    });
                 });
             });
-        });
 
-        // Lightbox functionality
-        galleryItems.forEach(item => {
-            item.addEventListener('click', () => {
-                const img = item.querySelector('img');
-                const caption = item.getAttribute('data-caption');
-                
-                document.getElementById('lightbox-img').src = img.src;
-                document.getElementById('lightbox-caption').textContent = caption;
-                document.getElementById('lightbox').classList.add('active');
-                document.body.style.overflow = 'hidden';
+            // Lightbox functionality
+            galleryItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const img = item.querySelector('img');
+                    const caption = item.getAttribute('data-caption');
+
+                    document.getElementById('lightbox-img').src = img.src;
+                    document.getElementById('lightbox-caption').textContent = caption;
+                    document.getElementById('lightbox').classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
             });
         });
 
