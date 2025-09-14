@@ -1,0 +1,1699 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hafta 3: Araştırma Problemi ve Hipotez - Spor ve Egzersiz Bilimlerinde Bilimsel Araştırma Yöntemleri</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .presentation-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            margin-right: 450px;
+            transition: all 0.3s ease;
+        }
+
+        .presentation-container.sidebar-hidden {
+            margin-right: 0;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .header h1 {
+            color: white;
+            font-size: 1.8em;
+            text-align: center;
+            font-weight: 300;
+        }
+
+        .slide-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .slide {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px 50px;
+            max-width: 900px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            display: none;
+            animation: slideIn 0.5s ease-out;
+            min-height: 70vh;
+            max-height: 85vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        /* Scroll bar styling */
+        .slide::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .slide::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .slide::-webkit-scrollbar-thumb {
+            background: rgba(52, 152, 219, 0.5);
+            border-radius: 10px;
+        }
+
+        .slide::-webkit-scrollbar-thumb:hover {
+            background: rgba(52, 152, 219, 0.8);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-align: center;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 15px;
+        }
+
+        .slide h2 {
+            color: #34495e;
+            font-size: 2em;
+            margin-bottom: 25px;
+            border-left: 5px solid #3498db;
+            padding-left: 20px;
+        }
+
+        .slide h3 {
+            color: #2980b9;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            margin-top: 25px;
+        }
+
+        .slide ul {
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+
+        .slide li {
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        .slide p {
+            font-size: 1.1em;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        .concept-box {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 5px solid #3498db;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .variable-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .variable-table th {
+            background: #3498db;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .variable-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .variable-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .problem-flow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .flow-item {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            min-width: 150px;
+            margin: 10px;
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .flow-arrow {
+            font-size: 1.5em;
+            color: #3498db;
+            margin: 0 10px;
+        }
+
+        .sidebar {
+            position: fixed;
+            right: 0;
+            top: 0;
+            width: 450px;
+            height: 100vh;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-left: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 30px;
+            overflow-y: auto;
+            z-index: 1000;
+            transform: translateX(0);
+            transition: transform 0.3s ease;
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .sidebar.hidden {
+            transform: translateX(100%);
+        }
+
+        .sidebar h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        .sidebar p {
+            font-size: 0.95em;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .sidebar ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .sidebar li {
+            margin-bottom: 8px;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .progress {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .toggle-sidebar {
+            position: fixed;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            background: rgba(52, 152, 219, 0.9);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1002;
+            font-size: 1.2em;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .toggle-sidebar:hover {
+            background: rgba(41, 128, 185, 0.9);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #a8e6cf 0%, #dcedc8 100%);
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+
+        .important-note {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-left: 5px solid #f39c12;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(243, 156, 18, 0.2);
+        }
+
+        .hypothesis-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .hypothesis-card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-top: 4px solid #3498db;
+            transition: transform 0.3s ease;
+        }
+
+        .hypothesis-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .hypothesis-card h4 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        @media (max-width: 1200px) {
+            .sidebar {
+                width: 350px;
+            }
+            .presentation-container {
+                margin-right: 350px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                transform: translateX(100%);
+            }
+            .presentation-container {
+                margin-right: 0;
+            }
+            .slide {
+                padding: 30px;
+                margin: 20px;
+            }
+            .slide h1 {
+                font-size: 2em;
+            }
+            .problem-flow {
+                flex-direction: column;
+            }
+            .flow-arrow {
+                transform: rotate(90deg);
+            }
+        }
+
+        /* Fullscreen styles */
+        :fullscreen .slide {
+            width: 95%;
+            max-width: none;
+            min-height: 85vh;
+            max-height: 95vh;
+            padding: 30px 50px;
+            overflow-y: auto;
+        }
+        :fullscreen h1 { font-size: 4em; }
+        :fullscreen h2 { font-size: 3.2em; }
+        :fullscreen h3 { font-size: 2.5em; }
+        :fullscreen .content { font-size: 1.4em; }
+
+        /* Webkit fullscreen support */
+        :-webkit-full-screen .slide {
+            width: 95%;
+            max-width: none;
+            min-height: 85vh;
+            max-height: 95vh;
+            padding: 30px 50px;
+            overflow-y: auto;
+        }
+        :-webkit-full-screen h1 { font-size: 4em; }
+        :-webkit-full-screen h2 { font-size: 3.2em; }
+        :-webkit-full-screen h3 { font-size: 2.5em; }
+        :-webkit-full-screen .content { font-size: 1.4em; }
+    </style>
+</head>
+<body>
+    <div class="presentation-container" id="presentationContainer">
+        <div class="header">
+            <h1>Hafta 3: Araştırma Problemi ve Hipotez</h1>
+        </div>
+
+        <div class="slide-container">
+            <!-- Slide 1: Başlık -->
+            <div class="slide active">
+                <h1>Araştırma Problemi ve Hipotez</h1>
+                <div style="text-align: center; margin: 50px 0;">
+                    <h2 style="color: #3498db; border: none; padding: 0;">Spor ve Egzersiz Bilimlerinde</h2>
+                    <h2 style="color: #2980b9; border: none; padding: 0;">Bilimsel Araştırma Yöntemleri</h2>
+                </div>
+                <p style="text-align: center; font-size: 1.3em; color: #7f8c8d; margin-top: 40px;">
+                    Problem Belirleme, Hipotez Geliştirme ve Değişkenler
+                </p>
+            </div>
+
+            <!-- Slide 2: Spor Bilimlerinde Araştırma Alanları -->
+            <div class="slide">
+                <h2>Spor Bilimlerinde Genel Araştırma Alanları</h2>
+                <div class="hypothesis-grid">
+                    <div class="hypothesis-card">
+                        <h4>1. Fizyolojik Araştırmalar</h4>
+                        <p>Sporcuların fizyolojik tepkilerini, kas işlevini, kalp-damar sistemi, enerji metabolizmasını ve performansını inceleyen çalışmalar</p>
+                        <ul>
+                            <li>VO₂ maks ve aerobik kapasite</li>
+                            <li>Laktat eşiği analizi</li>
+                            <li>Antrenman adaptasyonları</li>
+                        </ul>
+                    </div>
+                    <div class="hypothesis-card">
+                        <h4>2. Biyomekanik Araştırmalar</h4>
+                        <p>Sporcuların hareket paternlerini ve vücut mekaniğini inceleyerek performansı optimize etmeye ve spor yaralanmalarını azaltmaya yardımcı olan çalışmalar</p>
+                        <ul>
+                            <li>3B hareket analizi</li>
+                            <li>Kuvvet platform verileri</li>
+                            <li>Teknik optimizasyon</li>
+                        </ul>
+                    </div>
+                    <div class="hypothesis-card">
+                        <h4>3. Psikolojik Araştırmalar</h4>
+                        <p>Spor psikolojisi, sporcuların zihinsel durumunu, motivasyonlarını, stresle başa çıkma yeteneklerini ve performanslarını etkileyen psikolojik faktörleri araştırır</p>
+                        <ul>
+                            <li>Performans kaygısı</li>
+                            <li>Motivasyon teorileri</li>
+                            <li>Zihinsel antrenman</li>
+                        </ul>
+                    </div>
+                    <div class="hypothesis-card">
+                        <h4>4. Sosyolojik Araştırmalar</h4>
+                        <p>Sporun toplumsal etkilerini, spor toplum içindeki rolünü, cinsiyet rollerini, ırk ilişkilerini ve sporun toplumsal dinamiklerini inceleyen çalışmalar</p>
+                        <ul>
+                            <li>Spor sosyolojisi</li>
+                            <li>Toplumsal cinsiyet</li>
+                            <li>Spor kültürü</li>
+                        </ul>
+                    </div>
+                    <div class="hypothesis-card">
+                        <h4>5. Eğitim ve Antrenman Araştırmaları</h4>
+                        <p>Sporcuların ve koçların eğitimi, antrenman tekniklerini ve spor ekipmanlarının kullanımını geliştirmeye yönelik çalışmalar</p>
+                        <ul>
+                            <li>Antrenman metodolojisi</li>
+                            <li>Pedagojik yaklaşımlar</li>
+                            <li>Motor öğrenme</li>
+                        </ul>
+                    </div>
+                    <div class="hypothesis-card">
+                        <h4>6. Epidemiyolojik Araştırmalar</h4>
+                        <p>Spor yaralanmalarını ve sporla ilişkili sağlık sorunlarını inceleyerek, sporcuların ve spor faaliyetlerinin güvenliğini artırmaya yönelik çalışmalar</p>
+                        <ul>
+                            <li>Yaralanma sıklığı</li>
+                            <li>Risk faktörleri</li>
+                            <li>Önleme stratejileri</li>
+                        </ul>
+                    </div>
+                    <div class="hypothesis-card">
+                        <h4>7. Tarihsel Araştırmalar</h4>
+                        <p>Spor bilimleri alanında tarihsel araştırmalar, sporun gelişimini ve değişimlerini inceleyen çalışmalar. Sporun tarihini anlamak ve sporun toplum içindeki evrimini izlemek için önemlidir</p>
+                        <ul>
+                            <li>Spor tarihi</li>
+                            <li>Olimpiyat araştırmaları</li>
+                            <li>Geleneksel sporlar</li>
+                        </ul>
+                    </div>
+                    <div class="hypothesis-card">
+                        <h4>8. Yönetim ve Ekonomi Araştırmaları</h4>
+                        <p>Spor yönetimi ve ekonomisi, spor organizasyonlarının yönetimi, finansmanı, pazarlama stratejileri ve spor endüstrisinin ekonomik etkileri</p>
+                        <ul>
+                            <li>Spor pazarlaması</li>
+                            <li>Ekonomik analiz</li>
+                            <li>Organizasyon yönetimi</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 3: Araştırma Problemi Nedir -->
+            <div class="slide">
+                <h2>Araştırma Problemi Nedir?</h2>
+                <div class="important-note">
+                    <p><strong>Tanım:</strong> Araştırma problemi, bilimsel yöntemlerle çözülmesi gereken, açık ve net bir şekilde formüle edilmiş sorudur.</p>
+                </div>
+                <div class="problem-flow">
+                    <div class="flow-item">
+                        <h4>Gözlem</h4>
+                        <p>Mevcut durum</p>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-item">
+                        <h4>Problem</h4>
+                        <p>Çözülmesi gereken</p>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-item">
+                        <h4>Araştırma</h4>
+                        <p>Bilimsel yöntem</p>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-item">
+                        <h4>Çözüm</h4>
+                        <p>Bulgular ve sonuç</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 4: Problem Belirleme Kriterleri -->
+            <div class="slide">
+                <h2>İyi Bir Araştırma Probleminin Özellikleri</h2>
+                <div class="hypothesis-grid">
+                    <div class="hypothesis-card">
+                        <h4>1. Spesifiklik</h4>
+                        <p>Problem net ve açık bir şekilde tanımlanmalı, belirsizlik içermemeli</p>
+                    </div>
+                    <div class="hypothesis-card">
+                        <h4>2. Ölçülebilirlik</h4>
+                        <p>Bilimsel yöntemlerle test edilebilir ve ölçülebilir olmalı</p>
+                    </div>
+                    <div class="hypothesis-card">
+                        <h4>3. Önemlilik</h4>
+                        <p>Bilimsel bilgiye ve pratik uygulamaya katkı sağlamalı</p>
+                    </div>
+                    <div class="hypothesis-card">
+                        <h4>4. Gerçekleştirilebilirlik</h4>
+                        <p>Mevcut kaynaklarla çözülebilir olmalı</p>
+                    </div>
+                    <div class="hypothesis-card">
+                        <h4>5. Etiklik</h4>
+                        <p>Etik kurallara uygun olmalı</p>
+                    </div>
+                    <div class="hypothesis-card">
+                        <h4>6. Orijinallik</h4>
+                        <p>Yeni bilgi üretme potansiyeli olmalı</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 5: Problem Türleri -->
+            <div class="slide">
+                <h2>Araştırma Problem Türleri</h2>
+                <div class="concept-box">
+                    <h3>Tanımlayıcı Problemler</h3>
+                    <p>"Ne?" sorusuna yanıt arar. Mevcut durumu betimleme amaçlıdır.</p>
+                    <p><strong>Örnek:</strong> "Türk futbolcuların beslenme alışkanlıkları nelerdir?"</p>
+                </div>
+                <div class="concept-box">
+                    <h3>İlişkisel Problemler</h3>
+                    <p>"Nasıl ilişkili?" sorusuna yanıt arar. Değişkenler arası ilişkileri inceler.</p>
+                    <p><strong>Örnek:</strong> "Antrenman yoğunluğu ile yaralanma riski arasında ilişki var mı?"</p>
+                </div>
+                <div class="concept-box">
+                    <h3>Nedensel Problemler</h3>
+                    <p>"Neden?" sorusuna yanıt arar. Neden-sonuç ilişkilerini araştırır.</p>
+                    <p><strong>Örnek:</strong> "Pliometrik antrenman dikey sıçrama performansını nasıl etkiler?"</p>
+                </div>
+            </div>
+
+            <!-- Slide 6: Hipotez Nedir -->
+            <div class="slide">
+                <h2>Hipotez Nedir?</h2>
+                <div class="important-note">
+                    <p><strong>Hipotez:</strong> Araştırma problemine geçici çözüm öneren, test edilebilir bilimsel önermedir.</p>
+                </div>
+                <div class="concept-box">
+                    <h3>Hipotezin Temel Özellikleri</h3>
+                    <ul>
+                        <li><span class="highlight">Test edilebilir:</span> Bilimsel yöntemlerle sınanabilir olmalı</li>
+                        <li><span class="highlight">Spesifik:</span> Net ve açık bir şekilde ifade edilmeli</li>
+                        <li><span class="highlight">Teorik temelli:</span> Mevcut bilgi ve teorilere dayanmalı</li>
+                        <li><span class="highlight">Değişken içermeli:</span> En az iki değişken arasındaki ilişkiyi belirtmeli</li>
+                        <li><span class="highlight">Yönlendirici:</span> Araştırma sürecine rehberlik etmeli</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Slide 7: Hipotez Türleri -->
+            <div class="slide">
+                <h2>Hipotez Türleri</h2>
+                <div class="hypothesis-grid">
+                    <div class="hypothesis-card">
+                        <h4>Null Hipotez (H₀)</h4>
+                        <p>Değişkenler arasında anlamlı bir fark veya ilişki olmadığını ifade eder</p>
+                        <p><strong>Örnek:</strong> "Protein takviyesi kas kütlesi artışında etkili değildir"</p>
+                    </div>
+                    <div class="hypothesis-card">
+                        <h4>Alternatif Hipotez (H₁)</h4>
+                        <p>Değişkenler arasında anlamlı bir fark veya ilişki olduğunu ifade eder</p>
+                        <p><strong>Örnek:</strong> "Protein takviyesi kas kütlesi artışında etkilidir"</p>
+                    </div>
+                    <div class="hypothesis-card">
+                        <h4>Yönlü Hipotez</h4>
+                        <p>İlişkinin yönünü (artış/azalış) belirtir</p>
+                        <p><strong>Örnek:</strong> "YÜAT antrenmanı VO₂ maks değerini artırır"</p>
+                    </div>
+                    <div class="hypothesis-card">
+                        <h4>Yönsüz Hipotez</h4>
+                        <p>Sadece fark olduğunu belirtir, yön belirtmez</p>
+                        <p><strong>Örnek:</strong> "İki grup arasında performans farkı vardır"</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 8: Değişkenler -->
+            <div class="slide">
+                <h2>Araştırmada Değişkenler</h2>
+                <div class="important-note">
+                    <p><strong>Değişken:</strong> Araştırmada ölçülen, gözlenen veya manipüle edilen özellikler</p>
+                </div>
+                <table class="variable-table">
+                    <thead>
+                        <tr>
+                            <th>Değişken Türü</th>
+                            <th>Tanım</th>
+                            <th>Spor Bilimlerinde Örnek</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Bağımsız Değişken</strong></td>
+                            <td>Araştırmacı tarafından manipüle edilen</td>
+                            <td>Antrenman programı, beslenme müdahalesi</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Bağımlı Değişken</strong></td>
+                            <td>Sonuç olarak ölçülen</td>
+                            <td>VO₂ maks, kas kuvveti, performans</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Kontrol Değişkeni</strong></td>
+                            <td>Sabit tutulan</td>
+                            <td>Yaş, cinsiyet, antrenman geçmişi</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Moderator Değişken</strong></td>
+                            <td>İlişkinin gücünü etkileyen</td>
+                            <td>Genetik özellikler, motivasyon</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Slide 9: Problem Belirleme Süreci -->
+            <div class="slide">
+                <h2>Problem Belirleme Süreci</h2>
+                <div class="problem-flow" style="flex-direction: column; align-items: stretch;">
+                    <div class="flow-item">
+                        <h4>1. Genel Konu Alanı Belirleme</h4>
+                        <p>İlgi alanınızdaki genel konuyu seçin</p>
+                    </div>
+                    <div class="flow-arrow" style="transform: rotate(90deg); margin: 15px 0;">↓</div>
+                    <div class="flow-item">
+                        <h4>2. Literatür Tarama</h4>
+                        <p>Mevcut bilgileri ve boşlukları belirleyin</p>
+                    </div>
+                    <div class="flow-arrow" style="transform: rotate(90deg); margin: 15px 0;">↓</div>
+                    <div class="flow-item">
+                        <h4>3. Problem Odaklama</h4>
+                        <p>Spesifik problemi net olarak tanımlayın</p>
+                    </div>
+                    <div class="flow-arrow" style="transform: rotate(90deg); margin: 15px 0;">↓</div>
+                    <div class="flow-item">
+                        <h4>4. Problem Cümlesini Oluşturma</h4>
+                        <p>Araştırma sorusunu açık şekilde formüle edin</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 10: Değişken Operasyonalizasyonu -->
+            <div class="slide">
+                <h2>Değişkenlerin Operasyonalizasyonu</h2>
+                <div class="concept-box">
+                    <h3>Operasyonalizasyon: Teorik kavramları ölçülebilir hale getirme süreci</h3>
+                </div>
+                <div class="hypothesis-grid">
+                    <div class="hypothesis-card">
+                        <h4>Aerobik Kapasite</h4>
+                        <p><strong>Teorik:</strong> Maksimal oksijen tüketim kapasitesi</p>
+                        <p><strong>Operasyonel:</strong> VO₂ maks (ml/kg/dk)</p>
+                        <p><strong>Ölçüm:</strong> Bruce protokolü treadmill testi</p>
+                    </div>
+                    <div class="hypothesis-card">
+                        <h4>Kas Kuvveti</h4>
+                        <p><strong>Teorik:</strong> Kasın üretebileceği maksimal kuvvet</p>
+                        <p><strong>Operasyonel:</strong> 1RM (kg)</p>
+                        <p><strong>Ölçüm:</strong> Maksimal tekrar testi</p>
+                    </div>
+                    <div class="hypothesis-card">
+                        <h4>Motivasyon</h4>
+                        <p><strong>Teorik:</strong> Davranışa yöneltici güç</p>
+                        <p><strong>Operasyonel:</strong> SMS-28 ölçek puanı</p>
+                        <p><strong>Ölçüm:</strong> Likert tipi ölçek</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 11: Spor Bilimlerinde Örnek Problemler -->
+            <div class="slide">
+                <h2>Spor Bilimlerinde Örnek Araştırma Problemleri</h2>
+                <div class="concept-box">
+                    <h3>Fizyoloji</h3>
+                    <p>"Yüksek yoğunluklu interval antrenmanın (HIIT) genç futbolcularda aerobik ve anaerobik performansa etkisi nedir?"</p>
+                </div>
+                <div class="concept-box">
+                    <h3>Biyomekanik</h3>
+                    <p>"Farklı koşu tekniklerinin diz eklemi üzerindeki biyomekanik yüklenme paternleri nasıldır?"</p>
+                </div>
+                <div class="concept-box">
+                    <h3>Spor Psikolojisi</h3>
+                    <p>"Zihinsel antrenman tekniklerinin elit sporcuların yarışma kaygısına etkisi nasıldır?"</p>
+                </div>
+                <div class="concept-box">
+                    <h3>Beslenme</h3>
+                    <p>"Müsabaka öncesi karbonhidrat yüklemesinin dayanıklılık performansına etkisi nedir?"</p>
+                </div>
+            </div>
+
+            <!-- Slide 12: Hipotez Formülasyonu Süreci -->
+            <div class="slide">
+                <h2>Hipotez Formülasyonu Süreci</h2>
+                <div class="problem-flow" style="flex-direction: column; align-items: stretch;">
+                    <div class="flow-item">
+                        <h4>1. Teorik Temel Oluşturma</h4>
+                        <p>• Mevcut literatürü inceleme<br>• Teorik çerçeve belirleme<br>• Kavramsal model geliştirme</p>
+                    </div>
+                    <div class="flow-arrow" style="transform: rotate(90deg); margin: 15px 0;">↓</div>
+                    <div class="flow-item">
+                        <h4>2. Değişkenleri Belirleme</h4>
+                        <p>• Bağımsız ve bağımlı değişkenler<br>• Kontrol değişkenleri<br>• Moderator ve mediator değişkenler</p>
+                    </div>
+                    <div class="flow-arrow" style="transform: rotate(90deg); margin: 15px 0;">↓</div>
+                    <div class="flow-item">
+                        <h4>3. İlişki Yönü Belirleme</h4>
+                        <p>• Pozitif/negatif ilişki<br>• Neden-sonuç bağlantısı<br>• Etki büyüklüğü tahmini</p>
+                    </div>
+                    <div class="flow-arrow" style="transform: rotate(90deg); margin: 15px 0;">↓</div>
+                    <div class="flow-item">
+                        <h4>4. Hipotez Cümlesini Yazma</h4>
+                        <p>• Net ve açık ifade<br>• Test edilebilir form<br>• İstatistiksel analize uygun</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 13: Araştırma Sorusu Türleri -->
+            <div class="slide">
+                <h2>Araştırma Sorusu Türleri</h2>
+                <div class="hypothesis-grid">
+                    <div class="hypothesis-card">
+                        <h4>Keşfedici Sorular</h4>
+                        <p><strong>Amaç:</strong> Yeni fenomenleri keşfetme</p>
+                        <p><strong>Örnek:</strong> "Sporcu beslenme davranışlarını etkileyen faktörler nelerdir?"</p>
+                        <p><strong>Yöntem:</strong> Kalitatif araştırma, etnografi</p>
+                    </div>
+                    <div class="hypothesis-card">
+                        <h4>Tanımlayıcı Sorular</h4>
+                        <p><strong>Amaç:</strong> Mevcut durumu betimleme</p>
+                        <p><strong>Örnek:</strong> "Türk basketbolcuların antropometrik özellikleri nelerdir?"</p>
+                        <p><strong>Yöntem:</strong> Betimsel araştırma, tarama</p>
+                    </div>
+                    <div class="hypothesis-card">
+                        <h4>Açıklayıcı Sorular</h4>
+                        <p><strong>Amaç:</strong> Neden-sonuç ilişkilerini açıklama</p>
+                        <p><strong>Örnek:</strong> "Antrenman türü performansı nasıl etkiler?"</p>
+                        <p><strong>Yöntem:</strong> Deneysel araştırma</p>
+                    </div>
+                    <div class="hypothesis-card">
+                        <h4>Tahmin Edici Sorular</h4>
+                        <p><strong>Amaç:</strong> Gelecekteki sonuçları tahmin etme</p>
+                        <p><strong>Örnek:</strong> "Hangi faktörler yaralanma riskini öngörebilir?"</p>
+                        <p><strong>Yöntem:</strong> Longitudinal araştırma</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 14: Değişken Ölçüm Düzeyleri -->
+            <div class="slide">
+                <h2>Değişken Ölçüm Düzeyleri</h2>
+                <table class="variable-table">
+                    <thead>
+                        <tr>
+                            <th>Ölçüm Düzeyi</th>
+                            <th>Özellikler</th>
+                            <th>Spor Bilimlerinde Örnekler</th>
+                            <th>İstatistiksel Analiz</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Nominal</strong></td>
+                            <td>Kategorik, sıralama yok</td>
+                            <td>Cinsiyet, spor branşı, yaralanma türü</td>
+                            <td>Ki-kare, frekans</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ordinal</strong></td>
+                            <td>Kategorik, sıralama var</td>
+                            <td>Likert ölçek, yarışma sıralaması</td>
+                            <td>Mann-Whitney U</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Interval</strong></td>
+                            <td>Eşit aralıklar, mutlak sıfır yok</td>
+                            <td>Sıcaklık (°C), test puanları</td>
+                            <td>t-testi, ANOVA</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ratio</strong></td>
+                            <td>Eşit aralıklar, mutlak sıfır var</td>
+                            <td>Boy, kilo, süre, kuvvet</td>
+                            <td>Tüm parametrik testler</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+            <!-- Slide 16: Problem Belirleme Hatalarını Önleme -->
+            <div class="slide">
+                <h2>Problem Belirleme Hatalarını Önleme</h2>
+                <div class="hypothesis-grid">
+                    <div class="hypothesis-card">
+                        <h4>Çok Geniş Problem</h4>
+                        <p><strong>Hata:</strong> "Spor performansını etkileyen faktörler"</p>
+                        <p><strong>Düzeltme:</strong> "Elite futbolcularda pliometrik antrenmanın sprint performansına etkisi"</p>
+                    </div>
+                    <div class="hypothesis-card">
+                        <h4>Belirsiz Kavramlar</h4>
+                        <p><strong>Hata:</strong> "Antrenman etkisi"</p>
+                        <p><strong>Düzeltme:</strong> "8 haftalık kuvvet antrenmanının 1RM squat değerine etkisi"</p>
+                    </div>
+                    <div class="hypothesis-card">
+                        <h4>Test Edilemez Problem</h4>
+                        <p><strong>Hata:</strong> "En iyi antrenman yöntemi hangisidir?"</p>
+                        <p><strong>Düzeltme:</strong> "HIIT ve sürekli egzersizin VO₂ maks'a etkisinin karşılaştırılması"</p>
+                    </div>
+                    <div class="hypothesis-card">
+                        <h4>Teorik Temelsizlik</h4>
+                        <p><strong>Hata:</strong> Literatüre dayanmayan rastgele hipotezler</p>
+                        <p><strong>Düzeltme:</strong> Mevcut teorilere dayalı hipotez geliştirme</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 17: Türkiye'de Spor Bilimleri Araştırma Öncelikleri -->
+            <div class="slide">
+                <h2>Türkiye'de Spor Bilimleri Araştırma Öncelikleri</h2>
+                <div class="concept-box">
+                    <h3>YÖK ve TÜBİTAK Öncelikli Alanları</h3>
+                    <ul>
+                        <li><span class="highlight">Sporcu Sağlığı:</span> Yaralanma önleme ve rehabilitasyon</li>
+                        <li><span class="highlight">Performans Optimizasyonu:</span> Elite sporcu geliştirme</li>
+                        <li><span class="highlight">Spor Teknolojileri:</span> Wearable teknolojiler ve analiz sistemleri</li>
+                        <li><span class="highlight">Halk Sağlığı:</span> Fiziksel aktivite ve obezite</li>
+                        <li><span class="highlight">Spor Ekonomisi:</span> Sportin ekonomik etkileri</li>
+                    </ul>
+                </div>
+                <div class="important-note">
+                    <p><strong>Ulusal Araştırma Platformları:</strong> TÜBİTAK SOBAG, YÖK Tez Merkezi, TR Dizin indeksli dergilerde yayın teşvik edilmektedir.</p>
+                </div>
+            </div>
+
+            <!-- Slide 18: Değişkenlerin Operasyonal Tanımlanması -->
+            <div class="slide">
+                <h2>Değişkenlerin Operasyonal Tanımlanması</h2>
+                <div class="concept-box">
+                    <h3>Soyuttan Somuta: Teorik Kavramları Ölçülebilir Hale Getirme</h3>
+                </div>
+                <div class="hypothesis-grid">
+                    <div class="hypothesis-card">
+                        <h4>Fiziksel Performans Kavramı</h4>
+                        <p><strong>Teorik Kavram:</strong> "Aerobik kapasite"</p>
+                        <p><strong>Operasyonal Tanım:</strong> VO₂ maks (ml/kg/dk)</p>
+                        <p><strong>Ölçüm Yöntemi:</strong> Bruce protokolü treadmill testi</p>
+                        <p><strong>Kritik Noktalar:</strong> Laboratuvar koşulları, kalibrasyon</p>
+                    </div>
+                    <div class="hypothesis-card">
+                        <h4>Psikolojik Kavram</h4>
+                        <p><strong>Teorik Kavram:</strong> "Motivasyon"</p>
+                        <p><strong>Operasyonal Tanım:</strong> SMS-28 ölçek puanı</p>
+                        <p><strong>Ölçüm Yöntemi:</strong> 7'li Likert tipi ölçek</p>
+                        <p><strong>Kritik Noktalar:</strong> Geçerlik, güvenilirlik, kultürel uyum</p>
+                    </div>
+                    <div class="hypothesis-card">
+                        <h4>Biyomekanik Kavram</h4>
+                        <p><strong>Teorik Kavram:</strong> "Sıçrama gücü"</p>
+                        <p><strong>Operasyonal Tanım:</strong> Dikey sıçrama yüksekliği (cm)</p>
+                        <p><strong>Ölçüm Yöntemi:</strong> Kuvvet platformu, Vertec testi</p>
+                        <p><strong>Kritik Noktalar:</strong> Standart ısınma, teknik tutarlılık</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 19: Araştırma Probleminden Hipoteze Geçiş -->
+            <div class="slide">
+                <h2>Araştırma Probleminden Hipoteze Geçiş</h2>
+                <div class="concept-box">
+                    <h3>Örnek Uygulama: Futbolda Sprint Performansı</h3>
+                    <div class="problem-flow">
+                        <div class="flow-item">
+                            <h4>Problem</h4>
+                            <p>"Futbolcularda sprint performansını nasıl artırabiliriz?"</p>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-item">
+                            <h4>Spesifikleştirme</h4>
+                            <p>"Pliometrik antrenman sprint performansını etkiler mi?"</p>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-item">
+                            <h4>Hipotez</h4>
+                            <p>"8 haftalık pliometrik antrenman 30m sprint süresini azaltır"</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="important-note">
+                    <p><strong>Operasyonel Tanımlar:</strong></p>
+                    <ul>
+                        <li>Pliometrik antrenman: Haftada 3 seans, 8 hafta süreyle</li>
+                        <li>Sprint performansı: 30m sprint süresi (saniye)</li>
+                        <li>Katılımcılar: 18-25 yaş arası erkek futbolcular</li>
+                    </ul>
+                </div>
+            </div>
+
+
+            <!-- Slide 21: Problem-Hipotez-Değişken Örnek Uygulaması -->
+            <div class="slide">
+                <h2>Problem-Hipotez-Değişken Örnek Uygulaması</h2>
+                <div class="concept-box">
+                    <h3>Spor Bilimlerinden Gerçek Örnek</h3>
+                </div>
+                <div class="problem-flow" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div class="flow-item">
+                        <h4>1. PROBLEM BELİRLEME</h4>
+                        <p><strong>Gözlem:</strong> Genç futbolcuların sprint performansları düşük</p>
+                        <p><strong>Literatür:</strong> Pliometrik antrenman sprint gücünü artırıyor</p>
+                        <p><strong>Problem Cümlesi:</strong> "Genç futbolcularda pliometrik antrenmanın sprint performansına etkisi nedir?"</p>
+                    </div>
+                    <div class="flow-item">
+                        <h4>2. HİPOTEZ GELİŞTİRME</h4>
+                        <p><strong>H₁:</strong> "8 haftalık pliometrik antrenman programı genç futbolcuların 30m sprint sürelerini %10 oranında iyileştirir"</p>
+                        <p><strong>H₀:</strong> "Pliometrik antrenman ile kontrol grubu arasında sprint performansında anlamlı fark yoktur"</p>
+                    </div>
+                    <div class="flow-item">
+                        <h4>3. DEĞİŞKEN TANIMLAMA</h4>
+                        <p><strong>Bağımsız Değişken:</strong> Pliometrik antrenman programı</p>
+                        <p><strong>Bağımlı Değişken:</strong> 30m sprint süresi (saniye)</p>
+                        <p><strong>Kontrol Değişkenleri:</strong> Yaş, boy, kilo, antrenman geçmişi</p>
+                    </div>
+                    <div class="flow-item">
+                        <h4>4. OPERASYONALIZASYON</h4>
+                        <p><strong>Pliometrik Antrenman:</strong> Haftada 3 seans, 45 dk, 8 hafta</p>
+                        <p><strong>Sprint Testi:</strong> 30m maksimal koşu, fotosel kronometresi</p>
+                        <p><strong>Örneklem:</strong> 16-18 yaş erkek futbolcu, n=40</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 24: Araştırma Süreci Aşamaları -->
+            <div class="slide">
+                <h2>Araştırma Sürecinin Temel Aşamaları</h2>
+                <div class="problem-flow" style="flex-direction: column; align-items: stretch;">
+                    <div class="flow-item">
+                        <h4>1. Araştırmada Ortaya Konan Probleme İlişkin Cümle</h4>
+                        <p><strong>Tanım ve Önem:</strong> Araştırma problemi, çalışma boyunca ele alınacak temel sorunu ifade eder</p>
+                        <p><strong>Örnek:</strong> "Türkiye'de üniversite öğrencilerinin fiziksel aktivite düzeyleri nelerdir?"</p>
+                    </div>
+                    <div class="flow-arrow" style="transform: rotate(90deg); margin: 15px 0;">↓</div>
+                    <div class="flow-item">
+                        <h4>2. Keşfedici Bir Soruyu ya da Hipotezi Biçimlendirmek</h4>
+                        <p><strong>Keşif:</strong> Açık uçlu sorular oluşturulur</p>
+                        <p><strong>Hipotez:</strong> Test edilebilir bir önerme veya varsayım belirlenir</p>
+                        <p><strong>Önem:</strong> Araştırmanın odak noktasını daraltır ve yöntemi şekillendirir</p>
+                    </div>
+                    <div class="flow-arrow" style="transform: rotate(90deg); margin: 15px 0;">↓</div>
+                    <div class="flow-item">
+                        <h4>3. İlgili Literatürün Gözden Geçirilmesi</h4>
+                        <p><strong>Amaç:</strong> Konuyla ilgili mevcut bilgi birikimini anlamak, boşlukları tespit etmek</p>
+                        <p><strong>Yöntem:</strong> Akademik makaleler, kitaplar ve diğer güvenilir kaynaklar sistematik olarak taranır</p>
+                        <p><strong>Sonuç:</strong> Literatür taraması, hem araştırmanın önemini vurgular hem de çalışmanın özgünlüğünü garanti altına alır</p>
+                    </div>
+                    <div class="flow-arrow" style="transform: rotate(90deg); margin: 15px 0;">↓</div>
+                    <div class="flow-item">
+                        <h4>4. Örneklem Seçimi</h4>
+                        <p><strong>Tanım:</strong> Araştırmanın odaklandığı grup veya bireylerin seçim sürecidir</p>
+                        <p><strong>Olasılıklı Örnekleme:</strong> Her bireyin seçilme şansı eşittir (rastgele örnekleme)</p>
+                        <p><strong>Önem:</strong> Doğru bir örneklem, genelleştirilebilir sonuçlar elde edilmesini sağlar</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 25: Araştırma Sürecinin Devamı -->
+            <div class="slide">
+                <h2>Araştırma Süreci Aşamaları (Devam)</h2>
+                <div class="problem-flow" style="flex-direction: column; align-items: stretch;">
+                    <div class="flow-item">
+                        <h4>5. Veri Toplama Araçlarının Düzenlenmesi</h4>
+                        <p><strong>Araçlar:</strong> Anket, görüşme formu, testler, gözlem formları veya cihazlar gibi çeşitli araçlar kullanılabilir</p>
+                        <p><strong>Geçerlik ve Güvenilirlik:</strong> Veri toplama araçlarının bilimsel olarak geçerli ve güvenilir olması gerekir</p>
+                        <p><strong>Hazırlık:</strong> Araçlar pilot çalışma ile test edilir ve gerekli düzenlemeler yapılır</p>
+                    </div>
+                    <div class="flow-arrow" style="transform: rotate(90deg); margin: 15px 0;">↓</div>
+                    <div class="flow-item">
+                        <h4>6. Uygulama</h4>
+                        <p><strong>Planlama:</strong> Araştırmanın kimler üzerinde, nerede ve ne zaman yapılacağı belirlenir</p>
+                        <p><strong>Uygulama Süreci:</strong> Anketlerin doldurulması, görüşmelerin yapılması veya deneylerin gerçekleştirilmesi</p>
+                        <p><strong>Önem:</strong> Bu aşama, verilerin doğru şekilde toplanmasını sağlar</p>
+                    </div>
+                    <div class="flow-arrow" style="transform: rotate(90deg); margin: 15px 0;">↓</div>
+                    <div class="flow-item">
+                        <h4>7. Veri Analizi</h4>
+                        <p><strong>Nicel Araştırmalar için:</strong> İstatistiksel analiz (korelasyon, t-testi, regresyon)</p>
+                        <p><strong>Nitel Araştırmalar için:</strong> Tematik analiz, içerik analizi</p>
+                        <p><strong>Araçlar:</strong> SPSS, R, NVivo gibi yazılımlar analiz için kullanılabilir</p>
+                        <p><strong>Amaç:</strong> Hipotezlerin test edilmesi ve bulgularının yorumlanmasıdır</p>
+                    </div>
+                    <div class="flow-arrow" style="transform: rotate(90deg); margin: 15px 0;">↓</div>
+                    <div class="flow-item">
+                        <h4>8. Raporlaştırma</h4>
+                        <p><strong>Yapı:</strong> Giriş, yöntem, bulgular, sonuç ve öneriler bölümlerinden oluşur</p>
+                        <p><strong>Amaç:</strong> Araştırmanın diğer araştırmacılar, kurumlar veya kamuoyu ile paylaşılması</p>
+                        <p><strong>Sonuç:</strong> Araştırma raporları, bilimsel bilgi birikimine katkı sağlar</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 26: Problem Türüne Göre Araştırma Tasarımı -->
+            <div class="slide">
+                <h2>Problem Türüne Göre Araştırma Tasarımı</h2>
+                <table class="variable-table">
+                    <thead>
+                        <tr>
+                            <th>Problem Türü</th>
+                            <th>Araştırma Tasarımı</th>
+                            <th>Örneklem Seçimi</th>
+                            <th>Veri Toplama</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Keşfedici</strong></td>
+                            <td>Kalitatif, Fenomenoloji</td>
+                            <td>Amaçlı örnekleme</td>
+                            <td>Görüşme, Gözlem</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tanımlayıcı</strong></td>
+                            <td>Betimsel, Tarama</td>
+                            <td>Olasılıklı örnekleme</td>
+                            <td>Anket, Test</td>
+                        </tr>
+                        <tr>
+                            <td><strong>İlişkisel</strong></td>
+                            <td>Korelasyonel</td>
+                            <td>Tabakalı örnekleme</td>
+                            <td>Ölçek, Test bataryası</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Nedensel</strong></td>
+                            <td>Deneysel, Yarı-deneysel</td>
+                            <td>Rastgele atama</td>
+                            <td>Kontrollü ölçümler</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Slide 22: Spor Bilimlerinde Çok Değişkenli Araştırma -->
+            <div class="slide">
+                <h2>Çok Değişkenli Araştırma Yaklaşımları</h2>
+                <div class="concept-box">
+                    <h3>Kompleks Modellerin Avantajları</h3>
+                    <ul>
+                        <li><span class="highlight">Gerçek Yaşamı Yansıtma:</span> Çoklu faktör etkileşimi</li>
+                        <li><span class="highlight">Kontrol Artırımı:</span> Konfounding değişkenlerin kontrolü</li>
+                        <li><span class="highlight">Mediasyon Analizi:</span> Aracı değişken etkileri</li>
+                        <li><span class="highlight">Moderasyon Analizi:</span> Etkileşim etkilerinin incelenmesi</li>
+                    </ul>
+                </div>
+                <div class="important-note">
+                    <p><strong>Örnek Model:</strong> Antrenman (X) → Motivasyon (M) → Performans (Y)<br>
+                    Yaş ve cinsiyet moderator değişkenler olarak eklenerek etkileşim etkileri incelenebilir.</p>
+                </div>
+            </div>
+
+
+            <!-- Slide 24: Araştırma Problemi Örnekleri - Türk Literatürü -->
+            <div class="slide">
+                <h2>Türk Spor Bilimleri Literatüründen Örnekler</h2>
+                <div class="concept-box">
+                    <h3>Başarılı Türk Araştırma Örnekleri</h3>
+                    <p><strong>Problem:</strong> "Türk genç futbolcularında çeviklik performansını etkileyen faktörler"</p>
+                    <p><strong>Hipotez:</strong> "8 haftalık SAQ antrenmanı çeviklik testi sonuçlarını %15 oranında iyileştirir"</p>
+                    <p><strong>Bulgular:</strong> DergiPark'ta yayınlanan çalışmada hipotez desteklendi</p>
+                </div>
+                <div class="concept-box">
+                    <h3>Türkiye Spesifik Araştırma Konuları</h3>
+                    <ul>
+                        <li><span class="highlight">Yağlı Güreş:</span> Geleneksel sporların biyomekaniği</li>
+                        <li><span class="highlight">Yüksek İrtifa:</span> Türkiye coğrafyasının performansa etkisi</li>
+                        <li><span class="highlight">Kültürel Faktörler:</span> Sporcu motivasyonunda kültürel etkenler</li>
+                        <li><span class="highlight">Beslenme Alışkanlıkları:</strong> Türk sporcuların diyet paternleri</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Slide 25: Problemden Hipoteze Geçiş Süreci -->
+            <div class="slide">
+                <h2>Problemden Hipoteze Geçiş Süreci</h2>
+                <div class="problem-flow" style="flex-direction: column; align-items: stretch;">
+                    <div class="flow-item">
+                        <h4>1. Problem Tanımlama</h4>
+                        <p>"Genç futbolcularda sprint performansı neden düşük?"</p>
+                    </div>
+                    <div class="flow-arrow" style="transform: rotate(90deg); margin: 15px 0;">↓</div>
+                    <div class="flow-item">
+                        <h4>2. Değişkenleri Belirleme</h4>
+                        <p><strong>Bağımsız:</strong> Pliometrik antrenman programı<br>
+                        <strong>Bağımlı:</strong> Sprint performansı (10m, 30m süreleri)</p>
+                    </div>
+                    <div class="flow-arrow" style="transform: rotate(90deg); margin: 15px 0;">↓</div>
+                    <div class="flow-item">
+                        <h4>3. Hipotez Oluşturma</h4>
+                        <p>"8 haftalık pliometrik antrenman programı genç futbolcuların sprint performansını %10 oranında artırır"</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 26: Hipotez ve Değişken İlişkisi -->
+            <div class="slide">
+                <h2>Hipotez ve Değişken İlişkisi</h2>
+                <div class="concept-box">
+                    <h3>Hipotez İçindeki Değişken Tanımlamaları</h3>
+                    <p>Her hipotez en az iki değişken arasındaki ilişkiyi tanımlar:</p>
+                </div>
+                <div class="hypothesis-grid">
+                    <div class="hypothesis-card">
+                        <h4>Örnek: Antrenman ve Performans</h4>
+                        <p><strong>Hipotez:</strong> "YÜAT antrenmanı VO₂ maks değerini artırır"</p>
+                        <p><strong>Bağımsız Değişken:</strong> HIIT antrenman programı</p>
+                        <p><strong>Bağımlı Değişken:</strong> VO₂ maks (ml/kg/dk)</p>
+                        <p><strong>Kontrol Değişkenleri:</strong> Yaş, cinsiyet, antrenman geçmişi</p>
+                    </div>
+                    <div class="hypothesis-card">
+                        <h4>Örnek: Beslenme ve Toparlanma</h4>
+                        <p><strong>Hipotez:</strong> "Protein takviyesi kas hasarı belirteçlerini azaltır"</p>
+                        <p><strong>Bağımsız Değişken:</strong> Protein takviyesi (gr/kg)</p>
+                        <p><strong>Bağımlı Değişken:</strong> CK ve LDH değerleri</p>
+                        <p><strong>Kontrol Değişkenleri:</strong> Antrenman yoğunluğu, hidrasyon</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 27: Araştırma Süreci Entegrasyonu -->
+            <div class="slide">
+                <h2>Araştırma Süreci Entegrasyonu</h2>
+                <div class="concept-box">
+                    <h3>Problem → Hipotez → Değişken → Test</h3>
+                </div>
+                <div class="problem-flow" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div class="flow-item">
+                        <h4>Süreç Adımları</h4>
+                        <p>1. <strong>Problem belirleme:</strong> Gözlem ve literatür<br>
+                        2. <strong>Araştırma sorusu:</strong> Spesifik ve ölçülebilir<br>
+                        3. <strong>Hipotez geliştirme:</strong> Test edilebilir önerme<br>
+                        4. <strong>Değişken tanımlama:</strong> Operasyonalizasyon<br>
+                        5. <strong>Veri toplama:</strong> Ölçüm ve kayıt<br>
+                        6. <strong>Analiz:</strong> İstatistiksel test</p>
+                    </div>
+                    <div class="flow-item">
+                        <h4>Spor Bilimleri Örneği</h4>
+                        <p><strong>Problem:</strong> Sakatlık oranları yüksek<br>
+                        <strong>Soru:</strong> Core antrenmanı sakatlıkları azaltır mı?<br>
+                        <strong>Hipotez:</strong> Core antrenmanı sakatlık riskini %30 azaltır<br>
+                        <strong>Bağımsız:</strong> Core antrenman programı<br>
+                        <strong>Bağımlı:</strong> Sakatlık insidansı<br>
+                        <strong>Test:</strong> Ki-kare testi</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 28: Özet ve Sonuç -->
+            <div class="slide">
+                <h2>Özet ve Sonuç</h2>
+                <div class="concept-box">
+                    <h3>Temel Çıkarımlar</h3>
+                    <ul>
+                        <li>Araştırma problemi <span class="highlight">bilimsel araştırmanın temelini</span> oluşturur</li>
+                        <li>İyi formüle edilmiş problem <span class="highlight">araştırmanın başarısını</span> belirler</li>
+                        <li>Hipotez <span class="highlight">probleme geçici çözüm önerir</span> ve araştırmayı yönlendirir</li>
+                        <li>Değişkenlerin doğru tanımlanması <span class="highlight">geçerli sonuçlar</span> için kritiktir</li>
+                        <li>Operasyonalizasyon <span class="highlight">teorik kavramları ölçülebilir</span> hale getirir</li>
+                        <li>Problem-hipotez-değişken ilişkisi <span class="highlight">araştırmanın temel mantığını</span> oluşturur</li>
+                    </ul>
+                </div>
+                <div class="important-note">
+                    <p><strong>Gelecek Hafta:</strong> Literatür tarama yöntemleri ve sistematik derleme süreçlerini inceleyeceğiz. YÖK Tez, DergiPark ve TR Dizin kullanımı detaylandırılacak.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar" id="sidebar">
+        <div id="notes-content">
+            <h3>Ders Notları</h3>
+            <p>Bu bölümde her slayt için detaylı açıklamalar yer almaktadır.</p>
+        </div>
+    </div>
+
+    <button class="toggle-sidebar" id="toggleSidebar" title="Notları Aç/Kapat">📝</button>
+
+    <div class="controls">
+        <button class="btn" id="prevBtn" onclick="prevSlide()">◀ Önceki</button>
+        <button class="btn" id="nextBtn" onclick="nextSlide()">Sonraki ▶</button>
+    </div>
+    <div class="progress">1 / 25</div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        const slideNotes = [
+            {
+                title: "Hafta 3 Giriş: Araştırma Problemi ve Hipotez",
+                content: `
+                    <p><strong>Araştırma Problemi ve Hipotez</strong></p>
+                    <p>Bu hafta spor bilimlerinde araştırma problemlerinin nasıl belirleneceği ve hipotezlerin nasıl geliştirileceği konularını inceleyeceğiz.</p>
+                    <p><strong>Temel Konular:</strong> Problem belirleme, hipotez formülasyonu, değişken tanımlama ve operasyonalizasyon süreçlerini kapsayan kapsamlı bir yaklaşım sunulmaktadır.</p>
+                    <p><strong>Bilimsel Yöntemin Temeli:</strong> Araştırma problemi belirleme süreci, tüm bilimsel araştırmaların başlangıç noktasıdır. Doğru tanımlanmış bir problem, araştırmanın başarısını büyük ölçüde belirler.</p>
+                `
+            },
+            {
+                title: "Spor Bilimlerinde Genel Araştırma Alanları",
+                content: `
+                    <p><strong>Fizyolojik Araştırmalar</strong></p>
+                    <p>Sporcuların fizyolojik tepkilerinin analizi, modern spor bilimlerinin temel araştırma alanlarından biridir. Kardiyorespiratuvar sistem analizi, VO₂ maks ölçümleri, laktat eşiği, anaerobik güç değerlendirmeleri bu alanın temel yöntemleridir.</p>
+                    <p><strong>Biyomekanik Araştırmalar</strong></p>
+                    <p>3B hareket analizi sistemleri (VICON, Qualysis) kullanılarak sporcuların hareket paternleri incelenir. Kuvvet platformları ile kinetik veriler, yüksek hızlı kameralar ile kinematik veriler elde edilir. Bu veriler yaralanma önleme ve teknik eniyilemesinde kullanılır.</p>
+                    <p><strong>Beslenme ve Ergojenik Yardımlar</strong></p>
+                    <p>Sporcu beslenmesi, performans artırıcı maddeler, sıvı dengesinin performansa etkileri araştırılır. Türkiye'de beslenme alışkanlıkları ve geleneksel besinlerin spor performansına etkisi özel ilgi alanıdır.</p>
+                `
+            },
+            {
+                title: "Araştırma Problemi Nedir?",
+                content: `
+                    <p><strong>Araştırma Probleminin Tanımı ve Önemi</strong></p>
+                    <p>Araştırma problemi, bilimsel yöntemlerle çözülmesi gereken, açık ve net bir şekilde formüle edilmiş spesifik sorudur. Spor bilimlerinde problemler genellikle performans artırımı, yaralanma önleme, antrenman optimizasyonu, teknolojik yenilikler gibi konularda ortaya çıkar.</p>
+                    <p><strong>Problem Belirleme Süreci</strong></p>
+                    <p>Gözlemden başlayarak, problemin spesifik tanımlanması, araştırma yapılması ve çözüm bulunması süreçleri takip edilir. Bu süreç, sistematik ve bilimsel yöntemlere dayalı olarak, objektif kriterlerle yürütülmelidir.</p>
+                    <p><strong>Spor Bilimlerindeki Örnek Süreç:</strong> Sahada görülen performans düşüklüğü → Nedenlerinin araştırılması → Bilimsel yöntemlerle test edilmesi → Çözüm önerileri geliştirilmesi.</p>
+                `
+            },
+            {
+                title: "İyi Bir Araştırma Probleminin Özellikleri",
+                content: `
+                    <p><strong>Spesifiklik ve Net Tanımlama</strong></p>
+                    <p>Araştırma problemi belirsizlik içermemeli, net ve açık bir şekilde ifade edilmelidir. "Antrenmanın etkisi" gibi genel ifadeler yerine "8 haftalık pliometrik antrenmanın genç futbolcularda dikey sıçrama performansına etkisi" gibi spesifik tanımlamalar tercih edilir.</p>
+                    <p><strong>Ölçülebilirlik ve Test Edilebilirlik</strong></p>
+                    <p>Problem, mevcut bilimsel yöntemler ve araçlarla test edilebilir olmalıdır. Ölçüm araçlarının geçerliliği ve güvenirliliği önceden belirlenmiş olmalı, lab imkanları ve teknolojik altyapı uygun olmalıdır.</p>
+                    <p><strong>Önemlilik ve Etik Uygunluk</strong></p>
+                    <p>Araştırma, bilimsel bilgiye katkı sağlamalı, etik kurallara uygun olmalı, katılımcılara zarar vermemeli ve pratik uygulamalarda fayda sağlamalıdır. Gerçekleştirilebilir olmalı ve mevcut kaynaklarla çözülebilir olmalıdır.</p>
+                `
+            },
+            {
+                title: "Araştırma Problem Türleri",
+                content: `
+                    <p><strong>Tanımlayıcı Problemler (Descriptive)</strong></p>
+                    <p>Mevcut durumu betimlemeyi amaçlayan problemlerdir. Spor bilimlerinde sporcu profillerinin çıkarılması, beslenme alışkanlıklarının belirlenmesi, antropometrik özelliklerin tanımlanması gibi araştırmalar bu kategoriye girer. "Ne?" sorusuna yanıt arar.</p>
+                    <p><strong>İlişkisel Problemler (Correlational)</strong></p>
+                    <p>Değişkenler arasındaki ilişkileri inceler. Antrenman yoğunluğu ile yaralanma riski arasındaki ilişki, beslenme durumu ile performans arasındaki korelasyon, motivasyon ile başarı arasındaki bağlantı gibi araştırmalar örnektir.</p>
+                    <p><strong>Nedensel Problemler (Causal)</strong></p>
+                    <p>Neden-sonuç ilişkilerini araştırır. Genellikle deneysel araştırma tasarımları kullanılır ve kontrol grupları ile çalışılır. Pliometrik antrenmanın sprint performansına etkisi, protein takviyesinin kas gelişimine etkisi gibi araştırmalar bu gruba girer.</p>
+                `
+            },
+            {
+                title: "Hipotez Nedir?",
+                content: `
+                    <p><strong>Hipotezin Bilimsel Tanımı ve Önemi</strong></p>
+                    <p>Hipotez, araştırma problemine yönelik geçici bir çözüm önerisi olan, test edilebilir bilimsel önermedir. Spor bilimlerinde hipotezler genellikle performans değişikliği, fizyolojik adaptasyonlar, davranışsal değişimler veya teknolojik yeniliklerin etkinliği hakkındadır.</p>
+                    <p><strong>Hipotezin Temel Özellikleri</strong></p>
+                    <p>Test edilebilir olmalı: Bilimsel yöntemlerle sınanabilir, net ve açık ifade edilmeli, mevcut bilgi ve teorilere dayanmalı, en az iki değişken arasındaki ilişkiyi belirtmeli ve araştırma sürecine rehberlik etmelidir.</p>
+                    <p><strong>Teorik Temellendirme</strong></p>
+                    <p>Hipotez, rastgele tahminler yerine, kapsamlı literatür taraması sonucu elde edilen bilgiler ışığında, mevcut teoriler ve önceki araştırma bulgularına dayanarak oluşturulmalıdır.</p>
+                `
+            },
+            {
+                title: "Hipotez Türleri",
+                content: `
+                    <p><strong>Null Hipotez (H₀) ve Alternatif Hipotez (H₁)</strong></p>
+                    <p>Null hipotez, değişkenler arasında anlamlı bir fark olmadığını ifade eder ve istatistiksel testlerde reddedilmeye çalışılır. Alternatif hipotez ise anlamlı bir farkın varlığını öne sürer ve araştırmacının asıl iddiasıdır.</p>
+                    <p><strong>Yönlü ve Yönsüz Hipotezler</strong></p>
+                    <p>Yönlü hipotezler, etkinin yönünü (artış/azalış) spesifik olarak belirtir ve daha güçlü istatistiksel testlere olanak sağlar. Yönsüz hipotezler sadece farkın varlığını belirtir, yön hakkında bilgi vermez.</p>
+                    <p><strong>Spor Bilimlerinden Örnekler:</strong> Yönlü: "YÜAT antrenmanı VO₂ maks değerini artırır"; Yönsüz: "Deney ve kontrol grubu arasında performans farkı vardır"</p>
+                `
+            },
+            {
+                title: "Araştırmada Değişkenler",
+                content: `
+                    <p><strong>Bağımsız ve Bağımlı Değişkenler</strong></p>
+                    <p>Bağımsız değişken (Independent Variable) araştırmacı tarafından manipüle edilir ve neden olarak kabul edilir (antrenman programı, beslenme müdahalesi, eğitim müdahalesi). Bağımlı değişken (Dependent Variable) ise sonuç olarak ölçülen değişkendir (performans, VO₂ maks, kas kuvveti, motivasyon).</p>
+                    <p><strong>Kontrol ve Moderator Değişkenler</strong></p>
+                    <p>Kontrol değişkenleri sabit tutularak karıştırıcı etkileri önlenir (yaş, cinsiyet, antrenman geçmişi). Moderator değişkenler, ana ilişkinin gücünü veya yönünü etkiler (genetik özellikler, motivasyon düzeyi, sosyoekonomik durum).</p>
+                    <p><strong>Mediator Değişkenler:</strong> Neden ve sonuç arasındaki mekanizmayı açıklayan ara değişkenlerdir. Örnek: Antrenman → Self-efficacy → Performans.</p>
+                `
+            },
+            {
+                title: "Problem Belirleme Süreci",
+                content: `
+                    <p><strong>Sistematik Yaklaşım ve Adımlar</strong></p>
+                    <p>Problem belirleme süreci sistematik adımlarla gerçekleştirilmelidir. Genel konu alanından başlayarak, kapsamlı literatür taraması yapılır, araştırma boşlukları belirlenir, problem odaklanır ve net bir araştırma sorusu oluşturulur.</p>
+                    <p><strong>Literatür Taramasının Kritik Önemi</strong></p>
+                    <p>Mevcut bilgilerin geniş çaplı ve sistematik taraması, araştırma boşluklarını belirlemeye yardımcı olur. YÖK Tez Merkezi, DergiPark, TR Dizin, PubMed, Google Scholar gibi veri tabanları kullanılmalı, hem Türkçe hem İngilizce kaynaklar taranmalıdır.</p>
+                    <p><strong>Problem Cümlesinin Oluşturulması:</strong> Araştırma sorusu açık, net, test edilebilir ve spesifik olmalıdır. Belirsizlik içeren terimlerden kaçınılmalıdır.</p>
+                `
+            },
+            {
+                title: "Değişkenlerin Operasyonalizasyonu",
+                content: `
+                    <p><strong>Teorik Kavramdan Ölçülebilir Değişkene Dönüşüm</strong></p>
+                    <p>Operasyonalizasyon, soyut ve teorik kavramları somut, ölçülebilir ve test edilebilir hale getirme sürecidir. Örneğin, 'aerobik kapasite' kavramı VO₂ maks (ml/kg/dk) ölçümü ile, 'kas kuvveti' 1RM değeri ile operasyonalize edilir.</p>
+                    <p><strong>Ölçüm Araçlarının Seçimi ve Kriterleri</strong></p>
+                    <p>Seçilen ölçüm araçları geçerli (valid), güvenilir (reliable) ve uygulanabilir olmalıdır. Lab ortamında yapılan testlerin saha koşullarına uyarlanması, teknolojik gelişmelerin takip edilmesi ve uluslararası standartlara uygunluk sağlanması önemlidir.</p>
+                    <p><strong>Modern Teknolojiler:</strong> Wearable sensörler, GPS tracking, accelerometer, gyroscope gibi teknolojiler yeni operasyonalizasyon olanakları sunmaktadır.</p>
+                `
+            },
+            {
+                title: "Spor Bilimlerinde Örnek Araştırma Problemleri",
+                content: `
+                    <p><strong>Disiplinler Arası Yaklaşım ve Entegrasyon</strong></p>
+                    <p>Modern spor bilimleri araştırmaları çok disiplinli yaklaşımlar gerektirir. Fizyoloji, biyomekanik, psikoloji, beslenme ve teknoloji alanı bir arada çalışılarak bütüncül ve kapsamlı sonuçlar elde edilir.</p>
+                    <p><strong>Uygulama Odaklı Araştırma Örnekleri</strong></p>
+                    <p>Fizyoloji: "Yüksek yoğunluklu interval antrenmanın genç futbolcularda aerobik ve anaerobik kapasiteye etkisi"; Biyomekanik: "Farklı koşu tekniklerinin diz eklemi biyomekaniğine etkisi"; Psikoloji: "Zihinsel antrenman tekniklerinin yarışma performansına etkisi"</p>
+                    <p><strong>Pratik Uygulamaya Dönüştürülebilirlik:</strong> Araştırma sonuçları antrenör ve sporcular tarafından uygulanabilir olmalı, sahada kullanılabilir çözümler üretmelidir.</p>
+                `
+            },
+            {
+                title: "Hipotez Formülasyonu Süreci",
+                content: `
+                    <p><strong>Teorik Temellendirme ve Kavramsal Model</strong></p>
+                    <p>Hipotez oluşturma süreci teorik temellendirme ile başlar. Mevcut literatür sistematik olarak incelenerek, teorik çerçeve belirlenir ve kavramsal model geliştirilir. Bu aşama, hipotezin bilimsel dayanığını oluşturur ve araştırmanın teorik kökenlerini netlik kazanır.</p>
+                    <p><strong>Değişken Belirleme ve İlişki Yönü</strong></p>
+                    <p>Bağımsız, bağımlı, kontrol, moderator ve mediator değişkenlerin spesifik tanımlanması, pozitif/negatif ilişki yönünün belirlenmesi, etki büyüklüğünün tahmini yapılır.</p>
+                    <p><strong>Test Edilebilir Form:</strong> Hipotez net ve açık ifadelerle yazılmalı, istatistiksel analize uygun olmalı, operasyonel tanımlar içermeli ve tekrarlanabilir olmalıdır.</p>
+                `
+            },
+            {
+                title: "Araştırma Sorusu Türleri",
+                content: `
+                    <p><strong>Keşfedici vs Açıklayıcı Sorular</strong></p>
+                    <p>Keşfedici sorular yeni fenomenleri keşfetmeye, bilinmeyen ilişkileri ortaya çıkarmaya odaklanırken, açıklayıcı sorular var olan fenomenlerin neden-sonuç ilişkilerini anlamaya, mekanizmaları açıklamaya yöneliktir.</p>
+                    <p><strong>Yöntemsel Uyum ve Tasarım Seçimi</strong></p>
+                    <p>Araştırma sorusunun türü ve doğası, kullanılacak araştırma yöntemini belirler. Keşfedici sorular kalitatif yöntemler, açıklayıcı sorular kantitatif yöntemler, karma sorular ise her iki yaklaşımı gerektirir.</p>
+                    <p><strong>Spor Bilimlerinde Uygulama:</strong> Tanımlayıcı sorular betimsel araştırma, tahmin edici sorular longitudinal araştırma tasarımları kullanır. Her tür farklı istatistiksel analiz gerektirir.</p>
+                `
+            },
+            {
+                title: "Değişken Ölçüm Düzeyleri",
+                content: `
+                    <p><strong>Ölçüm Düzeylerinin İstatistiksel Kritik Önemi</strong></p>
+                    <p>Değişkenlerin ölçüm düzeyi (nominal, ordinal, interval, ratio), kullanılacak istatistiksel analiz yöntemlerini doğrudan belirler. Yanlış analiz seçimi geçersiz sonuçlara, hatalı yorumlara ve bilimsel hatalara yol açabilir.</p>
+                    <p><strong>Spor Bilimlerinde Ölçüm Düzeyleri</strong></p>
+                    <p>Spor bilimlerinde çoğunlukla ratio düzeyinde ölçümler yapılır (performans süreleri, antropometrik ölçümler, fizyolojik parametreler). Bu durum parametrik testlerin kullanımına olanak sağlar ve güçlü istatistiksel analizlere imkan verir.</p>
+                    <p><strong>Analiz Seçim Rehberi:</strong> Nominal → Ki-kare, Ordinal → Mann-Whitney U, Interval/Ratio → t-test, ANOVA gibi parametrik testler kullanılır.</p>
+                `
+            },
+            {
+                title: "Problem Belirleme Hatalarını Önleme",
+                content: `
+                    <p><strong>Sık Yapılan Kritik Hatalar</strong></p>
+                    <p>Çok geniş ve odaksız problemler, belirsiz kavramlar, test edilemez sorular ve teorik temelsizlik en sık karşılaşılan hatalardır. Bu hatalar araştırmanın başarısızlığı, geçersizliği veya anlamsızlığını beraberinde getirir.</p>
+                    <p><strong>Önleme Stratejileri ve En İyi Uygulamalar</strong></p>
+                    <p>Uzman danışmanlığı alma, pilot çalışmalar yürütme, kapsamlı literatür taraması yapma bu hataları önlemeye yardımcı olur. Araştırma probleminin açık, net ve test edilebilir tanımlanması kritik öneme sahiptir.</p>
+                    <p><strong>Kalite Kontrol Listeleri:</strong> Problem spesifik mi? Test edilebilir mi? Etik uygun mu? Kaynaklarla gerçekleştirilebilir mi? Teorik temeli var mı? soruları kontrol listesi olarak kullanılabilir.</p>
+                `
+            },
+            {
+                title: "Türkiye'de Spor Bilimleri Araştırma Öncelikleri",
+                content: `
+                    <p><strong>Ulusal Araştırma Politikaları ve Fonlama</strong></p>
+                    <p>YÖK ve TÜBİTAK tarafından belirlenen öncelikli araştırma alanı, araştırma fonlarının dağılımını ve akademik teşvikleri etkiler. Sporcu sağlığı, performans optimizasyonu, spor teknolojileri ve halk sağlığı öne çıkan alanlar arasındadır.</p>
+                    <p><strong>Yerel ve Kültürel Araştırma Gereksinimleri</strong></p>
+                    <p>Türkiye'nin coğrafi, kültürel, sosyal ve ekonomik özellikleri dikkate alınarak yerel araştırma konuları belirlenmeli. Geleneksel sporlar (yağlı güreş, kırkpınar), Türk sporcu genetik profiller, beslenme kültürü araştırmaları önem kazanmaktadır.</p>
+                    <p><strong>Ulusal Platformlar:</strong> TÜBİTAK SOBAG, YÖK Tez Merkezi, TR Dizin, DergiPark gibi ulusal araştırma platformlarında yayın desteklenmektedir.</p>
+                `
+            },
+            {
+                title: "Araştırma Değişkenlerinin Geçerlik ve Güvenilirlik",
+                content: `
+                    <p><strong>Geçerlik Türleri ve Kriterleri</strong></p>
+                    <p>İç geçerlik (internal validity) neden-sonuç ilişkisinin gerçek doğruluğunu, dış geçerlik (external validity) sonuçların genellenebilirliğini, yapı geçerliliği (construct validity) ölçümün teorik yapıyı ne kadar doğru yansıttığını belirtir.</p>
+                    <p><strong>Güvenilirlik Değerlendirmesi ve Standartlar</strong></p>
+                    <p>Test-tekrar test güvenilirliği zamansal tutarlılık, iç tutarlılık (Cronbach Alpha ≥0.70), gözlemciler arası güvenilirlik farklı araştırmacılar arası uyumu, paralel form güvenilirliği eşdeğer testler arası tutarlılığı ölçer.</p>
+                    <p><strong>Spor Bilimlerinde Önem:</strong> Performans testlerinde güvenilirlik kritiktir çünkü küçük değişiklikler bile sportif başarıyı etkileyebilir.</p>
+                `
+            },
+            {
+                title: "Araştırma Probleminden Hipoteze Geçiş",
+                content: `
+                    <p><strong>Sistematik Dönüşüm Süreci</strong></p>
+                    <p>Geniş ve genel problemden spesifik ve test edilebilir hipoteze geçiş sistematik adımlarla gerçekleştirilir. Problem tanımlandıktan sonra, literatür taraması ile spesifiktleştirme, değişkenlerin netlik kazanır ve son olarak hipotez formüle edilir.</p>
+                    <p><strong>Operasyonel Tanımların Kritik Önemi</strong></p>
+                    <p>Hipotezde yer alan tüm kavram, değişken ve prosedürlerin operasyonel tanımları detaylı olarak yapılmalıdır. Bu tanımlar araştırmanın tekrarlanabilirliğini sağlar, sonuçların karşılaştırılabilirliğini artırır ve bilimsel standartlara uygunluğu garanti eder.</p>
+                    <p><strong>Örnek Dönüşüm:</strong> "Futbolda performans artırımı" → "Pliometrik antrenmanın sprint performansına etkisi" → "8 haftalık pliometrik antrenman programının 18-25 yaş erkek futbolcularda 30m sprint süresine etkisi"</p>
+                `
+            },
+            {
+                title: "Araştırma Tasarımı Seçimi",
+                content: `
+                    <p><strong>Problem Türüne Uygun Tasarım Seçimi</strong></p>
+                    <p>Araştırma probleminin türü ve doğası, kullanılacak araştırma tasarımını doğrudan belirler. Keşfedici problemler kalitatif tasarımlar, nedensel problemler deneysel tasarımlar, tanımlayıcı problemler betimsel tasarımlar gerektirir.</p>
+                    <p><strong>Örneklem Seçimi ve Veri Toplama Uyumu</strong></p>
+                    <p>Örneklem seçim stratejisi (olasılıklı, amaçlı, tabakalı, rastgele) ve veri toplama yöntemleri (anket, test, görüşme, gözlem) araştırma tasarımına uygun olarak seçilmeli ve birbirleriyle tutarlı olmalıdır.</p>
+                    <p><strong>Karma Yöntem Avantajları:</strong> Karma yöntem (mixed-method) araştırmaları, hem kalitatif hem kantitatif verileri birleştirerek daha bütüncül, derin ve güçlü sonuçlar elde edilmesini sağlar.</p>
+                `
+            },
+            {
+                title: "Çok Değişkenli Araştırma Yaklaşımları",
+                content: `
+                    <p><strong>Gerçek Yaşamın Karmaşıklığını Yansıtma</strong></p>
+                    <p>Spor performansı ve sporcu davranışı çok sayıda faktörün karmaşık etkileşimi sonucu ortaya çıkar. Çok değişkenli araştırma modelleri bu karmaşıklığı daha iyi yansıtır ve gerçek yaşam koşullarına daha yakın, uygulanabilir sonuçlar verir.</p>
+                    <p><strong>Mediasyon ve Moderasyon Analizleri</strong></p>
+                    <p>Aracı değişkenler (mediator) neden ve sonuç arasındaki psikolojik veya fizyolojik mekanizmayı açıklarken, düzenleyici değişkenler (moderator) ilişkinin hangi koşullarda daha güçlü olduğunu, hangi gruplarda daha etkili olduğunu belirtir.</p>
+                    <p><strong>Örnek Modeller:</strong> Antrenman → Self-efficacy (mediator) → Performans; Yaşın moderator etkisi antrenman-performans ilişkisinde.</p>
+                `
+            },
+            {
+                title: "Türk Spor Bilimleri Literatüründen Örnekler",
+                content: `
+                    <p><strong>Başarılı Türk Araştırma Örnekleri ve Sonuçları</strong></p>
+                    <p>Türk spor bilimleri literatüründe uluslararası standartlarda başarılı araştırma örnekleri mevcuttur. Çeviklik, dayanıklılık, kuvvet antrenmanı, beslenme, spor psikolojisi gibi konularda yapılan çalışmalar hem YÖK Tez hem de uluslararası dergilerde yayınlanmaktadır.</p>
+                    <p><strong>Kültürel Adaptasyon Çalışmaları</strong></p>
+                    <p>Türkiye'nin benzersiz coğrafi, kültürel ve sosyal koşulları dikkate alınarak yapılan araştırmalar, geleneksel sporlar (yağlı güreş, kırkpınar), yerel beslenme alışkanlıkları ve Türkiye spesifik sporcu profillerinin anlaşılmasında önemli katkılar sağlamaktadır.</p>
+                    <p><strong>Yayın Stratejileri:</strong> DergiPark, TR Dizin, YÖK Tez Merkezi ile uluslararası platformların birlikte kullanılması araştırmanın etkisini artırır.</p>
+                `
+            },
+            {
+                title: "Değişkenlerin Operasyonal Tanımlanması",
+                content: `
+                    <p><strong>Operasyonalizasyon Sürecinin Önemi</strong></p>
+                    <p>Soyut kavramları somut, ölçülebilir ve test edilebilir hale getirme süreci araştırmanın bilimsellik kazanması için kritiktir. "Aerobik kapasite" gibi teorik bir kavram VO₂ maks ölçümü ile, "motivasyon" gibi psikolojik bir kavram geçerli ve güvenilir ölçeklerle operasyonalize edilir.</p>
+                    <p><strong>Spor Bilimlerinde Ölçüm Zorlukları</strong></p>
+                    <p>Fiziksel performans ölçümleri genellikle objektif ve doğrudan ölçülebilirken, psikolojik ve sosyal kavramlar daha karmaşık operasyonalizasyon gerektirir. Kultürel faktörler, dil uyarlaması ve geçerlik çalışmaları önemlidir.</p>
+                    <p><strong>Teknolojik Gelişmeler:</strong> Wearable teknolojiler, GPS tracking, 3B hareket analizi gibi yeni teknolojiler operasyonalizasyon seçeneklerini genişletmektedir.</p>
+                `
+            },
+            {
+                title: "Problemden Hipoteze Geçiş Süreci",
+                content: `
+                    <p><strong>Sistematik Problem-Hipotez İlişkisi</strong></p>
+                    <p>Araştırma problemi tanımlandıktan sonra, bu problemin çözümüne yönelik test edilebilir bir hipotez geliştirilir. Problem "ne" sorusunu sorarken, hipotez bu soruya geçici bir "cevap" önerir.</p>
+                    <p><strong>Değişkenlerin Belirlenmesi</strong></p>
+                    <p>Problem tanımlandıktan sonra, hipotez oluşturmadan önce araştırmada yer alacak değişkenler belirlenir. Bağımsız değişken (müdahale), bağımlı değişken (sonuç) ve kontrol değişkenleri (sabitlenmesi gerekenler) net olarak tanımlanır.</p>
+                    <p><strong>Örnek Süreç:</strong> Gözlemlenen problem → Literatür taraması → Değişken belirleme → Hipotez oluşturma → Operasyonalizasyon → Test tasarımı</p>
+                `
+            },
+            {
+                title: "Hipotez ve Değişken İlişkisi",
+                content: `
+                    <p><strong>Hipotez İçinde Değişkenlerin Rolü</strong></p>
+                    <p>Her hipotez, bağımsız ve bağımlı değişkenler arasındaki ilişkiyi açık şekilde belirtir. "X değişkeni Y değişkenini etkiler" formatında kurulur. Bu ilişki yönlü (artırır/azaltır) veya yönsüz (etkiler) olabilir.</p>
+                    <p><strong>Operasyonalizasyon Süreci</strong></p>
+                    <p>Hipotezdeki değişkenler, ölçülebilir ve gözlemlenebilir hale getirilir. Örneğin "aerobik kapasite" kavramı VO₂ maks ölçümü ile, "kas kuvveti" 1RM testi ile operasyonalize edilir.</p>
+                    <p><strong>Kontrol Değişkenlerinin Önemi:</strong> Hipotez testinde karıştırıcı faktörlerin etkisini minimize etmek için kontrol değişkenleri belirlenir ve sabit tutulur.</p>
+                `
+            },
+            {
+                title: "Araştırma Süreci Entegrasyonu",
+                content: `
+                    <p><strong>Problem-Hipotez-Değişken-Test Döngüsü</strong></p>
+                    <p>Bilimsel araştırma süreci, problemin belirlenmesinden başlayarak hipotez oluşturma, değişken tanımlama, veri toplama ve hipotez testi aşamalarını içeren sistematik bir döngüdür.</p>
+                    <p><strong>Her Aşamanın Birbirine Bağlılığı</strong></p>
+                    <p>Problem net değilse hipotez belirsiz olur. Hipotez test edilebilir değilse değişkenler operasyonalize edilemez. Değişkenler doğru tanımlanmazsa ölçüm hatalı olur. Bu nedenle her aşama bir öncekine sıkı sıkıya bağlıdır.</p>
+                    <p><strong>Spor Bilimlerinde Uygulama:</strong> Sahada gözlemlenen performans problemi → Bilimsel soru → Test edilebilir hipotez → Ölçülebilir değişkenler → Uygun istatistiksel test → Sonuç ve yorum</p>
+                `
+            },
+            {
+                title: "Problem-Hipotez-Değişken Örnek Uygulaması",
+                content: `
+                    <p><strong>Entegre Yaklaşımın Önemi</strong></p>
+                    <p>Bu örnek, araştırma problemi, hipotez ve değişkenlerin nasıl bir bütün oluşturduğunu gösterir. Her aşama bir öncekine dayanarak inşa edilir: problem belirsizse hipotez de belirsiz olur, hipotez test edilebilir değilse değişkenler operasyonalize edilemez.</p>
+                    <p><strong>Uygulama Aşamalarının Kritik Noktalari</strong></p>
+                    <p>1. Problem tanımlama: Spesifik, ölçülebilir ve mevcut kaynaklarla test edilebilir olmalı<br>2. Hipotez geliştirme: Yönlü, test edilebilir ve literatüre dayalı olmalı<br>3. Değişken tanımlama: Net, operasyonel ve kontrol edilebilir olmalı<br>4. Operasyonalizasyon: Geçerli, güvenilir ve uygulanabilir olmalı</p>
+                    <p><strong>Etik ve Pratik Konsiderasyonlar:</strong> Örneklem seçimi, inform consent, güvenlik protokolleri ve saha uygulanabilirliği dikkate alınmalıdır.</p>
+                `
+            },
+            {
+                title: "Hafta 3 Özet ve Gelecek Haftalara Hazırlık",
+                content: `
+                    <p><strong>Problem-Hipotez-Değişken Entegrasyonu</strong></p>
+                    <p>Bu haftada öğrenilen temel kavramlar birbirine sıkı sıkıya bağlıdır: Araştırma problemi bilimsel soruşturmanın başlangıç noktası, hipotez probleme geçici çözüm önerisi, değişkenler hipotezin test edilebilir bileşenleri, operasyonalizasyon ise teorik kavramları ölçülebilir hale getiren süreçtir.</p>
+                    <p><strong>Sistematik Yaklaşımın Önemi</strong></p>
+                    <p>Spor bilimlerinde başarılı araştırma, bu üç temel kavramın doğru sıralama ve mantıkla uygulanmasını gerektirir. Problem belirsizse hipotez de belirsiz olur, hipotez test edilebilir değilse değişkenler operasyonalize edilemez.</p>
+                    <p><strong>Gelecek Haftalara Geçiş:</strong> Bu temeller üzerine literatür tarama, araştırma tasarımı ve metodoloji konularını inşa edeceğiz. YÖK Tez, DergiPark ve uluslararası veri tabanları kullanımı detaylandırılacak.</p>
+                `
+            }
+        ];
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[index].classList.add('active');
+
+            // Reset scroll position when changing slides
+            slides[index].scrollTop = 0;
+
+            document.querySelector('.progress').textContent = `${index + 1} / ${totalSlides}`;
+
+            document.getElementById('prevBtn').disabled = index === 0;
+            document.getElementById('nextBtn').disabled = index === totalSlides - 1;
+
+            const notesContent = document.getElementById('notes-content');
+            const noteData = slideNotes[index] || slideNotes[0];
+            notesContent.innerHTML = `
+                <h3>${noteData.title}</h3>
+                ${noteData.content}
+            `;
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                showSlide(currentSlide);
+            }
+        }
+
+        // Fullscreen functionality
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    console.log(`Error attempting to enable full-screen mode: ${err.message}`);
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        // Double click for fullscreen
+        document.addEventListener('dblclick', function(event) {
+            // Don't trigger fullscreen if clicking on buttons or sidebar
+            if (event.target.closest('button') ||
+                event.target.closest('.sidebar')) {
+                return;
+            }
+            toggleFullscreen();
+        });
+
+        document.addEventListener('keydown', function(event) {
+            const activeSlide = document.querySelector('.slide.active');
+
+            switch(event.key) {
+                case 'ArrowRight':
+                    // Only navigate to next slide if not at bottom of current slide
+                    if (activeSlide && activeSlide.scrollTop + activeSlide.clientHeight >= activeSlide.scrollHeight - 10) {
+                        event.preventDefault();
+                        nextSlide();
+                    }
+                    break;
+                case ' ':
+                    // Space bar scrolls down within slide, or goes to next slide
+                    if (activeSlide && activeSlide.scrollTop + activeSlide.clientHeight < activeSlide.scrollHeight - 10) {
+                        event.preventDefault();
+                        activeSlide.scrollBy(0, 200);
+                    } else {
+                        event.preventDefault();
+                        nextSlide();
+                    }
+                    break;
+                case 'ArrowLeft':
+                    // Only navigate to previous slide if at top of current slide
+                    if (activeSlide && activeSlide.scrollTop <= 10) {
+                        event.preventDefault();
+                        prevSlide();
+                    }
+                    break;
+                case 'ArrowUp':
+                    // Scroll up within slide
+                    if (activeSlide) {
+                        event.preventDefault();
+                        activeSlide.scrollBy(0, -100);
+                    }
+                    break;
+                case 'ArrowDown':
+                    // Scroll down within slide
+                    if (activeSlide) {
+                        event.preventDefault();
+                        activeSlide.scrollBy(0, 100);
+                    }
+                    break;
+                case 'Home':
+                    event.preventDefault();
+                    currentSlide = 0;
+                    showSlide(currentSlide);
+                    break;
+                case 'End':
+                    event.preventDefault();
+                    currentSlide = totalSlides - 1;
+                    showSlide(currentSlide);
+                    break;
+                case 'F11':
+                    event.preventDefault();
+                    toggleFullscreen();
+                    break;
+                case 'Escape':
+                    if (document.fullscreenElement) {
+                        event.preventDefault();
+                        document.exitFullscreen();
+                    }
+                    break;
+            }
+        });
+
+        // Mouse wheel scroll control
+        document.addEventListener('wheel', function(event) {
+            const activeSlide = document.querySelector('.slide.active');
+            if (activeSlide) {
+                // Let the slide handle its own scrolling
+                // Only prevent default if sidebar is active and we're scrolling on slide
+                if (!event.target.closest('.sidebar')) {
+                    // Allow normal wheel scrolling within the slide
+                    return;
+                }
+            }
+        });
+
+        document.getElementById('toggleSidebar').addEventListener('click', function() {
+            const sidebar = document.getElementById('sidebar');
+            const container = document.getElementById('presentationContainer');
+            const toggleBtn = document.getElementById('toggleSidebar');
+            
+            sidebar.classList.toggle('hidden');
+            container.classList.toggle('sidebar-hidden');
+            
+            toggleBtn.innerHTML = sidebar.classList.contains('hidden') ? '📋' : '📝';
+        });
+
+        showSlide(0);
+    </script>
+</body>
+</html>

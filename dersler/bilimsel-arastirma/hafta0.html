@@ -1,0 +1,1596 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hafta 0: Bilimsel Araştırma ve Yöntemleri - Temel Kavramlar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .sidebar {
+            width: 450px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            overflow-y: auto;
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            display: none;
+        }
+
+        .sidebar.active {
+            display: block;
+        }
+
+        .sidebar h3 {
+            color: #ffeb3b;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        .sidebar h4 {
+            color: #81d4fa;
+            margin-bottom: 10px;
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+
+        .sidebar h5 {
+            color: #a5d6a7;
+            margin-bottom: 8px;
+            margin-top: 15px;
+            font-size: 1.0em;
+        }
+
+        .sidebar p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+            font-size: 0.95em;
+            text-align: justify;
+        }
+
+        .sidebar ul {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .sidebar li {
+            margin-bottom: 8px;
+            font-size: 0.9em;
+        }
+
+        .slide {
+            display: none;
+            width: 90%;
+            max-width: 1100px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px 60px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            animation: slideIn 0.6s ease-out;
+            margin: 20px auto;
+            min-height: 70vh;
+            max-height: 85vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        /* Scroll bar styling */
+        .slide::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .slide::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .slide::-webkit-scrollbar-thumb {
+            background: rgba(255, 235, 59, 0.5);
+            border-radius: 10px;
+        }
+
+        .slide::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 235, 59, 0.8);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 3.2em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            background: linear-gradient(45deg, #fff, #e0e0e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h2 {
+            font-size: 2.8em;
+            margin-bottom: 25px;
+            color: #ffeb3b;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        h3 {
+            font-size: 2.2em;
+            margin-bottom: 20px;
+            color: #81d4fa;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        h4 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            color: #a5d6a7;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        p, li {
+            font-size: 1.4em;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        ul {
+            text-align: left;
+            margin: 20px 0;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 12px;
+        }
+
+        .navigation {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 100;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            font-size: 1.1em;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .slide-counter {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 1.1em;
+            backdrop-filter: blur(10px);
+        }
+
+        .fullscreen-btn {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            font-size: 1.2em;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .fullscreen-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .notes-btn {
+            position: absolute;
+            top: 30px;
+            left: 90px;
+            background: rgba(255, 235, 59, 0.2);
+            border: 1px solid rgba(255, 235, 59, 0.3);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            font-size: 1.0em;
+        }
+
+        .notes-btn:hover {
+            background: rgba(255, 235, 59, 0.4);
+            transform: scale(1.05);
+        }
+
+        .notes-btn.active {
+            background: rgba(255, 235, 59, 0.5);
+            font-size: 2em;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, rgba(33, 150, 243, 0.2), rgba(76, 175, 80, 0.2));
+            border-left: 4px solid #2196f3;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, rgba(255, 152, 0, 0.2), rgba(255, 193, 7, 0.2));
+            border-left: 4px solid #ff9800;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .quote-box {
+            background: linear-gradient(135deg, rgba(156, 39, 176, 0.2), rgba(233, 30, 99, 0.2));
+            border-left: 4px solid #9c27b0;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            font-style: italic;
+            backdrop-filter: blur(10px);
+        }
+
+        .definition-box {
+            background: linear-gradient(135deg, rgba(0, 150, 136, 0.2), rgba(76, 175, 80, 0.2));
+            border: 2px solid #009688;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .comparison-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .concept-diagram {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .concept-item {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 10px;
+            min-width: 200px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .concept-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .process-flow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .process-step {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 50px;
+            min-width: 150px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .process-step::after {
+            content: '→';
+            position: absolute;
+            right: -25px;
+            font-size: 2em;
+            color: #ffeb3b;
+        }
+
+        .process-step:last-child::after {
+            display: none;
+        }
+
+        /* Fullscreen styles */
+        :fullscreen {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        :fullscreen h1 { font-size: 4em; }
+        :fullscreen h2 { font-size: 3.2em; }
+        :fullscreen h3 { font-size: 2.5em; }
+        :fullscreen .content { font-size: 1.4em; }
+
+        :-webkit-full-screen {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        :-webkit-full-screen h1 { font-size: 4em; }
+        :-webkit-full-screen h2 { font-size: 3.2em; }
+        :-webkit-full-screen h3 { font-size: 2.5em; }
+        :-webkit-full-screen .content { font-size: 1.4em; }
+    </style>
+</head>
+<body>
+    <div class="main-content">
+        <!-- Slide 1: Başlık -->
+        <div class="slide active">
+            <h1>🎓 Bilimsel Araştırma ve Yöntemleri</h1>
+            <h3 style="color: #81d4fa; margin-bottom: 40px;">Hafta 0: Temel Kavramlar</h3>
+            <div style="background: rgba(255, 255, 255, 0.1); padding: 30px; border-radius: 20px; margin: 30px 0;">
+                <p style="text-align: center; font-size: 1.5em; font-style: italic;">
+                    "Bilim nedir? Bilgi nedir? Araştırma nasıl yapılır?"<br>
+                    <span style="color: #ffeb3b; font-size: 0.8em;">Bu dersin temel taşları...</span>
+                </p>
+            </div>
+
+            <div class="info-box">
+                <h4>📚 Bu Hafta Öğreneceklerimiz:</h4>
+                <ul>
+                    <li>Bilim ve bilgi kavramları</li>
+                    <li>Araştırmanın temel özellikleri</li>
+                    <li>Spor bilimlerinde araştırma</li>
+                    <li>Günlük hayat ve bilimsel düşünce</li>
+                    <li>Araştırma sürecinin temel basamakları</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 2: Bilim Nedir? -->
+        <div class="slide">
+            <h2>🔬 Bilim Nedir?</h2>
+
+            <div class="definition-box">
+                <h4>📖 Basit Tanım</h4>
+                <p><strong>Bilim:</strong> Doğayı ve evreni anlamaya çalışan, sistematik ve düzenli bir çalışma yöntemidir.</p>
+            </div>
+
+            <div class="concept-diagram">
+                <div class="concept-item">
+                    <h4>🎯 Sistematik</h4>
+                    <p>Belli bir düzen içinde</p>
+                </div>
+                <div class="concept-item">
+                    <h4>🔍 Gözlem</h4>
+                    <p>Dikkatli inceleme</p>
+                </div>
+                <div class="concept-item">
+                    <h4>⚡ Test</h4>
+                    <p>Deneme ve kontrol</p>
+                </div>
+                <div class="concept-item">
+                    <h4>📊 Sonuç</h4>
+                    <p>Güvenilir bilgi</p>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <h4>🏃 Spor Bilimi Örneği</h4>
+                <p><em>"Koşucu sporcular neden maratonda daha iyi?"</em> sorusunu sistematik olarak araştırmak bilimdir.</p>
+                <ul>
+                    <li><strong>Gözlem:</strong> Maratoncular diğer sporculardan farklı antrenman yapar</li>
+                    <li><strong>Test:</strong> Farklı antrenman türlerinin etkisini ölç</li>
+                    <li><strong>Sonuç:</strong> Dayanıklılık antrenmanı maratonda başarıyı artırır</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 3: Bilgi Nedir? -->
+        <div class="slide">
+            <h2>🧠 Bilgi Nedir?</h2>
+
+            <div class="definition-box">
+                <h4>📚 Bilgi Türleri</h4>
+                <p>Bilgi, öğrendiğimiz ve bildiklerimizin tümüdür. Ancak her bilgi aynı değerde değildir.</p>
+            </div>
+
+            <div class="comparison-grid">
+                <div class="comparison-item">
+                    <h4>🤔 Günlük Bilgi</h4>
+                    <ul>
+                        <li>Deneyimlerden öğrenilen</li>
+                        <li>"Spor yapmak sağlıklıdır"</li>
+                        <li>Kişisel gözlemler</li>
+                        <li>Bazen yanlış olabilir</li>
+                    </ul>
+                </div>
+                <div class="comparison-item">
+                    <h4>🔬 Bilimsel Bilgi</h4>
+                    <ul>
+                        <li>Araştırmayla elde edilen</li>
+                        <li>"30 dk koşu kalp sağlığını %15 iyileştirir"</li>
+                        <li>Test edilmiş veriler</li>
+                        <li>Güvenilir ve kesin</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <h4>⚠️ Dikkat!</h4>
+                <p>Bilimsel bilgi, sürekli gelişir ve değişebilir. Yeni araştırmalar eskilerini değiştirebilir.</p>
+                <p><strong>Örnek:</strong> Eskiden "yağ yemek zararlı" deniyordu, şimdi "sağlıklı yağlar faydalı" diyoruz.</p>
+            </div>
+        </div>
+
+        <!-- Slide 4: Araştırma Nedir? -->
+        <div class="slide">
+            <h2>🔍 Araştırma Nedir?</h2>
+
+            <div class="definition-box">
+                <h4>📋 Araştırma Tanımı</h4>
+                <p><strong>Araştırma:</strong> Bilinmeyen bir konuyu öğrenmek için sistematik olarak yapılan çalışmadır.</p>
+            </div>
+
+            <div class="process-flow">
+                <div class="process-step">
+                    <h5>❓ Soru</h5>
+                    <p>Merak etme</p>
+                </div>
+                <div class="process-step">
+                    <h5>📖 Araştır</h5>
+                    <p>Bilgi toplama</p>
+                </div>
+                <div class="process-step">
+                    <h5>🧪 Test</h5>
+                    <p>Deneme yapma</p>
+                </div>
+                <div class="process-step">
+                    <h5>📊 Sonuç</h5>
+                    <p>Cevap bulma</p>
+                </div>
+            </div>
+
+            <div class="quote-box">
+                <p>"Araştırma, karanlıkta el yordamıyla yol bulmak değil, ışık yakarak yolu aydınlatmaktır."</p>
+            </div>
+
+            <div class="info-box">
+                <h4>🏈 Spor Araştırması Örneği</h4>
+                <p><strong>Soru:</strong> "Hangi ısınma türü sakatlık riskini azaltır?"</p>
+                <ul>
+                    <li><strong>1. Adım:</strong> Literatürü tarama (ne bilinir?)</li>
+                    <li><strong>2. Adım:</strong> Farklı ısınma türlerini test etme</li>
+                    <li><strong>3. Adım:</strong> Sakatlık sayılarını karşılaştırma</li>
+                    <li><strong>4. Adım:</strong> En etkili yöntemi bulma</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 5: Bilimsel Araştırmanın Özellikleri -->
+        <div class="slide">
+            <h2>⭐ Bilimsel Araştırmanın Özellikleri</h2>
+
+            <div class="concept-diagram">
+                <div class="concept-item">
+                    <h4>🎯 Amaçlı</h4>
+                    <p>Belirli bir soruyu cevaplamak için yapılır</p>
+                </div>
+                <div class="concept-item">
+                    <h4>📏 Ölçülebilir</h4>
+                    <p>Sonuçlar sayılarla ifade edilir</p>
+                </div>
+                <div class="concept-item">
+                    <h4>🔄 Tekrarlanabilir</h4>
+                    <p>Aynı çalışma başkaları tarafından da yapılabilir</p>
+                </div>
+                <div class="concept-item">
+                    <h4>🧐 Tarafsız</h4>
+                    <p>Kişisel düşünceler sonucu etkilemez</p>
+                </div>
+            </div>
+
+            <div class="comparison-grid">
+                <div class="comparison-item" style="background: rgba(255, 0, 0, 0.1);">
+                    <h4>❌ Bilimsel Olmayan</h4>
+                    <ul>
+                        <li>"Bence protein tozu zararlı"</li>
+                        <li>"Herkes farklı, genel kural olmaz"</li>
+                        <li>"Bu çalışma ama kanıtımız yok"</li>
+                        <li>"Sadece benim düşüncem"</li>
+                    </ul>
+                </div>
+                <div class="comparison-item" style="background: rgba(0, 255, 0, 0.1);">
+                    <h4>✅ Bilimsel</h4>
+                    <ul>
+                        <li>"100 sporcu ile test ettik"</li>
+                        <li>"Sonuçları ölçtük ve karşılaştırdık"</li>
+                        <li>"Diğer araştırmacılar da aynı sonucu buldu"</li>
+                        <li>"Verilerle destekliyoruz"</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Günlük Hayat vs Bilimsel Düşünce -->
+        <div class="slide">
+            <h2>🤝 Günlük Hayat Karşı Bilimsel Düşünce</h2>
+
+            <div class="comparison-grid">
+                <div class="comparison-item">
+                    <h4>🏠 Günlük Düşünce</h4>
+                    <ul>
+                        <li><strong>Hızlı:</strong> Çabuk karar verir</li>
+                        <li><strong>Deneyim:</strong> Yaşadıklarına dayanır</li>
+                        <li><strong>Duygusal:</strong> Hisler etkiler</li>
+                        <li><strong>Pratik:</strong> İşe yarar çözüm arar</li>
+                    </ul>
+                    <div class="quote-box" style="margin-top: 15px;">
+                        <p><em>"Bu antrenman bana iyi geldi, sana da iyi gelir"</em></p>
+                    </div>
+                </div>
+                <div class="comparison-item">
+                    <h4>🔬 Bilimsel Düşünce</h4>
+                    <ul>
+                        <li><strong>Sistematik:</strong> Adım adım ilerler</li>
+                        <li><strong>Veriye dayalı:</strong> Ölçümlere güvenir</li>
+                        <li><strong>Tarafsız:</strong> Duygular karışmaz</li>
+                        <li><strong>Genellenebilir:</strong> Herkese uygulanabilir</li>
+                    </ul>
+                    <div class="quote-box" style="margin-top: 15px;">
+                        <p><em>"Bu antrenman 100 kişide test edildi, %80'inde iyileşme görüldü"</em></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <h4>⚖️ İkisine de İhtiyacımız Var!</h4>
+                <p>Günlük hayatta her karar için araştırma yapamayız. Ancak önemli konularda bilimsel düşünce şarttır.</p>
+            </div>
+        </div>
+
+        <!-- Slide 7: Spor Bilimlerinde Araştırma -->
+        <div class="slide">
+            <h2>🏃‍♀️ Spor Bilimlerinde Araştırma</h2>
+
+            <div class="info-box">
+                <h4>🎯 Spor Bilimi Nedir?</h4>
+                <p>İnsan hareketini, egzersizi ve sporu bilimsel yöntemlerle inceleyen disiplindir.</p>
+            </div>
+
+            <div class="concept-diagram">
+                <div class="concept-item">
+                    <h4>💪 Fizyoloji</h4>
+                    <p>Vücut nasıl çalışır?</p>
+                    <small>Kas, kalp, akciğer...</small>
+                </div>
+                <div class="concept-item">
+                    <h4>🧠 Psikoloji</h4>
+                    <p>Zihin nasıl etkiler?</p>
+                    <small>Motivasyon, stres, odaklanma...</small>
+                </div>
+                <div class="concept-item">
+                    <h4>⚙️ Biyomekanik</h4>
+                    <p>Hareket nasıl olur?</p>
+                    <small>Teknik, kuvvet, hız...</small>
+                </div>
+                <div class="concept-item">
+                    <h4>🍎 Beslenme</h4>
+                    <p>Yakıt nasıl sağlanır?</p>
+                    <small>Karbonhidrat, protein, vitamin...</small>
+                </div>
+            </div>
+
+            <div class="quote-box">
+                <p>"Spor bilimi, insan performansının sırlarını çözmeye çalışır. Her araştırma, sporcuların daha iyi olmalarına yardımcı olur."</p>
+            </div>
+
+            <div class="warning-box">
+                <h4>🔬 Araştırma Örnekleri</h4>
+                <ul>
+                    <li><strong>"Kreatin supplementi güç artırır mı?"</strong> → Fizyoloji araştırması</li>
+                    <li><strong>"Müzik dinlemek koşu performansını etkiler mi?"</strong> → Psikoloji araştırması</li>
+                    <li><strong>"Hangi koşu tekniği daha etkili?"</strong> → Biyomekanik araştırması</li>
+                    <li><strong>"Antrenman öncesi ne yemeli?"</strong> → Beslenme araştırması</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 8: Bilimin Temel Özellikleri -->
+        <div class="slide">
+            <h2>⭐ Bilimi Niteleyen Özellikler</h2>
+
+            <div class="concept-diagram">
+                <div class="concept-item">
+                    <h4>🎯 Olgusaldır</h4>
+                    <p>Doğrudan gözlenebilir olgulara dayanır</p>
+                    <small>Bilimin doğruluğunun gözlemlenebilir olgulara dayandığı anlamına gelir</small>
+                </div>
+                <div class="concept-item">
+                    <h4>🔬 Nesneldir</h4>
+                    <p>Kişisel önyargılardan uzak</p>
+                    <small>Nesnel olmayan özel önermeleri bilim olarak kabul etmez</small>
+                </div>
+                <div class="concept-item">
+                    <h4>🧪 Mantıksaldır</h4>
+                    <p>Mantıksal kurallara uygun</p>
+                    <small>Bilim kamusal sorgulama sürecine dayanır</small>
+                </div>
+                <div class="concept-item">
+                    <h4>⚡ Eleştiricidir</h4>
+                    <p>Sürekli sorgulanır ve gelişir</p>
+                    <small>Mevcut teorileri destekleme veya eleştiriye tabi tutulur</small>
+                </div>
+            </div>
+
+            <div class="comparison-grid">
+                <div class="comparison-item">
+                    <h4>✅ Bilimsel Yaklaşım</h4>
+                    <ul>
+                        <li>Ölçülebilir ve tekrarlanabilir</li>
+                        <li>Değiştirilebilir ve yanlışlanabilir</li>
+                        <li>Evrensel ve genelleyicidir</li>
+                        <li>İnsan merkezli olmaz</li>
+                    </ul>
+                </div>
+                <div class="comparison-item">
+                    <h4>❌ Bilimsel Olmayan</h4>
+                    <ul>
+                        <li>Tek deneyime dayanır</li>
+                        <li>Kişisel inanç ve duygulara dayalı</li>
+                        <li>Genelleştirilemez</li>
+                        <li>Eleştiriye kapalı</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="quote-box">
+                <p>"Bilim mutlak kesinlik yoktur. Elimizde bulunan kanıtlar doğrultusunda en geçerli oldukları belirlenir."</p>
+            </div>
+        </div>
+
+        <!-- Slide 9: Bilimin Temel Varsayımları -->
+        <div class="slide">
+            <h2>🌍 Bilimin Temel Varsayımları</h2>
+
+            <div class="concept-diagram">
+                <div class="concept-item" style="min-width: 45%;">
+                    <h4>🌎 Dünya Varlığı Varsayımı</h4>
+                    <p>Dünyada olan bitenler gerçek ve bakımsızdır</p>
+                    <p>Bilim, bu gerçek dünyayı anlamaya çalışır</p>
+                </div>
+                <div class="concept-item" style="min-width: 45%;">
+                    <h4>📐 Anlaşılabilirlik Varsayımı</h4>
+                    <p>Dünya, insanlar tarafından anlaşılabilir ve açıklanabilir</p>
+                    <p>Bilim, bu dünyayı anlama çabası olarak değerli kabul eder</p>
+                </div>
+            </div>
+
+            <div class="comparison-grid">
+                <div class="comparison-item">
+                    <h4>⚖️ Düzenlilik Varsayımı</h4>
+                    <ul>
+                        <li>Olguların düzenli ilişkiler içinde olduğu inancı</li>
+                        <li>Belirli koşullar altında aynı sonuçların elde edileceği fikri</li>
+                    </ul>
+                    <div class="quote-box" style="margin-top: 15px;">
+                        <p><em>"Aynı koşullarda aynı antrenman her zaman benzer sonuç verir"</em></p>
+                    </div>
+                </div>
+                <div class="comparison-item">
+                    <h4>🔗 Neden ve Sonuç İlişkisi Varsayımı</h4>
+                    <ul>
+                        <li>Her olgunun bir nedeni vardır ve bu neden doğada bulunur</li>
+                        <li>Bilim, olguların neden-sonuç ilişkilerini araştırır</li>
+                    </ul>
+                    <div class="quote-box" style="margin-top: 15px;">
+                        <p><em>"Performans artışının belirli nedenleri vardır"</em></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <h4>🎯 Zaman ve Uzay Varsayımı + Nicelik Varsayımı</h4>
+                <p><strong>Zaman ve Uzay:</strong> Olguların zaman ve uzay içinde yer aldığı kabul edilir</p>
+                <p><strong>Nicelik:</strong> Bilim, ölçülebilir ve sayısal ifadelerle çalışır. Deney sonuçlarını niceliklere dönüştürme önemlidir</p>
+            </div>
+        </div>
+
+        <!-- Slide 10: Bilim, Ortakduyu, Din ve Felsefe -->
+        <div class="slide">
+            <h2>🧭 Bilim, Ortakduyu, Din ve Felsefe</h2>
+
+            <div class="definition-box">
+                <h4>🤔 Temel Farklar</h4>
+                <p>İnsanlar bilgiyi farklı yollarla elde eder. Her yolun kendine özgü özellikleri vardır.</p>
+            </div>
+
+            <div class="comparison-grid">
+                <div class="comparison-item">
+                    <h4>🏠 Ortakduyu (Sağduyu)</h4>
+                    <ul>
+                        <li>Toplumun genel kabul görmüş inançları</li>
+                        <li>Bu inançlar genellikle deneyimlere dayanır ama her zaman doğru olmayabilir</li>
+                        <li>Özel bir eğitime bağlı olmayan, günlük yaşamda geliştirilmiş düşünce biçimidir</li>
+                    </ul>
+                    <div class="quote-box" style="margin-top: 15px;">
+                        <p><em>"Acı çekmeden kazanım olmaz" - ortakduyu</em></p>
+                    </div>
+                </div>
+                <div class="comparison-item">
+                    <h4>🔬 Bilim</h4>
+                    <ul>
+                        <li>Sistematik ve eleştirel bir formüldür</li>
+                        <li>Hipotezler ve deneylerle desteklenir</li>
+                        <li>Açık ve belirsiz dil kullanma, çelişki ve tutarsızlıktan kaçınma gibi özelliklere sahiptir</li>
+                    </ul>
+                    <div class="quote-box" style="margin-top: 15px;">
+                        <p><em>"Aşırı yüklenme prensibine göre adaptasyon gerçekleşir" - bilim</em></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="comparison-grid">
+                <div class="comparison-item">
+                    <h4>🙏 Din</h4>
+                    <ul>
+                        <li>Ahlak kuralları, tapınma biçimleri, metafizik inançlar ve dogmalar</li>
+                        <li>İnanç sistemleri üzerine kuruludur ve genellikle bilimsel bir temele sahip değildir</li>
+                        <li>Çatışma noktaları: Metafizik inançlar ve yaratılış konularında çatışmalar yaşanır</li>
+                    </ul>
+                </div>
+                <div class="comparison-item">
+                    <h4>🤔 Felsefe</h4>
+                    <ul>
+                        <li>Pratik bir çıkar sağlamaz veya insan yaşamını kolaylaştırmaz</li>
+                        <li>İnsanın anlama ve bilme merakını gidermeyi amaçlar</li>
+                        <li>Evrensel bir konuya odaklanır ve insan yaşantısına giren her şeyi inceleyebilir</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Bilim ve Ortakduyu Arasındaki İlişki -->
+        <div class="slide">
+            <h2>🔗 Bilim ve Ortakduyu İlişkisi</h2>
+
+            <div class="info-box">
+                <h4>🎯 Temel Fark</h4>
+                <p>Bilim ve ortakduyu arasındaki ilişki: <strong>Bilim, ortakduyunun daha sistematik ve eleştirel bir formüldür.</strong></p>
+            </div>
+
+            <div class="concept-diagram">
+                <div class="concept-item">
+                    <h4>🏠 Ortakduyu</h4>
+                    <ul>
+                        <li>Dünya'nın şekli: Ortakduyu dünya düz kabul ederken</li>
+                        <li>Bilim yuvarlak olduğunu kanıtlar</li>
+                        <li>Bu, ortakduyunun sınırlarını aşan bir anlayış sunar ve hareketin nasıl çalıştığını açıklar</li>
+                    </ul>
+                </div>
+                <div class="concept-item">
+                    <h4>🧪 Bilimsel Yaklaşım</h4>
+                    <ul>
+                        <li>Newton'un Hareket Yasaları</li>
+                        <li>Ortakduyu ve bilimsel anlayış arasındaki temel farklar</li>
+                        <li>Newton'un yasaları, ortakduyunun sınırlarını aşan bir anlayış sunar</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="comparison-grid">
+                <div class="comparison-item">
+                    <h4>🤝 Ortakduyunun Temel Ayrımları</h4>
+                    <ul>
+                        <li><strong>Russell'ın kuşku:</strong> Dinin belirginliği ve tutarlılık gibi konularda ortakduyudan üstün olduğunu belirtir</li>
+                        <li><strong>Russell'ın Eleştirileri:</strong> Ortakduyunun genellikle yanlıtıcı olduğunu ve bilimsel bir temele sahip olmadığını vurgular</li>
+                    </ul>
+                </div>
+                <div class="comparison-item">
+                    <h4>🔍 Çözümsüzlük</h4>
+                    <ul>
+                        <li>Bilim de dinin çatışması sürekli olarak, çünkü birisi olguları, diğeri inançlara dayanır</li>
+                        <li>Bu, uzlaşmanın zor olduğu bir nokta ve çoğu zaman bir çözüm bulunamaz</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Bilim ve Metafizik -->
+        <div class="slide">
+            <h2>🌌 Bilim ve Metafizik</h2>
+
+            <div class="definition-box">
+                <h4>🔍 Metafizik Nedir?</h4>
+                <p>Metafizik, değişmez ve asıl olan niteliklerle evreni anlama çabasıdır. Bilimin ulaşamadığı konular ile alır, ancak bu konular genellikle spekülatiftir.</p>
+            </div>
+
+            <div class="comparison-grid">
+                <div class="comparison-item">
+                    <h4>🌟 Metafizik Sınırlamaları</h4>
+                    <ul>
+                        <li>Gözlem ve deney yoluyla doğrulanamayan açıklayıcı sistemler</li>
+                        <li>Metafizik, bilimin ulaşamadığı konular ile alır</li>
+                        <li>Ancak bu konular genellikle spekülatiftir</li>
+                    </ul>
+                </div>
+                <div class="comparison-item">
+                    <h4>🔬 Bilim ve Metafizik</h4>
+                    <ul>
+                        <li>Bilim, metafizik konları genellikle dikkate almaz</li>
+                        <li>Çünkü bu konular doğrulanabilir değildir</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <h4>⚖️ Modern Felsefe ve Mantıksal Çözümleme</h4>
+                <p>Geleneksel felsefe metafizik sistemler kurarken, modern felsefe daha çok mantıksal çözümlemeye odaklanmıştır.</p>
+            </div>
+        </div>
+
+        <!-- Slide 13: Bilimsel Bilgi -->
+        <div class="slide">
+            <h2>📚 Bilimsel Bilgi</h2>
+
+            <div class="definition-box">
+                <h4>🎯 Bilimsel Bilginin Tanımı</h4>
+                <p>Bilimsel bilgi, bilimsel yöntemler ile elde edilen bilgidir.</p>
+            </div>
+
+            <div class="info-box">
+                <h4>⭐ Bilimsel Bilginin Özellikleri</h4>
+                <ul>
+                    <li><strong>Objektiflik:</strong> Kişisel önyargılardan uzak</li>
+                    <li><strong>Denenebilir ve Gözlenebilirlik:</strong> Test edilebilir</li>
+                    <li><strong>Ölçülebilirlik:</strong> Sayısal verilerle desteklenir</li>
+                    <li><strong>Tekrarlanabilirlik:</strong> Aynı koşullarda aynı sonuç</li>
+                    <li><strong>Değiştirilebilirlik:</strong> Yeni kanıtlarla güncellenir</li>
+                    <li><strong>Yanlışlanabilirlik:</strong> Test edilebilir hipotezler</li>
+                    <li><strong>Evrensellik:</strong> Genel geçer kurallar</li>
+                    <li><strong>İnsan merkezli olması:</strong> İnsanlığın yararına</li>
+                </ul>
+            </div>
+
+            <div class="comparison-grid">
+                <div class="comparison-item">
+                    <h4>🔬 Objektiflik</h4>
+                    <p><strong>Bilimsel bilgi insanlar arasında din, dil, ırk ayırımı söz konusu olmaksızın geçerlidir.</strong></p>
+                    <p>Başka bir devisle insanlığın üzerinde birleştiği bir bilgidir. İnsanlığın ortak bilgisidir.</p>
+                </div>
+                <div class="comparison-item">
+                    <h4>👁️ Denenebilirlik ve Gözlenebilirlik</h4>
+                    <p><strong>Bilimsel bilgi gözlenebilir ve devamlında denebilir olmalıdır.</strong></p>
+                    <p>Bu bilimsel değerlerin en önemli özelliklerinden biridir.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Sonuç ve Özet -->
+        <div class="slide">
+            <h2>🎯 Sonuç: Bilim ve Temel Kavramlar</h2>
+
+            <div class="concept-diagram" style="flex-direction: column; gap: 20px;">
+                <div class="concept-item" style="min-width: 80%;">
+                    <h4>🔬 Bilim</h4>
+                    <p>Hayatımızı etkileyen uygulamalarıyla önemlidir - Bilimsel düşünceyi anlamak, çağımızın aydınları için bir zorunluluktur</p>
+                </div>
+                <div class="concept-item" style="min-width: 80%;">
+                    <h4>📐 Bilimin Özellikleri</h4>
+                    <p>Olgusal, nesnel, mantıksal, eleştirel, genelleyici ve geneli arar</p>
+                </div>
+                <div class="concept-item" style="min-width: 80%;">
+                    <h4>🌍 Temel Varsayımlar</h4>
+                    <p>Dünya varlığı, anlaşılabilirlik, düzenlilik, neden-sonuç, zaman-uzay ve nicelik varsayımları</p>
+                </div>
+                <div class="concept-item" style="min-width: 80%;">
+                    <h4>🤝 Diğer Bilgi Türleri</h4>
+                    <p>Ortakduyu, din, felsefe ve metafizik ile ilişkisi</p>
+                </div>
+            </div>
+
+            <div class="quote-box">
+                <p>"Bilim, doğayı anlama çabası olarak özetlenebilir. İnsanların çevrelerini daha iyi anlamaları ve dünyaya daha iyi uyum sağlamaları olan güçlü bir araçtır."</p>
+            </div>
+
+            <div class="info-box">
+                <h4>🚀 Gelecek Haftalarda</h4>
+                <p>Bu temel kavramları öğrendiğimize göre, daha ayrıntılı konulara geçebiliriz:</p>
+                <ul>
+                    <li><strong>Hafta 1:</strong> Bilimin felsefi temelleri ve epistemoloji</li>
+                    <li><strong>Hafta 2:</strong> Bilimsel araştırma yöntemleri</li>
+                    <li><strong>Hafta 3:</strong> Araştırma tasarımları ve yaklaşımları</li>
+                    <li><strong>Hafta 4:</strong> Spor bilimlerinde özel uygulamalar</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar for notes -->
+    <div class="sidebar" id="sidebar">
+        <div id="sidebar-content">
+            <h3>📝 Ders Notları</h3>
+            <p>Yan panel notları için slaytlar arasında gezinin...</p>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="navigation">
+        <button class="nav-btn" onclick="previousSlide()">⬅️ Önceki</button>
+        <button class="nav-btn" onclick="nextSlide()">Sonraki ➡️</button>
+    </div>
+
+    <!-- Controls -->
+    <div class="slide-counter" id="slideCounter">1 / 14</div>
+    <button class="fullscreen-btn" onclick="toggleFullscreen()">⛶</button>
+    <button class="notes-btn" id="notesBtn" onclick="toggleNotes()">📝 Notlar</button>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarContent = document.getElementById('sidebar-content');
+        const notesBtn = document.getElementById('notesBtn');
+
+        // Comprehensive notes content for each slide
+        const notesContent = [
+            `<h3>📚 Dersin Amacı ve Kapsamı</h3>
+            <p>Bu ders, spor bilimleri alanında araştırma yapmak isteyen öğrencilere temel bilgileri vermek için tasarlanmıştır.</p>
+
+            <h4>🎯 Ders Hedefleri</h4>
+            <ul>
+                <li>Bilim kavramını tam olarak anlama</li>
+                <li>Bilimsel bilgi ile günlük bilgiyi ayırt etme</li>
+                <li>Araştırma sürecinin temel adımlarını öğrenme</li>
+                <li>Spor bilimlerinin özelliklerini kavrama</li>
+                <li>Etik araştırma ilkelerini benimseme</li>
+            </ul>
+
+            <h4>📖 Öğrenim Çıktıları</h4>
+            <p>Bu hafta sonunda öğrenciler:</p>
+            <ul>
+                <li>Bilim, bilgi ve araştırma kavramlarını tanımlayabilecek</li>
+                <li>Bilimsel düşünce ile günlük düşünce arasındaki farkları açıklayabilecek</li>
+                <li>Spor bilimlerinin temel alanlarını sayabilecek</li>
+                <li>Araştırma sürecinin temel basamaklarını sıralayabilecek</li>
+            </ul>`,
+
+            `<h3>🔬 Bilim Kavramının Derinlemesine İncelenmesi</h3>
+            <p>Bilim, sadece laboratuvarda yapılan çalışmalar değildir. İnsanoğlunun çevresini anlama çabası olarak tanımlanabilir.</p>
+
+            <h4>📜 Tarihi Perspektif</h4>
+            <p>Bilim kavramı tarih boyunca gelişmiştir:</p>
+            <ul>
+                <li><strong>Antik Çağ:</strong> Gözlem ve mantıksal çıkarım (Aristoteles)</li>
+                <li><strong>Rönesans:</strong> Deneyimin önemi (Galileo)</li>
+                <li><strong>Modern Dönem:</strong> Sistematik yöntemler (Newton)</li>
+                <li><strong>Çağdaş:</strong> İstatistik ve teknoloji (Darwin, Einstein)</li>
+            </ul>
+
+            <h4>🏃 Spor Biliminde Bilim</h4>
+            <p>Spor bilimi, 20. yüzyılın ikinci yarısında sistematik bir disiplin haline gelmiştir:</p>
+            <ul>
+                <li><strong>1960'lar:</strong> Egzersiz fizyolojisi gelişimi</li>
+                <li><strong>1970'ler:</strong> Spor psikolojisi alanının doğuşu</li>
+                <li><strong>1980'ler:</strong> Biyomekaniğin teknoloji ile gelişimi</li>
+                <li><strong>2000'ler:</strong> Entegre yaklaşımlar</li>
+            </ul>`,
+
+            `<h3>🧠 Bilgi Epistemolojisi ve Türleri</h3>
+            <p>Epistemoloji, bilgi hakkında bilgi sahibi olma konusudur. Bilginin nasıl elde edildiği, doğruluğu ve sınırları ile ilgilenir.</p>
+
+            <h4>📊 Bilgi Türleri ve Özellikleri</h4>
+            <h5>🤔 Sezgisel Bilgi</h5>
+            <ul>
+                <li>Ani ve doğrudan gelen bilgi</li>
+                <li>Spor örneği: "Bu hareketi böyle yapmalı" hissi</li>
+                <li>Avantajı: Hızlı</li>
+                <li>Dezavantajı: Doğruluğu şüpheli</li>
+            </ul>
+
+            <h5>📚 Otorite Bilgisi</h5>
+            <ul>
+                <li>Uzmanlardan öğrenilen bilgi</li>
+                <li>Spor örneği: Antrenörün söyledikleri</li>
+                <li>Avantajı: Deneyime dayalı</li>
+                <li>Dezavantajı: Kişisel önyargılar olabilir</li>
+            </ul>
+
+            <h5>🧪 Ampirik Bilgi</h5>
+            <ul>
+                <li>Deneyim ve gözlemle elde edilen</li>
+                <li>Spor örneği: "Bu antrenman bana iyi geldi"</li>
+                <li>Avantajı: Gerçek deneyim</li>
+                <li>Dezavantajı: Genelleme sorunu</li>
+            </ul>
+
+            <h5>🔬 Bilimsel Bilgi</h5>
+            <ul>
+                <li>Sistematik araştırmayla elde edilen</li>
+                <li>Test edilmiş ve doğrulanmış</li>
+                <li>Avantajı: Güvenilir ve genellenebilir</li>
+                <li>Dezavantajı: Zaman alıcı</li>
+            </ul>`,
+
+            `<h3>🔍 Araştırmanın Felsefi Temelleri</h3>
+            <p>Araştırma, sadece veri toplama işi değildir. Arkasında güçlü felsefi temeller vardır.</p>
+
+            <h4>❓ Neden Araştırma Yaparız?</h4>
+            <ul>
+                <li><strong>Keşfetme:</strong> Yeni şeyler öğrenmek</li>
+                <li><strong>Açıklama:</strong> Neden böyle olduğunu anlama</li>
+                <li><strong>Tahmin etme:</strong> Gelecekte ne olacağını bilme</li>
+                <li><strong>Kontrol etme:</strong> Sonuçları etkileyebilme</li>
+            </ul>
+
+            <h4>🎯 Araştırmanın Temel Soruları</h4>
+            <ul>
+                <li><strong>Ne?</strong> (Tanımlayıcı) - "Sporcuların ortalama kalp atışı nedir?"</li>
+                <li><strong>Nasıl?</strong> (Süreç) - "Antrenman nasıl performansı etkiler?"</li>
+                <li><strong>Neden?</strong> (Nedensel) - "Neden bazı sporcular daha hızlı?"</li>
+                <li><strong>Ne olacak?</strong> (Tahmin) - "Bu yöntem ile ne kadar iyileşir?"</li>
+            </ul>
+
+            <h4>🏃 Spor Biliminde Araştırma Motivasyonları</h4>
+            <ul>
+                <li>Performans optimizasyonu</li>
+                <li>Yaralanma önleme</li>
+                <li>Sağlık geliştirme</li>
+                <li>Antrenman etkinliğini artırma</li>
+                <li>Spor yapan popülasyonu anlama</li>
+            </ul>`,
+
+            `<h3>⭐ Bilimsel Yöntemin Özellikleri</h3>
+            <p>Bilimsel yöntem, güvenilir bilgi üretmek için geliştirilmiş sistematik bir yaklaşımdır.</p>
+
+            <h4>🔬 Bilimsel Yöntemin İlkeleri</h4>
+
+            <h5>🎯 Amaçlılık (Purposiveness)</h5>
+            <ul>
+                <li>Her araştırmanın belirli bir amacı vardır</li>
+                <li>Rastgele veri toplama bilimsel değildir</li>
+                <li>Spor örneği: "Hangi ısınma türü en etkili?" sorusuna cevap arama</li>
+            </ul>
+
+            <h5>📏 Ölçülebilirlik (Measurability)</h5>
+            <ul>
+                <li>Sonuçlar objektif olarak ölçülebilir olmalı</li>
+                <li>Subjektif değerlendirmeler tek başına yeterli değil</li>
+                <li>Spor örneği: "Daha güçlü hissediyorum" yerine "Squat kaldırma 20kg arttı"</li>
+            </ul>
+
+            <h5>🔄 Tekrarlanabilirlik (Replicability)</h5>
+            <ul>
+                <li>Aynı yöntem, aynı sonuçları vermeli</li>
+                <li>Başka araştırmacılar da aynı çalışmayı yapabilmeli</li>
+                <li>Spor örneği: Antrenman programının etkisi farklı gruplarla da test edilmeli</li>
+            </ul>
+
+            <h5>🧐 Tarafsızlık (Objectivity)</h5>
+            <ul>
+                <li>Araştırmacının kişisel fikirleri sonucu etkilememeli</li>
+                <li>Önyargılar kontrol altına alınmalı</li>
+                <li>Spor örneği: En sevdiğin antrenman yöntemini test ederken de tarafsız ol</li>
+            </ul>`,
+
+            `<h3>🤝 Bilimsel ve Günlük Düşüncenin Karşılaştırması</h3>
+            <p>Her iki düşünce türü de yaşamımızda önemlidir, ancak farklı durumlar için farklı yaklaşımlar gerekir.</p>
+
+            <h4>🏠 Günlük Düşüncenin Avantajları</h4>
+            <ul>
+                <li><strong>Hız:</strong> Anında karar verme imkanı</li>
+                <li><strong>Pratiklik:</strong> Karmaşık analiz gerektirmez</li>
+                <li><strong>Esneklik:</strong> Duruma göre adapte olur</li>
+                <li><strong>Deneyim:</strong> Yaşanmışlıklara dayanır</li>
+            </ul>
+
+            <h4>🔬 Bilimsel Düşüncenin Avantajları</h4>
+            <ul>
+                <li><strong>Güvenilirlik:</strong> Test edilmiş bilgi</li>
+                <li><strong>Genelleme:</strong> Geniş popülasyona uygulanabilir</li>
+                <li><strong>Objektiflik:</strong> Kişisel önyargılardan uzak</li>
+                <li><strong>Sistematiklik:</strong> Methodical yaklaşım</li>
+            </ul>
+
+            <h4>🏃 Sporda Hangi Durumda Hangisi?</h4>
+
+            <h5>🏠 Günlük Düşünce Uygun Durumlar:</h5>
+            <ul>
+                <li>Antrenman sırasında ani kararlar</li>
+                <li>Sporcunun o anki ruh halini değerlendirme</li>
+                <li>Deneyime dayalı taktik kararları</li>
+                <li>Acil durum müdahaleleri</li>
+            </ul>
+
+            <h5>🔬 Bilimsel Düşünce Gerekli Durumlar:</h5>
+            <ul>
+                <li>Uzun vadeli antrenman planlaması</li>
+                <li>Beslenme programı hazırlama</li>
+                <li>Yaralanma önleme stratejileri</li>
+                <li>Performans geliştirme yöntemleri</li>
+            </ul>`,
+
+            `<h3>🏃‍♀️ Spor Bilimlerinin Çok Disiplinli Yapısı</h3>
+            <p>Spor bilimleri, birçok farklı disiplini bir araya getiren kompleks bir alandır.</p>
+
+            <h4>🧬 Temel Bilimsel Alanlar</h4>
+
+            <h5>💪 Egzersiz Fizyolojisi</h5>
+            <ul>
+                <li><strong>Kardiyovasküler sistem:</strong> Kalp, kan dolaşımı</li>
+                <li><strong>Solunum sistemi:</strong> Akciğer kapasitesi, VO2max</li>
+                <li><strong>Kas sistemi:</strong> Kuvvet, dayanıklılık, güç</li>
+                <li><strong>Metabolizma:</strong> Enerji sistemleri, yakıt kullanımı</li>
+                <li><strong>Araştırma örneği:</strong> "Yüksek irtifa antenmanının VO2max'a etkisi"</li>
+            </ul>
+
+            <h5>🧠 Spor Psikolojisi</h5>
+            <ul>
+                <li><strong>Motivasyon:</strong> İç ve dış motivasyon faktörleri</li>
+                <li><strong>Stres yönetimi:</strong> Performans anksiyetesi</li>
+                <li><strong>Odaklanma:</strong> Dikkat kontrolü</li>
+                <li><strong>Takım dinamikleri:</strong> Liderlik, uyum</li>
+                <li><strong>Araştırma örneği:</strong> "Görselleştirme tekniklerinin penaltı başarısına etkisi"</li>
+            </ul>
+
+            <h5>⚙️ Biyomekanik</h5>
+            <ul>
+                <li><strong>Kinematik:</strong> Hareket analizi</li>
+                <li><strong>Kinetik:</strong> Kuvvet analizi</li>
+                <li><strong>Teknik optimizasyonu:</strong> Etkin hareket kalıpları</li>
+                <li><strong>Yaralanma mekaniği:</strong> Risk faktörleri</li>
+                <li><strong>Araştırma örneği:</strong> "Farklı koşu tekniklerinin enerji verimliliği"</li>
+            </ul>
+
+            <h5>🍎 Spor Beslenmesi</h5>
+            <ul>
+                <li><strong>Makro besinler:</strong> Karbonhidrat, protein, yağ</li>
+                <li><strong>Mikro besinler:</strong> Vitamin, mineral</li>
+                <li><strong>Hidrasyon:</strong> Su ve elektrolit dengesi</li>
+                <li><strong>Suplementasyon:</strong> Ergojenik yardımcılar</li>
+                <li><strong>Araştırma örneği:</strong> "Antrenman sonrası protein alımının kas gelişimine etkisi"</li>
+            </ul>`,
+
+            `<h3>📊 Araştırma Sürecinin Detaylı İncelenmesi</h3>
+            <p>Bilimsel araştırma süreci, sistematik adımlar izler. Her adım bir sonrakinin temelini oluşturur.</p>
+
+            <h4>1️⃣ Problem Belirleme ve Araştırma Sorusu</h4>
+            <h5>🎯 İyi Araştırma Sorusunun Özellikleri:</h5>
+            <ul>
+                <li><strong>Spesifik:</strong> Net ve belirgin</li>
+                <li><strong>Ölçülebilir:</strong> Test edilebilir</li>
+                <li><strong>Ulaşılabilir:</strong> Mevcut kaynaklarla yapılabilir</li>
+                <li><strong>Relevant:</strong> Alana katkı sağlayacak</li>
+                <li><strong>Zamanında:</strong> Belirli sürede tamamlanabilir</li>
+            </ul>
+
+            <h5>🏃 Spor Bilimlerinde Örnek Sorular:</h5>
+            <ul>
+                <li>"8 haftalık HIIT antrenmanı aerobik kapasiteyi nasıl etkiler?"</li>
+                <li>"Mental antrenman tekniklerinin dart atma performansına etkisi var mı?"</li>
+                <li>"Farklı ısınma türleri yaralanma riskini azaltır mı?"</li>
+                <li>"Kreatin suplementasyonu kısa mesafe koşu performansını artırır mı?"</li>
+            </ul>
+
+            <h4>2️⃣ Literatür Tarama</h4>
+            <h5>📚 Neden Önemli?</h5>
+            <ul>
+                <li>Mevcut bilgiyi öğrenmek</li>
+                <li>Araştırma boşluklarını tespit etmek</li>
+                <li>Yöntem belirlemek</li>
+                <li>Teorik çerçeve oluşturmak</li>
+            </ul>
+
+            <h5>🔍 Kaynak Türleri:</h5>
+            <ul>
+                <li><strong>Primer kaynaklar:</strong> Orijinal araştırma makaleleri</li>
+                <li><strong>Sekonder kaynaklar:</strong> Review makaleleri</li>
+                <li><strong>Meta-analizler:</strong> Çoklu çalışma analizleri</li>
+                <li><strong>Kitaplar ve raporlar:</strong> Kapsamlı bilgi</li>
+            </ul>`,
+
+            `<h3>📚 Araştırma Türlerinin Derinlemesine Analizi</h3>
+
+            <h4>📖 Teorik Araştırmanın Önemi</h4>
+            <p>Teorik araştırmalar, spor bilimlerinin gelişiminde kritik rol oynar:</p>
+
+            <h5>🧠 Teorik Araştırmanın Fonksiyonları:</h5>
+            <ul>
+                <li><strong>Sentez:</strong> Farklı bulguları birleştirme</li>
+                <li><strong>Eleştirel analiz:</strong> Mevcut teorileri sorgulama</li>
+                <li><strong>Model önerme:</strong> Yeni açıklama çerçeveleri</li>
+                <li><strong>Boşluk tespiti:</strong> Gelecek araştırma yönleri</li>
+            </ul>
+
+            <h5>🏃 Sporda Teorik Araştırma Örnekleri:</h5>
+            <ul>
+                <li>"Motivasyon teorilerinin sporda uygulanması"</li>
+                <li>"Antrenman periodizasyon modellerinin karşılaştırması"</li>
+                <li>"Spor yaralanması önleme yaklaşımlarının teorik analizi"</li>
+                <li>"Sporda yetenek gelişimi teorilerinin eleştirel değerlendirmesi"</li>
+            </ul>
+
+            <h4>🧪 Uygulamalı Araştırmanın Gücü</h4>
+
+            <h5>🔬 Experimental Design Türleri:</h5>
+            <ul>
+                <li><strong>Randomize kontrollü çalışmalar (RCT):</strong> Altın standart</li>
+                <li><strong>Quasi-experimental:</strong> Kısmen kontrollü</li>
+                <li><strong>Crossover design:</strong> Her kişi kendi kontrolü</li>
+                <li><strong>Case studies:</strong> Bireysel derinlemesine analiz</li>
+            </ul>
+
+            <h5>🏃 Sporda Uygulamalı Araştırma Örnekleri:</h5>
+            <ul>
+                <li>"50 basketbolcu ile 3-point shooting accuracy antrenmanı"</li>
+                <li>"Futbolcuların sprint performansını geliştiren yöntemlerin karşılaştırması"</li>
+                <li>"Yoga'nın esneklik ve denge üzerine etkilerinin ölçülmesi"</li>
+                <li>"Farklı recovery yöntemlerinin kas yorgunluğuna etkisi"</li>
+            </ul>`,
+
+            `<h3>🔢 Nicel ve Nitel Araştırma Metodolojileri</h3>
+
+            <h4>🔢 Nicel Araştırmanın Detayları</h4>
+
+            <h5>📊 Veri Türleri:</h5>
+            <ul>
+                <li><strong>Sürekli veriler:</strong> Ağırlık, boy, süre, kalp atışı</li>
+                <li><strong>Kesikli veriler:</strong> Tekrar sayısı, gol sayısı</li>
+                <li><strong>Kategorik veriler:</strong> Cinsiyet, spor türü, seviye</li>
+                <li><strong>Ordinal veriler:</strong> Likert ölçekleri, seviye sıralamaları</li>
+            </ul>
+
+            <h5>📈 Analiz Yöntemleri:</h5>
+            <ul>
+                <li><strong>Tanımlayıcı istatistik:</strong> Ortalama, standart sapma</li>
+                <li><strong>Korelasyon analizi:</strong> İlişki gücü</li>
+                <li><strong>T-testi:</strong> Grup karşılaştırmaları</li>
+                <li><strong>ANOVA:</strong> Çoklu grup analizi</li>
+                <li><strong>Regresyon:</strong> Tahmin modelleri</li>
+            </ul>
+
+            <h4>💬 Nitel Araştırmanın Zenginliği</h4>
+
+            <h5>🎯 Veri Toplama Yöntemleri:</h5>
+            <ul>
+                <li><strong>Derinlemesine mülakatlar:</strong> Bireysel deneyimler</li>
+                <li><strong>Odak grup görüşmeleri:</strong> Grup dinamikleri</li>
+                <li><strong>Katılımcı gözlem:</strong> Doğal ortamda inceleme</li>
+                <li><strong>Günlük tutma:</strong> Zaman içindeki değişim</li>
+                <li><strong>Görsel etnografi:</strong> Fotoğraf ve video analizi</li>
+            </ul>
+
+            <h5>🏃 Sporda Nitel Araştırma Örnekleri:</h5>
+            <ul>
+                <li>"Elit sporcuların emeklilik deneyimlerinin fenomenolojik analizi"</li>
+                <li>"Genç futbolcuların motivasyon faktörlerinin keşfedilmesi"</li>
+                <li>"Kadın maratoncularda vücut imajı algısının etnografik incelenmesi"</li>
+                <li>"Takım sporcularında liderlik süreçlerinin nitel analizi"</li>
+            </ul>
+
+            <h4>🔄 Mixed Methods (Karma Yöntem)</h4>
+            <p>En güçlü araştırmalar, hem nicel hem nitel yaklaşımları birleştirir:</p>
+
+            <h5>🎯 Karma Yöntem Avantajları:</h5>
+            <ul>
+                <li><strong>Triangülasyon:</strong> Bulgular birbirini destekler</li>
+                <li><strong>Tamamlayıcılık:</strong> Farklı perspektifler</li>
+                <li><strong>Genişletme:</strong> Daha kapsamlı anlayış</li>
+                <li><strong>İnisiye:</strong> Beklenmeyen bulgular</li>
+            </ul>`,
+
+            `<h3>⚖️ Araştırma Etiğinin Derinlemesine İncelenmesi</h3>
+
+            <h4>📜 Etik İlkelerin Tarihi Gelişimi</h4>
+            <p>Araştırma etiği, bazı tarihi olaylar sonrasında şekillenmiştir:</p>
+
+            <h5>🏥 Önemli Etik Dönüm Noktaları:</h5>
+            <ul>
+                <li><strong>Nürnberg Kodu (1947):</strong> Gönüllü katılım ilkesi</li>
+                <li><strong>Helsinki Deklarasyonu (1964):</strong> Tıbbi araştırma etiği</li>
+                <li><strong>Belmont Raporu (1979):</strong> Üç temel etik ilke</li>
+            </ul>
+
+            <h4>🛡️ Temel Etik İlkeler</h4>
+
+            <h5>1️⃣ Zarar Vermeme (Non-maleficence)</h5>
+            <ul>
+                <li>Fiziksel zarar riski minimizasyonu</li>
+                <li>Psikolojik rahatsızlık önleme</li>
+                <li>Sosyal zarar (stigmatizasyon) engelleme</li>
+                <li><strong>Spor örneği:</strong> Aşırı yoğun antrenman protokolleri kullanmama</li>
+            </ul>
+
+            <h5>2️⃣ Yarar Sağlama (Beneficence)</h5>
+            <ul>
+                <li>Katılımcılara potansiyel fayda</li>
+                <li>Topluma bilimsel katkı</li>
+                <li>Risk-fayda analizi</li>
+                <li><strong>Spor örneği:</strong> Performans geliştirici müdahalelerin paylaşımı</li>
+            </ul>
+
+            <h5>3️⃣ Özerklik Saygısı (Respect for Autonomy)</h5>
+            <ul>
+                <li>Bilgilendirilmiş onam</li>
+                <li>Gönüllülük ilkesi</li>
+                <li>Çekilme hakkı</li>
+                <li><strong>Spor örneği:</strong> Sporcunun araştırmadan istediği zaman ayrılabilmesi</li>
+            </ul>
+
+            <h4>🏃 Spor Bilimlerinde Özel Etik Konular</h4>
+
+            <h5>🧪 Ergojenik Yardımcılar ve Doping</h5>
+            <ul>
+                <li>Legal suplementlerin test edilmesi</li>
+                <li>Placebo kontrollerinin zorluğu</li>
+                <li>Sporcuların performans baskısı</li>
+                <li>Uzun vadeli sağlık etkileri</li>
+            </ul>
+
+            <h5>👶 Genç Sporcularla Çalışma</h5>
+            <ul>
+                <li>Veli onayının yanı sıra çocuk onayı</li>
+                <li>Gelişimsel uygunluk değerlendirmesi</li>
+                <li>Fiziksel ve psikolojik olgunluk</li>
+                <li>Eğitim kurumlarıyla koordinasyon</li>
+            </ul>`,
+
+            `<h3>📊 Veri Kalitesi ve Güvenilirliği</h3>
+
+            <h4>🎯 Veri Kalitesinin Bileşenleri</h4>
+
+            <h5>✅ Geçerlilik (Validity)</h5>
+            <ul>
+                <li><strong>İç geçerlilik:</strong> Neden-sonuç ilişkisinin doğruluğu</li>
+                <li><strong>Dış geçerlilik:</strong> Sonuçların genellenebilirliği</li>
+                <li><strong>Yapı geçerliliği:</strong> Ölçüm araçlarının teorik uyumu</li>
+                <li><strong>İçerik geçerliliği:</strong> Konuyu kapsamlı temsil etme</li>
+            </ul>
+
+            <h5>🔄 Güvenilirlik (Reliability)</h5>
+            <ul>
+                <li><strong>Test-retest güvenilirliği:</strong> Zamanda tutarlılık</li>
+                <li><strong>İç tutarlılık:</strong> Maddelerin birbiriyle uyumu</li>
+                <li><strong>Puanlayıcılar arası güvenilirlik:</strong> Farklı gözlemciler arası uyum</li>
+                <li><strong>Alternatif form güvenilirliği:</strong> Eşdeğer testler arası tutarlılık</li>
+            </ul>
+
+            <h4>📈 Spor Bilimlerinde Ölçüm Zorlukları</h4>
+
+            <h5>⚡ Performans Ölçümlerinde Dikkat Edilecekler:</h5>
+            <ul>
+                <li><strong>Çevresel faktörler:</strong> Sıcaklık, rüzgar, zemin</li>
+                <li><strong>Motivasyonel durum:</strong> Testlere yaklaşım farklılıkları</li>
+                <li><strong>Öğrenme etkisi:</strong> Test tekrarlarında iyileşme</li>
+                <li><strong>Yorgunluk etkisi:</strong> Önceki aktivitelerin etkisi</li>
+            </ul>
+
+            <h5>🧠 Psikolojik Ölçümlerde Özel Durumlar:</h5>
+            <ul>
+                <li><strong>Sosyal beğenirlik etkisi:</strong> İstenilen cevapları verme eğilimi</li>
+                <li><strong>Kültürel farklılıklar:</strong> Ölçeklerin kültürel uyarlanması</li>
+                <li><strong>Dil sorunları:</strong> Anket sorularının anlaşılabilirliği</li>
+                <li><strong>Stres etkisi:</strong> Test ortamının psikolojik etkisi</li>
+            </ul>
+
+            <h4>🔍 Veri Analizi Öncesi Kontroller</h4>
+
+            <h5>📊 Veri Temizliği:</h5>
+            <ul>
+                <li><strong>Eksik veri kontrolü:</strong> Missing data patterns</li>
+                <li><strong>Uç değer tespiti:</strong> Outlier detection</li>
+                <li><strong>Normallik varsayımları:</strong> Distribution checks</li>
+                <li><strong>Veri girişi hataları:</strong> Data entry error detection</li>
+            </ul>`,
+
+            `<h3>🎯 Temel Kavramların Entegrasyonu ve Özet</h3>
+
+            <h4>🔗 Kavramlar Arası İlişkiler</h4>
+            <p>Bu hafta öğrendiğimiz temel kavramlar birbirleriyle sıkıca bağlantılıdır:</p>
+
+            <h5>🔬 Bilim → Bilgi → Araştırma Döngüsü</h5>
+            <ul>
+                <li><strong>Bilim,</strong> sistematik bilgi üretme sürecidir</li>
+                <li><strong>Bilgi,</strong> bu sürecin ürünüdür</li>
+                <li><strong>Araştırma,</strong> bilgi üretmenin yöntemidir</li>
+                <li>Bu döngü sürekli kendini besler ve geliştirir</li>
+            </ul>
+
+            <h4>🏃 Spor Bilimlerinin Ayırt Edici Özellikleri</h4>
+
+            <h5>🎯 Multidisipliner Yaklaşım:</h5>
+            <ul>
+                <li>Fizyolojik, psikolojik, sosyal faktörlerin birleşimi</li>
+                <li>Tek bakış açısının yetersizliği</li>
+                <li>Holistik anlayışın gerekliliği</li>
+            </ul>
+
+            <h5>⚡ Uygulama Odaklılık:</h5>
+            <ul>
+                <li>Teorik bilginin pratik değeri</li>
+                <li>Performans iyileştirme hedefi</li>
+                <li>Sonuçların doğrudan kullanılabilirliği</li>
+            </ul>
+
+            <h5>🧑‍🤝‍🧑 İnsan Odaklılık:</h5>
+            <ul>
+                <li>Bireysel farklılıkların önemi</li>
+                <li>Etik considerations'ın kritikliği</li>
+                <li>Participant welfare'in önceliği</li>
+            </ul>
+
+            <h4>🚀 Gelecek Haftalara Hazırlık</h4>
+            <p>Bu temel kavramları öğrendiğimize göre, artık daha ileri konulara hazırız:</p>
+
+            <h5>📚 Gelecek Konular:</h5>
+            <ul>
+                <li><strong>Hafta 1:</strong> Bilimin felsefi temelleri (Pozitivizm, post-pozitivizm)</li>
+                <li><strong>Hafta 2:</strong> Araştırma tasarımları (Experimental vs non-experimental)</li>
+                <li><strong>Hafta 3:</strong> Örnekleme yöntemleri ve güç analizi</li>
+                <li><strong>Hafta 4:</strong> Veri toplama yöntemleri</li>
+                <li><strong>Hafta 5:</strong> İstatistiksel analiz temelleri</li>
+            </ul>
+
+            <h4>💡 Öz-değerlendirme Soruları</h4>
+            <p>Kendinizi test edin:</p>
+            <ul>
+                <li>Bilim ile sezgi arasındaki temel farkı açıklayabilir misiniz?</li>
+                <li>Hangi durumlarda nicel, hangi durumlarda nitel araştırma tercih edilmelidir?</li>
+                <li>Spor bilimlerinde etik kaygıların neler olduğunu sayabilir misiniz?</li>
+                <li>Araştırma sürecinin adımlarını sıralayabilir misiniz?</li>
+            </ul>`
+        ];
+
+        function showSlide(index) {
+            // Hide all slides
+            slides.forEach(slide => slide.classList.remove('active'));
+
+            // Show current slide
+            if (slides[index]) {
+                slides[index].classList.add('active');
+                currentSlide = index;
+                updateSlideCounter();
+                updateNotes();
+            }
+        }
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                showSlide(currentSlide + 1);
+            }
+        }
+
+        function previousSlide() {
+            if (currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        function updateSlideCounter() {
+            document.getElementById('slideCounter').textContent = `${currentSlide + 1} / ${slides.length}`;
+        }
+
+        function toggleNotes() {
+            sidebar.classList.toggle('active');
+            notesBtn.classList.toggle('active');
+            notesBtn.textContent = sidebar.classList.contains('active') ? '❌ Kapat' : '📝 Notlar';
+        }
+
+        function updateNotes() {
+            if (notesContent[currentSlide]) {
+                sidebarContent.innerHTML = notesContent[currentSlide];
+            }
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            switch(e.key) {
+                case 'ArrowRight':
+                case ' ':
+                    e.preventDefault();
+                    nextSlide();
+                    break;
+                case 'ArrowLeft':
+                    e.preventDefault();
+                    previousSlide();
+                    break;
+                case 'Escape':
+                    if (sidebar.classList.contains('active')) {
+                        toggleNotes();
+                    }
+                    break;
+                case 'n':
+                case 'N':
+                    toggleNotes();
+                    break;
+                case 'f':
+                case 'F':
+                    toggleFullscreen();
+                    break;
+            }
+        });
+
+        // Initialize
+        updateSlideCounter();
+        updateNotes();
+    </script>
+</body>
+</html>

@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hafta 13: Bilimsel Yazım - Spor Bilimlerinde Araştırma Yöntemleri</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; overflow-x: hidden; }
+        .container { display: flex; min-height: 100vh; }
+        .main-content { flex: 1; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .presentation-card { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border-radius: 20px; padding: 40px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); width: 100%; max-width: 800px; max-height: 85vh; overflow-y: auto; text-align: center; color: white; transition: all 0.3s ease; }
+        .slide { display: none; animation: fadeIn 0.5s ease-in-out; }
+        .presentation-card::-webkit-scrollbar { width: 12px; }
+        .presentation-card::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
+        .presentation-card::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.3); border-radius: 10px; border: 2px solid rgba(255, 255, 255, 0.1); }
+        .presentation-card::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.5); }
+        .fullscreen-slide { position: fixed !important; top: 0 !important; left: 0 !important; width: 100vw !important; height: 100vh !important; max-width: none !important; max-height: none !important; z-index: 10000 !important; border-radius: 0 !important; border: none !important; box-shadow: none !important; }
+        .slide.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        h1 { font-size: 2.5em; margin-bottom: 20px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); }
+        h2 { font-size: 2em; margin-bottom: 15px; color: #FFD700; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); }
+        h3 { font-size: 1.5em; margin-bottom: 15px; color: #87CEEB; }
+        p, li { font-size: 1.1em; line-height: 1.6; margin-bottom: 10px; text-align: left; }
+        ul { text-align: left; margin-left: 20px; }
+        .highlight { background: rgba(255, 215, 0, 0.3); padding: 2px 6px; border-radius: 4px; font-weight: bold; }
+        .writing-box { background: rgba(255, 255, 255, 0.1); padding: 15px; border-radius: 10px; margin: 15px 0; border-left: 4px solid #32CD32; font-family: 'Courier New', monospace; }
+        .navigation { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; z-index: 1000; }
+        .nav-btn { padding: 10px 20px; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 25px; color: white; cursor: pointer; transition: all 0.3s ease; font-weight: 500; }
+        .nav-btn:hover { background: rgba(255, 255, 255, 0.3); transform: translateY(-2px); }
+        .nav-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .slide-counter { position: fixed; top: 20px; right: 20px; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px); padding: 10px 15px; border-radius: 20px; color: white; font-weight: 500; border: 1px solid rgba(255, 255, 255, 0.3); }
+        .fullscreen-btn { position: fixed; top: 20px; left: 20px; background: rgba(76, 175, 80, 0.8); color: white; border: none; padding: 10px 15px; border-radius: 20px; cursor: pointer; font-weight: bold; z-index: 1001; }
+        .fullscreen-btn:hover { background: rgba(56, 142, 60, 0.9); }
+        .sidebar { width: 450px; background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); padding: 20px; border-left: 1px solid rgba(255, 255, 255, 0.2); overflow-y: auto; height: 100vh; }
+        .sidebar h3 { color: #FFD700; margin-bottom: 15px; font-size: 1.3em; text-align: center; }
+        .sidebar-content { color: rgba(255, 255, 255, 0.9); font-size: 0.95em; line-height: 1.5; }
+        .sidebar-content h4 { color: #87CEEB; margin: 15px 0 8px 0; font-size: 1.1em; }
+        .sidebar-content ul { margin-left: 15px; margin-bottom: 15px; }
+        .sidebar-content li { margin-bottom: 5px; font-size: 0.9em; }
+        .key-point { background: rgba(255, 215, 0, 0.1); border-left: 3px solid #FFD700; padding: 10px; margin: 10px 0; border-radius: 0 5px 5px 0; }
+        .example-box { background: rgba(135, 206, 235, 0.1); border-left: 3px solid #87CEEB; padding: 10px; margin: 10px 0; border-radius: 0 5px 5px 0; }
+        .citation-box { background: rgba(255, 20, 147, 0.1); border-left: 3px solid #FF1493; padding: 10px; margin: 10px 0; border-radius: 0 5px 5px 0; }
+        @media (max-width: 768px) { .container { flex-direction: column; } .sidebar { width: 100%; height: auto; border-left: none; border-top: 1px solid rgba(255, 255, 255, 0.2); } .presentation-card { margin: 10px; padding: 20px; } h1 { font-size: 2em; } h2 { font-size: 1.5em; } }
+    </style>
+</head>
+<body>
+    <button class="fullscreen-btn" onclick="toggleFullscreen()" title="Fullscreen (F11)">⛶ Tam Ekran</button>
+    <div class="container">
+        <div class="main-content">
+            <div class="presentation-card">
+                <!-- Slide 1 -->
+                <div class="slide active">
+                    <h1>✍️ Bilimsel Yazım</h1>
+                    <h2>Spor Bilimlerinde Araştırma Yöntemleri - Hafta 13</h2>
+                    <p style="text-align: center; font-size: 1.2em; margin-top: 30px;">
+                        <span class="highlight">Akademik yazım kuralları ve atıf stilleri</span><br>
+                        Makale yapısı, tablo-şekil hazırlama ve yayın süreci
+                    </p>
+                </div>
+
+                <!-- Slide 2 -->
+                <div class="slide">
+                    <h2>📚 Spor Bilimlerinde Yazımın Önemi</h2>
+                    <ul>
+                        <li><strong>Antrenörlere Rehberlik:</strong> "HIIT antrenmanı VO₂max'ı %12 artırır" vs "Antrenman iyi"</li>
+                        <li><strong>Sporcu Güvenliği:</strong> "Yaralanma riski %23 azalır (p<0.01)" - Somut kanıt</li>
+                        <li><strong>Federasyonlara Destek:</strong> FIFA, UEFA gibi kurumlara bilimsel dayanak</li>
+                        <li><strong>Yayıncılık Fırsatları:</strong> Journal of Sports Sciences, Sports Medicine</li>
+                    </ul>
+                    <div class="key-point">
+                        <strong>Spor Bilimlerinde Yazım Örnekleri:</strong><br>
+                        • "Sprint performansı 30m'de 4.12±0.23s'den 3.89±0.19s'ye düştü"<br>
+                        • "Laktat değerleri 8.4±1.2 mmol/L seviyesinde sabitlendi"<br>
+                        • "Kalp atım hızı maksimalinin %85'inde antrenman yapıldı"
+                    </div>
+                </div>
+
+                <!-- Slide 3 -->
+                <div class="slide">
+                    <h2>⚽ Spor Makalesi Yapısı - IMRAD Örneği</h2>
+                    <ul>
+                        <li><strong>I - Giriş:</strong> "Futbolda sprint performansı maç sonucunu etkiler mi?"</li>
+                        <li><strong>M - Yöntem:</strong> "24 profesyonel futbolcu, 8 hafta pliometrik antrenman"</li>
+                        <li><strong>R - Bulgular:</strong> "30m sprint: 4.12s → 3.89s, %5.6 gelişim"</li>
+                        <li><strong>D - Tartışma:</strong> "Bu gelişim maçta 2-3 kritik durum yaratabilir"</li>
+                    </ul>
+                    <div class="writing-box">
+                        <strong>Gerçek Spor Makalesi Başlık Örneği:</strong><br>
+                        "8 Haftalık Pliometrik Antrenmanın Elit Futbolcularda Sprint Performansı ve Dikey Sıçrama Üzerine Etkisi: Randomize Kontrollü Çalışma"
+                    </div>
+                </div>
+
+                <!-- Slide 4 -->
+                <div class="slide">
+                    <h2>🏃‍♂️ Spor Makalesinde Özet Yazımı</h2>
+                    <div class="example-box">
+                        <strong>Gerçek Spor Özeti Örneği (200 kelime):</strong><br>
+                        <strong>Amaç:</strong> Bu çalışmanın amacı, 8 haftalık pliometrik antrenmanın elit futbolcularda sprint ve sıçrama performansına etkisini araştırmaktır.<br>
+                        <strong>Yöntem:</strong> 24 elit futbolcu (yaş: 22.3±2.1 yıl) rastgele deney (n=12) ve kontrol (n=12) grubuna ayrıldı. Pliometrik grup 8 hafta boyunca haftada 3 gelişmiş sıçrama egzersizi yaptı.<br>
+                        <strong>Bulgular:</strong> 30m sprint süresi deney grubunda 4.12±0.23s'den 3.89±0.19s'ye düştü (p<0.001). Dikey sıçrama 42.1±3.2cm'den 47.8±4.1cm'ye arttı (p<0.001).<br>
+                        <strong>Sonuç:</strong> Pliometrik antrenman elit futbolcularda explosive güç kapasitesini anlamlı olarak artırmaktadır.
+                    </div>
+                    <div class="key-point">
+                        <strong>Anahtar Kelimeler:</strong> pliometrik, futbol, sprint, dikey sıçrama, güç
+                    </div>
+                </div>
+
+                <!-- Slide 5 -->
+                <div class="slide">
+                    <h2>⚽ Futbol Çalışması Giriş Örneği</h2>
+                    <div class="writing-box">
+                        <strong>1. Paragraf (Genel):</strong> "Modern futbolda oyuncuların 90 dakika boyunca ortalama 10-12 km koştuğu ve maç sırasında 150-250 kısa mesafe sprinti gerçekleştirdiği bilinmektedir (Smith et al., 2019)."<br><br>
+                        <strong>2. Paragraf (Spesifik):</strong> "Pliometrik antrenman, kas-tendon sisteminin elastik enerjisini kullanarak explosive güç gelişimini sağlamaktadır. Önceki çalışmalar basketbol ve atletizmde etkisini göstermiştir (Jones et al., 2020)."<br><br>
+                        <strong>3. Paragraf (Boşluk):</strong> "Ancak elit seviye futbolcularda 8 haftalık protokolün sprint ve sıçrama performansına etkisini inceleyen sınırlı sayıda çalışma bulunmaktadır."
+                    </div>
+                    <div class="key-point">
+                        <strong>Hipotez:</strong> "8 haftalık pliometrik antrenmanın elit futbolcularda 30m sprint süresini azaltacağı ve dikey sıçrama performansını artıracağı öngörülmektedir."
+                    </div>
+                </div>
+
+                <!-- Slide 6 -->
+                <div class="slide">
+                    <h2>🏃‍♂️ Detaylı Yöntem Bölümü Örneği</h2>
+                    <div class="writing-box">
+                        <strong>Katılımcılar:</strong> Çalışmaya 24 erkek profesyonel futbolcu katıldı (yaş: 22.3 ± 2.1 yıl, boy: 175.4 ± 6.8 cm, ağırlık: 73.2 ± 8.9 kg, spor geçmişi: 12.1 ± 3.2 yıl). Tüm katılımcılar süper ligde aktif futbolcu olup, yaralanma geçmişi bulunmamaktadır.<br><br>
+                        <strong>Araç-Gereç:</strong> Sprint süreleri kablosuz foto hucre sistemi (Brower Timing, ABD) ile ölçüldü. Dikey sıçrama testi kalibre edilmiş contact mat (Just Jump, ABD) kullanılarak gerçekleştirildi.<br><br>
+                        <strong>Antrenman Protokolü:</strong> Deney grubu 8 hafta boyunca haftada 3 gün depth jump, squat jump ve lateral bound egzersizlerini 3 set x 8 tekrar olarak uygulandı.
+                    </div>
+                    <div class="key-point">
+                        <strong>Etik Onay:</strong> Çalışma Spor Bilimleri Etik Kurulu tarafından onaylanmıştır (Protokol No: 2023-45).
+                    </div>
+                </div>
+
+                <!-- Slide 7 -->
+                <div class="slide">
+                    <h2>📈 Spor Çalışması Bulgular Örneği</h2>
+                    <div class="example-box">
+                        <strong>Tablo 1. Ön-test ve Son-test Sonuçları</strong><br>
+                        | Test | Deney Grubu Ön | Deney Son | Kontrol Ön | Kontrol Son | p | d |<br>
+                        | 30m Sprint (s) | 4.12±0.23 | 3.89±0.19* | 4.08±0.21 | 4.11±0.24 | <0.001 | 1.08 |<br>
+                        | Dikey Sıçrama (cm) | 42.1±3.2 | 47.8±4.1* | 41.8±2.9 | 42.3±3.1 | <0.001 | 1.54 |<br>
+                        *p<0.05 grup içi karşılaştırma
+                    </div>
+                    <div class="key-point">
+                        <strong>Metin İçi Bulgular:</strong><br>
+                        "Pliometrik antrenman sonrasında deney grubunun 30m sprint süresi %5.6 iyileşme gösterirken (4.12±0.23s vs 3.89±0.19s; t₁₁=6.84, p<0.001), kontrol grubunda anlamlı değişim gözlenmedi (p>0.05). Etki büyüklüğü analizi büyük pratik anlamlılık gösterdi (Cohen d=1.08)."
+                    </div>
+                </div>
+
+                <!-- Slide 8 -->
+                <div class="slide">
+                    <h2>💭 Tartışma Bölümü</h2>
+                    <ul>
+                        <li><strong>Bulgular Yorumu:</strong> Sonuçlar ne anlama geliyor?</li>
+                        <li><strong>Literatürle Karşılaştırma:</strong> Diğer çalışmalarla uyum</li>
+                        <li><strong>Sınırlılıklar:</strong> Çalışmanın kısıtları</li>
+                        <li><strong>Öneriler:</strong> Gelecek araştırmalar ve uygulama</li>
+                    </ul>
+                    <div class="key-point">
+                        <strong>Ters Huniye Modeli:</strong><br>
+                        Spesifik → Genel<br>
+                        • Bu çalışmanın bulguları<br>
+                        • Literatürle karşılaştırma<br>
+                        • Genel anlamı<br>
+                        • Geniş etkileri
+                    </div>
+                </div>
+
+                <!-- Slide 9 -->
+                <div class="slide">
+                    <h2>📚 Spor Bilimlerinde Atıf Örnekleri</h2>
+                    <div class="citation-box">
+                        <strong>Metin İçi Atıf Örnekleri:</strong><br>
+                        "Pliometrik antrenmanın futbolcularda explosive güç gelişiminde etkili olduğu bilinmektedir (Ramírez-Campillo et al., 2020). Ancak önceki çalışmalar genellikle genç oyuncularla yapılmıştır (García & López, 2019; Smith et al., 2021). FIFA (2022) raporuna göre, elite düzeyde bu konuda daha fazla araştırmaya ihtiyaç vardır."
+                    </div>
+                    <div class="writing-box">
+                        <strong>Spor Bilimi Kaynakça Örnekleri:</strong><br>
+                        <strong>Uluslararası Dergi:</strong> Ramírez-Campillo, R., García-Hermoso, A., & Moran, J. (2020). Effects of plyometric training on physical performance of young soccer players. Journal of Sports Sciences, 38(11), 1238-1249. https://doi.org/10.1080/02640414.2020.1717286<br><br>
+                        <strong>Türkçe Makale:</strong> Özkan, A., Kınıklı, G. İ., & Çınar, V. (2021). Elit futbolcularda pliometrik antrenman etkisi. Spor Bilimleri Dergisi, 32(4), 125-134.
+                    </div>
+                </div>
+
+                <!-- Slide 10 -->
+                <div class="slide">
+                    <h2>📈 Spor Verilerinde Tablo-Şekil Örnekleri</h2>
+                    <div class="example-box">
+                        <strong>Tablo 2. Antrenman Yükü Karşılaştırması</strong><br>
+                        | Hafta | Deney Grubu RPE | Kontrol Grubu RPE | Training Load (AU) |<br>
+                        |-------|-----------------|-------------------|--------------------|<br>
+                        | 1-2   | 6.2 ± 0.8      | 5.9 ± 0.7        | 2847 ± 345        |<br>
+                        | 3-4   | 7.1 ± 0.9      | 6.1 ± 0.8        | 3156 ± 412        |<br>
+                        | 7-8   | 8.3 ± 1.1      | 6.3 ± 0.9        | 3824 ± 467        |<br>
+                        <em>RPE: Borg 1-10 skalası, AU: Arbitrary Units</em>
+                    </div>
+                    <div class="key-point">
+                        <strong>Şekil 1. Sprint Süreleri Değişimi</strong><br>
+                        [Bar grafik gösterimi: ön-test vs son-test karşılaştırma]<br>
+                        Şekil altına: "8 haftalık pliometrik antrenman öncesi ve sonrası 30m sprint süreleri. *p<0.05 grup içi karşılaştırma, **p<0.01 gruplar arası karşılaştırma"
+                    </div>
+                </div>
+
+                <!-- Slide 11 -->
+                <div class="slide">
+                    <h2>⚽ Spor Bilimlerinde Dil Örnekleri</h2>
+                    <div class="citation-box">
+                        <strong>Yanlış Spor Dili:</strong><br>
+                        "🚫 Oyuncular çok iyi koştu."<br>
+                        "🚫 Antrenman etkili oldu."<br>
+                        "🚫 Sonuçlar mükemmeldi."<br>
+                        "🚫 Bu yöntem kesinlikle en iyisi."
+                    </div>
+                    <div class="key-point">
+                        <strong>Doğru Bilimsel Dil:</strong><br>
+                        "✅ Oyuncuların sprint süreleri %5.6 iyileşti (p<0.001)."<br>
+                        "✅ Pliometrik antrenman dikey sıçramayı anlamlı şekilde artırdı."<br>
+                        "✅ Bulgular büyük etki büyüklüğü gösterdi (d=1.54)."<br>
+                        "✅ Bu protokol elit futbolcular için pratik faydalar sağlamaktadır."
+                    </div>
+                    <div class="writing-box">
+                        <strong>Spor Terminolojisi:</strong> VO₂max, 1RM, RPE, HIIT, GPS tracking, zaman-hareket analizi, laktat eşiği, güç-ağırlık oranı
+                    </div>
+                </div>
+
+                <!-- Slide 12 -->
+                <div class="slide">
+                    <h2>🏆 Spor Bilimi Yayın Süreci</h2>
+                    <div class="example-box">
+                        <strong>Spor Bilimi Dergileri (Impact Factor):</strong><br>
+                        • Journal of Sports Sciences (3.2)<br>
+                        • Sports Medicine (7.8)<br>
+                        • Medicine & Science in Sports & Exercise (5.1)<br>
+                        • International Journal of Sports Physiology (2.9)<br>
+                        • Spor Bilimleri Dergisi (Türkiye - ULAKBIM)
+                    </div>
+                    <div class="key-point">
+                        <strong>Gerçek Hakem Süreci Örneği:</strong><br>
+                        📝 Makale gönderimi: Ocak 2023<br>
+                        👀 İlk editör değerlendirmesi: 2 hafta<br>
+                        🔍 Hakem değerlendirmesi: 3 ay<br>
+                        ✏️ Major revizyon talebi: Nisan 2023<br>
+                        📤 Revize makale gönderimi: Haziran 2023<br>
+                        ✅ Kabul: Ağustos 2023<br>
+                        📖 Online yayın: Eylül 2023
+                    </div>
+                    <div class="writing-box">
+                        <strong>Spor Makalesi Kabul Oranları:</strong> Journal of Sports Sciences %15-20, Sports Medicine %8-12
+                    </div>
+                </div>
+
+                <!-- Slide 13 -->
+                <div class="slide">
+                    <h2>🏃‍♂️ Spor Bilimlerinde Somut Yazım Örnekleri</h2>
+                    <div class="example-box">
+                        <strong>Örnek Cümle - Yanlış:</strong><br>
+                        "Sporcuların performansı arttı ve sonuçlar çok iyiydi."
+                    </div>
+                    <div class="key-point">
+                        <strong>Örnek Cümle - Doğru:</strong><br>
+                        "8 haftalık pliometrik antrenman sonucunda deneklerinin dikey sıçrama performansı başlangıç değerlerine göre %18.5 oranında artış gösterdi (42.3 ± 3.2 cm'den 50.1 ± 4.1 cm'ye; p < 0.001, ES = 2.1)."
+                    </div>
+                    <div class="writing-box">
+                        <strong>Dikkat Edilecek Noktalar:</strong><br>
+                        ✓ Sayısal veriler (ortalama ± standart sapma)<br>
+                        ✓ İstatistiksel anlamlılık (p değeri)<br>
+                        ✓ Etki büyüklüğü (Effect Size)<br>
+                        ✓ Birimler (cm, kg, W, ml/dk/kg)
+                    </div>
+                </div>
+
+                <!-- Slide 14 -->
+                <div class="slide">
+                    <h2>💡 Yazım İpuçları ve Stratejiler</h2>
+                    <ul>
+                        <li><strong>Planlama:</strong> Yazıma başlamadan önce plan yapın</li>
+                        <li><strong>Taslak:</strong> İlk taslağı hızlı yazın, sonra düzeltin</li>
+                        <li><strong>Gözden Geçirme:</strong> Birden fazla kez kontrol edin</li>
+                        <li><strong>Geri Bildirim:</strong> Meslektaşlarınızdan görüş alın</li>
+                    </ul>
+                    <div class="key-point">
+                        <strong>Yazım Süreci:</strong><br>
+                        1. Veri analizi tamamlandı mı?<br>
+                        2. Ana mesaj nedir?<br>
+                        3. Hedef dergi belirlendi mi?<br>
+                        4. Yazım planı hazır mı?<br>
+                        5. Zaman ayırdınız mı?
+                    </div>
+                </div>
+
+                <!-- Slide 15 -->
+                <div class="slide">
+                    <h2>🎓 Özet ve Sonuç</h2>
+                    <ul>
+                        <li><strong>IMRAD yapısını takip edin</strong></li>
+                        <li><strong>APA atıf stilini doğru kullanın</strong></li>
+                        <li><strong>Akademik dil ve üslubu benimseyin</strong></li>
+                        <li><strong>Tablo ve şekilleri etkili kullanın</strong></li>
+                        <li><strong>Yayın sürecine sabırla yaklaşın</strong></li>
+                    </ul>
+                    <div class="key-point">
+                        <strong>Unutmayın:</strong><br>
+                        İyi bilimsel yazım, araştırmanızın değerini artırır ve bilimsel topluluğa katkınızı maksimize eder. Pratik yaparak gelişin!
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <div id="sidebar-1" class="sidebar-content">
+                <h3>📝 Bilimsel Yazım - Giriş</h3>
+                <h4>🎯 Bu Dersin Amacı</h4>
+                <p>Spor bilimlerinde araştırma yapmanın yanı sıra, bu araştırmaları etkili bir şekilde yazıp paylaşmak da kritik öneme sahiptir. Bu hafta bilimsel yazımın temellerini öğreneceğiz.</p>
+                
+                <h4>🔍 Bilimsel Yazımın Kapsamı</h4>
+                <ul>
+                    <li>Akademik makale yazma teknikleri</li>
+                    <li>Atıf sistemleri ve kaynakça düzenleme</li>
+                    <li>Tablo ve şekil hazırlama</li>
+                    <li>Yayın süreci ve hakem değerlendirmesi</li>
+                </ul>
+                
+                <div class="key-point">
+                    <strong>Önemli Not:</strong> Bilimsel yazım sadece araştırmacılar için değil, spor bilimlerinde çalışan herkes için gerekli bir beceridir.
+                </div>
+            </div>
+
+            <div id="sidebar-2" class="sidebar-content" style="display: none;">
+                <h3>⚽ Spor Bilimlerinde Yazımın Önemi</h3>
+                <h4>🏆 Antrenörlere Somut Katkı</h4>
+                <p>Bilimsel yazım spor alanına doğrudan etki eder. Örneğin: "HIIT antrenmanı VO₂max'ı %12.4 artırır (Cohen d=1.23)" ifadesi, antrenör için "iyi antrenman" ifadesinden çok daha değerlidir.</p>
+                
+                <h4>📊 Gerçek Hayat Örnekleri</h4>
+                <div class="key-point">
+                    <strong>FIFA Raporları:</strong><br>
+                    • "Yaralanma riski %23 azalır (RR=0.77, p<0.01)"<br>
+                    • "Maç performansı 4. çeyrekte %8 düşer"<br>
+                    • "Pliometrik antrenman sprint süresini 0.15s iyileştirir"
+                </div>
+                
+                <h4>🇹🇷 Türkiye'de Spor Bilimi Yayıncılığı</h4>
+                <ul>
+                    <li>Spor Bilimleri Dergisi (ULAKBİM TR Dizin)</li>
+                    <li>Gazi Beden Eğitimi ve Spor Bilimleri Dergisi</li>
+                    <li>Niğde Üniversitesi Beden Eğitimi Dergisi</li>
+                    <li>Uluslararası dergilerde Türk yazarlar sayısı artmakta</li>
+                </ul>
+                
+                <div class="example-box">
+                    <strong>Başarı Hikayesi:</strong><br>
+                    Türkiye'den bir futbol araştırması Journal of Sports Sciences'ta yayınlanınca UEFA ve FIFA tarafından politika geliştirmede referans olarak kullanıldı (2019-2022).
+                </div>
+            </div>
+
+            <div id="sidebar-3" class="sidebar-content" style="display: none;">
+                <h3>📄 IMRAD Yapısı Detayları</h3>
+                <h4>🏗️ Yapısal Organizasyon</h4>
+                <p>IMRAD yapısı, bilimsel makalelerin evrensel standardıdır ve okuyucuların bilgiyi sistematik olarak takip etmesini sağlar.</p>
+                
+                <h4>📝 Her Bölümün İşlevi</h4>
+                <div class="key-point">
+                    <strong>Introduction (Giriş):</strong><br>
+                    • Konunun önemini vurgular<br>
+                    • Mevcut bilgi boşluklarını tanımlar<br>
+                    • Araştırma sorularını netleştirir<br>
+                    • Çalışmanın özgünlüğünü gösterir
+                </div>
+                
+                <div class="example-box">
+                    <strong>Methods (Yöntem):</strong><br>
+                    • Çalışmanın tekrarlanabilirliğini sağlar<br>
+                    • Kullanılan araçları detaylandırır<br>
+                    • Etik onayları belirtir<br>
+                    • İstatistiksel yaklaşımları açıklar
+                </div>
+                
+                <div class="citation-box">
+                    <strong>Results & Discussion:</strong><br>
+                    • Bulguları objektif olarak sunar<br>
+                    • Sonuçları yorumlar<br>
+                    • Literatürle ilişkilendirir<br>
+                    • Sınırlılıkları kabul eder
+                </div>
+            </div>
+
+            <div id="sidebar-4" class="sidebar-content" style="display: none;">
+                <h3>📝 Abstract Yazım Teknikleri</h3>
+                <h4>🎯 Özet Yazımının Kritik Önemi</h4>
+                <p>Abstract genellikle makalenizin en çok okunan bölümüdür. Birçok okuyucu sadece özete bakarak makalenin tamamını okuyup okumayacağına karar verir.</p>
+                
+                <h4>🏗️ Yapılandırılmış Özet Formatı</h4>
+                <div class="key-point">
+                    <strong>Amaç (Objective):</strong> 1-2 cümle<br>
+                    "Bu çalışmanın amacı, 16-18 yaş elit futbolcularda pliometrik antrenmanın sıçrama performansına etkisini incelemektir."
+                </div>
+                
+                <div class="example-box">
+                    <strong>Yöntem (Methods):</strong> 2-3 cümle<br>
+                    "24 elit futbolcu rastgele deney (n=12) ve kontrol (n=12) gruplarına ayrıldı. 8 haftalık pliometrik antrenman protokolü uygulandı. Dikey sıçrama, sürat ve çeviklik testleri yapıldı."
+                </div>
+                
+                <h4>✍️ Özet Yazım İpuçları</h4>
+                <ul>
+                    <li>Kısaltmalar kullanmaktan kaçının</li>
+                    <li>Sayısal veriler dahil edin</li>
+                    <li>Atıf yapmayın</li>
+                    <li>Gelecek zamanlı ifadeler kullanmayın</li>
+                </ul>
+            </div>
+
+            <div id="sidebar-5" class="sidebar-content" style="display: none;">
+                <h3>🚪 Giriş Bölümü Stratejileri</h3>
+                <h4>📚 Literatür Taraması Yaklaşımı</h4>
+                <p>Giriş bölümü, okuyucunuzu konuya hazırlar ve çalışmanızın neden gerekli olduğunu gösterir. Bu bölüm, mevcut bilgileri özetleyip bilgi boşluklarını tanımlar.</p>
+                
+                <h4>🔍 Huniye Modeli Uygulaması</h4>
+                <div class="key-point">
+                    <strong>1. Paragraf - Genel Bağlam:</strong><br>
+                    "Futbolda performans, birçok fizyolojik ve biyomekanik faktörün karmaşık etkileşiminin sonucudur..."
+                </div>
+                
+                <div class="example-box">
+                    <strong>2-3. Paragraf - Spesifik Alan:</strong><br>
+                    "Pliometrik antrenman, kas gücünü artırmada etkili bir yöntem olarak bilinmektedir..."
+                </div>
+                
+                <div class="citation-box">
+                    <strong>Son Paragraf - Bu Çalışma:</strong><br>
+                    "Ancak, 16-18 yaş elit futbolcularda pliometrik antrenmanın uzun vadeli etkilerini inceleyen sınırlı çalışma bulunmaktadır. Bu nedenle, bu çalışmanın amacı..."
+                </div>
+                
+                <h4>🎯 Hipotez Geliştirme</h4>
+                <p>Giriş bölümünün sonunda, literatür taramasına dayalı olarak geliştirdiğiniz hipotezinizi net bir şekilde belirtin.</p>
+            </div>
+
+            <div id="sidebar-6" class="sidebar-content" style="display: none;">
+                <h3>🔬 Yöntem Bölümü Detayları</h3>
+                <h4>👥 Katılımcı Tanımlaması</h4>
+                <p>Yöntem bölümü, çalışmanızın tekrarlanabilirliğini sağlayan en kritik bölümdür. Her detay önemlidir.</p>
+                
+                <div class="key-point">
+                    <strong>Katılımcı Özellikleri:</strong><br>
+                    • Yaş: 17.2 ± 0.8 yıl<br>
+                    • Boy: 175.3 ± 6.2 cm<br>
+                    • Ağırlık: 68.4 ± 5.7 kg<br>
+                    • Spor geçmişi: 8.3 ± 1.2 yıl<br>
+                    • Antrenman sıklığı: 5 gün/hafta
+                </div>
+                
+                <h4>🔧 Araç ve Gereçler</h4>
+                <ul>
+                    <li>Cihaz marka ve modelleri</li>
+                    <li>Kalibrasyon bilgileri</li>
+                    <li>Ölçüm hassasiyeti</li>
+                    <li>Test protokolleri</li>
+                </ul>
+                
+                <h4>📊 İstatistiksel Analiz</h4>
+                <div class="example-box">
+                    <strong>Analiz Detayları:</strong><br>
+                    "Veriler SPSS 25.0 kullanılarak analiz edildi. Normallik Shapiro-Wilk testi ile kontrol edildi. Grup içi değişiklikler paired t-test, gruplar arası farklar independent t-test ile değerlendirildi. Anlamlılık düzeyi p<0.05 olarak kabul edildi."
+                </div>
+            </div>
+
+            <div id="sidebar-7" class="sidebar-content" style="display: none;">
+                <h3>📊 Bulgular Sunumu</h3>
+                <h4>📈 Tanımlayıcı İstatistikler</h4>
+                <p>Bulgular bölümü, araştırmanızın "hikayesini" sayılarla anlatır. Bu bölümde objektif olmak ve yorumlama yapmamak önemlidir.</p>
+                
+                <h4>🎯 Etki Büyüklüğü Raporlama</h4>
+                <div class="key-point">
+                    <strong>Cohen's d Değerleri:</strong><br>
+                    • 0.2 = Küçük etki<br>
+                    • 0.5 = Orta etki<br>
+                    • 0.8 = Büyük etki<br>
+                    • >1.0 = Çok büyük etki
+                </div>
+                
+                <h4>📋 Tablo Örneği</h4>
+                <div class="example-box">
+                    <strong>Tablo 1. Dikey Sıçrama Sonuçları</strong><br>
+                    <table style="width: 100%; color: white; font-size: 0.8em;">
+                        <tr><th>Grup</th><th>Ön-test</th><th>Son-test</th><th>p</th><th>d</th></tr>
+                        <tr><td>Deney</td><td>42.3±3.2</td><td>47.8±3.8</td><td>0.001</td><td>1.54</td></tr>
+                        <tr><td>Kontrol</td><td>41.8±2.9</td><td>42.5±3.1</td><td>0.412</td><td>0.23</td></tr>
+                    </table>
+                </div>
+                
+                <h4>📊 Grafik Kullanımı</h4>
+                <p>Karmaşık verileri görselleştirmek için bar grafik, çizgi grafik veya scatter plot kullanın. Her grafiğin bir amacı olmalıdır.</p>
+            </div>
+
+            <div id="sidebar-8" class="sidebar-content" style="display: none;">
+                <h3>💭 Tartışma Bölümü Stratejileri</h3>
+                <h4>🔍 Bulgular Yorumlama</h4>
+                <p>Tartışma bölümü, bulgularınızı anlamlandırdığınız ve bilimsel literatüre katkınızı gösterdiğiniz bölümdür.</p>
+                
+                <h4>📚 Literatürle Karşılaştırma</h4>
+                <div class="key-point">
+                    <strong>Uyumlu Bulgular:</strong><br>
+                    "Bu sonuçlar Smith ve ark. (2020) çalışmasıyla tutarlıdır. Onlar da benzer yaş grubunda %15 performans artışı rapor etmişlerdir."
+                </div>
+                
+                <div class="example-box">
+                    <strong>Farklı Bulgular:</strong><br>
+                    "Ancak Jones ve ark. (2019) farklı sonuçlar bildirmiştir. Bu fark, antrenman protokolü süresinin farklılığından kaynaklanabilir."
+                </div>
+                
+                <h4>⚠️ Sınırlılıklar</h4>
+                <ul>
+                    <li>Örneklem büyüklüğü</li>
+                    <li>Zaman kısıtları</li>
+                    <li>Kontrol edilemeyen değişkenler</li>
+                    <li>Genellenebilirlik sorunları</li>
+                </ul>
+                
+                <h4>🔮 Gelecek Araştırmalar</h4>
+                <div class="citation-box">
+                    <strong>Öneriler:</strong><br>
+                    • Daha uzun süreli takip çalışmaları<br>
+                    • Farklı yaş gruplarında inceleme<br>
+                    • Moleküler mekanizmaların araştırılması<br>
+                    • Farklı spor dallarında uygulanması
+                </div>
+            </div>
+
+            <div id="sidebar-9" class="sidebar-content" style="display: none;">
+                <h3>📚 APA Atıf Sistemi</h3>
+                <h4>📖 Metin İçi Atıf Kuralları</h4>
+                <p>APA (American Psychological Association) stili, sosyal bilimler ve spor bilimlerinde en yaygın kullanılan atıf sistemidir.</p>
+                
+                <h4>✍️ Çeşitli Atıf Türleri</h4>
+                <div class="key-point">
+                    <strong>Doğrudan Alıntı:</strong><br>
+                    Smith (2020) "pliometrik antrenman, güç gelişiminde kritik önem taşır" ifadesini kullanmıştır (p. 45).
+                </div>
+                
+                <div class="example-box">
+                    <strong>Parafraz:</strong><br>
+                    Araştırmalar pliometrik antrenmanın güç gelişiminde etkili olduğunu göstermektedir (Smith, 2020; Jones, 2019).
+                </div>
+                
+                <h4>📚 Kaynakça Formatları</h4>
+                <ul>
+                    <li><strong>Dergi Makalesi:</strong> Yazar, A. A. (Yıl). Başlık. Dergi Adı, Cilt(Sayı), sayfa-sayfa.</li>
+                    <li><strong>Kitap:</strong> Yazar, A. A. (Yıl). Kitap başlığı. Yayınevi.</li>
+                    <li><strong>Web Kaynağı:</strong> Yazar, A. A. (Yıl). Başlık. Web sitesi adı. URL</li>
+                </ul>
+                
+                <h4>🔗 DOI Kullanımı</h4>
+                <div class="citation-box">
+                    Modern akademik makalelerde DOI (Digital Object Identifier) kullanımı zorunludur:<br>
+                    Smith, J. (2020). Performans analizi. Sports Science, 15(3), 45-52. https://doi.org/10.1234/ss.2020.123
+                </div>
+            </div>
+
+            <div id="sidebar-10" class="sidebar-content" style="display: none;">
+                <h3>📈 Tablo ve Şekil Standartları</h3>
+                <h4>📊 Tablo Tasarım İlkeleri</h4>
+                <p>Tablolar sayısal verileri organize bir şekilde sunmanın en etkili yoludur. İyi tasarlanmış tablolar, okuyucunun verileri hızla anlamasını sağlar.</p>
+                
+                <h4>🎨 Tablo Formatı</h4>
+                <div class="key-point">
+                    <strong>Tablo Bileşenleri:</strong><br>
+                    • Numara (Tablo 1)<br>
+                    • Başlık (üstte, açıklayıcı)<br>
+                    • Başlık satırları<br>
+                    • Veri satırları<br>
+                    • Notlar (altta)
+                </div>
+                
+                <h4>🖼️ Şekil Hazırlama</h4>
+                <div class="example-box">
+                    <strong>Şekil Türleri:</strong><br>
+                    • Bar grafikler (kategorik karşılaştırma)<br>
+                    • Çizgi grafikler (zaman serisi)<br>
+                    • Scatter plot (korelasyon)<br>
+                    • Box plot (dağılım)
+                </div>
+                
+                <h4>🔧 Teknik Spesifikasyonlar</h4>
+                <ul>
+                    <li>Çözünürlük: En az 300 DPI</li>
+                    <li>Format: TIFF, EPS, veya PNG</li>
+                    <li>Font: En az 8 punto</li>
+                    <li>Renkler: Siyah-beyaz baskıya uygun</li>
+                </ul>
+                
+                <h4>📝 Başlık Yazımı</h4>
+                <div class="citation-box">
+                    <strong>Şekil Başlığı Örneği:</strong><br>
+                    "Şekil 1. 8 haftalık pliometrik antrenman öncesi ve sonrası dikey sıçrama performansındaki değişim. *p<0.05, **p<0.01"
+                </div>
+            </div>
+
+            <div id="sidebar-11" class="sidebar-content" style="display: none;">
+                <h3>🎯 Akademik Dil Kullanımı</h3>
+                <h4>📝 Objektif Yazım</h4>
+                <p>Akademik yazımda objektiflik, güvenilirlik ve profesyonellik esastır. Kişisel görüşlerden ziyade, kanıta dayalı ifadeler kullanın.</p>
+                
+                <h4>❌ Kaçınılacak İfadeler</h4>
+                <div class="key-point">
+                    <strong>Yanlış Örnekler:</strong><br>
+                    • "Biz düşünüyoruz ki..."<br>
+                    • "Kesinlikle en iyi yöntem..."<br>
+                    • "Hiç şüphesiz..."<br>
+                    • "Çok heyecan verici sonuçlar..."
+                </div>
+                
+                <h4>✅ Tercih Edilecek İfadeler</h4>
+                <div class="example-box">
+                    <strong>Doğru Örnekler:</strong><br>
+                    • "Bulgular göstermektedir ki..."<br>
+                    • "Bu sonuçlar önerir ki..."<br>
+                    • "Veriler desteklemektedir..."<br>
+                    • "Literatür ile tutarlı olarak..."
+                </div>
+                
+                <h4>🔤 Terminoloji Tutarlılığı</h4>
+                <ul>
+                    <li>Aynı kavram için aynı terimi kullanın</li>
+                    <li>Kısaltmaları ilk kullanımda açın</li>
+                    <li>Teknik terimleri doğru kullanın</li>
+                    <li>Uluslararası standartları takip edin</li>
+                </ul>
+                
+                <h4>📏 Sayı ve Birim Yazımı</h4>
+                <div class="citation-box">
+                    <strong>Standart Formatlar:</strong><br>
+                    • 10 den küçük sayılar: yazı ile (beş katılımcı)<br>
+                    • 10 ve üzeri: rakam ile (15 katılımcı)<br>
+                    • Birimler: kg, cm, m/s (nokta yok)<br>
+                    • Ondalık: 15.7 kg (virgül değil nokta)
+                </div>
+            </div>
+
+            <div id="sidebar-12" class="sidebar-content" style="display: none;">
+                <h3>🔄 Akademik Yayın Süreci</h3>
+                <h4>🎯 Dergi Seçimi Stratejileri</h4>
+                <p>Doğru dergi seçimi, makalenizin başarılı olmasında kritik öneme sahiptir. Araştırmanızın kapsamına uygun dergiler seçin.</p>
+                
+                <h4>📊 Dergi Değerlendirme Kriterleri</h4>
+                <div class="key-point">
+                    <strong>Impact Factor:</strong><br>
+                    • JCR (Journal Citation Reports) database<br>
+                    • Son 2 yılın atıf ortalaması<br>
+                    • Spor bilimlerinde 1-6 arası yaygın<br>
+                    • Q1, Q2, Q3, Q4 sınıflandırması
+                </div>
+                
+                <h4>⏰ Yayın Süreci Zaman Çizelgesi</h4>
+                <div class="example-box">
+                    <strong>Tipik Süreç (6-18 ay):</strong><br>
+                    • İlk değerlendirme: 2-4 hafta<br>
+                    • Hakem süreci: 8-16 hafta<br>
+                    • Revizyon hazırlama: 4-8 hafta<br>
+                    • Final karar: 2-4 hafta<br>
+                    • Yayına hazırlık: 4-12 hafta
+                </div>
+                
+                <h4>📝 Hakem Raporları</h4>
+                <ul>
+                    <li><strong>Metodoloji:</strong> Yöntem uygunluğu ve rigor</li>
+                    <li><strong>Orijinallik:</strong> Yenilik ve özgünlük</li>
+                    <li><strong>Anlamlılık:</strong> Alana katkı</li>
+                    <li><strong>Sunum:</strong> Yazım kalitesi ve netlik</li>
+                </ul>
+                
+                <h4>🎯 Başarı İpuçları</h4>
+                <div class="citation-box">
+                    <strong>Redaksiyonel Tavsiyeler:</strong><br>
+                    • Dergi yönergelerini tam olarak takip edin<br>
+                    • Cover letter'ı özenle hazırlayın<br>
+                    • Hakem önerilerini ciddiye alın<br>
+                    • Response letter'da tüm noktalara yanıt verin<br>
+                    • Sabırlı olun ve revizyon sürecini destekleyin
+                </div>
+            </div>
+
+            <div id="sidebar-13" class="sidebar-content" style="display: none;">
+                <h3>🏃‍♂️ Spor Bilimlerinde Somut Yazım</h3>
+                <h4>📝 Gerçek Makale Örnekleri</h4>
+                <p>Spor bilimlerinde akademik yazımın somut örnekleriyle konuyu pekiştirelim. Aşağıdaki örnekler gerçek araştırma durumlarından alınmıştır.</p>
+                
+                <h4>🏋️‍♂️ Yöntem Bölümü Örneği</h4>
+                <div class="key-point">
+                    <strong>Kuvvet Antrenmanı Çalışması:</strong><br>
+                    "Katılımcılar (n=24, yaş: 22.3 ± 2.1 yıl, boy: 175.4 ± 6.8 cm, ağırlık: 73.2 ± 8.9 kg) rastgele deney (n=12) ve kontrol (n=12) gruplarına ayrıldı. Deney grubu 8 hafta boyunca haftada 3 gün %80-90 1RM yoğunluğunda squat antrenmanı gerçekleştirdi. 1RM testleri kalibre edilmiş Smith makinesinde (Technogym, İtalya) yapıldı."
+                </div>
+                
+                <h4>📊 Bulgular Bölümü Örneği</h4>
+                <div class="example-box">
+                    <strong>İstatistiksel Sonuç Sunumu:</strong><br>
+                    "Deney grubunun ön-test 1RM değeri 98.5 ± 12.3 kg iken, son-test değeri 112.8 ± 14.1 kg olarak bulundu (t₂₃ = 8.42, p < 0.001, d = 1.08). Kontrol grubunda anlamlı değişim gözlenmedi (99.1 ± 11.7 kg vs 100.3 ± 12.1 kg; p > 0.05)."
+                </div>
+                
+                <h4>🔬 Fizyolojik Ölçüm Örneği</h4>
+                <div class="citation-box">
+                    <strong>VO₂max Testi Sonuçları:</strong><br>
+                    "Maksimal oksijen alımı (VO₂max) koşu bandında (h/p/cosmos, Almanya) Bruce protokolü kullanılarak ölçüldü. Nefes analizi Cosmed K5 (Roma, İtalya) ile gerçekleştirildi. Elit dayanıklılık sporcularının VO₂max değeri 68.4 ± 4.2 ml/kg/dk, sedanter bireylerin ise 42.1 ± 3.8 ml/kg/dk olarak tespit edildi."
+                </div>
+                
+                <h4>⚽ Spor Dalına Özgü Terminoloji</h4>
+                <ul>
+                    <li><strong>Futbol:</strong> Sprint mesafesi (m), top teması sayısı, pas başarı oranı (%)</li>
+                    <li><strong>Basketbol:</strong> Dikey sıçrama (cm), lateral çeviklik süresi (s)</li>
+                    <li><strong>Yüzme:</strong> Kulaç frekansı (kulaç/dk), DI (distance per stroke)</li>
+                    <li><strong>Atletizm:</strong> Reaksiyon süresi (ms), adım frekansı (adım/s)</li>
+                </ul>
+                
+                <h4>📈 Performans Analizi Örneği</h4>
+                <div class="key-point">
+                    <strong>GPS Verisi Analizi:</strong><br>
+                    "Maç süresince oyuncuların toplam koşu mesafesi 10.847 ± 1.234 m, yüksek yoğunluklu koşu (>5.5 m/s) mesafesi 1.876 ± 342 m, maksimal hız 28.4 ± 2.1 km/h olarak kaydedildi (Catapult OptimEye S5, Avustralya)."
+                </div>
+                
+                <h4>🏆 Tartışma Bölümü Örneği</h4>
+                <div class="example-box">
+                    <strong>Literatürle Karşılaştırma:</strong><br>
+                    "Bu çalışmada elde edilen %14.5'lik performans artışı, benzer populasyonda yapılan önceki çalışmalarla tutarlıdır (Smith ve ark., 2019: %12.3; Jones ve ark., 2020: %16.8). Ancak García ve ark. (2021) tarafından rapor edilen %8.2'lik artış, farklı antrenman protokolünden kaynaklanabilir."
+                </div>
+                
+                <h4>⚠️ Yaygın Hatalar ve Düzeltmeleri</h4>
+                <div class="citation-box">
+                    <strong>Yanlış:</strong> "Sporcular daha hızlı koştular."<br>
+                    <strong>Doğru:</strong> "Sprint süreleri %8.3 azaldı (6.82 ± 0.34 s vs 6.25 ± 0.29 s)."<br><br>
+                    <strong>Yanlış:</strong> "Anlamlı fark vardı."<br>
+                    <strong>Doğru:</strong> "Gruplar arası fark istatistiksel olarak anlamlıydı (p = 0.003)."<br><br>
+                    <strong>Yanlış:</strong> "Çok büyük etki."<br>
+                    <strong>Doğru:</strong> "Büyük etki büyüklüğü (d = 1.24, %95 GA: 0.68-1.80)."
+                </div>
+                
+                <h4>📏 Birim ve Kısaltma Standartları</h4>
+                <ul>
+                    <li><strong>Güç:</strong> W (watt), W/kg (relatif güç)</li>
+                    <li><strong>Hız:</strong> m/s, km/h (virgül değil nokta: 28.4 km/h)</li>
+                    <li><strong>Kalp Atımı:</strong> beats/min, bpm</li>
+                    <li><strong>Laktat:</strong> mmol/L (milimol/litre)</li>
+                    <li><strong>Antropometri:</strong> cm, kg, % (yağ oranı)</li>
+                </ul>
+                
+                <h4>🔗 Atıf Örnekleri (Spor Bilimleri)</h4>
+                <div class="example-box">
+                    <strong>Dergi Makalesi:</strong><br>
+                    Özkan, A., & Kınıklı, G. İ. (2021). Pliometrik antrenmanın elit futbolcularda sıçrama performansına etkisi. Spor Bilimleri Dergisi, 32(4), 234-245. https://doi.org/10.15314/tjse.123456<br><br>
+                    
+                    <strong>Uluslararası Makale:</strong><br>
+                    Smith, J. A., Brown, M. K., & Wilson, P. L. (2020). Effects of high-intensity interval training on VO₂max in soccer players. Journal of Sports Sciences, 38(12), 1387-1394.
+                </div>
+            </div>
+
+            <div id="sidebar-14" class="sidebar-content" style="display: none;">
+                <h3>💡 Yazım Stratejileri ve İpuçları</h3>
+                <h4>📝 Yazım Süreci Yönetimi</h4>
+                <p>Başarılı bilimsel yazım, sistematik bir yaklaşım gerektirir. Süreçi küçük adımlara bölerek ilerlemek daha etkilidir.</p>
+                
+                <h4>⏰ Zaman Yönetimi</h4>
+                <div class="key-point">
+                    <strong>Yazım Planı (8 hafta):</strong><br>
+                    • 1-2. hafta: Literatür tamamlama<br>
+                    • 3-4. hafta: Yöntem ve Bulgular<br>
+                    • 5-6. hafta: Giriş ve Tartışma<br>
+                    • 7. hafta: Özet ve referanslar<br>
+                    • 8. hafta: Düzenleme ve kontrol
+                </div>
+                
+                <h4>🔍 Gözden Geçirme Süreci</h4>
+                <div class="example-box">
+                    <strong>Kontrol Listesi:</strong><br>
+                    • İçerik tutarlılığı<br>
+                    • Dil bilgisi ve yazım<br>
+                    • Atıf ve kaynakça doğruluğu<br>
+                    • Tablo ve şekil uygunluğu<br>
+                    • Dergi formatı uyumluluğu
+                </div>
+                
+                <h4>👥 İşbirliği ve Geri Bildirim</h4>
+                <ul>
+                    <li>Meslektaş değerlendirmesi alın</li>
+                    <li>Dil editöründen yardım alın</li>
+                    <li>İstatistik uzmanı ile görüşün</li>
+                    <li>Mentor desteği alın</li>
+                </ul>
+                
+                <h4>🛠️ Yazım Araçları</h4>
+                <div class="citation-box">
+                    <strong>Önerilen Yazılımlar:</strong><br>
+                    • MS Word / LaTeX (yazım)<br>
+                    • Zotero / EndNote (referans)<br>
+                    • Grammarly (dil kontrolü)<br>
+                    • Turnitin (özgünlük kontrolü)<br>
+                    • SPSS / R (istatistik)
+                </div>
+            </div>
+
+            <div id="sidebar-15" class="sidebar-content" style="display: none;">
+                <h3>🎓 Özet ve Gelecek Adımlar</h3>
+                <h4>🏆 Başarılı Bilimsel Yazımın Anahtarları</h4>
+                <p>Bu derste öğrendiğimiz konular, kaliteli bilimsel makale yazımının temellerini oluşturmaktadır. Pratik yaparak bu becerileri geliştirin.</p>
+                
+                <h4>🎯 Öğrenme Çıktıları</h4>
+                <div class="key-point">
+                    <strong>Bu dersi tamamladıktan sonra:</strong><br>
+                    • IMRAD yapısını kullanabileceksiniz<br>
+                    • APA atıf stilini doğru uygulayabileceksiniz<br>
+                    • Etkili tablo ve şekiller hazırlayabileceksiniz<br>
+                    • Akademik dili uygun şekilde kullanabileceksiniz<br>
+                    • Yayın sürecini anlayacaksınız
+                </div>
+                
+                <h4>📚 Sürekli Gelişim</h4>
+                <div class="example-box">
+                    <strong>Gelişim Önerileri:</strong><br>
+                    • Kaliteli makaleleri inceleyin<br>
+                    • Yazım workshops'larına katılın<br>
+                    • Mentor guidance alın<br>
+                    • Yazım gruplarına katılın<br>
+                    • Düzenli pratik yapın
+                </div>
+                
+                <h4>🔮 Gelecek Hafta</h4>
+                <p>Gelecek hafta, öğrencilerin hazırladığı araştırma projelerinin sunumlarını yapacağız. Bu, öğrendiklerinizi pratiğe dökme fırsatınız olacak.</p>
+                
+                <h4>📖 Ek Kaynaklar</h4>
+                <div class="citation-box">
+                    <strong>Derinleşme için:</strong><br>
+                    • Publication Manual of APA (7th Edition)<br>
+                    • Writing Scientific Papers in English<br>
+                    • How to Write and Publish Scientific Papers<br>
+                    • The Elements of Scientific Writing<br>
+                    • Research Methods in Sports Science
+                </div>
+                
+                <h4>✅ Hafta 13 Tamamlandı</h4>
+                <p>Bilimsel yazım konusunda temel bilgileri edindiniz. Bu bilgileri Hafta 14'teki proje sunumlarınızda uygulama fırsatınız olacak!</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-counter">
+        <span id="current-slide">1</span> / <span id="total-slides">15</span>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" id="prev-btn" onclick="changeSlide(-1)">← Önceki</button>
+        <button class="nav-btn" id="home-btn" onclick="goToHome()">🏠 Ana Sayfa</button>
+        <button class="nav-btn" id="next-btn" onclick="changeSlide(1)">Sonraki →</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        const sidebarContents = document.querySelectorAll('.sidebar-content');
+        
+        document.getElementById('total-slides').textContent = totalSlides;
+        
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            sidebarContents[currentSlide].style.display = 'none';
+
+            currentSlide = (n + totalSlides) % totalSlides;
+
+            slides[currentSlide].classList.add('active');
+            sidebarContents[currentSlide].style.display = 'block';
+
+            // Reset scroll to top
+            const presentationCard = document.querySelector('.presentation-card');
+            if (presentationCard) {
+                presentationCard.scrollTop = 0;
+            }
+            
+            document.getElementById('current-slide').textContent = currentSlide + 1;
+            
+            document.getElementById('prev-btn').disabled = currentSlide === 0;
+            document.getElementById('next-btn').disabled = currentSlide === totalSlides - 1;
+        }
+        
+        function changeSlide(direction) {
+            if (direction === 1 && currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            } else if (direction === -1 && currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+        
+        function goToHome() {
+            window.location.href = 'ders-plani.html';
+        }
+        
+        let isFullscreen = false;
+
+        function toggleFullscreen() {
+            const presentationCard = document.querySelector('.presentation-card');
+            if (!presentationCard) return;
+
+            if (!isFullscreen) {
+                presentationCard.classList.add('fullscreen-slide');
+                document.body.style.overflow = 'hidden';
+                isFullscreen = true;
+                if (presentationCard.requestFullscreen) {
+                    presentationCard.requestFullscreen().catch(() => {});
+                } else if (presentationCard.webkitRequestFullscreen) {
+                    presentationCard.webkitRequestFullscreen().catch(() => {});
+                } else if (presentationCard.mozRequestFullScreen) {
+                    presentationCard.mozRequestFullScreen().catch(() => {});
+                }
+            } else {
+                exitFullscreen();
+            }
+        }
+
+        function exitFullscreen() {
+            const presentationCard = document.querySelector('.presentation-card');
+            if (presentationCard) {
+                presentationCard.classList.remove('fullscreen-slide');
+            }
+            document.body.style.overflow = 'auto';
+            isFullscreen = false;
+            if (document.exitFullscreen) {
+                document.exitFullscreen().catch(() => {});
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen().catch(() => {});
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen().catch(() => {});
+            }
+        }
+
+        document.addEventListener('keydown', function(e) {
+            switch(e.key) {
+                case 'ArrowRight':
+                case 'ArrowDown':
+                case ' ':
+                    e.preventDefault();
+                    changeSlide(1);
+                    break;
+                case 'ArrowLeft':
+                case 'ArrowUp':
+                    e.preventDefault();
+                    changeSlide(-1);
+                    break;
+                case 'Home':
+                    e.preventDefault();
+                    showSlide(0);
+                    break;
+                case 'End':
+                    e.preventDefault();
+                    showSlide(totalSlides - 1);
+                    break;
+                case 'F11':
+                    e.preventDefault();
+                    toggleFullscreen();
+                    break;
+                case 'Escape':
+                    if (isFullscreen) {
+                        e.preventDefault();
+                        exitFullscreen();
+                    }
+                    break;
+            }
+        });
+
+        document.addEventListener('wheel', function(e) {
+            if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+                e.preventDefault();
+                if (e.deltaY > 0) {
+                    changeSlide(1);
+                } else {
+                    changeSlide(-1);
+                }
+            }
+        }, { passive: false });
+
+        let touchStartX = 0, touchStartY = 0, touchEndX = 0, touchEndY = 0;
+        document.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+            touchStartY = e.changedTouches[0].screenY;
+        }, { passive: true });
+        document.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            touchEndY = e.changedTouches[0].screenY;
+            const deltaX = touchEndX - touchStartX;
+            const deltaY = touchEndY - touchStartY;
+            const minSwipeDistance = 50;
+            if (Math.abs(deltaX) > Math.abs(deltaY)) {
+                if (Math.abs(deltaX) > minSwipeDistance) {
+                    if (deltaX > 0) {
+                        changeSlide(-1);
+                    } else {
+                        changeSlide(1);
+                    }
+                }
+            } else {
+                if (Math.abs(deltaY) > minSwipeDistance) {
+                    if (deltaY > 0) {
+                        changeSlide(-1);
+                    } else {
+                        changeSlide(1);
+                    }
+                }
+            }
+        }, { passive: true });
+
+        document.querySelector('.presentation-card').addEventListener('dblclick', function(e) {
+            e.preventDefault();
+            toggleFullscreen();
+        });
+
+        document.addEventListener('fullscreenchange', function() {
+            if (!document.fullscreenElement && isFullscreen) {
+                exitFullscreen();
+            }
+        });
+        document.addEventListener('webkitfullscreenchange', function() {
+            if (!document.webkitFullscreenElement && isFullscreen) {
+                exitFullscreen();
+            }
+        });
+        document.addEventListener('mozfullscreenchange', function() {
+            if (!document.mozFullScreenElement && isFullscreen) {
+                exitFullscreen();
+            }
+        });
+        
+        showSlide(0);
+    </script>
+</body>
+</html>

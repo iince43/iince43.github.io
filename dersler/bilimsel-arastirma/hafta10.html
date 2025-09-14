@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hafta 10: İstatistiksel Analiz Temelleri - Genişletilmiş Versiyon</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .sidebar {
+            width: 450px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            overflow-y: auto;
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            display: none;
+        }
+
+        .sidebar.active {
+            display: block;
+        }
+
+        .sidebar h3 {
+            color: #ffeb3b;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        .sidebar h4 {
+            color: #81d4fa;
+            margin-bottom: 10px;
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+
+        .sidebar p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+            font-size: 0.95em;
+            text-align: justify;
+        }
+
+        .sidebar ul {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .sidebar li {
+            margin-bottom: 8px;
+            font-size: 0.9em;
+        }
+
+        .slide {
+            display: none;
+            width: 90%;
+            max-width: 1100px;
+            max-height: 85vh;
+            overflow-y: auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 60px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            animation: slideIn 0.6s ease-out;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        /* Custom Scrollbar */
+        .slide::-webkit-scrollbar {
+            width: 12px;
+        }
+        .slide::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+        .slide::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        .slide::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Fullscreen Support */
+        .fullscreen-slide {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            max-width: none !important;
+            max-height: none !important;
+            z-index: 10000 !important;
+            border-radius: 0 !important;
+            border: none !important;
+            box-shadow: none !important;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 3.5em;
+            margin-bottom: 30px;
+            background: linear-gradient(45deg, #ffeb3b, #ff9800);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        h2 {
+            font-size: 2.8em;
+            margin-bottom: 25px;
+            color: #ffeb3b;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+
+        h3 {
+            font-size: 2.2em;
+            margin-bottom: 20px;
+            color: #81d4fa;
+        }
+
+        .content {
+            font-size: 1.3em;
+            line-height: 1.8;
+            text-align: left;
+            margin: 30px 0;
+        }
+
+        .highlight {
+            background: rgba(255, 235, 59, 0.3);
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .formula {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.2em;
+            margin: 20px 0;
+            border-left: 5px solid #ffeb3b;
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .progress {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px 15px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .notes-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 235, 59, 0.8);
+            color: #333;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .fullscreen-btn {
+            position: fixed;
+            top: 20px;
+            left: 220px;
+            background: rgba(76, 175, 80, 0.8);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            z-index: 1001;
+        }
+        .fullscreen-btn:hover {
+            background: rgba(56, 142, 60, 0.9);
+        }
+
+        ul {
+            text-align: left;
+            margin: 20px 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-content">
+        <!-- Slide 1: Başlık -->
+        <div class="slide active">
+            <h1>📊 İstatistiksel Analiz Temelleri</h1>
+            <h2>Spor Bilimlerinde Araştırma Yöntemleri</h2>
+            <div class="content">
+                <p style="text-align: center; font-size: 1.4em;">
+                    <span class="highlight">Hafta 10</span>
+                </p>
+                <p style="text-align: center; margin-top: 30px;">
+                    Betimleyici İstatistikler • Hipotez Testleri • Normal Dağılım • t-Testleri
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 2: İstatistiğin Amacı -->
+        <div class="slide">
+            <h2>🎯 İstatistiğin Amacı</h2>
+            <div class="content">
+                <ul>
+                    <li><strong>Betimleme:</strong> Verileri özetleme ve görselleştirme</li>
+                    <li><strong>Çıkarım:</strong> Örneklemden evrene genelleme</li>
+                    <li><strong>Karar Verme:</strong> Hipotezleri test etme</li>
+                    <li><strong>İlişki Keşfi:</strong> Değişkenler arası bağlantılar</li>
+                </ul>
+                <div class="highlight" style="display: block; margin-top: 30px; padding: 15px;">
+                    Spor bilimlerinde performans değerlendirme, antrenman etkilerini ölçme ve sporcu seçimi için kritik öneme sahiptir.
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Veri Türleri -->
+        <div class="slide">
+            <h2>📋 Veri Türleri ve Ölçek Düzeyleri</h2>
+            <div class="content">
+                <ul>
+                    <li><strong>Nominal:</strong> Kategori (cinsiyet, spor branşı)</li>
+                    <li><strong>Ordinal:</strong> Sıralama (derece, seviye)</li>
+                    <li><strong>Aralık:</strong> Eşit aralıklar (sıcaklık)</li>
+                    <li><strong>Oran:</strong> Mutlak sıfır (ağırlık, hız)</li>
+                </ul>
+                <p style="text-align: center; margin-top: 30px; font-style: italic;">
+                    Ölçek düzeyi, hangi istatistiksel analizin uygun olduğunu belirler.
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 4: Betimleyici İstatistikler -->
+        <div class="slide">
+            <h2>📈 Betimleyici İstatistikler</h2>
+            <div class="content">
+                <h3>Merkezi Eğilim:</h3>
+                <ul>
+                    <li><strong>Ortalama (x̄):</strong> Aritmetik ortalama</li>
+                    <li><strong>Medyan:</strong> Ortanca değer</li>
+                    <li><strong>Mod:</strong> En sık gözlenen değer</li>
+                </ul>
+                <h3>Yayılım:</h3>
+                <ul>
+                    <li><strong>Standart Sapma (s):</strong> Varyansın karekökü</li>
+                    <li><strong>Ranj:</strong> En büyük - En küçük</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 5: Normal Dağılım -->
+        <div class="slide">
+            <h2>🔔 Normal Dağılım</h2>
+            <div class="content">
+                <ul>
+                    <li><strong>Simetrik çan şekli</strong></li>
+                    <li><strong>Ortalama = Medyan = Mod</strong></li>
+                    <li><strong>68-95-99.7 Kuralı</strong></li>
+                </ul>
+                <div class="formula">
+                    <strong>Z Puanı:</strong><br>
+                    Z = (X - μ) / σ
+                </div>
+                <p>Z puanı, bir değerin ortalamadan kaç standart sapma uzakta olduğunu gösterir.</p>
+            </div>
+        </div>
+
+        <!-- Slide 6: Normallik Testi -->
+        <div class="slide">
+            <h2>✅ Normallik Varsayımı</h2>
+            <div class="content">
+                <h3>Testler:</h3>
+                <ul>
+                    <li><strong>Shapiro-Wilk:</strong> Küçük örneklemler (n<50)</li>
+                    <li><strong>Kolmogorov-Smirnov:</strong> Büyük örneklemler</li>
+                    <li><strong>Histogram ve Q-Q Plot:</strong> Görsel kontrol</li>
+                </ul>
+                <div class="highlight" style="display: block; margin-top: 20px; padding: 15px;">
+                    p > 0.05 → Normal dağılım<br>
+                    p ≤ 0.05 → Normal olmayan dağılım
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Hipotez Testleri -->
+        <div class="slide">
+            <h2>🔬 Hipotez Testleri</h2>
+            <div class="content">
+                <ul>
+                    <li><strong>H₀:</strong> Null hipotez (fark yoktur)</li>
+                    <li><strong>H₁:</strong> Alternatif hipotez (fark vardır)</li>
+                    <li><strong>α:</strong> Anlamlılık düzeyi (0.05)</li>
+                    <li><strong>p-değeri:</strong> Null hipotezi reddetme olasılığı</li>
+                </ul>
+                <div class="formula">
+                    <strong>Karar Kuralı:</strong><br>
+                    p ≤ α → H₀ reddedilir<br>
+                    p > α → H₀ reddedilemez
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Tek Örneklem t-Testi -->
+        <div class="slide">
+            <h2>📊 Tek Örneklem t-Testi</h2>
+            <div class="content">
+                <p><strong>Amaç:</strong> Örneklem ortalamasını bilinen değerle karşılaştırma</p>
+                <div class="formula">
+                    <strong>Formül:</strong><br>
+                    t = (x̄ - μ₀) / (s / √n)<br>
+                    df = n - 1
+                </div>
+                <p><strong>Örnek:</strong> Basketbolcuların ortalama boyunun ulusal ortalama ile karşılaştırılması</p>
+            </div>
+        </div>
+
+        <!-- Slide 9: Bağımsız Örneklemler t-Testi -->
+        <div class="slide">
+            <h2>👥 Bağımsız Örneklemler t-Testi</h2>
+            <div class="content">
+                <p><strong>Amaç:</strong> İki grubun ortalamalarını karşılaştırma</p>
+                <h3>Varsayımlar:</h3>
+                <ul>
+                    <li>Normal dağılım</li>
+                    <li>Varyans homojenliği (Levene testi)</li>
+                    <li>Bağımsızlık</li>
+                </ul>
+                <p><strong>Örnek:</strong> Erkek ve kadın atletlerin performans karşılaştırması</p>
+            </div>
+        </div>
+
+        <!-- Slide 10: Eşleştirilmiş t-Testi -->
+        <div class="slide">
+            <h2>🔗 Eşleştirilmiş Örneklemler t-Testi</h2>
+            <div class="content">
+                <p><strong>Amaç:</strong> Aynı grubun iki ölçümünü karşılaştırma</p>
+                <div class="formula">
+                    <strong>Formül:</strong><br>
+                    t = d̄ / (sd / √n)<br>
+                    d = X₁ - X₂ (fark puanları)
+                </div>
+                <p><strong>Avantaj:</strong> Bireysel farklılıkları kontrol eder</p>
+                <p><strong>Örnek:</strong> Antrenman öncesi-sonrası VO₂max karşılaştırması</p>
+            </div>
+        </div>
+
+        <!-- Slide 11: Etki Büyüklüğü -->
+        <div class="slide">
+            <h2>📏 Etki Büyüklüğü</h2>
+            <div class="content">
+                <h3>Cohen's d Yorumlama:</h3>
+                <ul>
+                    <li><strong>d = 0.2:</strong> Küçük etki</li>
+                    <li><strong>d = 0.5:</strong> Orta etki</li>
+                    <li><strong>d = 0.8:</strong> Büyük etki</li>
+                </ul>
+                <div class="highlight" style="display: block; margin-top: 30px; padding: 15px;">
+                    İstatistiksel anlamlılık ≠ Pratik anlamlılık<br>
+                    Etki büyüklüğü pratik önemini gösterir
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Test Seçimi -->
+        <div class="slide">
+            <h2>⚖️ Parametrik vs Non-parametrik</h2>
+            <div class="content">
+                <div class="formula">
+                    <strong>Tek Örneklem:</strong> t-testi vs Wilcoxon<br>
+                    <strong>İki Grup:</strong> t-testi vs Mann-Whitney U<br>
+                    <strong>Çok Grup:</strong> ANOVA vs Kruskal-Wallis
+                </div>
+                <h3>Seçim Kriterleri:</h3>
+                <ul>
+                    <li>Normal dağılım var mı?</li>
+                    <li>Örneklem büyüklüğü yeterli mi?</li>
+                    <li>Varyans homojenliği sağlanıyor mu?</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar" id="sidebar-1">
+        <h3>📊 İstatistiksel Analiz Temelleri</h3>
+        <h4>📚 Dersin Önemi</h4>
+        <p>İstatistiksel analiz, spor bilimlerinde objektif karar vermenin temelidir. Bu ders, araştırmacıların verilerini doğru şekilde analiz etmelerini ve sonuçları bilimsel olarak yorumlamalarını sağlar.</p>
+        
+        <h4>🎯 Öğrenme Hedefleri</h4>
+        <ul>
+            <li>Betimleyici istatistikleri hesaplama ve yorumlama</li>
+            <li>Normal dağılım varsayımını test etme</li>
+            <li>Hipotez testlerinin mantığını kavrama</li>
+            <li>Uygun istatistiksel test seçimi</li>
+        </ul>
+
+        <h4>📖 Temel Kavramlar</h4>
+        <p>İstatistik iki ana dala ayrılır: betimleyici (tanımlayıcı) ve çıkarımsal (inferential) istatistik. Betimleyici istatistik verileri özetlerken, çıkarımsal istatistik örneklemden evrene genelleme yapar.</p>
+    </div>
+
+    <div class="sidebar" id="sidebar-2">
+        <h3>🎯 İstatistiğin Amacı</h3>
+        <h4>📊 Temel Fonksiyonlar</h4>
+        <p><strong>Betimleme:</strong> Ham verilerin anlaşılır hale getirilmesi. Ortalama, standart sapma gibi ölçülerle verilerin özelliklerini özetleme.</p>
+        
+        <p><strong>Çıkarım:</strong> Örneklem verilerinden hareketle popülasyon hakkında genellemeler yapma. Hipotez testleri bu amaçla kullanılır.</p>
+        
+        <p><strong>Karar Verme:</strong> İstatistiksel testlerle hipotezleri sınama ve bilimsel kararlar alma süreci.</p>
+
+        <h4>🏃‍♂️ Spor Bilimlerinde Kullanım</h4>
+        <ul>
+            <li>Antrenman programlarının etkinliğini değerlendirme</li>
+            <li>Sporcu performanslarını karşılaştırma</li>
+            <li>Yaralanma risk faktörlerini belirleme</li>
+            <li>Beslenme müdahalelerinin etkilerini analiz etme</li>
+        </ul>
+
+        <h4>💡 Pratik Örnekler</h4>
+        <p>Bir antrenörün yeni antrenman metodunu test etmesi, sporcuların performans gelişimini takip etmesi veya farklı yaş gruplarının fiziksel özelliklerini karşılaştırması istatistiksel analiz gerektirir.</p>
+    </div>
+
+    <div class="sidebar" id="sidebar-3">
+        <h3>📋 Veri Türleri ve Ölçek Düzeyleri</h3>
+        <h4>📏 Stevens'ın Sınıflandırması</h4>
+        <p><strong>Nominal Ölçek:</strong> Sadece kategorilendirme yapılır. Sayısal değerler sadece kodlama amaçlıdır. Matematik işlemler yapılamaz.</p>
+        
+        <p><strong>Ordinal Ölçek:</strong> Sıralama yapılabilir ancak aradaki mesafeler eşit değildir. Medyan hesaplanabilir, ortalama hesaplanamaz.</p>
+        
+        <p><strong>Aralık Ölçek:</strong> Eşit aralıklar vardır ancak mutlak sıfır noktası yoktur. Toplama-çıkarma yapılabilir.</p>
+        
+        <p><strong>Oran Ölçek:</strong> Mutlak sıfır noktası vardır. Tüm matematik işlemler yapılabilir.</p>
+
+        <h4>🏃‍♂️ Spor Bilimlerinden Örnekler</h4>
+        <ul>
+            <li><strong>Nominal:</strong> Cinsiyet (Erkek=1, Kadın=2), Spor branşı</li>
+            <li><strong>Ordinal:</strong> Müsabaka dereceleri, Likert ölçek puanları</li>
+            <li><strong>Aralık:</strong> Celsius sıcaklık, IQ puanları</li>
+            <li><strong>Oran:</strong> Boy, kilo, sprint zamanı, kuvvet değerleri</li>
+        </ul>
+
+        <h4>⚡ İstatistiksel Analiz Seçimi</h4>
+        <p>Veri türü, hangi istatistiksel analizin kullanılacağını belirler. Nominal veriler için ki-kare, ordinal veriler için Spearman korelasyon, oran verileri için Pearson korelasyon kullanılır.</p>
+    </div>
+
+    <div class="sidebar" id="sidebar-4">
+        <h3>📈 Betimleyici İstatistikler</h3>
+        <h4>📊 Merkezi Eğilim Ölçüleri</h4>
+        <p><strong>Aritmetik Ortalama:</strong> En yaygın kullanılan merkezi eğilim ölçüsü. Tüm değerlerin toplamının gözlem sayısına bölümü. Aykırı değerlerden etkilenir.</p>
+        
+        <p><strong>Medyan:</strong> Sıralanmış değerlerin ortasındaki değer. Aykırı değerlerden etkilenmez, çarpık dağılımlarda tercih edilir.</p>
+        
+        <p><strong>Mod:</strong> En sık gözlenen değer. Kategorik verilerde kullanışlıdır.</p>
+
+        <h4>📏 Yayılım Ölçüleri</h4>
+        <p><strong>Standart Sapma:</strong> Verilerin ortalama etrafındaki dağılımını gösterir. Küçük değer homojen grubu, büyük değer heterojen grubu işaret eder.</p>
+        
+        <p><strong>Varyans:</strong> Standart sapmanın karesi. Matematik işlemlerde kullanışlıdır.</p>
+        
+        <p><strong>Ranj:</strong> En basit yayılım ölçüsü. Aykırı değerlerden çok etkilenir.</p>
+
+        <h4>🏃‍♂️ Spor Uygulamaları</h4>
+        <p>Takım performansının değerlendirilmesinde ortalama kullanılırken, bireysel sporcuların tutarlılığının değerlendirilmesinde standart sapma önemlidir. Düşük standart sapma tutarlı performansı gösterir.</p>
+    </div>
+
+    <div class="sidebar" id="sidebar-5">
+        <h3>🔔 Normal Dağılım</h3>
+        <h4>📊 Temel Özellikler</h4>
+        <p>Normal dağılım, doğada en sık karşılaşılan dağılım türüdür. Çan şeklinde, simetrik bir eğridir. Ortalama, medyan ve mod aynı noktada birleşir.</p>
+        
+        <p><strong>68-95-99.7 Kuralı:</strong> Değerlerin %68'i μ±1σ, %95'i μ±2σ, %99.7'si μ±3σ aralığında yer alır.</p>
+
+        <h4>⚡ Z Puanı (Standardizasyon)</h4>
+        <p>Z puanı, ham puanları standart puana dönüştürür. Bu sayede farklı ölçeklerdeki değerler karşılaştırılabilir hale gelir.</p>
+        
+        <p>Z = (X - μ) / σ formülü ile hesaplanır. Z = 0 ortalamaya eşit, pozitif değerler ortalamanın üzerini, negatif değerler altını gösterir.</p>
+
+        <h4>🏃‍♂️ Spor Bilimlerinde Kullanım</h4>
+        <p>Sporcuların performans değerlendirmesinde Z puanları kullanılır. Örneğin, farklı branşlardaki sporcuların performansları Z puanı ile karşılaştırılabilir.</p>
+        
+        <p>Fizyolojik ölçümler (VO₂max, kalp atım hızı) genellikle normal dağılım gösterir.</p>
+
+        <h4>📐 Merkezi Limit Teoremi</h4>
+        <p>Örneklem büyüklüğü arttıkça (n≥30), örneklem ortalamaları normal dağılıma yaklaşır. Bu, parametrik testlerin dayandığı temel ilkedir.</p>
+    </div>
+
+    <div class="sidebar" id="sidebar-6">
+        <h3>✅ Normallik Varsayımı</h3>
+        <h4>🔬 İstatistiksel Testler</h4>
+        <p><strong>Shapiro-Wilk Testi:</strong> Küçük örneklemler (n≤50) için en güçlü normallik testidir. H₀: Veriler normal dağılım gösterir.</p>
+        
+        <p><strong>Kolmogorov-Smirnov Testi:</strong> Büyük örneklemler için kullanılır. Gözlenen dağılımı teorik normal dağılımla karşılaştırır.</p>
+        
+        <p><strong>Anderson-Darling:</strong> Dağılımın kuyruk bölgelerine daha duyarlıdır.</p>
+
+        <h4>👁️ Görsel Yöntemler</h4>
+        <p><strong>Histogram:</strong> Dağılımın şeklini görselleştirir. Çan şekli aranır.</p>
+        
+        <p><strong>Q-Q Plot:</strong> Kantil-kantil grafiği. Noktalar doğru üzerinde diziliyorsa dağılım normaldir.</p>
+        
+        <p><strong>Box Plot:</strong> Medyan, çeyrekler ve aykırı değerleri gösterir. Simetri kontrolü yapılır.</p>
+
+        <h4>⚖️ Karar Verme</h4>
+        <p>p > 0.05: Normal dağılım varsayımı kabul edilir, parametrik testler kullanılabilir.</p>
+        <p>p ≤ 0.05: Normal dağılım varsayımı reddedilir, non-parametrik testler tercih edilir.</p>
+
+        <h4>🔧 Normallik Sağlanamazsa</h4>
+        <ul>
+            <li>Veri dönüşümü (log, karekök)</li>
+            <li>Non-parametrik test kullanımı</li>
+            <li>Bootstrap yöntemleri</li>
+        </ul>
+    </div>
+
+    <div class="sidebar" id="sidebar-7">
+        <h3>🔬 Hipotez Testleri</h3>
+        <h4>💡 Temel Mantık</h4>
+        <p>Hipotez testleri, örneklem verilerinden hareketle popülasyon hakkında çıkarım yapmamızı sağlar. İki hipotez kurulur: null (H₀) ve alternatif (H₁).</p>
+        
+        <p><strong>Null Hipotez (H₀):</strong> "Fark yoktur, ilişki yoktur" şeklinde kurulur. Reddedilmeye çalışılan hipotezdir.</p>
+        
+        <p><strong>Alternatif Hipotez (H₁):</strong> Araştırmacının desteklemek istediği hipotezdir.</p>
+
+        <h4>⚡ Temel Kavramlar</h4>
+        <p><strong>Anlamlılık Düzeyi (α):</strong> Tip I hata yapma riskini belirler. Genellikle 0.05 alınır.</p>
+        
+        <p><strong>p-değeri:</strong> H₀ doğruyken gözlenen sonucu ya da daha ekstrem sonuçları elde etme olasılığı.</p>
+        
+        <p><strong>Test İstatistiği:</strong> Karar vermek için hesaplanan sayısal değer (t, z, F vb.).</p>
+
+        <h4>🎯 Karar Verme</h4>
+        <p>p ≤ α: H₀ reddedilir, sonuç istatistiksel olarak anlamlıdır.</p>
+        <p>p > α: H₀ reddedilemez, sonuç istatistiksel olarak anlamsızdır.</p>
+
+        <h4>🏃‍♂️ Spor Örneği</h4>
+        <p>H₀: Yeni antrenman programı ile eski program arasında performans farkı yoktur.</p>
+        <p>H₁: Yeni antrenman programı performansı artırır.</p>
+    </div>
+
+    <div class="sidebar" id="sidebar-8">
+        <h3>📊 Tek Örneklem t-Testi</h3>
+        <h4>🎯 Kullanım Amacı</h4>
+        <p>Bir örneklem grubunun ortalamasını, bilinen bir popülasyon değeri veya teorik değerle karşılaştırmak için kullanılır.</p>
+        
+        <p>Örneğin, basketbol takımının ortalama boyunu ulusal ortalama ile karşılaştırmak veya sporcuların vücut yağ oranını ideal değerler ile kıyaslamak.</p>
+
+        <h4>📏 Formül ve Hesaplama</h4>
+        <p>t = (x̄ - μ₀) / (s / √n)</p>
+        <ul>
+            <li>x̄: Örneklem ortalaması</li>
+            <li>μ₀: Test edilecek popülasyon değeri</li>
+            <li>s: Örneklem standart sapması</li>
+            <li>n: Örneklem büyüklüğü</li>
+            <li>df: Serbestlik derecesi (n-1)</li>
+        </ul>
+
+        <h4>✅ Varsayımlar</h4>
+        <ul>
+            <li>Veriler normal dağılım gösterir</li>
+            <li>Gözlemler birbirinden bağımsızdır</li>
+            <li>Bağımlı değişken sürekli düzeydedir</li>
+        </ul>
+
+        <h4>🏃‍♂️ Uygulama Örneği</h4>
+        <p>25 basketbolcunun ortalama boyu 185 cm, standart sapma 6 cm. Ulusal ortalama 180 cm ise, bu fark anlamlı mı?</p>
+        <p>t = (185-180)/(6/√25) = 5/1.2 = 4.17</p>
+        <p>p < 0.001, fark anlamlıdır.</p>
+    </div>
+
+    <div class="sidebar" id="sidebar-9">
+        <h3>👥 Bağımsız Örneklemler t-Testi</h3>
+        <h4>🎯 Kullanım Amacı</h4>
+        <p>İki bağımsız grubun ortalamalarını karşılaştırmak için kullanılır. Gruplar birbirinden tamamen ayrı olmalıdır.</p>
+        
+        <p>Erkek-kadın sporcu karşılaştırmaları, farklı antrenman grubu karşılaştırmaları bu teste örnektir.</p>
+
+        <h4>✅ Varsayımlar</h4>
+        <ul>
+            <li><strong>Normal Dağılım:</strong> Her iki grupta da veriler normal dağılmalı</li>
+            <li><strong>Varyans Homojenliği:</strong> Grup varyansları birbirine eşit olmalı</li>
+            <li><strong>Bağımsızlık:</strong> Gruplar birbirinden bağımsız olmalı</li>
+        </ul>
+
+        <h4>🔬 Levene Testi</h4>
+        <p>Varyans eşitliğini test eder. p > 0.05 ise varyanslar eşittir, standart t-testi kullanılır. p ≤ 0.05 ise Welch's t-testi tercih edilir.</p>
+
+        <h4>📏 Etki Büyüklüğü</h4>
+        <p>Cohen's d = (M₁ - M₂) / Spooled</p>
+        <p>d = 0.2 küçük, d = 0.5 orta, d = 0.8 büyük etki olarak yorumlanır.</p>
+
+        <h4>🏃‍♂️ Örnek</h4>
+        <p>Erkek atletlerin dikey sıçrama: 45±4 cm, Kadın atletler: 39±3 cm. Fark anlamlı mı?</p>
+    </div>
+
+    <div class="sidebar" id="sidebar-10">
+        <h3>🔗 Eşleştirilmiş Örneklemler t-Testi</h3>
+        <h4>🎯 Kullanım Amacı</h4>
+        <p>Aynı deneklerin iki farklı zamandaki ölçümlerini karşılaştırmak için kullanılır. Öntest-sontest karşılaştırmaları en yaygın kullanım alanıdır.</p>
+        
+        <p>Her denek kendi kontrolü olduğu için, bireysel farklılıklar kontrol edilmiş olur.</p>
+
+        <h4>📏 Formül ve Hesaplama</h4>
+        <p>t = d̄ / (sd / √n)</p>
+        <ul>
+            <li>d̄: Fark puanlarının ortalaması</li>
+            <li>sd: Fark puanlarının standart sapması</li>
+            <li>n: Çift sayısı</li>
+            <li>d = X₁ - X₂ (her deneğin fark puanı)</li>
+        </ul>
+
+        <h4>💪 Avantajları</h4>
+        <ul>
+            <li>Bireysel farklılıkları kontrol eder</li>
+            <li>Daha güçlü test (daha az örneklem gerekir)</li>
+            <li>Grup içi varyasyonu azaltır</li>
+            <li>Daha hassas sonuçlar verir</li>
+        </ul>
+
+        <h4>🏃‍♂️ Uygulama Örneği</h4>
+        <p>20 sporcunun 8 haftalık antrenman öncesi VO₂max: 45 ml/kg/dk, sonrası: 48 ml/kg/dk. Fark puanları: +3±2 ml/kg/dk.</p>
+        <p>t = 3/(2/√20) = 3/0.45 = 6.67, p < 0.001</p>
+
+        <h4>📊 Rapor Etme</h4>
+        <p>"8 haftalık antrenman sonrasında VO₂max değerlerinde anlamlı artış gözlendi, t(19) = 6.67, p < .001."</p>
+    </div>
+
+    <div class="sidebar" id="sidebar-11">
+        <h3>📏 Etki Büyüklüğü</h3>
+        <h4>💡 Kavram ve Önemi</h4>
+        <p>İstatistiksel anlamlılık sadece farkın varlığını gösterir, büyüklüğünü göstermez. Etki büyüklüğü, farkın pratik önemini değerlendirmemizi sağlar.</p>
+        
+        <p>Büyük örneklemlerde küçük farklar bile istatistiksel olarak anlamlı çıkabilir, ancak pratik önemi olmayabilir.</p>
+
+        <h4>📊 Cohen's d Hesaplama</h4>
+        <p>d = (M₁ - M₂) / SDpooled</p>
+        <p>Birleşik standart sapma: SDpooled = √[(SD₁² + SD₂²) / 2]</p>
+
+        <h4>📏 Yorumlama Kriterleri</h4>
+        <ul>
+            <li><strong>d = 0.2:</strong> Küçük etki (pratik önemi sınırlı)</li>
+            <li><strong>d = 0.5:</strong> Orta etki (fark edilebilir düzeyde)</li>
+            <li><strong>d = 0.8:</strong> Büyük etki (pratik olarak önemli)</li>
+        </ul>
+
+        <h4>🎯 Pratik Anlamlılık</h4>
+        <p>Spor bilimlerinde, istatistiksel anlamlılığın yanında pratik anlamlılık da değerlendirilmelidir. 0.1 saniyelik sprint iyileşmesi istatistiksel olarak anlamlı olabilir ama atletik performansta çok büyük fark yaratmayabilir.</p>
+
+        <h4>📈 Güvenirlik Aralığı</h4>
+        <p>Etki büyüklüğünün güvenirlik aralığı da rapor edilmelidir. Bu, etkinin gerçek büyüklüğü hakkında belirsizlik bilgisi verir.</p>
+    </div>
+
+    <div class="sidebar" id="sidebar-12">
+        <h3>⚖️ Test Seçimi</h3>
+        <h4>📊 Parametrik vs Non-parametrik</h4>
+        <p><strong>Parametrik Testler:</strong> Normal dağılım varsayımına dayanır. Daha güçlüdür ancak varsayımları katıdır.</p>
+        
+        <p><strong>Non-parametrik Testler:</strong> Dağılım varsayımı gerektirmez. Daha esnek ancak daha az güçlüdür.</p>
+
+        <h4>🔍 Karar Verme Süreci</h4>
+        <ol>
+            <li><strong>Veri türünü belirle:</strong> Sürekli mi, kategorik mi?</li>
+            <li><strong>Örneklem büyüklüğünü kontrol et:</strong> n ≥ 30 mı?</li>
+            <li><strong>Normal dağılımı test et:</strong> Shapiro-Wilk testi</li>
+            <li><strong>Varyans homojenliğini kontrol et:</strong> Levene testi</li>
+            <li><strong>Uygun testi seç</strong></li>
+        </ol>
+
+        <h4>📋 Test Eşleştirmeleri</h4>
+        <ul>
+            <li><strong>Tek örneklem:</strong> t-testi ↔ Wilcoxon işaretli sıralar</li>
+            <li><strong>İki bağımsız grup:</strong> t-testi ↔ Mann-Whitney U</li>
+            <li><strong>İki eşleştirilmiş grup:</strong> t-testi ↔ Wilcoxon işaretli sıralar</li>
+            <li><strong>Çok grup:</strong> ANOVA ↔ Kruskal-Wallis</li>
+        </ul>
+
+        <h4>💻 Yazılım Seçimi</h4>
+        <p>SPSS, R, Python, JASP gibi yazılımlar kullanılabilir. Başlangıç için JASP veya jamovi önerilir.</p>
+    </div>
+
+    <button class="notes-toggle" onclick="toggleNotes()">📝 Notları Göster/Gizle</button>
+    <button class="fullscreen-btn" onclick="toggleFullscreen()" title="Fullscreen (F11)">⛶ Tam Ekran</button>
+    
+    <div class="progress">
+        <span id="slideNumber">1</span> / 12
+    </div>
+
+    <div class="controls">
+        <button class="btn" onclick="previousSlide()" id="prevBtn">← Önceki</button>
+        <button class="btn" onclick="goHome()">🏠 Ana Sayfa</button>
+        <button class="btn" onclick="nextSlide()" id="nextBtn">Sonraki →</button>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 12;
+        let notesVisible = false;
+
+        function showSlide(n) {
+            // Tüm slaytları gizle
+            const slides = document.querySelectorAll('.slide');
+            slides.forEach(slide => slide.classList.remove('active'));
+
+            // Tüm sidebar'ları gizle
+            const sidebars = document.querySelectorAll('.sidebar');
+            sidebars.forEach(sidebar => sidebar.classList.remove('active'));
+
+            // Geçerli slayt ve sidebar'ı göster
+            if (n >= 1 && n <= totalSlides) {
+                currentSlide = n;
+                const activeSlide = slides[n-1];
+                activeSlide.classList.add('active');
+
+                // Reset scroll to top
+                activeSlide.scrollTop = 0;
+
+                if (notesVisible) {
+                    const currentSidebar = document.getElementById('sidebar-' + n);
+                    if (currentSidebar) {
+                        currentSidebar.classList.add('active');
+                    }
+                }
+            }
+            
+            // Progress güncellemesi
+            document.getElementById('slideNumber').textContent = currentSlide;
+            
+            // Buton durumları
+            document.getElementById('prevBtn').disabled = currentSlide === 1;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides) {
+                showSlide(currentSlide + 1);
+            }
+        }
+
+        function previousSlide() {
+            if (currentSlide > 1) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        function toggleNotes() {
+            notesVisible = !notesVisible;
+            const sidebars = document.querySelectorAll('.sidebar');
+            
+            if (notesVisible) {
+                document.getElementById('sidebar-' + currentSlide).classList.add('active');
+            } else {
+                sidebars.forEach(sidebar => sidebar.classList.remove('active'));
+            }
+        }
+
+        function goHome() {
+            window.location.href = 'ders-plani.html';
+        }
+
+        // Fullscreen functionality
+        let isFullscreen = false;
+
+        function toggleFullscreen() {
+            const activeSlide = document.querySelector('.slide.active');
+            if (!activeSlide) return;
+
+            if (!isFullscreen) {
+                // Enter fullscreen
+                activeSlide.classList.add('fullscreen-slide');
+                document.body.style.overflow = 'hidden';
+                isFullscreen = true;
+
+                // Try browser fullscreen API if available
+                if (activeSlide.requestFullscreen) {
+                    activeSlide.requestFullscreen().catch(() => {});
+                } else if (activeSlide.webkitRequestFullscreen) {
+                    activeSlide.webkitRequestFullscreen().catch(() => {});
+                } else if (activeSlide.mozRequestFullScreen) {
+                    activeSlide.mozRequestFullScreen().catch(() => {});
+                }
+            } else {
+                // Exit fullscreen
+                exitFullscreen();
+            }
+        }
+
+        function exitFullscreen() {
+            const activeSlide = document.querySelector('.slide.active');
+            if (activeSlide) {
+                activeSlide.classList.remove('fullscreen-slide');
+            }
+            document.body.style.overflow = 'auto';
+            isFullscreen = false;
+
+            // Exit browser fullscreen if active
+            if (document.exitFullscreen) {
+                document.exitFullscreen().catch(() => {});
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen().catch(() => {});
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen().catch(() => {});
+            }
+        }
+
+        // Enhanced keyboard controls
+        document.addEventListener('keydown', function(e) {
+            switch(e.key) {
+                case 'ArrowRight':
+                case 'ArrowDown':
+                case ' ': // Space key
+                    e.preventDefault();
+                    nextSlide();
+                    break;
+                case 'ArrowLeft':
+                case 'ArrowUp':
+                    e.preventDefault();
+                    previousSlide();
+                    break;
+                case 'Home':
+                    e.preventDefault();
+                    showSlide(1);
+                    break;
+                case 'End':
+                    e.preventDefault();
+                    showSlide(totalSlides);
+                    break;
+                case 'F11':
+                    e.preventDefault();
+                    toggleFullscreen();
+                    break;
+                case 'Escape':
+                    if (isFullscreen) {
+                        e.preventDefault();
+                        exitFullscreen();
+                    } else {
+                        toggleNotes();
+                    }
+                    break;
+                case 'n':
+                case 'N':
+                    e.preventDefault();
+                    toggleNotes();
+                    break;
+            }
+        });
+
+        // Mouse wheel support
+        document.addEventListener('wheel', function(e) {
+            if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+                e.preventDefault();
+                if (e.deltaY > 0) {
+                    nextSlide();
+                } else {
+                    previousSlide();
+                }
+            }
+        }, { passive: false });
+
+        // Touch support for mobile
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let touchEndX = 0;
+        let touchEndY = 0;
+
+        document.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+            touchStartY = e.changedTouches[0].screenY;
+        }, { passive: true });
+
+        document.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            touchEndY = e.changedTouches[0].screenY;
+            handleSwipe();
+        }, { passive: true });
+
+        function handleSwipe() {
+            const deltaX = touchEndX - touchStartX;
+            const deltaY = touchEndY - touchStartY;
+            const minSwipeDistance = 50;
+
+            if (Math.abs(deltaX) > Math.abs(deltaY)) {
+                if (Math.abs(deltaX) > minSwipeDistance) {
+                    if (deltaX > 0) {
+                        previousSlide(); // Swipe right
+                    } else {
+                        nextSlide(); // Swipe left
+                    }
+                }
+            } else {
+                if (Math.abs(deltaY) > minSwipeDistance) {
+                    if (deltaY > 0) {
+                        previousSlide(); // Swipe down
+                    } else {
+                        nextSlide(); // Swipe up
+                    }
+                }
+            }
+        }
+
+        // Double-click to toggle fullscreen
+        document.querySelectorAll('.slide').forEach(slide => {
+            slide.addEventListener('dblclick', function(e) {
+                e.preventDefault();
+                toggleFullscreen();
+            });
+        });
+
+        // Handle browser fullscreen changes
+        document.addEventListener('fullscreenchange', function() {
+            if (!document.fullscreenElement && isFullscreen) {
+                exitFullscreen();
+            }
+        });
+
+        document.addEventListener('webkitfullscreenchange', function() {
+            if (!document.webkitFullscreenElement && isFullscreen) {
+                exitFullscreen();
+            }
+        });
+
+        document.addEventListener('mozfullscreenchange', function() {
+            if (!document.mozFullScreenElement && isFullscreen) {
+                exitFullscreen();
+            }
+        });
+
+        // Başlangıçta ilk slaydı göster
+        showSlide(1);
+    </script>
+</body>
+</html>

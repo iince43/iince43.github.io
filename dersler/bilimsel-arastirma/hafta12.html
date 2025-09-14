@@ -1,0 +1,2274 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hafta 12: Araştırma Etiği - Kapsamlı Versiyon</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; overflow: hidden; height: 100vh; display: flex; }
+        .main-content { flex: 1; display: flex; align-items: center; justify-content: center; padding: 20px; }
+        .sidebar { width: 450px; background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(10px); padding: 20px; overflow-y: auto; border-left: 1px solid rgba(255, 255, 255, 0.1); display: none; }
+        .sidebar.active { display: block; }
+        .sidebar h3 { color: #ffeb3b; margin-bottom: 15px; font-size: 1.4em; }
+        .sidebar h4 { color: #81d4fa; margin-bottom: 10px; margin-top: 20px; font-size: 1.2em; }
+        .sidebar p { line-height: 1.6; margin-bottom: 15px; font-size: 0.95em; text-align: justify; }
+        .sidebar ul { padding-left: 20px; margin-bottom: 15px; }
+        .sidebar li { margin-bottom: 8px; font-size: 0.9em; }
+        .slide { display: none; width: 90%; max-width: 1100px; max-height: 85vh; overflow-y: auto; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(20px); border-radius: 20px; padding: 60px; text-align: center; border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); animation: slideIn 0.6s ease-out; }
+        .slide.active { display: block; }
+        .slide::-webkit-scrollbar { width: 12px; }
+        .slide::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
+        .slide::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.3); border-radius: 10px; border: 2px solid rgba(255, 255, 255, 0.1); }
+        .slide::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.5); }
+        .fullscreen-slide { position: fixed !important; top: 0 !important; left: 0 !important; width: 100vw !important; height: 100vh !important; max-width: none !important; max-height: none !important; z-index: 10000 !important; border-radius: 0 !important; border: none !important; box-shadow: none !important; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        h1 { font-size: 3.5em; margin-bottom: 30px; background: linear-gradient(45deg, #ffeb3b, #ff9800); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        h2 { font-size: 2.8em; margin-bottom: 25px; color: #ffeb3b; text-shadow: 1px 1px 3px rgba(0,0,0,0.3); }
+        h3 { font-size: 2.2em; margin-bottom: 20px; color: #81d4fa; }
+        .content { font-size: 1.3em; line-height: 1.8; text-align: left; margin: 30px 0; }
+        .highlight { background: rgba(255, 235, 59, 0.3); padding: 3px 8px; border-radius: 5px; font-weight: bold; }
+        .formula { background: rgba(255, 255, 255, 0.15); padding: 20px; border-radius: 10px; font-family: 'Courier New', monospace; font-size: 1.2em; margin: 20px 0; border-left: 5px solid #ffeb3b; }
+        .controls { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 15px; z-index: 1000; }
+        .btn { background: rgba(255, 255, 255, 0.2); border: 1px solid rgba(255, 255, 255, 0.3); color: white; padding: 12px 24px; border-radius: 25px; cursor: pointer; backdrop-filter: blur(10px); transition: all 0.3s ease; font-size: 16px; }
+        .btn:hover { background: rgba(255, 255, 255, 0.3); transform: translateY(-2px); }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .progress { position: fixed; top: 20px; right: 20px; background: rgba(0, 0, 0, 0.5); padding: 10px 15px; border-radius: 20px; backdrop-filter: blur(10px); }
+        .notes-toggle { position: fixed; top: 20px; left: 20px; background: rgba(255, 235, 59, 0.8); color: #333; border: none; padding: 10px 15px; border-radius: 20px; cursor: pointer; font-weight: bold; }
+        .fullscreen-btn { position: fixed; top: 20px; left: 150px; background: rgba(76, 175, 80, 0.8); color: white; border: none; padding: 10px 15px; border-radius: 20px; cursor: pointer; font-weight: bold; z-index: 1001; }
+        .fullscreen-btn:hover { background: rgba(56, 142, 60, 0.9); }
+        ul { text-align: left; margin: 20px 0; }
+        li { margin-bottom: 10px; font-size: 1.1em; }
+    </style>
+</head>
+<body>
+    <div class="main-content">
+        <!-- Slayt 1: Başlık -->
+        <div class="slide active">
+            <h1>⚖️ Araştırma Etiği</h1>
+            <h2>Spor ve Egzersiz Bilimlerinde</h2>
+            <div class="content">
+                <p style="text-align: center; font-size: 1.4em;"><span class="highlight">Hafta 12</span></p>
+                <p style="text-align: center; margin-top: 30px;">Bilimsel Etik • İnsan Hakları • Araştırma İntegriti • Etik Kurul Süreçleri</p>
+            </div>
+        </div>
+
+        <!-- Slayt 2: Bilimsel Etiğin Tanımı -->
+        <div class="slide">
+            <h2>📚 Bilimsel Etik Nedir?</h2>
+            <div class="content">
+                <ul>
+                    <li><strong>Tanım:</strong> Bilimsel araştırmalarda uyulması gereken ahlaki ilke ve kurallar bütünü</li>
+                    <li><strong>Amaç:</strong> İnsan haklarını korumak, bilimsel doğruluğu sağlamak</li>
+                    <li><strong>Kapsam:</strong> Araştırma tasarımından yayına kadar tüm süreçler</li>
+                    <li><strong>Zorunluluk:</strong> Yasal ve mesleki yükümlülük</li>
+                    <li><strong>Evrensellik:</strong> Tüm disiplinler için geçerli temel standartlar</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slayt 3: Etiğin Tarihsel Gelişimi -->
+        <div class="slide">
+            <h2>📅 Araştırma Etiğinin Tarihçesi</h2>
+            <div class="content">
+                <ul>
+                    <li><strong>1947 - Nürnberg Kodu:</strong> Nazi deneyleri sonrası ilk etik rehber</li>
+                    <li><strong>1964 - Helsinki Bildirgesi:</strong> Dünya Hekimler Birliği tarafından kabul</li>
+                    <li><strong>1972 - Tuskegee Skandalı:</strong> ABD'de etik reformların başlangıcı</li>
+                    <li><strong>1979 - Belmont Raporu:</strong> Modern etik ilkelerin temelleri</li>
+                    <li><strong>1991 - ICH-GCP:</strong> İyi Klinik Uygulama rehberleri</li>
+                    <li><strong>2000'ler - Veri Koruma:</strong> GDPR ve KVKK yasaları</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slayt 4: Temel Etik İlkeler -->
+        <div class="slide">
+            <h2>⚖️ Dört Temel Etik İlkesi</h2>
+            <div class="content">
+                <ul>
+                    <li><strong>Özerklik (Autonomy):</strong> Bireyin kendi kararını verme hakkı</li>
+                    <li><strong>Yararlılık (Beneficence):</strong> İyilik yapma, fayda sağlama yükümlülüğü</li>
+                    <li><strong>Zarar Vermeme (Non-maleficence):</strong> "Primum non nocere" - öncelikle zarar verme</li>
+                    <li><strong>Adalet (Justice):</strong> Eşit muamele, adil dağıtım ilkesi</li>
+                </ul>
+                <div class="formula">
+                    <strong>Beauchamp & Childress Model (1979)</strong><br>
+                    Modern bioetik ve araştırma etiğinin temel çerçevesi
+                </div>
+            </div>
+        </div>
+
+        <!-- Slayt 5: Helsinki Bildirgesi Detay -->
+        <div class="slide">
+            <h2>📜 Helsinki Bildirgesi</h2>
+            <div class="content">
+                <ul>
+                    <li><strong>İlk Kabul:</strong> 1964, 18. Dünya Hekimler Birliği Genel Kurulu</li>
+                    <li><strong>Son Revizyon:</strong> 2013 Fortaleza Deklarasyonu</li>
+                    <li><strong>Ana İlke:</strong> İnsan refahı bilimsel çıkarlardan önce gelir</li>
+                    <li><strong>Global Kabul:</strong> 194 ülke tarafından benimsenmiş</li>
+                    <li><strong>Hukuki Statü:</strong> Uluslararası hukuk referansı</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slayt 6: Helsinki Bildirgesinin Ana Maddeleri -->
+        <div class="slide">
+            <h2>📋 Helsinki Bildirgesi Ana Maddeleri</h2>
+            <div class="content">
+                <ul>
+                    <li><strong>Madde 6:</strong> Bilimsel değer ve sosyal yarar değerlendirmesi</li>
+                    <li><strong>Madde 16:</strong> Araştırmacı nitelik ve sorumlulukları</li>
+                    <li><strong>Madde 23:</strong> Risk-fayda analizi zorunluluğu</li>
+                    <li><strong>Madde 25:</strong> Bilgilendirilmiş onay prosedürü</li>
+                    <li><strong>Madde 28:</strong> Bağımsız etik kurul onayı</li>
+                    <li><strong>Madde 32:</strong> Çıkar çatışması beyanı</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slayt 7: Diğer Uluslararası Belgeler -->
+        <div class="slide">
+            <h2>🌍 Diğer Uluslararası Etik Belgeler</h2>
+            <div class="content">
+                <ul>
+                    <li><strong>Belmont Raporu (1979):</strong> ABD etik ilkeleri</li>
+                    <li><strong>CIOMS Guidelines:</strong> Gelişmekte olan ülkeler için özel düzenlemeler</li>
+                    <li><strong>ICH-GCP E6(R2):</strong> İyi Klinik Uygulama Rehberi</li>
+                    <li><strong>UNESCO Bioetik Deklarasyonu:</strong> Evrensel bioetik ilkeleri</li>
+                    <li><strong>Singapore Statement:</strong> Araştırma dürüstlüğü için global bildirge</li>
+                    <li><strong>Montreal Statement:</strong> Araştırma integriti ve etik</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slayt 8: Türkiye'deki Etik Mevzuat -->
+        <div class="slide">
+            <h2>🇹🇷 Türkiye'deki Etik Mevzuat</h2>
+            <div class="content">
+                <ul>
+                    <li><strong>Klinik Araştırmalar Yönetmeliği (2013):</strong> İlaç ve tıbbi cihaz araştırmaları</li>
+                    <li><strong>KVKK (2016):</strong> Kişisel Verilerin Korunması Kanunu</li>
+                    <li><strong>Sağlık Bakanlığı Bilimsel Araştırmalar Yönergesi:</strong> Etik kurul standartları</li>
+                    <li><strong>YÖK Bilimsel Araştırma ve Yayın Etiği Yönergesi:</strong> Üniversite etik kuralları</li>
+                    <li><strong>HADYEK Yönetmeliği:</strong> Hayvan deneyleri etik kurul</li>
+                    <li><strong>TÜBİTAK Etik Kuralları:</strong> Araştırma fonları için etik şartlar</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slayt 9: Etik Kurul Türleri -->
+        <div class="slide">
+            <h2>🏛️ Etik Kurul Türleri</h2>
+            <div class="content">
+                <ul>
+                    <li><strong>Klinik Araştırmalar Etik Kurulu:</strong> İnsan üzerinde tıbbi araştırmalar</li>
+                    <li><strong>Bilimsel Araştırmalar Etik Kurulu:</strong> Sosyal ve davranışsal araştırmalar</li>
+                    <li><strong>Hayvan Deneyleri Yerel Etik Kurulu (HADYEK):</strong> Hayvan deneylerini denetleme</li>
+                    <li><strong>Tıp Fakültesi Etik Kurulu:</strong> Fakülte bazlı araştırma onayları</li>
+                    <li><strong>Hastane Etik Kurulu:</strong> Klinik çalışma onayları</li>
+                    <li><strong>Üniversite Etik Kurulu:</strong> Genel araştırma etiği denetimi</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slayt 10: Etik Kurul Yapısı -->
+        <div class="slide">
+            <h2>👥 Etik Kurul Üye Yapısı</h2>
+            <div class="content">
+                <ul>
+                    <li><strong>Hekim/Uzman:</strong> Tıbbi risk değerlendirmesi (minimum 1)</li>
+                    <li><strong>Akademisyen:</strong> Araştırma metodolojisi uzmanı (minimum 1)</li>
+                    <li><strong>Hukukçu:</strong> Yasal uyumluluk kontrolü (minimum 1)</li>
+                    <li><strong>Etik/Felsefe Uzmanı:</strong> Etik değerlendirme (minimum 1)</li>
+                    <li><strong>Toplum Temsilcisi:</strong> Kurumla bağlantısız sivil (minimum 1)</li>
+                    <li><strong>Minimum Üye Sayısı:</strong> 5 kişi (bazı kurullarda 7-9)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slayt 11: Etik Kurul İnceleme Süreci -->
+        <div class="slide">
+            <h2>📝 Etik Kurul İnceleme Süreci</h2>
+            <div class="content">
+                <ul>
+                    <li><strong>Başvuru Hazırlama:</strong> Protokol ve ek belgeler (1-2 hafta)</li>
+                    <li><strong>Ön İnceleme:</strong> Belge kontrolü ve uygunluk değerlendirmesi</li>
+                    <li><strong>Kurul Toplantısı:</strong> Aylık düzenli toplantılarda değerlendirme</li>
+                    <li><strong>Karar Verme:</strong> Onay, koşullu onay veya red kararı</li>
+                    <li><strong>Düzeltme Süreci:</strong> Eksiklik durumunda ikinci tur inceleme</li>
+                    <li><strong>Son Onay:</strong> Nihai karar bildirimi (2-8 hafta toplam)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slayt 12: Etik Kurul Karar Türleri -->
+        <div class="slide">
+            <h2>✅ Etik Kurul Karar Türleri</h2>
+            <div class="content">
+                <ul>
+                    <li><strong>Onay (Approved):</strong> Hiçbir değişiklik gerekmeden kabul</li>
+                    <li><strong>Koşullu Onay (Minor Revisions):</strong> Küçük değişikliklerle onay</li>
+                    <li><strong>Büyük Revizyon (Major Revisions):</strong> Önemli değişiklik gerekli</li>
+                    <li><strong>Red (Rejected):</strong> Etik açıdan kabul edilemez</li>
+                    <li><strong>Erteleme (Deferred):</strong> Ek bilgi/belge bekleniyor</li>
+                    <li><strong>Çekilme (Withdrawn):</strong> Araştırmacı başvuruyu geri çekti</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slayt 13: Bilgilendirilmiş Onay Tanımı -->
+        <div class="slide">
+            <h2>📋 Bilgilendirilmiş Onay</h2>
+            <div class="content">
+                <ul>
+                    <li><strong>Tanım:</strong> Katılımcının araştırma hakkında tam bilgi sahibi olarak verdiği gönüllü onay</li>
+                    <li><strong>Hukuki Statü:</strong> İnsan hakları hukuku gereği zorunlu</li>
+                    <li><strong>Üç Temel Unsur:</strong> Bilgilendirme, anlayış, gönüllülük</li>
+                    <li><strong>Süreklilik:</strong> Araştırma boyunca devam eden süreç</li>
+                    <li><strong>Geri Çekilebilirlik:</strong> Her zaman iptal edilebilir</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slayt 14: Bilgilendirilmiş Onayın Unsurları -->
+        <div class="slide">
+            <h2>🎯 Bilgilendirilmiş Onayın Üç Unsuru</h2>
+            <div class="content">
+                <ul>
+                    <li><strong>1. Bilgilendirme (Information):</strong>
+                        <ul style="margin-top: 10px;">
+                            <li>Tam, doğru ve anlaşılır bilgi verme</li>
+                            <li>Araştırmanın tüm yönlerini açıklama</li>
+                        </ul>
+                    </li>
+                    <li><strong>2. Anlayış (Comprehension):</strong>
+                        <ul style="margin-top: 10px;">
+                            <li>Verilen bilginin kavranması</li>
+                            <li>Sorular sorma fırsatı</li>
+                        </ul>
+                    </li>
+                    <li><strong>3. Gönüllülük (Voluntariness):</strong>
+                        <ul style="margin-top: 10px;">
+                            <li>Hiçbir baskı olmadan karar verme</li>
+                            <li>Özgür iradeyle katılım</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slayt 15: Onay Formu İçeriği -->
+        <div class="slide">
+            <h2>📄 Onay Formu İçeriği</h2>
+            <div class="content">
+                <ul>
+                    <li><strong>Araştırma Amacı:</strong> Neden yapıldığı ve hedefleri</li>
+                    <li><strong>Prosedürler:</strong> Hangi işlemler yapılacağı</li>
+                    <li><strong>Süre:</strong> Katılım süresi ve sıklığı</li>
+                    <li><strong>Riskler:</strong> Olası yan etkiler ve zararlar</li>
+                    <li><strong>Faydalar:</strong> Beklenen yararlar</li>
+                    <li><strong>Alternatifler:</strong> Başka seçenekler</li>
+                    <li><strong>Gizlilik:</strong> Veri koruma önlemleri</li>
+                    <li><strong>İletişim:</strong> Sorumlu araştırmacı bilgileri</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slayt 16: Özel Popülasyonlar -->
+        <div class="slide">
+            <h2>👶 Özel Koruma Gerektiren Gruplar</h2>
+            <div class="content">
+                <ul>
+                    <li><strong>Çocuklar (0-18 yaş):</strong> Veli onayı + çocuk assent</li>
+                    <li><strong>Hamile Kadınlar:</strong> Anne ve fetüs için özel koruma</li>
+                    <li><strong>Zihinsel Engelliler:</strong> Vasi onayı + anlaşılabilir açıklama</li>
+                    <li><strong>Mahkumlar:</strong> Zorla katılım riski nedeniyle özel prosedür</li>
+                    <li><strong>Askeri Personel:</strong> Hiyerarşik baskı riski</li>
+                    <li><strong>Öğrenciler:</strong> Not verme baskısı riski</li>
+                    <li><strong>Ekonomik Dezavantajlılar:</strong> Parasal teşvik sınırlaması</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slayt 17: Risk-Fayda Analizi -->
+        <div class="slide">
+            <h2>⚖️ Risk-Fayda Analizi</h2>
+            <div class="content">
+                <ul>
+                    <li><strong>Risk Türleri:</strong>
+                        <ul style="margin-top: 10px;">
+                            <li>Fiziksel riskler (yaralanma, hastalık)</li>
+                            <li>Psikolojik riskler (stres, kaygı)</li>
+                            <li>Sosyal riskler (damgalanma)</li>
+                            <li>Ekonomik riskler (maliyet, kayıp)</li>
+                        </ul>
+                    </li>
+                    <li><strong>Fayda Türleri:</strong>
+                        <ul style="margin-top: 10px;">
+                            <li>Bireysel faydalar</li>
+                            <li>Toplumsal faydalar</li>
+                            <li>Bilimsel katkı</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slayt 18: Risk Kategorileri -->
+        <div class="slide">
+            <h2>📊 Araştırma Risk Kategorileri</h2>
+            <div class="content">
+                <ul>
+                    <li><strong>Minimal Risk:</strong> Günlük yaşam riskinden fazla değil</li>
+                    <li><strong>Minimal Riskten Biraz Fazla:</strong> Hafif artmış risk</li>
+                    <li><strong>Yüksek Risk:</strong> Ciddi zarar potansiyeli</li>
+                    <li><strong>Hızlandırılmış İnceleme:</strong> Minimal risk için tek onay</li>
+                    <li><strong>Tam Kurul İncelemesi:</strong> Yüksek risk için zorunlu</li>
+                    <li><strong>Risk Azaltma:</strong> Önlem alma yükümlülüğü</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slayt 19: Bilimsel Suistimal Türleri -->
+        <div class="slide">
+            <h2>🚫 Bilimsel Suistimal (Research Misconduct)</h2>
+            <div class="content">
+                <ul>
+                    <li><strong>Fabrication (Veri Uydurma):</strong>
+                        <ul style="margin-top: 10px;">
+                            <li>Hiç yapılmayan araştırmadan sonuç üretme</li>
+                            <li>Sahte veri setleri oluşturma</li>
+                        </ul>
+                    </li>
+                    <li><strong>Falsification (Veri Tahrifi):</strong>
+                        <ul style="margin-top: 10px;">
+                            <li>Gerçek verileri manipüle etme</li>
+                            <li>Sonuçları değiştirme</li>
+                        </ul>
+                    </li>
+                    <li><strong>Plagiarism (İntihal):</strong>
+                        <ul style="margin-top: 10px;">
+                            <li>Başkasının fikrini çalma</li>
+                            <li>Kaynak göstermeme</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slayt 20: Diğer Etik İhlaller -->
+        <div class="slide">
+            <h2>⚠️ Diğer Araştırma Etik İhlalleri</h2>
+            <div class="content">
+                <ul>
+                    <li><strong>Çıkar Çatışması Gizleme:</strong> Finansal bağlantıları saklamak</li>
+                    <li><strong>Authorship İhlali:</strong> Haksız yazarlık veya yazarlık hakkı vermeme</li>
+                    <li><strong>Çoklu Yayın:</strong> Aynı veriyi birden çok dergide yayınlama</li>
+                    <li><strong>Salami Slicing:</strong> Tek çalışmayı parçalara bölerek yayınlama</li>
+                    <li><strong>P-hacking:</strong> İstenen sonuç için istatistik manipülasyonu</li>
+                    <li><strong>HARKing:</strong> Sonuçları gördükten sonra hipotez kurma</li>
+                    <li><strong>Seçmeli Raporlama:</strong> Sadece istenen sonuçları raporlama</li>
+                    <li><strong>Ghost Writing:</strong> Gerçek yazarı gizleme</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slayt 21: P-hacking ve HARKing -->
+        <div class="slide">
+            <h2>📈 P-hacking ve HARKing</h2>
+            <div class="content">
+                <ul>
+                    <li><strong>P-hacking (Data Dredging):</strong>
+                        <ul style="margin-top: 10px;">
+                            <li>p<0.05 elde etmek için veri manipülasyonu</li>
+                            <li>Çoklu test yapıp sadece anlamlı olanı raporlama</li>
+                            <li>Outlier'ları keyfi olarak çıkarma</li>
+                            <li>Subgroup analizi ile pozitif sonuç arama</li>
+                        </ul>
+                    </li>
+                    <li><strong>HARKing (Sonuçlar Bilinirken Hipotez Kurma):</strong>
+                        <ul style="margin-top: 10px;">
+                            <li>Sonuçları gördükten sonra hipotez değiştirme</li>
+                            <li>Post-hoc analizleri a priori gibi sunma</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slayt 22: Çıkar Çatışması -->
+        <div class="slide">
+            <h2>💰 Çıkar Çatışması (Conflict of Interest)</h2>
+            <div class="content">
+                <ul>
+                    <li><strong>Finansal Çıkarlar:</strong>
+                        <ul style="margin-top: 10px;">
+                            <li>Sponsor firmadan ödeme alma</li>
+                            <li>Hisse senedi sahipliği</li>
+                            <li>Patent hakları</li>
+                        </ul>
+                    </li>
+                    <li><strong>Kişisel Çıkarlar:</strong>
+                        <ul style="margin-top: 10px;">
+                            <li>Aile üyeleriyle iş ilişkileri</li>
+                            <li>Kişisel dostluklar</li>
+                        </ul>
+                    </li>
+                    <li><strong>Akademik Çıkarlar:</strong>
+                        <ul style="margin-top: 10px;">
+                            <li>Terfi beklentisi</li>
+                            <li>Prestij kazanma</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slayt 23: Veri Gizliliği ve KVKK -->
+        <div class="slide">
+            <h2>🔐 Veri Gizliliği ve KVKK</h2>
+            <div class="content">
+                <ul>
+                    <li><strong>KVKK Kapsamında Kişisel Veri:</strong>
+                        <ul style="margin-top: 10px;">
+                            <li>Kimlik bilgileri</li>
+                            <li>Sağlık verileri</li>
+                            <li>Biyometrik veriler</li>
+                        </ul>
+                    </li>
+                    <li><strong>Veri İşleme Şartları:</strong>
+                        <ul style="margin-top: 10px;">
+                            <li>Açık rıza alma</li>
+                            <li>Hukuki yükümlülük</li>
+                            <li>Kamu yararı</li>
+                        </ul>
+                    </li>
+                    <li><strong>Veri Koruma Önlemleri:</strong>
+                        <ul style="margin-top: 10px;">
+                            <li>Anonimleştirme</li>
+                            <li>Şifreleme</li>
+                            <li>Güvenli saklama</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slayt 24: Hayvan Deneyleri Etiği -->
+        <div class="slide">
+            <h2>🐭 Hayvan Deneyleri Etiği</h2>
+            <div class="content">
+                <ul>
+                    <li><strong>3R İlkesi:</strong>
+                        <ul style="margin-top: 10px;">
+                            <li><strong>Replace:</strong> Alternatif yöntemler kullanma</li>
+                            <li><strong>Reduce:</strong> Hayvan sayısını minimize etme</li>
+                            <li><strong>Refine:</strong> Acı ve stresi azaltma</li>
+                        </ul>
+                    </li>
+                    <li><strong>HADYEK Onayı:</strong> Türkiye'de zorunlu etik kurul</li>
+                    <li><strong>Veteriner Hekim Sorumluluğu:</strong> Hayvan refahı kontrolü</li>
+                    <li><strong>Barınma Standartları:</strong> Uygun yaşam koşulları</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slayt 25: Yayın Etiği -->
+        <div class="slide">
+            <h2>📖 Yayın Etiği</h2>
+            <div class="content">
+                <ul>
+                    <li><strong>Yazarlık Kriterleri (ICMJE):</strong>
+                        <ul style="margin-top: 10px;">
+                            <li>Tasarım ve veri analizi katkısı</li>
+                            <li>Makale yazma veya eleştirel gözden geçirme</li>
+                            <li>Final versiyonu onaylama</li>
+                            <li>Tüm süreçten sorumluluk alma</li>
+                        </ul>
+                    </li>
+                    <li><strong>Editörel Süreç Etiği:</strong>
+                        <ul style="margin-top: 10px;">
+                            <li>Hakemlik gizliliği</li>
+                            <li>Objektif değerlendirme</li>
+                            <li>Hızlı geri bildirim</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slayt 26: Predatory Journals -->
+        <div class="slide">
+            <h2>🎭 Predatory Journals</h2>
+            <div class="content">
+                <ul>
+                    <li><strong>Tanım:</strong> Para karşılığı kalitesiz yayın yapan sahte dergiler</li>
+                    <li><strong>Özellikler:</strong>
+                        <ul style="margin-top: 10px;">
+                            <li>Sahte editöryel kurul</li>
+                            <li>Hızlı ve yüzeysel hakem süreci</li>
+                            <li>Yüksek yayın ücretleri</li>
+                            <li>Spam e-postalarla davet</li>
+                        </ul>
+                    </li>
+                    <li><strong>Korunma Yolları:</strong>
+                        <ul style="margin-top: 10px;">
+                            <li>Dergi indekslerini kontrol etme</li>
+                            <li>Editöryel kurulu araştırma</li>
+                            <li>Beall's List kontrolü</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slayt 27: Spor Bilimlerinde Etik -->
+        <div class="slide">
+            <h2>🏃‍♂️ Spor Bilimlerinde Özel Etik Konular</h2>
+            <div class="content">
+                <ul>
+                    <li><strong>Sporcu Güvenliği:</strong> Yaralanma risklerinin minimize edilmesi</li>
+                    <li><strong>Performans Arttırım:</strong> Doğal ve yapay gelişim etiği</li>
+                    <li><strong>Doping Araştırmaları:</strong> Yasaklı madde testleri etiği</li>
+                    <li><strong>Çocuk Sporcular:</strong> Özel koruma gereksinimleri</li>
+                    <li><strong>Elite Sporcular:</strong> Kariyer kaygısı ve baskı</li>
+                    <li><strong>Cinsiyet Araştırmaları:</strong> Hormonal döngüler ve mahremiyet</li>
+                    <li><strong>Takım Dinamikleri:</strong> Bireysel ve grup çıkarları</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slayt 28: Sporda Teknoloji Etiği -->
+        <div class="slide">
+            <h2>💻 Spor Teknolojisi Etiği</h2>
+            <div class="content">
+                <ul>
+                    <li><strong>Wearable Teknoloji:</strong>
+                        <ul style="margin-top: 10px;">
+                            <li>GPS takibi ve mahremiyet</li>
+                            <li>Sürekli monitörizasyon baskısı</li>
+                            <li>Veri sahipliği sorunları</li>
+                        </ul>
+                    </li>
+                    <li><strong>Video Analizi:</strong>
+                        <ul style="margin-top: 10px;">
+                            <li>Görüntü izinleri</li>
+                            <li>Yüz tanıma teknolojisi</li>
+                            <li>Rekabet avantajı etiği</li>
+                        </ul>
+                    </li>
+                    <li><strong>Genetik Testing:</strong>
+                        <ul style="margin-top: 10px;">
+                            <li>Ayrımcılık riski</li>
+                            <li>Gelecek sağlık bilgileri</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slayt 29: Kültürel Etik -->
+        <div class="slide">
+            <h2>🌍 Kültürel ve Sosyal Etik</h2>
+            <div class="content">
+                <ul>
+                    <li><strong>Kültürel Duyarlılık:</strong>
+                        <ul style="margin-top: 10px;">
+                            <li>Dini inançlara saygı</li>
+                            <li>Gelenek ve görenekleri dikkate alma</li>
+                            <li>Dil bariyerleri</li>
+                        </ul>
+                    </li>
+                    <li><strong>Sosyal Adalet:</strong>
+                        <ul style="margin-top: 10px;">
+                            <li>Eşit araştırma fırsatları</li>
+                            <li>Sosyoekonomik eşitsizlik</li>
+                            <li>Cinsiyet adaletsizliği</li>
+                        </ul>
+                    </li>
+                    <li><strong>Global vs Yerel:</strong>
+                        <ul style="margin-top: 10px;">
+                            <li>Batı merkezci yaklaşımların eleştirisi</li>
+                            <li>Yerel etik değerlerin önemi</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slayt 30: Etik İhlal Sonuçları -->
+        <div class="slide">
+            <h2>⚖️ Etik İhlallerinin Sonuçları</h2>
+            <div class="content">
+                <ul>
+                    <li><strong>Kurumsal Yaptırımlar:</strong>
+                        <ul style="margin-top: 10px;">
+                            <li>İşten çıkarma</li>
+                            <li>Akademik unvan kaybı</li>
+                            <li>Fon kesintileri</li>
+                        </ul>
+                    </li>
+                    <li><strong>Yasal Sonuçlar:</strong>
+                        <ul style="margin-top: 10px;">
+                            <li>Cezai sorumluluk</li>
+                            <li>Tazminat davaları</li>
+                            <li>İdari para cezaları</li>
+                        </ul>
+                    </li>
+                    <li><strong>Mesleki Sonuçlar:</strong>
+                        <ul style="margin-top: 10px;">
+                            <li>Lisans iptali</li>
+                            <li>Yayın yasakları</li>
+                            <li>İtibar kaybı</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slayt 31: Etik İhlal Bildirimi -->
+        <div class="slide">
+            <h2>📢 Etik İhlal Bildirimi (Whistleblowing)</h2>
+            <div class="content">
+                <ul>
+                    <li><strong>Bildirme Yükümlülüğü:</strong> Etik ihlalleri görünce raporlama sorumluluğu</li>
+                    <li><strong>Koruma Mekanizmaları:</strong>
+                        <ul style="margin-top: 10px;">
+                            <li>Anonim bildirim sistemi</li>
+                            <li>Misilleme koruması</li>
+                            <li>Hukuki güvenceler</li>
+                        </ul>
+                    </li>
+                    <li><strong>Bildirme Kanalları:</strong>
+                        <ul style="margin-top: 10px;">
+                            <li>Kurumsal etik kurulları</li>
+                            <li>Resmi makamlar</li>
+                            <li>Meslek odaları</li>
+                            <li>Ombudsman ofisleri</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slayt 32: Araştırma Integriti -->
+        <div class="slide">
+            <h2>🎯 Araştırma Integriti</h2>
+            <div class="content">
+                <ul>
+                    <li><strong>Tanım:</strong> Araştırmanın her aşamasında dürüstlük ve güvenilirlik</li>
+                    <li><strong>Temel Değerler:</strong>
+                        <ul style="margin-top: 10px;">
+                            <li>Dürüstlük (Honesty)</li>
+                            <li>Hesap verebilirlik (Accountability)</li>
+                            <li>Mesleki nezaket (Professional courtesy)</li>
+                            <li>İyi yönetişim (Good stewardship)</li>
+                        </ul>
+                    </li>
+                    <li><strong>Kurumsal Sorumluluk:</strong>
+                        <ul style="margin-top: 10px;">
+                            <li>Etik eğitimi sağlama</li>
+                            <li>İntegriti sistemleri kurma</li>
+                            <li>Açık bilim politikaları</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slayt 33: Gelecekteki Etik Zorlukları -->
+        <div class="slide">
+            <h2>🔮 Gelecekteki Etik Zorlukları</h2>
+            <div class="content">
+                <ul>
+                    <li><strong>Yapay Zeka ve Big Data:</strong>
+                        <ul style="margin-top: 10px;">
+                            <li>Algoritmik önyargı</li>
+                            <li>Otomatik karar verme etiği</li>
+                            <li>Veri sahipliği</li>
+                        </ul>
+                    </li>
+                    <li><strong>Gen Teknolojileri:</strong>
+                        <ul style="margin-top: 10px;">
+                            <li>CRISPR ve gen editleme</li>
+                            <li>Gelecek nesil etkileri</li>
+                            <li>Eşitsizlik yaratma riski</li>
+                        </ul>
+                    </li>
+                    <li><strong>Küresel İşbirliği:</strong>
+                        <ul style="margin-top: 10px;">
+                            <li>Farklı etik standartları</li>
+                            <li>Veri transferi zorlukları</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slayt 34: Özet ve Sonuç -->
+        <div class="slide">
+            <h2>📝 Araştırma Etiği Özet</h2>
+            <div class="content">
+                <ul>
+                    <li><strong>Temel İlkeler:</strong> Özerklik, yararlılık, zarar vermeme, adalet</li>
+                    <li><strong>Yasal Çerçeve:</strong> Helsinki Bildirgesi, KVKK, ulusal mevzuat</li>
+                    <li><strong>Kurumsal Yapı:</strong> Etik kurullar ve denetim mekanizmaları</li>
+                    <li><strong>Uygulama:</strong> Bilgilendirilmiş onay, risk-fayda analizi</li>
+                    <li><strong>Özel Durumlar:</strong> Savunmasız gruplar ve spor etiği</li>
+                    <li><strong>İhlaller:</strong> Bilimsel suistimal ve sonuçları</li>
+                    <li><strong>Gelecek:</strong> Teknolojik gelişmeler ve yeni zorluklar</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slayt 35: Sonraki Hafta -->
+        <div class="slide">
+            <h2>➡️ Gelecek Hafta</h2>
+            <div class="content">
+                <div class="formula">
+                    <strong>Hafta 13: Bilimsel Yazım ve Yayın Etiği</strong><br><br>
+                    • Akademik yazım kuralları<br>
+                    • APA formatı ve referans sistemi<br>
+                    • Makale yapısı ve bölümleri<br>
+                    • Tablo ve şekil hazırlama<br>
+                    • Dergi seçimi ve yayın süreci
+                </div>
+                <p style="text-align: center; margin-top: 30px;"><strong>Etik, araştırmanın her aşamasında rehber ilkelerdir.</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar Notları -->
+    <div class="sidebar" id="sidebar-1">
+        <h3>📚 Bilimsel Etik Temelleri</h3>
+        <h4>🎯 Etiğin Tanımı ve Kapsamı</h4>
+        <p>Bilimsel etik, araştırma faaliyetlerinin her aşamasında uyulması gereken ahlaki ilke, değer ve kuralları içeren disiplinlerarası bir alandır. Modern bilimsel etik anlayışı, sadece araştırma sürecini değil, araştırmacının toplumsal sorumluluklarını da kapsar.</p>
+        
+        <h4>📖 Felsefi Temeller</h4>
+        <p>Bilimsel etik, deontolojik etik (görev etiği), sonuç ağırlıklı etik (faydacılık) ve erdem etiği gibi farklı felsefi yaklaşımlardan beslenir. Kant'ın kategorik buyruğu "insanı hiçbir zaman sadece araç olarak değil, amaç olarak da görmek" ilkesi, modern araştırma etiğinin temelini oluşturur.</p>
+        
+        <h4>🌍 Evrensellik ve Yerellik</h4>
+        <p>Etik ilkeler evrensel olmasına rağmen, uygulamada kültürel, dini ve sosyal faktörlerin dikkate alınması gerekir. Bu durum, özellikle çok merkezli uluslararası araştırmalarda önem kazanır. Batı merkezci etik anlayışının eleştirisi ve yerel değerlerin entegrasyonu güncel tartışma konularındandır.</p>
+        
+        <h4>⚖️ Hukuk ve Etik İlişkisi</h4>
+        <p>Etik kurallar yasal düzenlemelerin ötesinde ahlaki yükümlülükler içerir. "Yasal olan her şey etik değildir" ilkesi, araştırmacıların yasal zorunlulukların yanında ahlaki sorumluluklarını da yerine getirmelerini gerektirir. Öz-düzenleme (self-regulation) mekanizmaları bu bağlamda kritik önem taşır.</p>
+    </div>
+
+    <div class="sidebar" id="sidebar-2">
+        <h3>📚 Bilimsel Etiğin Tanımı ve Kapsamı</h3>
+        <h4>🔍 Tanım ve Boyutlar</h4>
+        <p>Bilimsel etik, araştırma sürecinin planlama aşamasından yayın sonrası döneme kadar uzanan geniş bir spektrumu kapsar. Bu alan, araştırma metodolojisi, veri toplama, analiz, yorum, raporlama ve yayın süreçlerindeki etik standartları belirlemeyi amaçlar.</p>
+        
+        <h4>🎯 Ana Hedefler</h4>
+        <ul>
+            <li>İnsan onuru ve haklarının korunması</li>
+            <li>Bilimsel bilginin güvenilirliğini sağlama</li>
+            <li>Toplumsal güvenin korunması</li>
+            <li>Araştırmacı davranışlarına rehberlik etme</li>
+            <li>Bilimsel ilerlemeyi destekleme</li>
+        </ul>
+        
+        <h4>📊 Etik Boyutları</h4>
+        <p><strong>Mikro Etik:</strong> Bireysel araştırmacı davranışları, karar alma süreçleri ve kişisel sorumluluklar.</p>
+        <p><strong>Mezo Etik:</strong> Kurumsal politikalar, araştırma grupları dinamikleri ve organizasyonel kültür.</p>
+        <p><strong>Makro Etik:</strong> Ulusal politikalar, uluslararası işbirliği ve küresel etik standartları.</p>
+        
+        <h4>🌐 Disiplinlerarası Nitelik</h4>
+        <p>Bilimsel etik, felsefe, hukuk, sosyoloji, psikoloji ve ilgili bilim alanlarından beslenen çok boyutlu bir disiplindir. Her bilim alanının kendine özgü etik zorlukları ve özel gereksinimleri vardır.</p>
+    </div>
+
+    <div class="sidebar" id="sidebar-3">
+        <h3>📅 Araştırma Etiğinin Tarihsel Gelişimi</h3>
+        <h4>🏛️ Antik Dönem ve Ortaçağ</h4>
+        <p>Hipokrat Yemini (MÖ 5. yüzyıl) "önce zarar verme" (primum non nocere) ilkesi ile tıp etiğinin temellerini attı. İslam âlimi İbn Sina (980-1037), deneysel tıbbın etik kurallarını ilk sistematikleştiren kişilerden biri olarak kabul edilir.</p>
+        
+        <h4>⚗️ Modern Dönem Başlangıçları</h4>
+        <p>Claude Bernard'ın "Introduction to the Study of Experimental Medicine" (1865) adlı eseri, modern deneysel araştırma etiğinin temellerini attı. İnsan üzerinde deney yapmanın koşulları ilk kez sistematik olarak ele alındı.</p>
+        
+        <h4>🔬 20. Yüzyıl Dönüm Noktaları</h4>
+        <ul>
+            <li><strong>1932-1972 Tuskegee Syphilis Study:</strong> Afrika-Amerikan erkeklerde sifilizin doğal seyrini izlemek için yapılan bu çalışmada katılımcılar tedavi edilmedi</li>
+            <li><strong>1940-1970 HeLa Hücreleri:</strong> Henrietta Lacks'in izni alınmadan hücreleri kullanıldı</li>
+            <li><strong>1963 Jewish Chronic Disease Hospital:</strong> Yaşlı hastalara izinsiz kanser hücresi enjekte edildi</li>
+        </ul>
+        
+        <h4>📜 Yasal ve Kurumsal Gelişmeler</h4>
+        <p>1966'da Henry Beecher'in New England Journal of Medicine'deki makalesi, tıbbi araştırmalardaki etik ihlalleri gözler önüne serdi. Bu çalışma, sistematik etik kurulların kurulması sürecini hızlandırdı.</p>
+    </div>
+
+    <div class="sidebar" id="sidebar-4">
+        <h3>⚖️ Dört Temel Etik İlkesi</h3>
+        <h4>🎯 Beauchamp ve Childress Modeli</h4>
+        <p>Tom L. Beauchamp ve James F. Childress tarafından 1979'da "Principles of Biomedical Ethics" kitabında sistematikleştirilen bu dört ilke, modern bioetik ve araştırma etiğinin temel çerçevesini oluşturur.</p>
+        
+        <h4>🔓 Özerklik (Autonomy)</h4>
+        <p>Özerklik ilkesi, bireyin kendi yaşamı hakkında özgürce karar verme hakkını tanır. Bu ilke, bilgilendirilmiş onay sürecinin temelini oluşturur. Özerklik sadece "evet" veya "hayır" demek değil, aynı zamanda kararın koşullarını anlama ve değerlendirme yeteneğini de içerir.</p>
+        
+        <h4>💚 Yararlılık (Beneficence)</h4>
+        <p>Yararlılık, aktif olarak iyilik yapma ve fayda sağlama yükümlülüğünü ifade eder. Bu sadece zarar vermemek değil, pozitif katkı sağlamaktır. Araştırmalar bireysel veya toplumsal fayda sağlamalıdır.</p>
+        
+        <h4>🛡️ Zarar Vermeme (Non-maleficence)</h4>
+        <p>"Primum non nocere" (önce zarar verme) ilkesi, tıp etiğindeki en eski prensiplerden biridir. Risk-fayda analizi bu ilkenin modern uygulamasıdır. Potansiyel zararlar minimize edilmeli ve faydalar maksimize edilmelidir.</p>
+        
+        <h4>⚖️ Adalet (Justice)</h4>
+        <p>Adalet ilkesi, araştırma yükü ve faydalarının eşit dağılımını gerektirir. Savunmasız grupların sömürülmemesi ve araştırma fırsatlarına eşit erişim bu ilkenin temel bileşenleridir.</p>
+    </div>
+
+    <div class="sidebar" id="sidebar-5">
+        <h3>📜 Helsinki Bildirgesi Detayları</h3>
+        <h4>🏛️ Dünya Hekimler Birliği ve Kuruluş</h4>
+        <p>Dünya Hekimler Birliği (World Medical Association - WMA), 1947'de kurulan uluslararası bir hekim organizasyonudur. Helsinki Bildirgesi, 1964'te 18. Genel Kurul'da kabul edilmiş ve o zamandan beri en önemli uluslararası araştırma etiği standardı haline gelmiştir.</p>
+        
+        <h4>📝 Revizyon Süreci</h4>
+        <ul>
+            <li><strong>1975 Tokyo:</strong> Bilgilendirilmiş onay vurgusu güçlendirildi</li>
+            <li><strong>1983 Venedik:</strong> Bağımsız etik kurul zorunluluğu eklendi</li>
+            <li><strong>1989 Hong Kong:</strong> Savunmasız gruplar için özel koruma</li>
+            <li><strong>1996 Somerset West:</strong> Plasebo kullanımı sınırlandırıldı</li>
+            <li><strong>2000 Edinburgh:</strong> Araştırma sonrası tedavi erişimi</li>
+            <li><strong>2008 Seoul:</strong> Çok merkezli araştırmalar için düzenlemeler</li>
+            <li><strong>2013 Fortaleza:</strong> Güncel versiyon, veri paylaşımı vurgusu</li>
+        </ul>
+        
+        <h4>🌍 Global Etki ve Uygulamalar</h4>
+        <p>Helsinki Bildirgesi, 194 ülkede yasal mevzuatın temelini oluşturur. ICH-GCP (International Council for Harmonisation - Good Clinical Practice) rehberlerinin referans kaynağıdır. Avrupa Birliği Klinik Araştırmalar Direktifi (EU CTR), ABD FDA düzenlemeleri ve diğer ulusal mevzuatlar Helsinki ilkelerine dayanır.</p>
+        
+        <h4>⚖️ Kritik Tartışmalar</h4>
+        <p>Plasebo kullanımı, araştırma sonrası tedavi erişimi, çok merkezli araştırmalarda farklı etik standartları gibi konularda sürekli tartışmalar devam etmektedir. Bu tartışmalar, bildirgenin yaşayan bir belge olma özelliğini korumaktadır.</p>
+    </div>
+
+    <div class="sidebar" id="sidebar-6">
+        <h3>📋 Helsinki Bildirgesi Ana Maddeleri</h3>
+        <h4>📊 Temel Prensiplerin Detayları</h4>
+        <p><strong>Madde 6 - Bilimsel Değer:</strong> Araştırmaların bilimsel olarak geçerli metodoloji kullanması, literatüre anlamlı katkı sağlaması ve toplumsal ihtiyaçlara yanıt vermesi gerektiğini belirtir. Trivial araştırmalar etik olarak kabul edilemez.</p>
+        
+        <p><strong>Madde 16 - Araştırmacı Yeterliliği:</strong> Araştırmacıların uygun eğitim, deneyim ve niteliğe sahip olması gerekir. Sürekli eğitim ve gelişim zorunludur.</p>
+        
+        <p><strong>Madde 23 - Risk-Fayda Analizi:</strong> Araştırma risklerinin potansiyel faydalarla karşılaştırılması ve sürekli olarak değerlendirilmesi gerekir. Risk-fayda oranı kabul edilebilir sınırlarda olmalıdır.</p>
+        
+        <h4>🔍 Önemli Maddeler</h4>
+        <p><strong>Madde 25 - Bilgilendirilmiş Onay:</strong> Katılımcıların araştırma hakkında tam bilgi sahibi olarak özgürce karar verebilmeleri için gerekli süreç detaylandırılır.</p>
+        
+        <p><strong>Madde 28 - Etik Kurul Onayı:</strong> Tüm insan konulu araştırmaların bağımsız etik kurul onayı alması zorunludur. Bu kurul araştırma protokolünü, araştırmacı yeterliliğini ve kurumsal kapasiteyi değerlendirir.</p>
+        
+        <p><strong>Madde 32 - Çıkar Çatışması:</strong> Araştırmacıların tüm potansiyel çıkar çatışmalarını açıklaması ve yönetmesi gerekir. Bu durum yayın etiği ile de doğrudan bağlantılıdır.</p>
+    </div>
+
+    <div class="sidebar" id="sidebar-7">
+        <h3>🌍 Diğer Uluslararası Etik Belgeler</h3>
+        <h4>📋 Belmont Raporu (1979)</h4>
+        <p>ABD Sağlık, Eğitim ve Refah Bakanlığı'nın Ulusal Komisyonu tarafından hazırlanan bu rapor, insan konulu araştırmalar için etik ilkeleri belirlemiştir. Özerklik, yararlılık ve adalet ilkelerini sistematikleştiren temel belgelerden biridir.</p>
+        
+        <h4>🌏 CIOMS Guidelines</h4>
+        <p>Uluslararası Tıp Bilimleri Organizasyonu (Council for International Organizations of Medical Sciences) tarafından hazırlanan bu rehber, özellikle gelişmekte olan ülkelerde yapılan araştırmalara odaklanır. Kültürel farklılıklar ve kaynak kısıtları dikkate alınır.</p>
+        
+        <h4>⚗️ ICH-GCP E6(R2)</h4>
+        <p>Uluslararası Harmonizasyon Konseyi'nin İyi Klinik Uygulama rehberi, ilaç araştırmalarında kalite ve etik standartları belirler. 2016 R2 revizyonu ile risk-tabanlı yaklaşım ve teknolojik gelişmeler entegre edilmiştir.</p>
+        
+        <h4>🎓 UNESCO Bioetik Deklarasyonu</h4>
+        <p>2005'te kabul edilen Evrensel Bioetik ve İnsan Hakları Deklarasyonu, bioetik ilkelerin küresel çerçevesini sunar. Kültürel çeşitlilik ve insan onuru vurgulanır.</p>
+        
+        <h4>📊 Singapore Statement (2010)</h4>
+        <p>İkinci Dünya Araştırma İntegriti Konferansı'nda kabul edilen bu bildiri, araştırma dürüstlüğü için global ilkeler belirler. Sorumluluk, dürüstlük, adalet ve güvenilirlik temel değerlerdir.</p>
+    </div>
+
+    <div class="sidebar" id="sidebar-8">
+        <h3>🇹🇷 Türkiye'deki Etik Mevzuat</h3>
+        <h4>⚖️ Yasal Çerçeve</h4>
+        <p><strong>Anayasa Madde 15:</strong> "Herkes yaşam hakkına sahiptir" ilkesi, tıbbi araştırmalarda temel hak ve özgürlüklerin korunmasının anayasal zeminini oluşturur.</p>
+        
+        <p><strong>İnsan Hakları Evrensel Beyannamesi:</strong> Türkiye'nin taraf olduğu uluslararası sözleşmeler iç hukuku bağlar.</p>
+        
+        <h4>📜 Düzenleyici Mevzuat</h4>
+        <p><strong>Klinik Araştırmalar Yönetmeliği (2013):</strong> İlaç ve tıbbi cihaz araştırmalarında GCP standartlarını benimser. Türkiye İlaç ve Tıbbi Cihaz Kurumu (TİTCK) yetkili otoritedir.</p>
+        
+        <p><strong>KVKK (2016):</strong> Avrupa GDPR'ye uyumlu olarak kişisel verilerin korunmasını sağlar. Araştırmalarda veri işleme için özel düzenlemeler içerir.</p>
+        
+        <h4>🏛️ Kurumsal Düzenlemeler</h4>
+        <p><strong>YÖK Yönergesi:</strong> Üniversitelerde bilimsel araştırma ve yayın etiği standartlarını belirler. Etik kurul kurulması ve çalışma esasları düzenlenir.</p>
+        
+        <p><strong>TÜBİTAK Etik Kuralları:</strong> Araştırma projelerine destek verilmesinde etik şartları tanımlar. İntihal denetimi ve etik değerlendirme süreçleri yer alır.</p>
+        
+        <h4>🐭 HADYEK Sistemi</h4>
+        <p>Hayvan Deneyleri Yerel Etik Kurulları, 3R ilkesini uygulayarak hayvan refahını korur. Tarım ve Orman Bakanlığı'na bağlı olarak faaliyet gösterir.</p>
+    </div>
+
+    <div class="sidebar" id="sidebar-9">
+        <h3>🏛️ Etik Kurul Türleri ve Yapıları</h3>
+        <h4>🏥 Klinik Araştırmalar Etik Kurulu</h4>
+        <p>İlaç, tıbbi cihaz ve klinik müdahale araştırmalarını inceler. GCP standartlarına göre çalışır. En az 7 üyeli olup, hekim çoğunluğu gereklidir. Pharmacovigilance ve güvenlik raporları da değerlendirilir.</p>
+        
+        <h4>🎓 Bilimsel Araştırmalar Etik Kurulu</h4>
+        <p>Sosyal, davranışsal ve eğitim bilimleri araştırmalarını inceler. Anket, mülakat, gözlem çalışmaları bu kapsamdadır. Multidisipliner yapı gereklidir.</p>
+        
+        <h4>🐭 HADYEK (Hayvan Deneyleri Yerel Etik Kurulu)</h4>
+        <p>Hayvan deneylerini 3R ilkesine (Replace, Reduce, Refine) göre değerlendirir. Veteriner hekim başkanlığında, en az 5 üyeli yapı. Deney öncesi, sırası ve sonrası denetim yapar.</p>
+        
+        <h4>⚖️ Çalışma Esasları</h4>
+        <p>Etik kurullar aylık düzenli toplantılar yapar. Karar yetersayısı üye sayısının yarısından bir fazladır. Kararlar gerekçeli olarak yazılır. Üyelerin çıkar çatışması durumunda çekinser kalması gerekir.</p>
+        
+        <h4>📊 Kalite Güvencesi</h4>
+        <p>Etik kurulların akreditasyonu ve dış denetimi giderek yaygınlaşmaktadır. Üyelerin düzenli eğitimi ve yetkinlik gelişimi zorunludur. ISO 14155 standardı tıbbi cihaz araştırmalarında referans alınır.</p>
+    </div>
+
+    <div class="sidebar" id="sidebar-10">
+        <h3>👥 Etik Kurul Üye Yapısı ve Nitelikleri</h3>
+        <h4>⚕️ Hekim Üyelik Gereksinimleri</h4>
+        <p>En az bir hekim üye zorunludur. Klinik deneyim ve araştırma geçmişi aranır. İlgili uzmanlık dalından hekim bulunması tercih edilir. Hekim üyeler tıbbi riskleri değerlendirir ve klinik uygulanabilirliği kontrol eder.</p>
+        
+        <h4>🎓 Akademik Üye Profili</h4>
+        <p>Araştırma metodolojisi, istatistik veya ilgili alan uzmanı akademisyenler yer alır. Doktor unvanı gerekli değildir, ancak araştırma deneyimi şarttır. Bilimsel tasarım ve metodoloji değerlendirmesi yaparlar.</p>
+        
+        <h4>⚖️ Hukuk Uzmanı Rolü</h4>
+        <p>Hukukçu üye yasal uyumluluğu kontrolünden sorumludur. Mevzuat bilgisi, sözleşme hukuku ve insan hakları konularında yetkin olmalıdır. KVKK uyumluluğu da bu üyenin sorumluluğundadır.</p>
+        
+        <h4>🤝 Toplum Temsilcisi Seçimi</h4>
+        <p>Kurumla direkt bağlantısı olmayan, hasta hakları veya sivil toplum deneyimi olan kişiler tercih edilir. Halkın perspektifini temsil eder ve araştırmanın toplumsal kabulünü değerlendirir.</p>
+        
+        <h4>💭 Etik/Felsefe Uzmanı</h4>
+        <p>Bioetik, tıp etiği veya felsefe alanında eğitim almış uzmanlar yer alır. Etik dilemmaları çözmede ve ilke çatışmalarında rehberlik ederler. Karar verme sürecinde etik argumentasyon sağlarlar.</p>
+        
+        <h4>🔄 Üyelik Süresi ve Rotasyon</h4>
+        <p>Üyeler genellikle 3 yıl süreyle görev yapar. %30-50 rotasyon ile süreklilik sağlanır. Başkan ve başkan yardımcısı seçimi üyeler arasından yapılır.</p>
+    </div>
+
+    <!-- Diğer sidebar'lar devam edecek... -->
+    <div class="sidebar" id="sidebar-11">
+        <h3>📝 Etik Kurul İnceleme Süreçleri</h3>
+        <h4>📋 Başvuru Hazırlık Aşaması</h4>
+        <p>Araştırma protokolü hazırlanırken etik boyut başından itibaren dikkate alınmalıdır. Helsinki Bildirgesi ve yerel mevzuat şartları protokole entegre edilmelidir. Risk analizi detaylı yapılmalı ve minimize etme stratejileri belirlenmmelidir.</p>
+        
+        <h4>🔍 Ön İnceleme Süreci</h4>
+        <p>Etik kurul sekreteri tarafından yapılan ön inceleme, başvuru belgelerinin eksiksiz ve uygun formatta olup olmadığını kontrol eder. Bu aşamada metodolojik açıdan belirgin eksiklikler varsa başvuru düzeltme için geri gönderilebilir.</p>
+        
+        <h4>🏛️ Kurul Toplantısı Değerlendirmesi</h4>
+        <p>Her üye önceden belgeleri inceleyerek toplantıya hazır gelir. Primary ve secondary reviewer atanabilir. Araştırmacının savunma yapma hakkı vardır. Değerlendirme kriterleri bilimsel değer, etik uygunluk, risk-fayda oranı ve uygulanabilirlik olarak sıralanır.</p>
+        
+        <h4>⏰ Süre Yönetimi</h4>
+        <p>Yasal olarak 60 gün içinde karar verilmesi gerekir, ancak pratikte bu süre değişkenlik gösterir. Hızlandırılmış inceleme (expedited review) minimal risk taşıyan çalışmalar için uygulanabilir.</p>
+        
+        <h4>📄 Karar Bildirimi</h4>
+        <p>Karar yazısında onay, red veya koşullu onay gerekçeleri detaylı açıklanır. Koşullu onay durumunda neler yapılması gerektiği madde madde belirtilir.</p>
+    </div>
+
+    <div class="sidebar" id="sidebar-12">
+        <h3>✅ Etik Kurul Karar Türleri</h3>
+        <h4>🎯 Tam Onay (Approved)</h4>
+        <p>Araştırma protokolü etik ve bilimsel açıdan hiçbir değişiklik gerektirmeden kabul edilir. Bu durum genellikle deneyimli araştırmacıların iyi hazırlanmış protokollerinde görülür. İstatistik olarak başvuruların yaklaşık %15-20'si bu kategoriye girer.</p>
+        
+        <h4>🔄 Koşullu Onay (Minor Revisions)</h4>
+        <p>Küçük değişiklikler yapıldıktan sonra onaylanacak çalışmalardır. Bilgilendirilmiş onay formundaki ifade değişiklikleri, prosedür açıklamalarındaki detaylandırmalar bu kapsamdadır. Başvuruların çoğunluğu (%60-70) bu kategoriye düşer.</p>
+        
+        <h4>🔍 Büyük Revizyon (Major Revisions)</h4>
+        <p>Metodolojik değişiklikler, risk azaltma önlemleri, etik açıdan problematik unsurların çıkarılması gibi önemli değişiklikler gerekir. Araştırmacının yeniden başvuru yapması ve ikinci tur değerlendirme yapılması gerekir.</p>
+        
+        <h4>❌ Red (Rejected)</h4>
+        <p>Etik açıdan kabul edilemez araştırmalar reddedilir. Risk-fayda oranının kabul edilemez olması, savunmasız grupların korunmaması, yetersiz bilimsel değer bu red sebepleri arasındadır. Başvuruların %5-10'u reddedilir.</p>
+        
+        <h4>⏸️ Erteleme ve Çekilme</h4>
+        <p>Ek bilgi veya belge beklendiğinde erteleme kararı verilir. Araştırmacının başvuruyu geri çekmesi durumunda çekilme kararı tutanağa geçer.</p>
+    </div>
+
+    <div class="sidebar" id="sidebar-13">
+        <h3>📋 Bilgilendirilmiş Onay Temelleri</h3>
+        <h4>📜 Tarihsel ve Hukuki Temel</h4>
+        <p>Bilgilendirilmiş onay kavramı, Nürnberg Kodu (1947) ile ilk kez sistematikleştirilmiştir. Modern hukuk sistemlerinde "vücut bütünlüğüne yönelik müdahale" için izin alma zorunluluğu vardır. Bu durum araştırmaları da kapsar.</p>
+        
+        <h4>🧠 Psikolojik ve Felsefi Boyutlar</h4>
+        <p>Özerklik teorisi, bireyin kendi yaşamı üzerinde kontrol sahibi olma hakkını savunur. Karar verme kapasitesi (decision-making capacity) ve karar verme yetkinliği (decision-making competence) arasında ayrım yapılmalıdır.</p>
+        
+        <h4>🌐 Kültürlerarası Perspektif</h4>
+        <p>Batı kültürünün bireyselci yaklaşımı ile toplumcu kültürlerin aile/toplum merkezli karar verme süreçleri arasında denge kurulması gerekir. Kültürel duyarlılık, etik relativizm yaratmadan sağlanmalıdır.</p>
+        
+        <h4>⚖️ Hukuki İstisna Durumları</h4>
+        <p>Acil tıbbi durumlar, bilinç kaybı, deferred consent gibi özel durumlar için yasal istisna mekanizmaları vardır. Bu durumlar da etik kurallar çerçevesinde düzenlenir.</p>
+        
+        <h4>📊 Kalite Ölçütleri</h4>
+        <p>Bilgilendirilmiş onayın kalitesi, sadece imza almakla değil, gerçek anlaşılırlık ve gönüllülük ile ölçülür. Anlayış değerlendirme araçları geliştirilmektedir.</p>
+    </div>
+
+    <div class="sidebar" id="sidebar-14">
+        <h3>🎯 Bilgilendirilmiş Onayın Üç Temel Unsuru</h3>
+        <h4>ℹ️ Bilgilendirme (Information) Detayları</h4>
+        <p><strong>İçerik Gereksinimleri:</strong> FDA 21 CFR 50.25 ve ICH-GCP E6 standartları referans alınır. Araştırmanın deneysel doğası, amaç, süre, prosedürler, riskler, faydalar, alternatifler, gizlilik, tazminat, iletişim bilgileri ve gönüllü katılım vurgusu temel başlıklardır.</p>
+        
+        <p><strong>Dil ve Anlaşılırlık:</strong> 8. sınıf okuma düzeyinde, jargonsuz, açık Türkçe kullanılmalıdır. Teknik terimler açıklanmalı, görsel materyaller destekte kullanılabilir.</p>
+        
+        <h4>🧠 Anlayış (Comprehension) Değerlendirmesi</h4>
+        <p><strong>Anlayış Kontrolü:</strong> "Teach-back" metodu ile katılımcının öğrendiklerini kendi cümleriyle anlatması istenir. Anlayış değerlendirme anketleri geliştirilmiştir.</p>
+        
+        <p><strong>Bilişsel Faktörler:</strong> Yaş, eğitim düzeyi, kültürel background, hastalık durumu anlayışı etkileyebilir. Bu faktörler dikkate alınarak kişiselleştirilmiş bilgilendirme yapılmalıdır.</p>
+        
+        <h4>🆓 Gönüllülük (Voluntariness) Korunması</h4>
+        <p><strong>Baskı Türleri:</strong> Ekonomik baskı (yüksek ödeme), sosyal baskı (aile, toplum), kurumsal baskı (doktor-hasta, öğretmen-öğrenci), psikolojik baskı (hastalık kaygısı) gibi faktörler gönüllülüğü tehdit eder.</p>
+        
+        <p><strong>Korunma Stratejileri:</strong> Sogumal süresi (düşünme süresi), bağımsız savunucu, tanık imzası gibi ek güvenceler kullanılabilir.</p>
+    </div>
+
+    <div class="sidebar" id="sidebar-15">
+        <h3>📄 Onay Formu İçeriği Standardları</h3>
+        <h4>📋 FDA 21 CFR 50.25 Gereksinimleri</h4>
+        <p>Amerika Birleşik Devletleri Gıda ve İlaç İdaresi'nin 21 CFR 50.25 düzenlemesi, bilgilendirilmiş onay formlarının içermesi gereken temel unsurları detaylandırır. Bu standart küresel olarak referans alınır.</p>
+        
+        <h4>🎯 Zorunlu İçerik Bileşenleri</h4>
+        <p><strong>Araştırma Amacı:</strong> Neden bu araştırma yapıldığı, hangi bilimsel sorunun çözülmeye çalışıldığı açık ve anlaşılır dille belirtilmelidir. Katılımcının araştırmanın büyük resmini görmesi gerekir.</p>
+        
+        <p><strong>Prosedür Açıklaması:</strong> Hangi testlerin yapılacağı, hangi cihazların kullanılacağı, ne kadar süreceği adım adım açıklanmalıdır. Belirsizlik bırakılmamalıdır.</p>
+        
+        <p><strong>Zaman Çizelgesi:</strong> Toplam katılım süresi, ziyaret sayısı, her ziyaretin süresi net olarak belirtilmelidir. Katılımcının zaman planlaması yapabilmesi önemlidir.</p>
+        
+        <h4>⚠️ Risk Bildirimi Standartları</h4>
+        <p>Riskler hem olasılık hem de şiddet açısından açıklanmalıdır. "Minimal risk", "hafif yan etki" gibi belirsiz ifadeler yerine somut açıklamalar yapılmalıdır. Nadir ama ciddi riskler de mutlaka belirtilmelidir.</p>
+        
+        <h4>💰 Tazminat ve Tedavi Bilgileri</h4>
+        <p>Araştırma kaynaklı yaralanma durumunda ne tür tedavi sağlanacağı, masrafların kim tarafından karşılanacağı, sigorta durumu açıkça belirtilmelidir. Bu konuda belirsizlik etik ve hukuki sorun yaratır.</p>
+        
+        <h4>📞 İletişim Protokolü</h4>
+        <p>24 saat ulaşılabilir acil durum numarası, sorumlu araştırmacının iletişim bilgileri, etik kurul iletişim bilgileri forma dahil edilmelidir. Katılımcı hiçbir zaman yalnız bırakılmamalıdır.</p>
+    </div>
+
+    <div class="sidebar" id="sidebar-16">
+        <h3>👶 Özel Koruma Gerektiren Grupların Detaylı Analizi</h3>
+        <h4>🧒 Çocuklar ve Adolesanlar</h4>
+        <p>Çocuk araştırmaları için çifte onay sistemi gereklidir. Ebeveyn/vasi onayı (permission) yasal gereklilik iken, çocuğun kendi onayı (assent) etik zorunluluktur. 7-12 yaş için basit dilde, 13-17 yaş için daha detaylı assent formları kullanılır.</p>
+        
+        <p><strong>Yaşa Göre Assent Gereksinimleri:</strong></p>
+        <ul>
+            <li>7-9 yaş: Görsel destekli, çok basit açıklama</li>
+            <li>10-12 yaş: Resimli, hikaye formatında bilgilendirme</li>
+            <li>13-15 yaş: Sadeleştirilmiş yetişkin formu</li>
+            <li>16-17 yaş: Tam yetişkin formu + ebeveyn onayı</li>
+        </ul>
+        
+        <h4>🤰 Hamile Kadınlar</h4>
+        <p>Hamile kadınlar "özel koruma gerektiren grup" kategorisindedir çünkü hem anne hem de fetüs için risk söz konusudur. Teratojenite riski, doğum sonrası takip gereksinimleri, emzirme dönemindeki etkiler detaylı değerlendirilmelidir.</p>
+        
+        <h4>🧠 Bilişsel Yetersizlik</h4>
+        <p>Zihinsel engelli bireylerde karar verme kapasitesi (decisional capacity) değişkendir. Mini Mental State Examination (MMSE) gibi araçlarla kapasite değerlendirmesi yapılabilir. Vasi onayı alınsa da mümkün olan en yüksek düzeyde katılımcı onayı aranmalıdır.</p>
+        
+        <h4>⛓️ Kurumsal Bağımlılık</h4>
+        <p>Mahkumlar, askeri personel, öğrenciler gibi hiyerarşik yapı içindeki bireyler için özel koruma gereklidir. "Gönüllülük" kavramının gerçek anlamda sağlanması için ek güvenceler kullanılmalıdır:</p>
+        <ul>
+            <li>Bağımsız gözlemci bulunması</li>
+            <li>Katılmama durumunda hiçbir yaptırım olmayacağının garantisi</li>
+            <li>Araştırma dışı personel tarafından bilgilendirme</li>
+        </ul>
+        
+        <h4>💸 Ekonomik Dezavantaj</h4>
+        <p>Yüksek ödeme "undue inducement" (aşırı teşvik) yaratabilir. Katılım ücretinin "reasonable compensation" (makul tazminat) sınırlarında olması gerekir. DSÖ rehberlerine göre günlük asgari ücretin %50'sini geçmemelidir.</p>
+    </div>
+
+    <div class="sidebar" id="sidebar-17">
+        <h3>⚖️ Risk-Fayda Analizi Metodolojisi</h3>
+        <h4>📊 Risk Değerlendirme Çerçevesi</h4>
+        <p>Risk değerlendirmesi sadece fiziksel zararları kapsamaz. Kapsamlı risk analizi dört boyutlu olmalıdır: fiziksel, psikolojik, sosyal ve ekonomik riskler. Her risk türü için olasılık ve şiddet matrisi oluşturulmalıdır.</p>
+        
+        <h4>⚕️ Fiziksel Risk Kategorileri</h4>
+        <p><strong>Minimal Fiziksel Risk:</strong> Günlük yaşam aktivitelerinden daha fazla risk içermez. Örneğin kan alma, antropometrik ölçümler bu kategoride değerlendirilir.</p>
+        
+        <p><strong>Hafif Risk Artışı:</strong> Günlük yaşamdan biraz daha fazla risk içerir ancak ciddi zarar potansiyeli düşüktür. Egzersiz testleri, biyopsi örnekleri bu kapsamdadır.</p>
+        
+        <p><strong>Orta Düzey Risk:</strong> Ciddi ama kalıcı olmayan zarar potansiyeli vardır. İnvaziv prosedürler, yüksek yoğunluklu egzersizler bu kategoride.</p>
+        
+        <h4>🧠 Psikolojik Risk Değerlendirmesi</h4>
+        <p>Psikolojik riskler genellikle gözden kaçırılır ancak fiziksel riskler kadar önemlidir. Anksiyete, depresyon, travmatik hatıralarının tetiklenmesi, benlik saygısının zarar görmesi gibi riskler değerlendirilmelidir.</p>
+        
+        <h4>👥 Sosyal Risk Analizi</h4>
+        <p>Araştırmaya katılım nedeniyle damgalanma, ayrımcılık, sosyal dışlanma riski özellikle hassas konularda (cinsellik, suç geçmişi, madde kullanımı) yüksektir. Gizlilik ihlali durumunda sosyal sonuçlar ağır olabilir.</p>
+        
+        <h4>💰 Ekonomik Risk-Fayda</h4>
+        <p>Katılımcının zaman kaybı, iş gücü kaybı, ulaşım masrafları ekonomik risk oluştururken, ücretsiz sağlık taraması, tedavi fırsatı ekonomik fayda sağlar. Bu denge objektif olarak hesaplanmalıdır.</p>
+        
+        <h4>📈 Fayda Sınıflandırması</h4>
+        <p><strong>Direkt Kişisel Fayda:</strong> Katılımcının kendisine doğrudan yarar sağlama</p>
+        <p><strong>İndirekt Kişisel Fayda:</strong> Gelecekte kendisine fayda sağlayabilecek bilgi</p>
+        <p><strong>Toplumsal Fayda:</strong> Toplumun geneline yarar sağlama</p>
+        <p><strong>Bilimsel Fayda:</strong> Bilim dünyasına katkı</p>
+    </div>
+
+    <div class="sidebar" id="sidebar-18">
+        <h3>📊 Araştırma Risk Sınıflandırma Sistemi</h3>
+        <h4>🟢 Minimal Risk Tanımı ve Kapsamı</h4>
+        <p>45 CFR 46.102(i) düzenlemesine göre minimal risk: "Zarar ve rahatsızlık olasılığı ve büyüklüğünün, günlük yaşamda veya rutin fiziksel veya psikolojik muayenelerde karşılaşılanlardan daha fazla olmadığı durum"dur.</p>
+        
+        <p><strong>Minimal Risk Örnekleri:</strong></p>
+        <ul>
+            <li>Standart kan alma (maksimum 450ml/8 hafta)</li>
+            <li>Boy, kilo, vücut yağ oranı ölçümü</li>
+            <li>Non-invaziv görüntüleme (ultrason, MR)</li>
+            <li>Anket ve psikolojik testler (travmatik içerik hariç)</li>
+            <li>Günlük aktivite seviyesinde egzersiz</li>
+        </ul>
+        
+        <h4>🟡 Minimal Riskten Hafif Artış</h4>
+        <p>Günlük yaşam riskinden biraz daha fazla ancak ciddi zarar potansiyeli düşük olan durumları kapsar. Bu kategori çocuklar için özel önem taşır çünkü pediyatrik araştırmalarda izin verilen maksimum risk seviyesidir.</p>
+        
+        <p><strong>Örnekler:</strong></p>
+        <ul>
+            <li>Submaksimal egzersiz testleri</li>
+            <li>24 saatlik Holter monitörizasyonu</li>
+            <li>Diyet kısıtlaması (1-2 gün)</li>
+            <li>Tükürük, idrar örnekleri</li>
+        </ul>
+        
+        <h4>🟠 Orta Düzey Risk</h4>
+        <p>Ciddi zarar potansiyeli olan ancak kalıcı hasar beklentisi düşük prosedürler. Özel güvenlik önlemleri ve yakın tıbbi gözlem gerektirir.</p>
+        
+        <p><strong>Örnekler:</strong></p>
+        <ul>
+            <li>Maksimal egzersiz testleri</li>
+            <li>Kas biyopsisi</li>
+            <li>İnvaziv kan basıncı ölçümü</li>
+            <li>Susuzluk protokolleri</li>
+        </ul>
+        
+        <h4>🔴 Yüksek Risk</h4>
+        <p>Ciddi, kalıcı zarar veya ölüm riski olan prosedürler. Özel etik kurul onayı, detaylı güvenlik protokolleri ve tıbbi süpervizyon zorunludur.</p>
+        
+        <h4>⚡ Hızlandırılmış İnceleme (Expedited Review)</h4>
+        <p>Sadece minimal risk kategorisindeki araştırmalar hızlandırılmış incelemeye tabi tutulabilir. Bu süreçte tek etik kurul üyesi (genellikle başkan) onay verebilir. 45 CFR 46.110 bu süreci detaylandırır.</p>
+        
+        <h4>🏥 Tam Kurul İncelemesi</h4>
+        <p>Minimal riskten fazla risk taşıyan tüm araştırmalar tam kurul incelemesine tabi tutulur. Kuorum şartı (yarıdan fazla üye), çoğunluk kararı ve gerekçeli red hakkı bu sürecin temel unsurlarıdır.</p>
+    </div>
+
+    <div class="sidebar" id="sidebar-19">
+        <h3>🚫 Bilimsel Suistimal: FFP Detaylı Analizi</h3>
+        <h4>📊 Fabrication (Veri Uydurma) Analizi</h4>
+        <p>Fabrication, hiç gerçekleştirilmemiş deneyler için sahte sonuç üretmektir. Bu, bilimsel suistimalin en ağır formlarından biridir çünkü tamamen sahte bilgi yaratır. Tespit edilmesi zor olabilir çünkü hiç gerçek veri yoktur.</p>
+        
+        <p><strong>Yaygın Fabrication Türleri:</strong></p>
+        <ul>
+            <li>Hiç yapılmayan anketlerden yanıt üretme</li>
+            <li>Laboratuvar sonuçlarını uydurma</li>
+            <li>Sahte hasta kayıtları oluşturma</li>
+            <li>İmajineer katılımcı verileri yaratma</li>
+        </ul>
+        
+        <h4>✏️ Falsification (Veri Tahrifi) Türleri</h4>
+        <p>Falsification, gerçek veri üzerinde manipülasyon yaparak sonuçları değiştirmektir. Fabrication'dan farklı olarak bir temel veri vardır ancak istenilen sonucu elde etmek için değiştirilir.</p>
+        
+        <p><strong>Yaygın Falsification Yöntemleri:</strong></p>
+        <ul>
+            <li>Outlier'ları keyfi nedenlerle çıkarma</li>
+            <li>Veri noktalarını değiştirme</li>
+            <li>İmaj manipülasyonu (fotoğraf düzenleme)</li>
+            <li>İstatistiksel sonuçları değiştirme</li>
+            <li>Tarih/saat damgalarını değiştirme</li>
+        </ul>
+        
+        <h4>📝 Plagiarism (İntihal) Kategorileri</h4>
+        <p>İntihal sadece metin kopyalamak değildir. Fikir, veri, görsel, yapı intihali gibi farklı türleri vardır.</p>
+        
+        <p><strong>İntihal Türleri:</strong></p>
+        <ul>
+            <li><strong>Metin İntihali:</strong> Kelimesi kelimesine kopyalama</li>
+            <li><strong>Paraphrasing İntihali:</strong> Kaynak göstermeden yeniden yazma</li>
+            <li><strong>Fikir İntihali:</strong> Konsept ve yaklaşım çalma</li>
+            <li><strong>Yapı İntihali:</strong> Organizasyon ve akış kopyalama</li>
+            <li><strong>Öz İntihal:</strong> Kendi önceki çalışmalarını tekrar kullanma</li>
+        </ul>
+        
+        <h4>🔍 Tespit Yöntemleri</h4>
+        <p>Modern tespit yöntemleri teknolojik araçlar kullanır:</p>
+        <ul>
+            <li><strong>Turnitin/iThenticate:</strong> Metin benzerliği analizi</li>
+            <li><strong>STRIVA:</strong> İstatistiksel anormallik tespiti</li>
+            <li><strong>ImageTwin:</strong> Görsel manipülasyon tespiti</li>
+            <li><strong>Metadata Analizi:</strong> Dosya geçmişi inceleme</li>
+        </ul>
+        
+        <h4>📈 Global İstatistikler</h4>
+        <p>Retraction Watch verilerine göre 2023'te 5,200+ makale geri çekildi. %43'ü fabrication/falsification, %35'i plagiarism, %22'si diğer nedenlerle. En çok etkilenen alanlar: tıp (%38), biyoloji (%22), mühendislik (%15).</p>
+    </div>
+
+    <div class="sidebar" id="sidebar-20">
+        <h3>⚠️ Diğer Araştırma Etik İhlalleri: Kapsamlı Analiz</h3>
+        <h4>🤝 Authorship (Yazarlık) İhlalleri</h4>
+        <p>ICMJE (Uluslararası Tıp Dergisi Editörleri Komitesi) kriterleri yazarlık için 4 şart öngörür. Bu şartların tamamı sağlanmazsa yazarlık hakkı verilmemelidir.</p>
+        
+        <p><strong>Yaygın Yazarlık İhlalleri:</strong></p>
+        <ul>
+            <li><strong>Honorary Authorship:</strong> Katkısı olmayan senior akademisyen yazarlığı</li>
+            <li><strong>Gift Authorship:</strong> Dostluk/çıkar ilişkisi yazarlığı</li>
+            <li><strong>Ghost Authorship:</strong> Gerçek yazarı gizleme (özellikle ilaç şirketleri)</li>
+            <li><strong>Denial of Authorship:</strong> Hak sahibine yazarlık vermeme</li>
+        </ul>
+        
+        <h4>🔄 Çoklu ve Gereksiz Yayın İhlalleri</h4>
+        <p><strong>Duplicate Publication:</strong> Aynı çalışmanın birden fazla dergide yayınlanması. %90+ metin benzerliği duplicate sayılır.</p>
+        
+        <p><strong>Salami Slicing:</strong> Tek büyük çalışmayı küçük parçalara bölerek çok sayıda yayın yapma. Bu durum literatürü kirletir ve meta-analiz kalitesini düşürür.</p>
+        
+        <p><strong>Redundant Publication:</strong> Aynı veri setinden minimal farklılıklarla çok sayıda yayın üretme.</p>
+        
+        <h4>📊 P-hacking ve Questionable Research Practices</h4>
+        <p>P-hacking, istatistiksel anlamlılık elde etmek için veri analizi manipülasyonudur. John Ioannidis'in "Why Most Published Research Findings Are False" makalesi bu sorunu detaylandırır.</p>
+        
+        <p><strong>Yaygın P-hacking Teknikleri:</strong></p>
+        <ul>
+            <li>Çoklu hipotez testi, sadece anlamlı olanı raporlama</li>
+            <li>Örneklem büyüklüğünü p<0.05 olana kadar artırma</li>
+            <li>Farklı kovaryat kombinasyonları deneme</li>
+            <li>Subgroup analizi ile "anlamlı" alt grup arama</li>
+            <li>Outlier eliminasyonu ile istenen sonucu elde etme</li>
+        </ul>
+        
+        <h4>🎯 HARKing (Sonuçlar Bilinirken Hipotez Kurma)</h4>
+        <p>Sonuçları gördükten sonra hipotez kurma ve bunu önceden hipotezmiş gibi sunma. Bu durum doğrulama yanlılığı yaratır ve bilimsel yöntemin temel ilkelerini ihlal eder.</p>
+        
+        <h4>🍒 Seçmeli Raporlama</h4>
+        <p>Sadece istenilen sonuçları raporlama, olumsuz sonuçları gizleme. Bu durum yayın yanlılığı yaratır ve literatürde sistematik çarpıklığa neden olur.</p>
+        
+        <h4>👻 Hayalet Yazarlık</h4>
+        <p>Özellikle ilaç endüstrisinde yaygın olan bu uygulamada, gerçek yazar (genellikle şirket çalışanı) gizlenir, akademisyen ismi kullanılır. Bu durum çıkar çatışmasını gizler ve bilimsel objektifliği bozar.</p>
+    </div>
+
+    <div class="sidebar" id="sidebar-21">
+        <h3>📈 P-hacking ve HARKing: Derinlemesine Analiz</h3>
+        <h4>🔍 P-hacking'in Bilimsel Zararları</h4>
+        <p>P-hacking, Type I error (yanlış pozitif) oranını %5'ten çok daha yüksek seviyelere çıkarır. Simmons, Nelson ve Simonsohn'un 2011'deki çalışması, yaygın p-hacking tekniklerinin Type I error'u %60'a kadar çıkarabileceğini göstermiştir.</p>
+        
+        <p><strong>P-hacking'in Nedenleri:</strong></p>
+        <ul>
+            <li>Yayın sisteminin pozitif sonuçları kayırması</li>
+            <li>Araştırmacı kariyerinde yayın baskısı</li>
+            <li>İstatistik eğitimindeki eksiklikler</li>
+            <li>Grant alma sürecinde pozitif sonuç beklentisi</li>
+        </ul>
+        
+        <h4>📊 Yaygın P-hacking Teknikleri ve Etkileri</h4>
+        <p><strong>Seçmeli Durdurma:</strong> Örneklem toplama sürecinde sürekli p değerine bakma ve p<0.05 olduğunda durmak. Bu teknik tek başına Type I error'u ikiye katlar.</p>
+        
+        <p><strong>Çoklu Test:</strong> Aynı veri seti üzerinde çok sayıda test yapıp sadece anlamlı olanları raporlamak. Bonferroni düzeltmesi gibi çoklu karşılaştırma düzeltmeleri yapılmaz.</p>
+        
+        <p><strong>Seçmeli Raporlama:</strong> Çok sayıda bağımlı değişken toplayıp sadece anlamlı olanları "ana outcome" olarak sunmak.</p>
+        
+        <h4>🎯 HARKing'in Epistemolojik Sorunları</h4>
+        <p>HARKing, bilimsel yöntemin temel ilkesi olan hipotez-test döngüsünü bozar. Karl Popper'ın falsifiability ilkesi, hipotezlerin test edilebilir olmalarını gerektirir, ancak HARKing'de hipotez sonuçları bildiği için gerçek test yapılmış olmaz.</p>
+        
+        <p><strong>HARKing Türleri:</strong></p>
+        <ul>
+            <li><strong>Saf HARKing:</strong> Tamamen sonuç-odaklı hipotez kurma</li>
+            <li><strong>Kuramsal HARKing:</strong> Teorik gerekçe yaratma</li>
+            <li><strong>Görünmez HARKing:</strong> Post-hoc analizleri a priori gibi sunma</li>
+        </ul>
+        
+        <h4>🛡️ Koruyucu Önlemler</h4>
+        <p><strong>Ön kayıt:</strong> Araştırma başlamadan önce hipotez, metodoloji ve analiz planının kaydedilmesi. ClinicalTrials.gov, OSF Registries gibi platformlar kullanılır.</p>
+        
+        <p><strong>Kayıtlı Raporlar:</strong> Sonuçlar elde edilmeden önce hakemlik değerlendirmesi yapılan yayın formatı. Nature Human Behaviour, Psychological Science gibi dergiler bu formatı destekler.</p>
+        
+        <p><strong>Open Science Practices:</strong> Ham veri paylaşımı, analiz kodları paylaşımı, metodoloji şeffaflığı.</p>
+        
+        <h4>📚 Eğitim ve Farkındalık</h4>
+        <p>P-hacking'in kasıtlı olmadığı durumlar da vardır. Araştırmacı eğitiminde istatistiksel kavramların doğru öğretilmesi, keşfedici ve doğrulayıcı analiz ayrımının yapılması kritik öneme sahiptir.</p>
+    </div>
+
+    <div class="sidebar" id="sidebar-22">
+        <h3>💰 Çıkar Çatışması: Kapsamlı Değerlendirme</h3>
+        <h4>🔍 Çıkar Çatışması Tanımı ve Boyutları</h4>
+        <p>Çıkar çatışması, araştırmacının kişisel, finansal veya mesleki çıkarlarının bilimsel yargısını etkileyebileceği durumdur. ICMJE tanımına göre: "Birincil çıkar (bilimsel doğruluk) ile ikincil çıkarlar (finansal kazanç, kişisel ilişkiler) arasındaki gerilim".</p>
+        
+        <h4>💵 Finansal Çıkar Çatışması Türleri</h4>
+        <p><strong>Direkt Finansal İlişkiler:</strong></p>
+        <ul>
+            <li>Araştırma fonu alma (>5000$ genellikle bildirme eşiği)</li>
+            <li>Danışmanlık ücreti alma</li>
+            <li>Konuşmacı honorarı</li>
+            <li>Patent hakları</li>
+            <li>Telif hakları</li>
+        </ul>
+        
+        <p><strong>İndirekt Finansal İlişkiler:</strong></p>
+        <ul>
+            <li>Şirket hissesi sahipliği</li>
+            <li>Stock option'ları</li>
+            <li>Aile üyelerinin finansal ilişkileri</li>
+            <li>Kurumsal sponsorluklar</li>
+        </ul>
+        
+        <h4>👥 Non-finansal Çıkar Çatışması</h4>
+        <p><strong>Kişisel İlişkiler:</strong> Aile üyeleri, yakın arkadaşlar, mentör-öğrenci ilişkileri araştırma objektifliğini etkileyebilir.</p>
+        
+        <p><strong>Akademik Çıkarlar:</strong> Terfi beklentisi, prestij, ödül alma beklentisi, akademik rekabet bu kategoride değerlendirilir.</p>
+        
+        <p><strong>İdeolojik Çıkarlar:</strong> Siyasi, dini, felsefi inançlar bilimsel objektifliği etkileyebilir.</p>
+        
+        <h4>📋 Çıkar Çatışması Beyanı Süreci</h4>
+        <p><strong>ICMJE Formu:</strong> Uluslararası standart çıkar çatışması beyan formu. Son 3 yıldaki tüm finansal ilişkiler beyan edilmelidir.</p>
+        
+        <p><strong>Beyan Edilmesi Gereken Bilgiler:</strong></p>
+        <ul>
+            <li>Finansal ilişkinin türü ve miktarı</li>
+            <li>İlişkinin araştırma ile relevansı</li>
+            <li>İlişkinin başlangıç ve bitiş tarihleri</li>
+            <li>Aile üyelerinin ilişkileri</li>
+        </ul>
+        
+        <h4>⚖️ Çıkar Çatışması Yönetimi</h4>
+        <p><strong>Eliminasyon:</strong> Çıkar çatışmasını tamamen ortadan kaldırma. En radikal ama en etkili yöntem.</p>
+        
+        <p><strong>Yönetim:</strong> Çıkar çatışmasını kontrol altına alma. bağımsız veri izleme komitesi, kör sonuç değerlendirmesi gibi yöntemler.</p>
+        
+        <p><strong>Açıklama:</strong> Çıkar çatışmasını şeffaf şekilde bildirme. Minimum gereksinim, tek başına yeterli değil.</p>
+        
+        <h4>🏭 Endüstriyel İşbirliği Etiği</h4>
+        <p>Akademi-endüstri işbirliği kaçınılmaz ve gereklidir ancak özel önlemler gerektirir:</p>
+        <ul>
+            <li>İndependent statistician kullanımı</li>
+            <li>Veri sahipliğinin akademide olması</li>
+            <li>Yayın hakkının akademide olması</li>
+            <li>Negatif sonuçların yayınlanma garantisi</li>
+        </ul>
+    </div>
+
+    <div class="sidebar" id="sidebar-23">
+        <h3>🔐 KVKK ve Araştırmalarda Veri Koruma</h3>
+        <h4>⚖️ KVKK'nın Araştırmalara Etkisi</h4>
+        <p>6698 sayılı Kişisel Verilerin Korunması Kanunu, 2016'da kabul edilmiş ve GDPR (General Data Protection Regulation) ile uyumlu olarak tasarlanmıştır. Araştırmalar için özel düzenlemeler içerir.</p>
+        
+        <h4>📊 Kişisel Veri Tanımı ve Kapsamı</h4>
+        <p><strong>KVKK Madde 3/1-d:</strong> "Kimliği belirli veya belirlenebilir gerçek kişiye ilişkin her türlü bilgi" kişisel veri sayılır.</p>
+        
+        <p><strong>Araştırmalarda Kişisel Veri Örnekleri:</strong></p>
+        <ul>
+            <li>Kimlik bilgileri (ad, soyad, TC No)</li>
+            <li>İletişim bilgileri</li>
+            <li>Fiziksel özellikler (boy, kilo, parmak izi)</li>
+            <li>Sağlık verileri (hastalık, ilaç kullanımı)</li>
+            <li>Genetik ve biyometrik veriler</li>
+            <li>Lokasyon verileri (GPS koordinatları)</li>
+            <li>Davranış verileri (internet kullanımı)</li>
+        </ul>
+        
+        <h4>🛡️ Özel Nitelikli Kişisel Veriler</h4>
+        <p>KVKK Madde 6 kapsamında yer alan özel kategoriler için ek koruma gerekir:</p>
+        <ul>
+            <li>Irksal veya etnik köken</li>
+            <li>Siyasi düşünce</li>
+            <li>Felsefi inanç, din, mezhep</li>
+            <li>Sendika üyeliği</li>
+            <li>Sağlık ve cinsel yaşam</li>
+            <li>Ceza mahkumiyeti</li>
+            <li>Güvenlik önlemleri</li>
+        </ul>
+        
+        <h4>⚗️ Bilimsel Araştırma İstisnası (KVKK Madde 7/2-f)</h4>
+        <p>KVKK Madde 7/2-f araştırmalar için özel hüküm içerir: "Bilimsel ve tarihi araştırma amaçlı" veri işleme açık rıza olmadan yapılabilir, ancak şartları vardır:</p>
+        <ul>
+            <li>Kamu yararı bulunması</li>
+            <li>Veri işlemenin araştırma amacıyla orantılı olması</li>
+            <li>Veri minimizasyonu ilkesine uygunluk</li>
+            <li>Anonimleştirme yapılması (mümkünse)</li>
+        </ul>
+        
+        <h4>🔒 Veri Güvenliği Önlemleri</h4>
+        <p><strong>Teknik Önlemler:</strong></p>
+        <ul>
+            <li>AES-256 şifreleme</li>
+            <li>İki faktörlü authentication</li>
+            <li>Güvenli SSL bağlantıları</li>
+            <li>Regular security updates</li>
+        </ul>
+        
+        <p><strong>İdari Önlemler:</strong></p>
+        <ul>
+            <li>Veri işleme envanteri tutma</li>
+            <li>Personel eğitimi ve gizlilik sözleşmeleri</li>
+            <li>Erişim yetkilendirme sistemleri</li>
+            <li>Veri saklama ve imha politikaları</li>
+        </ul>
+        
+        <h4>⚠️ İhlal Durumu ve Yaptırımlar</h4>
+        <p>KVKK Madde 18'e göre idari para cezaları:</p>
+        <ul>
+            <li>Aydınlatma yükümlülüğü ihlali: 20.000-1.000.000 TL</li>
+            <li>Güvenlik önlemi alamama: 50.000-2.000.000 TL</li>
+            <li>Veri İhlali bildirmeme: 100.000-5.000.000 TL</li>
+        </ul>
+    </div>
+
+    <div class="sidebar" id="sidebar-24">
+        <h3>🐭 Hayvan Deneyleri Etiği: 3R İlkesi ve HADYEK</h3>
+        <h4>📚 3R İlkesinin Tarihçesi</h4>
+        <p>3R İlkesi (Replace, Reduce, Refine), 1959'da William Russell ve Rex Burch tarafından "The Principles of Humane Experimental Technique" kitabında formüle edilmiştir. Bu ilke, hayvan refahı ile bilimsel gereksinimler arasında denge kurmanın çerçevesini oluşturur.</p>
+        
+        <h4>🔄 Replace (İkame Etme) Stratejileri</h4>
+        <p><strong>Mutlak İkame:</strong> Hayvan kullanımını tamamen elimine eden yöntemler.</p>
+        <ul>
+            <li>In vitro hücre kültürleri</li>
+            <li>Bilgisayar simülasyonları (in silico)</li>
+            <li>Matematiksel modeller</li>
+            <li>İnsan gönüllü çalışmaları</li>
+            <li>Epidemiyolojik veriler</li>
+        </ul>
+        
+        <p><strong>Relatif İkame:</strong> Daha az acı çekme kapasitesi olan türlerin kullanımı.</p>
+        <ul>
+            <li>Omurgalı yerine omurgasız (Drosophila, C. elegans)</li>
+            <li>Memeli yerine balık modelleri</li>
+            <li>Embriyonik dönem modelleri</li>
+        </ul>
+        
+        <h4>📉 Reduce (Azaltma) Metodolojisi</h4>
+        <p>İstatistiksel güç analizi ile minimum hayvan sayısını belirleme:</p>
+        <ul>
+            <li>Güç analizi (genellikle %80 güç, α=0.05)</li>
+            <li>Etki büyüklüğü tahminleri</li>
+            <li>Pilot çalışmalar ile varyans tahmini</li>
+            <li>Çapraz geçişli tasarım kullanımı</li>
+            <li>Rastgele atama ve bloklama teknikleri</li>
+        </ul>
+        
+        <h4>🛠️ Refine (İyileştirme) Uygulamaları</h4>
+        <p><strong>Çevresel İyileştirmeler (Çevresel Zenginleştirme):</strong></p>
+        <ul>
+            <li>Sosyal barındırma (mümkün olan türlerde)</li>
+            <li>Yuva malzemeleri</li>
+            <li>Egzersiz çarkları, tırmanma yapıları</li>
+            <li>Besin arama fırsatları</li>
+        </ul>
+        
+        <p><strong>Prosedürel İyileştirmeler:</strong></p>
+        <ul>
+            <li>Minimal invaziv teknikler</li>
+            <li>Uygun anestezi ve analjezi</li>
+            <li>İnsancıl son nokta kriterleri</li>
+            <li>Nazik tutma teknikleri</li>
+        </ul>
+        
+        <h4>🏛️ HADYEK (Hayvan Deneyleri Yerel Etik Kurulu)</h4>
+        <p><strong>Yasal Çerçeve:</strong> 2014/56 sayılı "Bilimsel Amaçlarla Kullanılan Deney Hayvanlarının Üretim Yerleri, Bakım ve Kullanım Kuralları ile Deney Hayvanlarının Korunması Hakkında Yönetmelik"</p>
+        
+        <p><strong>HADYEK Üye Yapısı (Minimum 5 kişi):</strong></p>
+        <ul>
+            <li>Veteriner hekim (başkan)</li>
+            <li>Deneysel araştırma uzmanı</li>
+            <li>Etik uzmanı</li>
+            <li>Hukukçu</li>
+            <li>Sivil toplum temsilcisi</li>
+        </ul>
+        
+        <h4>📋 HADYEK Değerlendirme Kriterleri</h4>
+        <ul>
+            <li>Araştırmanın bilimsel gerekçesi</li>
+            <li>3R ilkesine uygunluk</li>
+            <li>Araştırmacı yeterliliği</li>
+            <li>Hayvan refahı önlemleri</li>
+            <li>İnsancıl son nokta tanımları</li>
+            <li>İstatistiksel analiz planı</li>
+        </ul>
+    </div>
+
+    <div class="sidebar" id="sidebar-25">
+        <h3>📖 Yayın Etiği ve ICMJE Kriterleri</h3>
+        <h4>✍️ ICMJE Yazarlık Kriterleri Detayları</h4>
+        <p>Uluslararası Tıp Dergisi Editörleri Komitesi (ICMJE) tarafından belirlenen yazarlık kriterleri, 1988'den beri global standart olarak kabul edilir. 2013 revizyonunda 4 kriter tamamıyla sağlanmalıdır:</p>
+        
+        <p><strong>Kriter 1 - Tasarım ve Veri Analizi:</strong></p>
+        <ul>
+            <li>Araştırma tasarımına önemli katkı</li>
+            <li>Veri toplama, analiz veya interpretasyonda rol</li>
+            <li>Metodoloji geliştirmede aktif katılım</li>
+        </ul>
+        
+        <p><strong>Kriter 2 - Yazım ve Gözden Geçirme:</strong></p>
+        <ul>
+            <li>İlk taslağı yazma VEYA</li>
+            <li>Önemli entelektüel içerik açısından kritik revizyon</li>
+            <li>Sadece dilbilgisi/format düzeltmesi yeterli değil</li>
+        </ul>
+        
+        <p><strong>Kriter 3 - Final Onay:</strong></p>
+        <ul>
+            <li>Yayınlanacak versiyonun son onayı</li>
+            <li>Tüm versiyonları incelemiş olma</li>
+            <li>İçerikten tam haberdar olma</li>
+        </ul>
+        
+        <p><strong>Kriter 4 - Sorumluluk Kabulü:</strong></p>
+        <ul>
+            <li>Araştırmanın doğruluğu ve dürüstlüğünden sorumlu olma</li>
+            <li>Sorular geldiğinde cevap verebilme</li>
+            <li>Tüm çalışmanın savunmasını yapabilme</li>
+        </ul>
+        
+        <h4>🚫 Yazarlık Hakkı Vermeyen Katkılar</h4>
+        <p>Aşağıdaki katkılar tek başına yazarlık hakkı vermez (teşekkür bölümünde yer alır):</p>
+        <ul>
+            <li>Sadece fon temin etme</li>
+            <li>Veri toplama (analiz yapmadan)</li>
+            <li>Genel süpervizyon</li>
+            <li>Administratif destek</li>
+            <li>Teknik destek</li>
+            <li>Sadece materyal temin etme</li>
+        </ul>
+        
+        <h4>🔄 Editöryel Süreç Etiği</h4>
+        <p><strong>Hakemlik Değerlendirme Sistemi:</strong> Modern bilimsel yayıncılığın kalite kontrol mekanizması. 1665'te Royal Society'nin Philosophical Transactions dergisiyle başlamış.</p>
+        
+        <p><strong>Hakem Sorumlulukları:</strong></p>
+        <ul>
+            <li>Objektif ve yapıcı değerlendirme</li>
+            <li>Gizlilik ilkesine uygunluk</li>
+            <li>Çıkar çatışması beyanı</li>
+            <li>Zamanında geri bildirim (genellikle 2-4 hafta)</li>
+            <li>Kendi uzmanlık alanına uygun değerlendirme</li>
+        </ul>
+        
+        <p><strong>Editör Sorumlulukları:</strong></p>
+        <ul>
+            <li>Uygun hakem seçimi</li>
+            <li>Objektif karar verme</li>
+            <li>Gizlilik korunması</li>
+            <li>Çıkar çatışması yönetimi</li>
+        </ul>
+        
+        <h4>📊 Negatif Sonuçların Önemi</h4>
+        <p><strong>Yayın Yanlılığı:</strong> Pozitif sonuçların negatif sonuçlara göre daha çok yayınlanma eğilimi. Bu durum literatürde sistematik çarpıklık yaratır.</p>
+        
+        <p><strong>Çekmece Sorunu:</strong> Negatif sonuçların "çekmecede kalması" sorunu. Rosenthal (1979) bu terimi ilk kullanan kişi.</p>
+        
+        <p><strong>Çözüm Önerileri:</strong></p>
+        <ul>
+            <li>Ön kayıt zorunluluğu</li>
+            <li>Negatif sonuç dergileri</li>
+            <li>Kayıtlı Raporlar formatı</li>
+            <li>Araştırma kayıt veritabanları</li>
+        </ul>
+    </div>
+
+    <div class="sidebar" id="sidebar-26">
+        <h3>🎭 Predatory Journals: Sistematik Analiz</h3>
+        <h4>📈 Yırtıcı Yayıncılığın Büyüklüğü</h4>
+        <p>Jeffrey Beall'ın 2012'deki araştırmasına göre predatory publishing yıllık 1.4 milyar dolarlık bir sektör haline gelmiştir. 2023 itibarıyla 10,000+ yırtıcı dergi tespit edilmiştir.</p>
+        
+        <h4>🎯 Yırtıcı Dergi Özellikleri</h4>
+        <p><strong>Editöryel Kurul Sorunları:</strong></p>
+        <ul>
+            <li>Sahte editör isimleri</li>
+            <li>İzinsiz isim kullanımı</li>
+            <li>Editörlerin uzmanlık-dergi konusu uyumsuzluğu</li>
+            <li>Editör iletişim bilgilerinin olmaması</li>
+        </ul>
+        
+        <p><strong>Yayın Süreci Problemleri:</strong></p>
+        <ul>
+            <li>24-48 saatlik "hakemlik değerlendirmesi"</li>
+            <li>Otomatik kabul mailleri</li>
+            <li>Kalitesiz hakem raporları</li>
+            <li>İngilizce dil kontrolsüzlüğü</li>
+        </ul>
+        
+        <p><strong>Ticari Uygulamalar:</strong></p>
+        <ul>
+            <li>Aşırı yüksek MİÜ (Makale İşleme Ücreti)</li>
+            <li>Gizli ek ücretler</li>
+            <li>Spam email kampanyaları</li>
+            <li>Sahte conference davetleri</li>
+        </ul>
+        
+        <h4>🔍 Tespit ve Korunma Yöntemleri</h4>
+        <p><strong>Dergi Değerlendirme Kriterleri:</strong></p>
+        <ul>
+            <li>Web of Science, Scopus, PubMed indeks kontrolü</li>
+            <li>Journal Impact Factor doğrulaması</li>
+            <li>Publisher güvenilirlik araştırması</li>
+            <li>Dergi web sitesi kalite analizi</li>
+        </ul>
+        
+        <p><strong>Beall's List ve Diğer Kaynaklar:</strong></p>
+        <ul>
+            <li>Yırtıcı Dergileri Durdur</li>
+            <li>Think Check Submit initiative</li>
+            <li>DOAJ (Directory of Open Access Journals)</li>
+            <li>OASPA (Open Access Scholarly Publishers Association)</li>
+        </ul>
+        
+        <h4>⚖️ Hukuki ve Etik Sonuçları</h4>
+        <p>Predatory journal'da yayın yapmanın sonuçları:</p>
+        <ul>
+            <li>Akademik terfi süreçlerinde sorun</li>
+            <li>Kurumsal saygınlık kaybı</li>
+            <li>Grant başvurularında olumsuz etki</li>
+            <li>Bilimsel topluluk dışlanması</li>
+        </ul>
+        
+        <h4>🌍 Global Mücadele Çabası</h4>
+        <p>Think Check Submit kampanyası 2015'te başlatıldı. Uluslararası yayıncı organizasyonları (STM, OASPA, COPE, DOAJ) ortak çaba gösteriyor. Araştırmacı eğitimi ve kurumsal politikalar önem kazanıyor.</p>
+    </div>
+
+    <div class="sidebar" id="sidebar-27">
+        <h3>🏃‍♂️ Spor Bilimlerinde Özel Etik Konular</h3>
+        <h4>🛡️ Sporcu Güvenliği Protokolleri</h4>
+        <p>Spor bilimi araştırmalarında sporcu güvenliği en yüksek önceliktir. FIFA Medical Assessment and Research Centre (F-MARC) ve IOC Medical Commission rehberleri referans alınır.</p>
+        
+        <p><strong>Risk Değerlendirme Protokolü:</strong></p>
+        <ul>
+            <li>Pre-participation health screening</li>
+            <li>Kardiyak risk değerlendirmesi (ECG, Echo)</li>
+            <li>Musculoskeletal examination</li>
+            <li>Psikolojik hazırlık değerlendirmesi</li>
+        </ul>
+        
+        <h4>💪 Performans Artırım Etiği</h4>
+        <p>Doğal performans gelişimi ile yapay artırım arasındaki etik sınır belirsizlik gösterir. WADA (World Anti-Doping Agency) prohibited list referans alınsa da araştırma bağlamında farklı değerlendirmeler gerekir.</p>
+        
+        <p><strong>Etik Kabul Edilebilir Müdahaleler:</strong></p>
+        <ul>
+            <li>Antrenman metodolojisi optimizasyonu</li>
+            <li>Beslenme protokolü geliştirme</li>
+            <li>Recovery stratejileri</li>
+            <li>Mental training teknikleri</li>
+        </ul>
+        
+        <p><strong>Etik Tartışmalı Alanlar:</strong></p>
+        <ul>
+            <li>Yükseklik antrenmanı ve hipoksik çadır</li>
+            <li>Kriyoterapi ve buz banyo</li>
+            <li>Caffeine supplementation limits</li>
+            <li>Technology-aided training</li>
+        </ul>
+        
+        <h4>🧪 Doping Araştırması Etiği</h4>
+        <p>Yasaklı madde araştırmaları özel etik değerlendirme gerektirir. WADA Code Article 4.4 araştırma amaçlı kullanım için özel izin öngörür.</p>
+        
+        <p><strong>Gerekli Koşullar:</strong></p>
+        <ul>
+            <li>WADA TUE (Therapeutic Use Exemption) approval</li>
+            <li>National Anti-Doping Organization bilgilendirmesi</li>
+            <li>Etik kurul özel onayı</li>
+            <li>Participant doping risk bilgilendirmesi</li>
+        </ul>
+        
+        <h4>👶 Çocuk Sporcu Araştırmaları</h4>
+        <p>Pediatrik spor araştırmaları özel koruma gerektirir. Büyüme ve olgunlaşma etkileri, psikolojik gelişim aşamaları, parental pressure faktörleri değerlendirilmelidir.</p>
+        
+        <p><strong>Yaşa Özel Konsiderasyon:</strong></p>
+        <ul>
+            <li>6-9 yaş: Oyun-temelli yaklaşım</li>
+            <li>10-12 yaş: Skill development focus</li>
+            <li>13-15 yaş: Physical development consideration</li>
+            <li>16-18 yaş: Yarı-erişkin yaklaşımı</li>
+        </ul>
+        
+        <h4>🏆 Elite Sporcu Özel Durumları</h4>
+        <p>Elite sporcular career-related pressure yaşar. Olympic cycle timing, sponsor expectations, media attention gibi faktörler gönüllü katılımı etkileyebilir.</p>
+        
+        <p><strong>Elite Sporcu Koruma Önlemleri:</strong></p>
+        <ul>
+            <li>Independent advocate assignment</li>
+            <li>Career counselor involvement</li>
+            <li>Performance guarantee disclaimers</li>
+            <li>Withdrawal without penalty policies</li>
+        </ul>
+    </div>
+
+    <div class="sidebar" id="sidebar-28">
+        <h3>💻 Spor Teknolojisi ve Veri Etiği</h3>
+        <h4>📱 Wearable Technology Ethics</h4>
+        <p>Spor teknolojisinin gelişimi ile sürekli izleme mümkün hale gelmiştir. GPS trackers, heart rate monitors, accelerometers 24/7 veri toplar. Bu durum gizlilik ve autonomy konularında yeni etik dilemmaları ortaya çıkarır.</p>
+        
+        <h4>🛰️ GPS Takip Etiği</h4>
+        <p><strong>Toplanan Veriler:</strong></p>
+        <ul>
+            <li>Lokasyon koordinatları (lat/long)</li>
+            <li>Movement patterns</li>
+            <li>Speed ve acceleration</li>
+            <li>Distance ve direction</li>
+            <li>Temporal patterns</li>
+        </ul>
+        
+        <p><strong>Privacy Riskleri:</strong></p>
+        <ul>
+            <li>Home location identification</li>
+            <li>Daily routine profiling</li>
+            <li>Social relationship mapping</li>
+            <li>Davranışsal örüntü analizi</li>
+        </ul>
+        
+        <h4>👁️ Video Analiz Etiği</h4>
+        <p>Performans video analizi giderek yaygınlaşırken, görüntü hakları ve gizlilik korunması kritik hale gelir.</p>
+        
+        <p><strong>Etik Gereksinimler:</strong></p>
+        <ul>
+            <li>Explicit video consent</li>
+            <li>Face blurring options</li>
+            <li>Sınırlı erişim protokolleri</li>
+            <li>Automatic deletion timelines</li>
+        </ul>
+        
+        <p><strong>Facial Recognition Concerns:</strong></p>
+        <ul>
+            <li>Biometric data classification</li>
+            <li>Long-term storage implications</li>
+            <li>Third-party sharing restrictions</li>
+            <li>Consent withdrawal mechanisms</li>
+        </ul>
+        
+        <h4>🧬 Genetik Testing Etiği</h4>
+        <p>Sports genomics alanındaki gelişmeler genetic testing'i yaygınlaştırır. ACTN3, ACE, MCT1 gibi performans-related gene variants test edilir.</p>
+        
+        <p><strong>Etik Zorluklar:</strong></p>
+        <ul>
+            <li>Genetic discrimination riski</li>
+            <li>Family member implications</li>
+            <li>Future health predictions</li>
+            <li>Insurance implications</li>
+        </ul>
+        
+        <p><strong>Koruyucu Önlemler:</strong></p>
+        <ul>
+            <li>Genetic Information Nondiscrimination Act (GINA) uyumluluğu</li>
+            <li>Genetic counselor involvement</li>
+            <li>Limited result disclosure</li>
+            <li>Long-term storage restrictions</li>
+        </ul>
+        
+        <h4>🔒 Data Ownership ve Portability</h4>
+        <p>Sporcu verilerinin sahipliği karmaşık hukuki konudur. GDPR Article 20 data portability right tanır ancak spor sektöründe uygulaması tartışmalıdır.</p>
+        
+        <p><strong>Stakeholder Claims:</strong></p>
+        <ul>
+            <li>Athlete: Primary data subject</li>
+            <li>Team/Club: Employment-based claim</li>
+            <li>League: Collective agreement basis</li>
+            <li>Researcher: Scientific value addition</li>
+            <li>Technology provider: Platform dependency</li>
+        </ul>
+    </div>
+
+    <div class="sidebar" id="sidebar-29">
+        <h3>🌍 Kültürel Etik ve Global-Local Denge</h3>
+        <h4>🕌 Dini ve Kültürel Duyarlılık</h4>
+        <p>Spor araştırmalarında kültürel faktörler sıklıkla gözden kaçırılır ancak participation rate ve data quality'yi önemli ölçüde etkiler.</p>
+        
+        <p><strong>İslami Değerler ve Spor Araştırmaları:</strong></p>
+        <ul>
+            <li>Ramazan ayında oruç etkileri araştırması</li>
+            <li>Prayer time scheduling considerations</li>
+            <li>Gender-segregated testing environments</li>
+            <li>Helal beslenme takviyesi gereksinimleri</li>
+            <li>Mahremiyet gereksinimleri (başörtüsü uyumlu ekipman)</li>
+        </ul>
+        
+        <p><strong>Diğer Dini Konsiderasyonlar:</strong></p>
+        <ul>
+            <li>Christian Sabbath observance</li>
+            <li>Jewish Shabbat restrictions</li>
+            <li>Hindu vejetaryen diyet gereksinimleri</li>
+            <li>Buddhist meditation integration</li>
+        </ul>
+        
+        <h4>🌐 Sosyoekonomik Adalet</h4>
+        <p>Sports participation genellikle sosyoekonomik statü ile korele olur. Research equity sağlamak için özel çaba gerekir.</p>
+        
+        <p><strong>Equity Measures:</strong></p>
+        <ul>
+            <li>Free transportation provision</li>
+            <li>Flexible scheduling options</li>
+            <li>Childcare support during testing</li>
+            <li>Equipment loan programs</li>
+            <li>Çok dilli araştırma materyalleri</li>
+        </ul>
+        
+        <h4>♀️ Gender Equity Challenges</h4>
+        <p>Kadın sporcu araştırmaları tarihsel olarak underrepresented'dır. "Reference Man" problem spor bilimlerinde de görülür.</p>
+        
+        <p><strong>Historical Bias:</strong></p>
+        <ul>
+            <li>Menstrual cycle "complication" narrative</li>
+            <li>Pregnancy exclusion policies</li>
+            <li>Kuvvet/güç araştırması erkek odaklı</li>
+            <li>Liderlik araştırması cinsiyet stereotipleri</li>
+        </ul>
+        
+        <p><strong>Corrective Approaches:</strong></p>
+        <ul>
+            <li>Adet döngüsü araştırma odaklı</li>
+            <li>Hamilelik güvenli egzersiz protokolleri</li>
+            <li>Female-specific performance metrics</li>
+            <li>Gender-balanced research teams</li>
+        </ul>
+        
+        <h4>🌏 Global North vs South Dynamics</h4>
+        <p>International sport science collaboration often reflects global power imbalances. Ethical partnership requires attention to equity.</p>
+        
+        <p><strong>Problematic Patterns:</strong></p>
+        <ul>
+            <li>Data extraction without local benefit</li>
+            <li>Western-centric research questions</li>
+            <li>Limited local capacity building</li>
+            <li>Cultural adaptation inadequacy</li>
+        </ul>
+        
+        <p><strong>Ethical Partnership Model:</strong></p>
+        <ul>
+            <li>Local researcher capacity building</li>
+            <li>Community benefit sharing</li>
+            <li>Culturally adapted methodologies</li>
+            <li>Local relevance prioritization</li>
+        </ul>
+        
+        <h4>🏔️ Indigenous Community Research</h4>
+        <p>Yerli sporcu araştırmaları özel protokoller gerektirir. Geleneksel bilgi sistemlerine saygı ve toplum danışmanlığı esastır.</p>
+        
+        <p><strong>Special Requirements:</strong></p>
+        <ul>
+            <li>Tribal council approval</li>
+            <li>Geleneksel bilgi protokolleri</li>
+            <li>Community ownership of results</li>
+            <li>Cultural advisor involvement</li>
+        </ul>
+    </div>
+
+    <div class="sidebar" id="sidebar-30">
+        <h3>⚖️ Etik İhlallerinin Kapsamlı Sonuç Analizi</h3>
+        <h4>🏢 Kurumsal Yaptırımlar</h4>
+        <p><strong>Academic Dismissal:</strong> Etik ihlal yapan araştırmacıların işten çıkarılması en yaygın kurumsal yaptırımdır. Tenure track pozisyonlarında bile etik ihlal serious cause sayılır.</p>
+        
+        <p><strong>Rank ve Title Kaybı:</strong> Profesörlük, doçentlik gibi akademik unvanların geri alınması mümkündür. Bu süreç genellikle kurumsal etik komitesi kararıyla başlar.</p>
+        
+        <p><strong>Research Privileges:</strong> Laboratuvar kullanım hakları, graduate student supervising yetkisi, research fund başvuru hakkı gibi ayrıcalıklar kaldırılabilir.</p>
+        
+        <h4>💰 Finansal Sonuçlar</h4>
+        <p><strong>Grant Termination:</strong> Devam eden araştırma fonları iptal edilir. NIH, NSF, TÜBİTAK gibi fonlama kurumları kara liste oluşturur.</p>
+        
+        <p><strong>Restitution Requirements:</strong> Kullanılan araştırma fonlarının geri ödenmesi istenebilir. False Claims Act (ABD) kapsamında üçlü tazminat söz konusu.</p>
+        
+        <p><strong>Legal Fees:</strong> Savunma maliyetleri genellikle kişisel bütçeden karşılanır. Insurance coverage çoğu zaman etik ihlalleri kapsamaz.</p>
+        
+        <h4>⚖️ Yasal Yaptırımlar</h4>
+        <p><strong>Criminal Charges:</strong> Federal fund fraud (ABD'de), scientific fraud as criminal offense (bazı ülkelerde) gibi cezai suçluluklar mümkün.</p>
+        
+        <p><strong>Civil Liability:</strong> Zarar gören tarafların tazminat davaları. Özellikle clinical trial'larda patient harm durumunda yüksek miktarlı tazminatlar.</p>
+        
+        <p><strong>Professional Licensing:</strong> Medical license, professional engineering license gibi mesleki lisansların iptal edilmesi.</p>
+        
+        <h4>📖 Publication Sanctions</h4>
+        <p><strong>Journal Banning:</strong> Major dergilerden yayın yasakları. Bazı durumlarda 5-10 yıl sürebilir.</p>
+        
+        <p><strong>Retraction Cascade:</strong> Bir makale retract edildiğinde, aynı araştırmacının diğer çalışmaları da gözden geçirilir.</p>
+        
+        <h4>🌍 International Consequences</h4>
+        <p>Global academic community'de itibar kaybı, conference invitation'ların iptal edilmesi, international collaboration fırsatlarının kapanması gibi uzun vadeli sonuçlar.</p>
+    </div>
+
+    <div class="sidebar" id="sidebar-31">
+        <h3>📢 Whistleblowing: Etik İhlal Bildirimi Sistemi</h3>
+        <h4>⚖️ Whistleblowing'in Hukuki Temeli</h4>
+        <p>Whistleblower Protection Act (1989, ABD) federal çalışanları korur. Sarbanes-Oxley Act (2002) private sector'ı kapsar. Türkiye'de İş Kanunu Madde 26 benzer koruma sağlar.</p>
+        
+        <h4>🛡️ Koruma Mekanizmaları</h4>
+        <p><strong>Retaliation Protection:</strong> Misilleme (işten çıkarma, mobbing, career sabotage) yasal olarak yasaklanmıştır.</p>
+        
+        <p><strong>Identity Protection:</strong> Anonymous reporting systemleri yaygın kullanılır. Signal, ProtonMail gibi encrypted communication tools önerilir.</p>
+        
+        <p><strong>Legal Immunity:</strong> Good faith reporting durumunda yasal bağışıklık sağlanır. Defamation lawsuits'tan korunma vardır.</p>
+        
+        <h4>📞 Bildirme Kanalları</h4>
+        <p><strong>Internal Channels:</strong></p>
+        <ul>
+            <li>Institutional ethics committees</li>
+            <li>Research integrity offices</li>
+            <li>Ombudsman programs</li>
+            <li>Anonymous hotlines</li>
+        </ul>
+        
+        <p><strong>External Channels:</strong></p>
+        <ul>
+            <li>Professional societies (AMA, APA, etc.)</li>
+            <li>Government agencies (OIG, ORI)</li>
+            <li>Funding organizations (NIH, NSF)</li>
+            <li>Journal editors</li>
+        </ul>
+        
+        <h4>🤔 Ethical Dilemmas</h4>
+        <p><strong>Loyalty vs Truth:</strong> Colleague loyalty ile scientific integrity arasındaki gerilim.</p>
+        
+        <p><strong>Certainty vs Suspicion:</strong> Kesin kanıt olmadan şüphe bildirmenin etiği.</p>
+        
+        <p><strong>Proportionality:</strong> Minor vs major infractions için farklı yaklaşımlar.</p>
+        
+        <h4>📊 Global Trends</h4>
+        <p>Research integrity surveys show %33 of scientists witness misconduct, but only %17 report it. Cultural barriers (hierarchy, collectivism) reporting rates'i etkiler.</p>
+        
+        <h4>🏥 Case Studies</h4>
+        <p><strong>Karen Silkwood (1974):</strong> Nuclear safety whistleblower - retaliation death theory.</p>
+        <p><strong>Jeffrey Wigand (1995):</strong> Tobacco industry insider - corporate retaliation.</p>
+        <p><strong>Chelsea Manning (2010):</strong> Askeri ihbarcı - ulusal güvenlik ve şeffaflık.</p>
+    </div>
+
+    <div class="sidebar" id="sidebar-32">
+        <h3>🎯 Araştırma İntegriti: Sistematik Yaklaşım</h3>
+        <h4>🌐 Global Research Integrity Networks</h4>
+        <p><strong>Araştırma Bütünlüğü Dünya Konferansı (WCRI):</strong> 2007'den beri düzenli konferanslar. Singapore Statement (2010), Montreal Statement (2013) gibi önemli bildirgeleri üretmiştir.</p>
+        
+        <p><strong>European Network of Research Integrity Offices (ENRIO):</strong> Avrupa'daki research integrity office'lerin koordinasyon ağı.</p>
+        
+        <p><strong>Asia Pacific Research Integrity Network (APRIN):</strong> Asya-Pasifik bölgesi araştırma integriti ağı.</p>
+        
+        <h4>📊 Institutional Integrity Systems</h4>
+        <p><strong>Araştırma Bütünlüğü Memuru (RIO):</strong> Kurumsal seviyede bütünlük denetimi. Genellikle doktora seviyesi, araştırma deneyimi gerekli.</p>
+        
+        <p><strong>Research Integrity Committee:</strong> Multidisciplinary committee for misconduct investigations. Legal, scientific, ethical expertise required.</p>
+        
+        <p><strong>Training Programs:</strong> Mandatory integrity training for all researchers. Online modules, case-based learning, role-playing exercises.</p>
+        
+        <h4>🔬 Open Science Movement</h4>
+        <p><strong>Açık Veri:</strong> Ham veri paylaşım gereksinimleri. FAIR ilkeleri (Bulunabilir, Erişilebilir, Birlikte Çalışabilir, Yeniden Kullanılabilir).</p>
+        
+        <p><strong>Açık Yöntemler:</strong> Detaylı protokol paylaşımı. Protocols.io, JoVE gibi platformlar.</p>
+        
+        <p><strong>Ön kayıt:</strong> Hipotez ve analiz planı ön kayıt. OSF, ClinicalTrials.gov kullanımı.</p>
+        
+        <h4>🤖 Technology Solutions</h4>
+        <p><strong>Plagiarism Detection:</strong> Turnitin, iThenticate widespread adoption.</p>
+        
+        <p><strong>Statistical Analysis Tools:</strong> StatCheck, p-curve analysis for detecting questionable practices.</p>
+        
+        <p><strong>Image Forensics:</strong> Forensic image analysis for detecting manipulation.</p>
+        
+        <h4>📈 Metrics ve Assessment</h4>
+        <p><strong>Integrity Indicators:</strong> Retraction rates, misconduct case numbers, training completion rates.</p>
+        
+        <p><strong>Kültürel Değerlendirme:</strong> Anket tabanlı kurumsal bütünlük iklimi değerlendirmesi.</p>
+        
+        <p><strong>En İyi Uygulama Paylaşımı:</strong> Yıllık bütünlük raporları, meslektaş kurum karne analizi.</p>
+        
+        <h4>🏛️ Policy Integration</h4>
+        <p>Araştırma bütünlüğü artık kurumsal akreditasyon kriterlerinin parçası. Middle States Commission, WASC gibi akreditasyon kurulukarı bütünlük programlarını gerektiriyor.</p>
+    </div>
+
+    <div class="sidebar" id="sidebar-33">
+        <h3>🔮 Gelecekteki Etik Zorlukları: Teknoloji ve Toplum</h3>
+        <h4>🤖 Yapay Zeka ve Machine Learning Etiği</h4>
+        <p><strong>Algoritmik Yanlılık:</strong> Yanlı verilerle eğitilmiş yapay zeka sistemleri ayrımcılığı sürdürür. Spor performansı tahmin modelleri belirli etnik gruplara karşı ayrımcılık yapabilir.</p>
+        
+        <p><strong>Kara Kutu Sorunu:</strong> Derin öğrenme modellerinin karar verme süreci anlaşılamaz. Araştırma uygulamaları için açıklanabilir yapay zeka gereksinimi vardır.</p>
+        
+        <p><strong>Otomatik Karar Verme:</strong> Yapay zeka sistemleri katılımcı seçimi ve risk değerlendirmesi kararları veriyorlar. İnsan denetimi gereksinimleri vardır.</p>
+        
+        <h4>🧬 Gene Editing ve Enhancement</h4>
+        <p><strong>CRISPR-Cas9 Technology:</strong> Gen düzenleme artık nispeten erişilebilir. Tasarım bebek endişeleri, iyileştirme ve tedavi ayrımı.</p>
+        
+        <p><strong>Germline Editing:</strong> Changes passed to future generations. He Jiankui case (2018) showed global concern about premature application.</p>
+        
+        <p><strong>Sports Enhancement:</strong> Genetic modifications for athletic performance. Current WADA code doesn't explicitly address genetic enhancement.</p>
+        
+        <h4>📊 Big Data ve Privacy</h4>
+        <p><strong>Veri Minimizasyonu vs Research Value:</strong> GDPR veri minimizasyonu ilkesi ile araştırma için kapsamlı veri toplama arasında.</p>
+        
+        <p><strong>Onay Karmaşıklığı:</strong> Gelişen araştırma soruları için dinamik onay sistemleri. Blokzincir tabanlı onay yönetimi.</p>
+        
+        <p><strong>Re-identification Risks:</strong> Seemingly anonymous datasets can be re-identified with additional data sources.</p>
+        
+        <h4>🌍 Global Coordination Challenges</h4>
+        <p><strong>Düzenleme Arbitrajı:</strong> Araştırmacıların gevşek düzenleme olan ülkelere taşınması. "Etik alışverişi" olgusu.</p>
+        
+        <p><strong>Standart Harmonizasyonu:</strong> Farklı ülkeler, farklı standartlar. FDA, EMA, PMDA koordinasyon çabaları.</p>
+        
+        <p><strong>Resource Disparities:</strong> Low-resource countries unable to maintain gelişmiş etik altyapısı.</p>
+        
+        <h4>🚀 Space Research Ethics</h4>
+        <p>As space research expands, new ethical questions emerge:</p>
+        <ul>
+            <li>Informed consent for long-duration space missions</li>
+            <li>Genetic effects of space radiation</li>
+            <li>Psychological isolation studies</li>
+            <li>Mars colonization ethics</li>
+        </ul>
+        
+        <h4>🌊 Climate Change Research Ethics</h4>
+        <p>Environmental research increasingly urgent but raises ethical questions about intervention studies, geoengineering experiments, ve community displacement research.</p>
+    </div>
+
+    <div class="sidebar" id="sidebar-34">
+        <h3>📝 Araştırma Etiği: Kapsamlı Özet ve Sentez</h3>
+        <h4>🎯 Temel İlkeler Sentezi</h4>
+        <p>Beauchamp ve Childress'in dört temel ilkesi (Autonomy, Beneficence, Non-maleficence, Justice) modern araştırma etiğinin temelini oluşturur. Bu ilkeler evrensel olmasına rağmen, uygulama kültürel, yasal ve disipline özgü faktörler tarafından şekillendirilir.</p>
+        
+        <h4>📜 Yasal ve Düzenleyici Çerçeve</h4>
+        <p>Helsinki Bildirgesi küresel altın standart olmaya devam ediyor. Bölgesel farklılıklar (FDA düzenleri, EMA kılavuzları, KVKK) yerel uygulamaşı şekillendirir ancak temel ilkeler tutarlı kalıyor.</p>
+        
+        <h4>🏛️ Kurumsal Yapılar</h4>
+        <p>IRB/Ethics Committee systems globally established. Etkinlik bölge, finansman ve kurumsal bağlılığa göre önemli ölçüde değişir. Eğitim ve akreditasyon programları kaliteyi standardize etmeye çalışıyor.</p>
+        
+        <h4>📋 Bilgilendirilmiş Onay Evolution'ı</h4>
+        <p>Statik belgeden dinamik sürece evrim. Dijital onay platformları, çoklu ortam açıklamaları, anlayış test araçları gelişiyor.</p>
+        
+        <h4>⚖️ Risk-Benefit Assessment Sophistication</h4>
+        <p>Basit risk kategorizasyonundan kapsamlı değerlendirme matrisine geçiş. Psikolojik, sosyal, ekonomik riskler artık sistematik olarak değerlendiriliyor.</p>
+        
+        <h4>🚫 Research Misconduct Understanding</h4>
+        <p>FFP (Uydurma, Tahrif, İntihal) geleneksel odak noktasından şüpheli araştırma uygulamaları (QRP) farkındalığına genişleme. P-hacking, HARKing, seçmeli raporlama artık ana gündem konusu.</p>
+        
+        <h4>💰 Çıkar Çatışması Yönetimi</h4>
+        <p>Basit açıklamadan aktif yönetim stratejilerine evrim. Bağımsız veri izleme, kör sonuç değerlendirmesi gibi gelişmiş yaklaşımlar.</p>
+        
+        <h4>🏃‍♂️ Discipline-Specific Applications</h4>
+        <p>Spor bilimlerinde sporcu güvenliği, performans artırım etiği, teknoloji entegrasyonu gibi benzersiz zorluklar. Her disiplin kendi etik çerçevesini geliştiriyor.</p>
+        
+        <h4>🌍 Global-Local Balance</h4>
+        <p>Evrensel ilkeler ve yerel değerler arasında hassas denge. Etik rölativizm olmadan kültürel duyarlılık zorluğu.</p>
+        
+        <h4>🔮 Future Directions</h4>
+        <p>Teknoloji entegrasyonu (yapay zeka, gen düzenleme, büyük veri), küresel koordinasyon iyileştirmesi ve proaktif etik (gelecek zorluklarlı öngörme) temel eğilimlerdir.</p>
+    </div>
+
+    <div class="sidebar" id="sidebar-35">
+        <h3>➡️ Gelecek Hafta: Bilimsel Yazım ve Sürekli Öğrenme</h3>
+        <h4>📖 Hafta 13 Preview</h4>
+        <p><strong>Bilimsel Yazım ve Yayın Etiği</strong> konusu, araştırma etiğinin logical extension'ıdır. Ethical research conduct'tan ethical publication'a geçiş seamless olmalıdır.</p>
+        
+        <h4>🔗 Etik-Yazım Bağlantısı</h4>
+        <p>Research integrity yazım aşamasında da devam eder:</p>
+        <ul>
+            <li>Yazarlık etiği ve ICMJE kriterleri</li>
+            <li>Veri sunumu dürüstlüğü</li>
+            <li>İstatistiksel raporlama doğruluğu</li>
+            <li>Conflict of interest disclosure</li>
+            <li>Tekrarlanabilirlik ve açık bilim</li>
+        </ul>
+        
+        <h4>📚 Sürekli Öğrenme</h4>
+        <p><strong>Yaşam Boyu Öğrenme Gereksinimi:</strong> Etik standartlar gelişiyor. Teknoloji ilerlemeleri, düzenleme değişiklikleri, kültürel değişimler sürekli günceleme gerektiriyor.</p>
+        
+        <p><strong>Mesleki Gelişim:</strong></p>
+        <ul>
+            <li>Yıllık etik eğitim gereksinimleri</li>
+            <li>Konferans katılımı (WCRI, COPE)</li>
+            <li>Mesleki dernek üyeliği</li>
+            <li>Meslektaş ağı bakımı</li>
+        </ul>
+        
+        <h4>🎯 Pratik Uygulama</h4>
+        <p>Bu hafta öğrendiklerinizi gerçek araştırma projelerinizde nasıl uygulayacaksınız:</p>
+        <ul>
+            <li>Etik kurul başvuru belgelerinizi hazırlarken</li>
+            <li>Katılımcılarınızı bilgilendirirken</li>
+            <li>Veri toplama ve analiz yaparken</li>
+            <li>Sonuçlarınızı raporlarken</li>
+        </ul>
+        
+        <h4>🤝 Mentorluk Rolü</h4>
+        <p>Deneyimli araştırmacıların sorumluluğu: genç araştırmacılara etik kültürü aktarmak. Etik davranışı örnekleme, rehberlik sağlama, sorular için güvenli alanlar yaratma.</p>
+        
+        <h4>🌟 Etik ile Mükemmellik</h4>
+        <p>Etik araştırma sadece uyum sağlamak değil, araştırma mükemmelliğinin temelidir. Yüksek etik standartlar yüksek kaliteli araştırmayı mümkün kılar.</p>
+        
+        <h4>💭 Son Düşünce</h4>
+        <p><strong>Etik bir araştırmacı olmak</strong> bir kerelik karar değil, her gün verilen bir seçimdir. Her araştırma kararında etik sonuçları göz önünde bulundurmak, mesleki kimliğinizin temel parçası olmalıdır.</p>
+        
+        <p><strong>Remember:</strong> "Etik öğrenmenin en iyi zamanı, etik bir karar vermeniz gerekmeden öncesidir."</p>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const sidebars = document.querySelectorAll('.sidebar');
+        const totalSlides = slides.length;
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            sidebars.forEach(sidebar => sidebar.classList.remove('active'));
+
+            const activeSlide = slides[index];
+            activeSlide.classList.add('active');
+
+            // Reset scroll to top
+            activeSlide.scrollTop = 0;
+
+            if (sidebars[index]) {
+                sidebars[index].classList.add('active');
+            }
+            
+            document.querySelector('.progress').textContent = `${index + 1} / ${totalSlides}`;
+            
+            document.getElementById('prevBtn').disabled = index === 0;
+            document.getElementById('nextBtn').disabled = index === totalSlides - 1;
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                showSlide(currentSlide);
+            }
+        }
+
+        function toggleNotes() {
+            const activeSidebar = document.querySelector('.sidebar.active');
+            if (activeSidebar) {
+                activeSidebar.style.display = activeSidebar.style.display === 'none' ? 'block' : 'none';
+            }
+        }
+
+        let isFullscreen = false;
+
+        function toggleFullscreen() {
+            const activeSlide = document.querySelector('.slide.active');
+            if (!activeSlide) return;
+
+            if (!isFullscreen) {
+                activeSlide.classList.add('fullscreen-slide');
+                document.body.style.overflow = 'hidden';
+                isFullscreen = true;
+                if (activeSlide.requestFullscreen) {
+                    activeSlide.requestFullscreen().catch(() => {});
+                } else if (activeSlide.webkitRequestFullscreen) {
+                    activeSlide.webkitRequestFullscreen().catch(() => {});
+                } else if (activeSlide.mozRequestFullScreen) {
+                    activeSlide.mozRequestFullScreen().catch(() => {});
+                }
+            } else {
+                exitFullscreen();
+            }
+        }
+
+        function exitFullscreen() {
+            const activeSlide = document.querySelector('.slide.active');
+            if (activeSlide) {
+                activeSlide.classList.remove('fullscreen-slide');
+            }
+            document.body.style.overflow = 'auto';
+            isFullscreen = false;
+            if (document.exitFullscreen) {
+                document.exitFullscreen().catch(() => {});
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen().catch(() => {});
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen().catch(() => {});
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            switch(e.key) {
+                case 'ArrowRight':
+                case 'ArrowDown':
+                case ' ':
+                    e.preventDefault();
+                    nextSlide();
+                    break;
+                case 'ArrowLeft':
+                case 'ArrowUp':
+                    e.preventDefault();
+                    prevSlide();
+                    break;
+                case 'Home':
+                    e.preventDefault();
+                    currentSlide = 0;
+                    showSlide(currentSlide);
+                    break;
+                case 'End':
+                    e.preventDefault();
+                    currentSlide = totalSlides - 1;
+                    showSlide(currentSlide);
+                    break;
+                case 'F11':
+                    e.preventDefault();
+                    toggleFullscreen();
+                    break;
+                case 'Escape':
+                    if (isFullscreen) {
+                        e.preventDefault();
+                        exitFullscreen();
+                    } else {
+                        toggleNotes();
+                    }
+                    break;
+                case 'n':
+                case 'N':
+                    e.preventDefault();
+                    toggleNotes();
+                    break;
+            }
+        });
+
+        document.addEventListener('wheel', function(e) {
+            if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+                e.preventDefault();
+                if (e.deltaY > 0) {
+                    nextSlide();
+                } else {
+                    prevSlide();
+                }
+            }
+        }, { passive: false });
+
+        let touchStartX = 0, touchStartY = 0, touchEndX = 0, touchEndY = 0;
+        document.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+            touchStartY = e.changedTouches[0].screenY;
+        }, { passive: true });
+        document.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            touchEndY = e.changedTouches[0].screenY;
+            const deltaX = touchEndX - touchStartX;
+            const deltaY = touchEndY - touchStartY;
+            const minSwipeDistance = 50;
+            if (Math.abs(deltaX) > Math.abs(deltaY)) {
+                if (Math.abs(deltaX) > minSwipeDistance) {
+                    if (deltaX > 0) {
+                        prevSlide();
+                    } else {
+                        nextSlide();
+                    }
+                }
+            } else {
+                if (Math.abs(deltaY) > minSwipeDistance) {
+                    if (deltaY > 0) {
+                        prevSlide();
+                    } else {
+                        nextSlide();
+                    }
+                }
+            }
+        }, { passive: true });
+
+        document.querySelectorAll('.slide').forEach(slide => {
+            slide.addEventListener('dblclick', function(e) {
+                e.preventDefault();
+                toggleFullscreen();
+            });
+        });
+
+        document.addEventListener('fullscreenchange', function() {
+            if (!document.fullscreenElement && isFullscreen) {
+                exitFullscreen();
+            }
+        });
+        document.addEventListener('webkitfullscreenchange', function() {
+            if (!document.webkitFullscreenElement && isFullscreen) {
+                exitFullscreen();
+            }
+        });
+        document.addEventListener('mozfullscreenchange', function() {
+            if (!document.mozFullScreenElement && isFullscreen) {
+                exitFullscreen();
+            }
+        });
+
+        // İlk gösterim
+        showSlide(0);
+    </script>
+
+    <div class="controls">
+        <button class="btn" id="prevBtn" onclick="prevSlide()">◀ Önceki</button>
+        <button class="btn" id="nextBtn" onclick="nextSlide()">Sonraki ▶</button>
+    </div>
+
+    <div class="progress">1 / 35</div>
+    <button class="notes-toggle" onclick="toggleNotes()">📝 Notlar</button>
+    <button class="fullscreen-btn" onclick="toggleFullscreen()" title="Fullscreen (F11)">⛶ Tam Ekran</button>
+</body>
+</html>
